@@ -3,9 +3,9 @@
 
 #include <memory>
 
-namespace live_cells {
+#include "keys.hpp"
 
-    class observable;
+namespace live_cells {
 
     /**
      * Defines the observer interface for observing a cell.
@@ -20,20 +20,20 @@ namespace live_cells {
         virtual ~observer() noexcept = default;
 
         /**
-         * Notifies this observer that the value of the observable @a
-         * o is going to change.
+         * Notifies this observer that the value of the observable
+         * identified by @a k is going to change.
          *
-         * @param o The cell observable
+         * @param Key identifying observable
          */
-        virtual void will_update(const observable &o) = 0;
+        virtual void will_update(const key::ref &k) = 0;
 
         /**
-         * Notifies this observer that the value of observable @a o
-         * has changed.
+         * Notifies this observer that the value of the observable
+         * identified by @a k has changed.
          *
-         * @param o The cell observable.
+         * @param Key identifying observable
          */
-        virtual void update(const observable &o) = 0;
+        virtual void update(const key::ref &k) = 0;
     };
 
     /**
@@ -44,6 +44,20 @@ namespace live_cells {
      */
     class observable {
     public:
+        /**
+         * Construct an observable with a unique_key.
+         */
+        observable() : observable(std::make_shared<unique_key>()) {}
+
+        /**
+         * Construct an observable with a given key @a k.
+         *
+         * @param k The key
+         */
+        template <typename K>
+        observable(std::shared_ptr<K> k) :
+            key_(std::static_pointer_cast<const live_cells::key>(k)) {}
+
         virtual ~observable() noexcept = default;
 
         /**
@@ -71,6 +85,19 @@ namespace live_cells {
          * @param o The observer.
          */
         virtual void remove_observer(observer::ref o) = 0;
+
+        /**
+         * Retrieve the key that uniquely identifies this cell.
+         */
+        key::ref key() {
+            return key_;
+        }
+
+    protected:
+        /**
+         * The key identifying this observable.
+         */
+        key::ref key_;
     };
 
     /**
@@ -80,8 +107,9 @@ namespace live_cells {
      * an accessor for retrieving the cell's value.
      */
     template <typename T>
-    class cell : observable {
+    class cell : public observable {
     public:
+        using observable::observable;
 
         /**
          * Get the value of the cell.
