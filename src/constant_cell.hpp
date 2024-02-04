@@ -12,7 +12,7 @@ namespace live_cells {
      * never changes.
      */
     template <typename T>
-    class constant_cell : cell<T> {
+    class constant_cell : public cell<T> {
     public:
         /**
          * Construct a cell with a constant value.
@@ -21,15 +21,15 @@ namespace live_cells {
          */
         constant_cell(const T &value) : m_value(value) {}
 
-        virtual T value() const {
+        virtual T value() const override {
             return m_value;
         }
 
-        virtual void add_observer(observer::ref) {
+        virtual void add_observer(observer::ref) override {
             // Do nothing
         }
 
-        virtual void remove_observer(observer::ref) {
+        virtual void remove_observer(observer::ref) override {
             // Do nothing
         }
 
