@@ -13,7 +13,7 @@ namespace live_cells {
      * construction.
      */
     template <typename T, typename... Ts>
-    class compute_cell : dependent_cell<T, Ts...> {
+    class compute_cell : public dependent_cell<T, Ts...> {
     public:
         /**
          * Create a cell with a value that is a function of the values
@@ -28,7 +28,23 @@ namespace live_cells {
             dependent_cell<T, Ts...>(args...),
             compute(compute) {}
 
-        T value() const {
+        /**
+         * Create a cell with a value that is a function of the values
+         * of the cells @a args.
+         *
+         * @param key Key identifying cell
+         *
+         * @param compute A function of no arguments, that is called
+         *   to compute the cell's value when necessary.
+         *
+         * @param args Argument cell observables
+         */
+        template <typename K>
+        compute_cell(std::shared_ptr<K> key, std::function<T()> compute, Ts... args) :
+            dependent_cell<T, Ts...>(std::move(key), args...),
+            compute(compute) {}
+
+        T value() const override {
             return compute();
         }
 
