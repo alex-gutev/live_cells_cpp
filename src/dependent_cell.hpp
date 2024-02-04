@@ -1,6 +1,8 @@
 #ifndef LIVE_CELLS_DEPENDENT_CELL_HPP
 #define LIVE_CELLS_DEPENDENT_CELL_HPP
 
+#include <memory>
+
 #include "cell.hpp"
 #include "merged_observable.hpp"
 
@@ -14,7 +16,7 @@ namespace live_cells {
      * argument cells change.
      */
     template <typename T, typename... Ts>
-    class dependent_cell : cell<T> {
+    class dependent_cell : public cell<T> {
     public:
 
         /**
@@ -28,11 +30,26 @@ namespace live_cells {
          */
         dependent_cell(Ts&&... args) : observable(args...) {}
 
-        void add_observer(observer::ref o) {
+        /**
+         * Create a cell with a value dependent on the argument cells
+         * @a args.
+         *
+         * The observers of this cell are notified whenever the values
+         * of one of @a args changes.
+         *
+         * @param args Argument cells
+         * @param key Key identifying cell
+         */
+        template <typename K>
+        dependent_cell(std::shared_ptr<K> key, Ts&&... args) :
+            cell<T>(std::move(key)),
+            observable(args...) {}
+
+        void add_observer(observer::ref o) override {
             observable.add_observer(o);
         }
 
-        void remove_observer(observer::ref o) {
+        void remove_observer(observer::ref o) override {
             observable.remove_observer(o);
         }
 
