@@ -42,7 +42,7 @@ namespace live_cells {
          */
         template <typename K>
         dependent_cell(std::shared_ptr<K> key, Ts&&... args) :
-            cell<T>(std::move(key)),
+            cell<T>(key),
             observable(args...) {}
 
         void add_observer(observer::ref o) override {

@@ -41,7 +41,7 @@ namespace live_cells {
          */
         template <typename K>
         compute_cell(std::shared_ptr<K> key, std::function<T()> compute, Ts... args) :
-            dependent_cell<T, Ts...>(std::move(key), args...),
+            dependent_cell<T, Ts...>(key, args...),
             compute(compute) {}
 
         T value() const override {
