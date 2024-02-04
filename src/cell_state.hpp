@@ -3,7 +3,6 @@
 
 #include <unordered_map>
 #include <memory>
-#include <utility>
 
 #include "keys.hpp"
 #include "cell.hpp"
@@ -51,7 +50,7 @@ namespace live_cells {
          *
          * @param k The key
          */
-        cell_state(key::ref k) : key_(std::move(k)) {}
+        cell_state(key::ref k) : key_(k) {}
 
         virtual ~cell_state() noexcept;
 
@@ -142,12 +141,15 @@ namespace live_cells {
          *
          * @param k The key
          *
+         * @param args Additional arguments to pass to the constructor
+         *   of the state.
+         *
          * @return Reference to the state
          */
-        template <typename S>
-        std::shared_ptr<S> get(key::ref k) {
+        template <typename S, typename... Args>
+        std::shared_ptr<S> get(key::ref k, Args... args) {
             if (k->is_unique()) {
-                return std::make_shared<S>(k);
+                return std::make_shared<S>(k, args...);
             }
 
             // TODO: Ensure that dynamic_pointer_cast succeeds.
@@ -163,7 +165,7 @@ namespace live_cells {
                 }
             }
 
-            auto state = states.emplace(k, std::weak_ptr<S>(std::make_shared<S>(k))).first->second.lock();
+            auto state = states.emplace(k, std::weak_ptr<S>(std::make_shared<S>(k, args...))).first->second.lock();
             return std::dynamic_pointer_cast<S>(state);
         }
 

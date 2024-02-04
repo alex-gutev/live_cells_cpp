@@ -2,7 +2,6 @@
 #define LIVE_CELLS_STATEFUL_CELL_HPP
 
 #include <memory>
-#include <utility>
 
 #include "cell.hpp"
 #include "cell_state.hpp"
@@ -29,16 +28,21 @@ namespace live_cells {
          * associated with the constructed cell. Otherwise:
          *
          * 1. A new state is created by calling the constructor of @a
-         *    S with one * argument, the key @a k.
+         *    S, passing the key @a k followed by @a args.
          *
          * 2. The state is associated with key @a k.
          *
          * 3. The state is associated with the constructed cell.
+         *
+         * @param k The key identifying the cell's state
+         *
+         * @param args Additional arguments to pass to the state
+         *   constructor.
          */
-        template <typename K>
-        stateful_cell(std::shared_ptr<K> k) :
-            cell<T>(std::move(k)),
-            state(state_manager::global().get<S>(k)) {
+        template <typename K, typename... Args>
+        stateful_cell(std::shared_ptr<K> k, Args... args) :
+            cell<T>(k),
+            state(state_manager::global().get<S>(k, args...)) {
         }
 
         void add_observer(observer::ref o) override {
