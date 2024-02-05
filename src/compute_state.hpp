@@ -9,8 +9,8 @@
 namespace live_cells {
 
     /**
-     * Cell state for a cell which computes a value that is a function
-     * of one or more argument cells.
+     * Cell state for a cell which computes a value, of type @a T,
+     * that is a function of one or more argument cells.
      */
     template <typename T>
     class compute_cell_state : public cell_state, public observer, public std::enable_shared_from_this<compute_cell_state<T>> {
