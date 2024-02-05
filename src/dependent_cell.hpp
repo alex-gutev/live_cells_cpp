@@ -28,7 +28,7 @@ namespace live_cells {
          *
          * @param args Argument cells
          */
-        dependent_cell(Ts&&... args) : observable(args...) {}
+        dependent_cell(Ts... args) : observable(args...) {}
 
         /**
          * Create a cell with a value dependent on the argument cells
