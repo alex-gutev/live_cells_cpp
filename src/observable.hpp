@@ -115,6 +115,48 @@ namespace live_cells {
      * observable is still copied but its type is preserved.
      */
     class observable_ref {
+    public:
+        /**
+         * Create a polymorphic holder for @a observable.
+         *
+         * @param observable The observable.
+         */
+        template <typename T>
+        observable_ref(T observable) :
+            wrapped(wrap(observable)) {}
+
+        observable_ref(const observable_ref &ref) :
+            wrapped(ref.wrapped->clone()) {}
+
+        observable_ref(observable_ref&& ref) :
+            wrapped(std::move(ref.wrapped)) {
+        }
+
+        observable_ref &operator=(const observable_ref &ref) {
+            wrapped = ref.wrapped->clone();
+            return *this;
+        }
+
+        observable_ref &operator=(observable_ref&& ref) {
+            wrapped = std::move(ref.wrapped);
+            return *this;
+        }
+
+        /**
+         * Provide access to the wrapped observable.
+         */
+        observable *operator ->() {
+            return wrapped.get();
+        }
+
+        /**
+         * Provide access to the wrapped observable.
+         */
+        const observable *operator ->() const {
+            return wrapped.get();
+        }
+
+    private:
         /**
          * Extends the observable interface with a clone() method.
          */
@@ -181,47 +223,6 @@ namespace live_cells {
             return std::unique_ptr<wrapper>(
                 static_cast<wrapper*>(ptr.release())
             );
-        }
-
-    public:
-        /**
-         * Create a polymorphic holder for @a observable.
-         *
-         * @param observable The observable.
-         */
-        template <typename T>
-        observable_ref(T observable) :
-            wrapped(wrap(observable)) {}
-
-        observable_ref(const observable_ref &ref) :
-            wrapped(ref.wrapped->clone()) {}
-
-        observable_ref(observable_ref&& ref) :
-            wrapped(std::move(ref.wrapped)) {
-        }
-
-        observable_ref &operator=(const observable_ref &ref) {
-            wrapped = ref.wrapped->clone();
-            return *this;
-        }
-
-        observable_ref &operator=(observable_ref&& ref) {
-            wrapped = std::move(ref.wrapped);
-            return *this;
-        }
-
-        /**
-         * Provide access to the wrapped observable.
-         */
-        observable *operator ->() {
-            return wrapped.get();
-        }
-
-        /**
-         * Provide access to the wrapped observable.
-         */
-        const observable *operator ->() const {
-            return wrapped.get();
         }
     };
 
