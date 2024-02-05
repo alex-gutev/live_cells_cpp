@@ -66,6 +66,24 @@ namespace live_cells {
         return !k1.eq(k2);
     }
 
+    /**
+     * Cell key equality comparison function
+     */
+    struct key_equality {
+        bool operator()(const key::ref &k1, const key::ref &k2) const {
+            return k1 != nullptr && k2 != nullptr && *k1 == *k2;
+        }
+    };
+
+    /**
+     * Cell key hash function
+     */
+    struct key_hash {
+        std::size_t operator()(const key::ref k) const {
+            return k->hash();
+        }
+    };
+
 }  // live_cells
 
 template<>
