@@ -95,6 +95,13 @@ namespace live_cells {
          * Set of observers
          */
         std::unordered_map<observer::ref, std::size_t> observers;
+
+        /**
+         * Does the cell have at least one observer?
+         */
+        bool is_active() const {
+            return !observers.empty();
+        }
     };
 
     /**
