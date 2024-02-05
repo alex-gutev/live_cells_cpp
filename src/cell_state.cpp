@@ -37,12 +37,22 @@ void live_cells::cell_state::remove_observer(observer::ref o) {
 
 void live_cells::cell_state::notify_will_update() {
     for (auto entry : observers) {
-        entry.first->will_update(key_);
+        try {
+            entry.first->will_update(key_);
+        }
+        catch (...) {
+            // Prevent exception from being propagated to caller
+        }
     }
 }
 
 void live_cells::cell_state::notify_update() {
     for (auto entry : observers) {
-        entry.first->update(key_);
+        try {
+            entry.first->update(key_);
+        }
+        catch (...) {
+            // Prevent exception from being propagated to caller
+        }
     }
 }
