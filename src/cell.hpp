@@ -28,6 +28,26 @@ namespace live_cells {
         virtual T value() const = 0;
     };
 
+    /**
+     * Reference an argument cell.
+     *
+     * When called in a context where the referenced argument cells
+     * are tracked dynamically, this function adds @a cell to the set
+     * of referenced argument cells.
+     *
+     * @return cell The cell to reference
+     *
+     * @return The value of the cell.
+     */
+    template <typename T>
+    auto use(T cell) -> decltype(cell.value()) {
+        argument_tracker::global().track_argument(
+            observable_ref(cell)
+        );
+
+        return cell.value();
+    }
+
 }  // live_cells
 
 #endif /* LIVE_CELLS_CELL_HPP */
