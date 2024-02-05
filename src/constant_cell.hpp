@@ -1,9 +1,38 @@
 #ifndef LIVE_CELLS_CONSTANT_CELL_HPP
 #define LIVE_CELLS_CONSTANT_CELL_HPP
 
+#include <functional>
+#include <memory>
+
 #include "cell.hpp"
 
 namespace live_cells {
+
+    /**
+     * Key identifying a constant cell.
+     */
+    template <typename T>
+    struct constant_key : key {
+        /** Constant value */
+        const T value;
+
+        /**
+         * Create a constant cell key for a given value.
+         *
+         * @param value The value
+         */
+        constant_key(T value) : value(value) {}
+
+        bool eq(const key &k) const noexcept override {
+            auto *ptr = dynamic_cast<const constant_key*>(&k);
+
+            return ptr != nullptr && value == ptr->value;
+        }
+
+        std::size_t hash() const noexcept override {
+            return std::hash<T>{}(value);
+        }
+    };
 
     /**
      * A cell which holds a constant value
@@ -19,17 +48,19 @@ namespace live_cells {
          *
          * @param value The constant value
          */
-        constant_cell(const T &value) : m_value(value) {}
+        constant_cell(const T &value) :
+            cell<T>(std::make_shared<constant_key<T>>(value)),
+            m_value(value) {}
 
-        virtual T value() const override {
+        T value() const override {
             return m_value;
         }
 
-        virtual void add_observer(observer::ref) override {
+        void add_observer(observer::ref) override {
             // Do nothing
         }
 
-        virtual void remove_observer(observer::ref) override {
+        void remove_observer(observer::ref) override {
             // Do nothing
         }
 
