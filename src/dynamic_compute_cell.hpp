@@ -58,8 +58,13 @@ namespace live_cells {
         void init() override {
             compute_cell_state<T>::init();
 
-            // Determine arguments and add observers
-            compute();
+            try {
+                // Determine arguments and add observers
+                compute();
+            }
+            catch (...) {
+                // Prevent exception from being propagated to caller
+            }
         }
 
         void pause() override {
