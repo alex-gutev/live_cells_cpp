@@ -13,7 +13,7 @@ namespace live_cells {
      * that is a function of one or more argument cells.
      */
     template <typename T>
-    class compute_cell_state : public cell_state, public observer, public std::enable_shared_from_this<compute_cell_state<T>> {
+    class compute_cell_state : public cell_state, public observer {
     public:
         using cell_state::cell_state;
 
@@ -80,7 +80,7 @@ namespace live_cells {
          * observable::add_observer and observable::remove_observer.
          */
         std::shared_ptr<observer> observer_ptr() {
-            return std::static_pointer_cast<observer>(this->shared_from_this());
+            return std::dynamic_pointer_cast<observer>(this->shared_from_this());
         }
 
     private:

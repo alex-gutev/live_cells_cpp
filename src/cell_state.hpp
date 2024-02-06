@@ -23,7 +23,7 @@ namespace live_cells {
      * key is created, and is destroyed when the last cell with the
      * given key is destroyed.
      */
-    class cell_state {
+    class cell_state : public std::enable_shared_from_this<cell_state> {
     public:
         typedef std::shared_ptr<cell_state> ref;
 
