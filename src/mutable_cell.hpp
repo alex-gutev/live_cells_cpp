@@ -1,10 +1,56 @@
 #ifndef LIVE_CELLS_MUTABLE_CELL_HPP
 #define LIVE_CELLS_MUTABLE_CELL_HPP
 
+#include <memory>
+
 #include "cell_state.hpp"
 #include "stateful_cell.hpp"
 
 namespace live_cells {
+
+    /**
+     * Defer changes to the values of mutable cells.
+     *
+     * When an instance of this object is in scope, observers of
+     * mutable cells will not be notified immediately when the values
+     * of the cells are set, but instead will be notified when this
+     * object is destroyed.
+     *
+     * Creating a new instance when one already exists has no effect,
+     * the observers will only be notified when the first instance is
+     * destroyed.
+     *
+     * NOTE: Do not allocate instances of this object dynamically.
+     */
+    class batch_update {
+    public:
+        batch_update();
+        ~batch_update();
+
+        batch_update(const batch_update &) = delete;
+        batch_update& operator=(const batch_update &) = delete;
+
+    private:
+        /** Is this instance responsible for notifying the observers */
+        bool is_batching;
+
+        /**
+         * Is a batch update currently in effect?
+         */
+        static bool is_batch_update();
+
+        /**
+         * Add a mutable cell state to the list of batched updates.
+         *
+         * The observers of the cell associated with the state will be
+         * notified with cell_state::notify_update() when the values
+         * of all the cells in the batch have been set.
+         */
+        static void add_to_batch(std::shared_ptr<cell_state> state);
+
+        template <typename T>
+        friend class mutable_cell_state;
+    };
 
     /**
      * Maintains the state of a mutable cell.
@@ -39,13 +85,26 @@ namespace live_cells {
         void value(T value) {
             notify_will_update();
             value_ = std::move(value);
-            notify_update();
+
+            if (!batch_update::is_batch_update()) {
+                notify_update();
+            }
+            else {
+                batch_update::add_to_batch(this->shared_from_this());
+            }
+        }
+
+    protected:
+        /**
+         * Set the cell's value without notifying observers.
+         */
+        void silent_set(T value) {
+            value_ = std::move(value);
         }
 
     private:
         /** The cell's value */
         T value_;
-
     };
 
     /**
@@ -130,6 +189,21 @@ namespace live_cells {
     template<typename K, typename T>
     mutable_cell<T> variable(std::shared_ptr<K> key, T value) {
         return mutable_cell<T>(key, value);
+    }
+
+    /**
+     * Batch changes to the values of mutable cells.
+     *
+     * The function @a fn is called with zero arguments. Observers of
+     * mutable cells are only notified of changes to the cells' values
+     * after @a fn returns.
+     *
+     * @param fn A function of zero arguments
+     */
+    template<typename F>
+    void batch(F fn) {
+        batch_update b;
+        fn();
     }
 
 }  // live_cells
