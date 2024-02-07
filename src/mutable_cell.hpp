@@ -102,6 +102,21 @@ namespace live_cells {
             value_ = std::move(value);
         }
 
+        /**
+         * Is a batch update of mutable cells currently in effect.
+         */
+        static bool is_batch_update() {
+            return batch_update::is_batch_update();
+        }
+
+        /**
+         * Add this state to the list of batched mutable cell value
+         * updates.
+         */
+        void add_to_batch() {
+            batch_update::add_to_batch(this->shared_from_this());
+        }
+
     private:
         /** The cell's value */
         T value_;
@@ -156,9 +171,12 @@ namespace live_cells {
         /**
          * Set the value of the cell.
          *
+         * NOTE: This method is marked const to allow the value of the
+         * cell to be set when it is copy-captured by a lambda.
+         *
          * @param value The new value
          */
-        void value(T value) {
+        void value(T value) const {
             this->state->value(value);
         }
     };
