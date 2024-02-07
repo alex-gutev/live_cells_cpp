@@ -227,6 +227,35 @@ namespace live_cells {
     };
 
     /**
+     * Compare two observables for equality by their keys.
+     *
+     * The comparison is done using key::eq.
+     *
+     * @param a An observable
+     * @param b An observable
+     *
+     * @return true if @a and @b represent the same observable.
+     */
+    inline bool operator ==(const observable &a, const observable &b) {
+        return a.key()->eq(*b.key());
+    }
+
+    /**
+     * Check that two observables are not equal.
+     *
+     * The comparison is done using key::eq on the keys of the
+     * observables.
+     *
+     * @param a An observable
+     * @param b An observable
+     *
+     * @return true if @a and @b do represent the same observable.
+     */
+    inline bool operator !=(const observable &a, const observable &b) {
+        return !(a == b);
+    }
+
+    /**
      * Compares to polymorphic observables by their keys.
      *
      * @param a A polymorphic observable
@@ -240,6 +269,13 @@ namespace live_cells {
     }
 
 }  // live_cells
+
+template<>
+struct std::hash<live_cells::observable> {
+    std::size_t operator()(const live_cells::observable &a) const noexcept {
+        return a.key()->hash();
+    }
+};
 
 template<>
 struct std::hash<live_cells::observable_ref> {
