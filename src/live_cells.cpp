@@ -1,5 +1,4 @@
 #include <vector>
-#include <iostream>
 
 #include "keys.hpp"
 #include "cell_state.hpp"
@@ -107,7 +106,6 @@ live_cells::batch_update::batch_update() : is_batching(!is_batch_update()) {
 
 live_cells::batch_update::~batch_update() {
     if (is_batching) {
-        std::cout << "Here" << "\n";
         ::is_batch_update = false;
 
         for (auto state : batch_list) {
