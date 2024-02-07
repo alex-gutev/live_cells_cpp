@@ -127,6 +127,10 @@ namespace live_cells {
      *
      * @param fn Compute value function.
      *
+     *   This function is passed the values of the argument cells in
+     *   @a args, in the same order as they are provided in the
+     *   argument list.
+     *
      * @param reverse Reverse computation function.
      *
      *   This function is passed the value that was assigned to the
@@ -137,9 +141,11 @@ namespace live_cells {
      * @return The cell.
      */
     template <typename F, typename R, typename... Args>
-    auto mutable_computed(F&& fn, R&& reverse, Args... args) {
-        return static_mutable_compute_cell<decltype(fn())>(
-            std::forward<F>(fn),
+    auto mutable_computed(F fn, R&& reverse, Args... args) {
+        return static_mutable_compute_cell<decltype(fn(args.value()...))>(
+            [fn, args...] () {
+                return fn(args.value()...);
+            },
             std::forward<R>(reverse),
             std::forward<Args>(args)...
         );
