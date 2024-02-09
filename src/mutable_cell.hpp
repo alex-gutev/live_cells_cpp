@@ -83,14 +83,16 @@ namespace live_cells {
          * Set the cell's value and notify its observers.
          */
         void value(T value) {
-            notify_will_update();
-            value_ = std::move(value);
+            if (value_ != value) {
+                notify_will_update();
+                value_ = std::move(value);
 
-            if (!batch_update::is_batch_update()) {
-                notify_update();
-            }
-            else {
-                batch_update::add_to_batch(this->shared_from_this());
+                if (!batch_update::is_batch_update()) {
+                    notify_update();
+                }
+                else {
+                    batch_update::add_to_batch(this->shared_from_this());
+                }
             }
         }
 
