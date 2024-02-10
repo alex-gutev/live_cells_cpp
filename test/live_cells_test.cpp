@@ -150,10 +150,10 @@ BOOST_AUTO_TEST_CASE(constructor_null) {
 // TODO: Add enum test cases
 
 BOOST_AUTO_TEST_CASE(same_values_compare_equal) {
-    auto cell1 = live_cells::value_cell(3);
-    auto cell2 = live_cells::value_cell(3);
+    live_cells::observable_ref cell1(live_cells::value_cell(3));
+    live_cells::observable_ref cell2(live_cells::value_cell(3));
 
-    std::hash<live_cells::observable> hash;
+    std::hash<live_cells::observable_ref> hash;
 
     BOOST_CHECK(cell1 == cell2);
     BOOST_CHECK(!(cell1 != cell2));
@@ -161,8 +161,8 @@ BOOST_AUTO_TEST_CASE(same_values_compare_equal) {
 }
 
 BOOST_AUTO_TEST_CASE(different_value_compare_not_equal) {
-    auto cell1 = live_cells::value_cell(1);
-    auto cell2 = live_cells::value_cell(2);
+    live_cells::observable_ref cell1(live_cells::value_cell(1));
+    live_cells::observable_ref cell2(live_cells::value_cell(2));
 
     BOOST_CHECK(cell1 != cell2);
     BOOST_CHECK(!(cell1 == cell2));

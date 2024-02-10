@@ -146,55 +146,61 @@ namespace live_cells {
          * Provide access to the wrapped observable.
          */
         observable *operator ->() {
-            return wrapped.get();
+            return wrapped->get();
         }
 
         /**
          * Provide access to the wrapped observable.
          */
         const observable *operator ->() const {
-            return wrapped.get();
+            return wrapped->get();
         }
 
     private:
         /**
-         * Extends the observable interface with a clone() method.
+         * Holds an observable and provides a clone() method.
          */
-        struct wrapper : observable {
+        struct holder {
             /**
              * Return a new wrapper holding an exact copy of the
              * observable held in this wrapper.
              */
-            virtual std::unique_ptr<wrapper> clone() const = 0;
+            virtual std::unique_ptr<holder> clone() const = 0;
+
+            /**
+             * Return a pointer to the underlying observable.
+             */
+            virtual observable *get() = 0;
+            virtual const observable *get() const = 0;
         };
 
         /**
          * A wrapper holding an observable of type @a T.
          */
         template <typename T>
-        struct t_wrapper : wrapper {
+        struct t_holder : holder {
             /**
              * Create a wrapper holding @a observable.
              *
              * @param observable The observable.
              */
-            t_wrapper(T observable) :
+            t_holder(T observable) :
                 observable_(observable) {}
 
-            std::unique_ptr<wrapper> clone() const override {
-                auto ptr = std::make_unique<t_wrapper>(observable_);
+            std::unique_ptr<holder> clone() const override {
+                auto ptr = std::make_unique<t_holder>(observable_);
 
-                return std::unique_ptr<wrapper>(
-                    static_cast<wrapper*>(ptr.release())
+                return std::unique_ptr<holder>(
+                    static_cast<holder*>(ptr.release())
                 );
             }
 
-            void add_observer(observer::ref o) override {
-                observable_.add_observer(o);
+            observable *get() override {
+                return &observable_;
             }
 
-            void remove_observer(observer::ref o) override {
-                observable_.remove_observer(o);
+            const observable *get() const override {
+                return &observable_;
             }
 
         private:
@@ -206,7 +212,7 @@ namespace live_cells {
         /**
          * Pointer to the wrapper holding the observable.
          */
-        std::unique_ptr<wrapper> wrapped;
+        std::unique_ptr<holder> wrapped;
 
         /**
          * Create a polymorphic wrapper holding an observable.
@@ -217,43 +223,14 @@ namespace live_cells {
          *   observable.
          */
         template <typename T>
-        static std::unique_ptr<wrapper> wrap(T observable) {
-            auto ptr = std::make_unique<t_wrapper<T>>(observable);
+        static std::unique_ptr<holder> wrap(T observable) {
+            auto ptr = std::make_unique<t_holder<T>>(observable);
 
-            return std::unique_ptr<wrapper>(
-                static_cast<wrapper*>(ptr.release())
+            return std::unique_ptr<holder>(
+                static_cast<holder*>(ptr.release())
             );
         }
     };
-
-    /**
-     * Compare two observables for equality by their keys.
-     *
-     * The comparison is done using key::eq.
-     *
-     * @param a An observable
-     * @param b An observable
-     *
-     * @return true if @a and @b represent the same observable.
-     */
-    inline bool operator ==(const observable &a, const observable &b) {
-        return a.key()->eq(*b.key());
-    }
-
-    /**
-     * Check that two observables are not equal.
-     *
-     * The comparison is done using key::eq on the keys of the
-     * observables.
-     *
-     * @param a An observable
-     * @param b An observable
-     *
-     * @return true if @a and @b do represent the same observable.
-     */
-    inline bool operator !=(const observable &a, const observable &b) {
-        return !(a == b);
-    }
 
     /**
      * Compares to polymorphic observables by their keys.
@@ -268,14 +245,11 @@ namespace live_cells {
         return cmp(a->key(), b->key());
     }
 
-}  // live_cells
-
-template<>
-struct std::hash<live_cells::observable> {
-    std::size_t operator()(const live_cells::observable &a) const noexcept {
-        return a.key()->hash();
+    inline bool operator!=(const observable_ref &a, const observable_ref &b) {
+        return !(a == b);
     }
-};
+
+}  // live_cells
 
 template<>
 struct std::hash<live_cells::observable_ref> {
