@@ -8,4 +8,6 @@
 #include "constant_cell.hpp"
 #include "mutable_cell.hpp"
 
+#include "equality.hpp"
+
 #endif /* LIVE_CELLS_HPP */
