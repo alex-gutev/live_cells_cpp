@@ -290,3 +290,144 @@ BOOST_AUTO_TEST_CASE(batch_updates) {
 }
 
 BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(equality_comparison)
+
+BOOST_AUTO_TEST_CASE(constant_cells_equal_if_equal_values) {
+    auto a = live_cells::value_cell(1);
+    auto b = live_cells::value_cell(1);
+
+    auto eq = a == b;
+
+    BOOST_CHECK(eq.value());
+}
+
+BOOST_AUTO_TEST_CASE(constant_cells_not_equal_if_unequal_values) {
+    auto a = live_cells::value_cell(1);
+    auto b = live_cells::value_cell(2);
+
+    auto eq = a == b;
+
+    BOOST_CHECK(!eq.value());
+}
+
+BOOST_AUTO_TEST_CASE(constant_cells_unequal_if_unequal_values) {
+    auto a = live_cells::value_cell(3);
+    auto b = live_cells::value_cell(4);
+
+    auto neq = a != b;
+
+    BOOST_CHECK(neq.value());
+}
+
+BOOST_AUTO_TEST_CASE(constant_cells_not_unequal_if_equal_values) {
+    auto a = live_cells::value_cell(3);
+    auto b = live_cells::value_cell(3);
+
+    auto neq = a != b;
+
+    BOOST_CHECK(!neq.value());
+}
+
+BOOST_AUTO_TEST_CASE(equality_cell_recomputed_when_1st_arg_changes) {
+    auto a = live_cells::variable(3);
+    auto b = live_cells::variable(4);
+
+    auto eq = a == b;
+
+    a.value(4);
+
+    BOOST_CHECK(eq.value());
+}
+
+BOOST_AUTO_TEST_CASE(equality_cell_recomputed_when_2nd_arg_changes) {
+    auto a = live_cells::variable(3);
+    auto b = live_cells::variable(4);
+
+    auto eq = a == b;
+
+    b.value(3);
+
+    BOOST_CHECK(eq.value());
+}
+
+BOOST_AUTO_TEST_CASE(equality_cell_observers_notified_on_1st_arg_change) {
+    auto a = live_cells::variable(3);
+    auto b = live_cells::variable(4);
+
+    auto eq = a == b;
+
+    auto observer = std::make_shared<simple_observer>();
+    auto guard = with_observer(eq, observer);
+
+    a.value(4);
+
+    BOOST_CHECK_EQUAL(observer->notify_count, 1);
+}
+
+BOOST_AUTO_TEST_CASE(equality_cell_observers_notified_on_2nd_arg_change) {
+    auto a = live_cells::variable(3);
+    auto b = live_cells::variable(4);
+
+    auto eq = a == b;
+
+    auto observer = std::make_shared<simple_observer>();
+    auto guard = with_observer(eq, observer);
+
+    b.value(3);
+
+    BOOST_CHECK_EQUAL(observer->notify_count, 1);
+}
+
+BOOST_AUTO_TEST_CASE(inequality_cell_recomputed_when_1st_arg_changes) {
+    auto a = live_cells::variable(3);
+    auto b = live_cells::variable(4);
+
+    auto neq = a != b;
+
+    a.value(4);
+
+    BOOST_CHECK(!neq.value());
+}
+
+BOOST_AUTO_TEST_CASE(inequality_cell_recomputed_when_2nd_arg_changes) {
+    auto a = live_cells::variable(3);
+    auto b = live_cells::variable(4);
+
+    auto neq = a != b;
+
+    b.value(3);
+
+    BOOST_CHECK(!neq.value());
+}
+
+BOOST_AUTO_TEST_CASE(inequality_cell_observers_notified_on_1st_arg_change) {
+    auto a = live_cells::variable(3);
+    auto b = live_cells::variable(4);
+
+    auto neq = a != b;
+
+    auto observer = std::make_shared<simple_observer>();
+    auto guard = with_observer(neq, observer);
+
+    a.value(4);
+
+    BOOST_CHECK_EQUAL(observer->notify_count, 1);
+}
+
+BOOST_AUTO_TEST_CASE(inequality_cell_observers_notified_on_2nd_arg_change) {
+    auto a = live_cells::variable(3);
+    auto b = live_cells::variable(4);
+
+    auto neq = a != b;
+
+    auto observer = std::make_shared<simple_observer>();
+    auto guard = with_observer(neq, observer);
+
+    b.value(3);
+
+    BOOST_CHECK_EQUAL(observer->notify_count, 1);
+}
+
+
+BOOST_AUTO_TEST_SUITE_END()
