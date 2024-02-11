@@ -39,8 +39,7 @@ namespace live_cells {
          *
          * @param args Argument cell observables
          */
-        template <typename K>
-        compute_cell(std::shared_ptr<K> key, std::function<T()> compute, Ts... args) :
+        compute_cell(key_ref key, std::function<T()> compute, Ts... args) :
             dependent_cell<T, Ts...>(key, args...),
             compute(compute) {}
 
