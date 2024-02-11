@@ -49,7 +49,7 @@ namespace live_cells {
          * @param value The constant value
          */
         constant_cell(const T &value) :
-            cell<T>(std::make_shared<constant_key<T>>(value)),
+            cell<T>(key_ref::create<constant_key<T>>(value)),
             m_value(value) {}
 
         T value() const override {

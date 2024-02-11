@@ -29,7 +29,7 @@ namespace live_cells {
             return value_;
         }
 
-        void will_update(const key::ref &k) override {
+        void will_update(const key_ref &k) override {
             if (!updating) {
                 updating = true;
 
@@ -38,7 +38,7 @@ namespace live_cells {
             }
         }
 
-        void update(const key::ref &k) override {
+        void update(const key_ref &k) override {
             if (updating) {
                 notify_update();
                 updating = false;

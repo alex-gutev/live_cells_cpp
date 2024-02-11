@@ -39,8 +39,8 @@ namespace live_cells {
          * @param args Additional arguments to pass to the state
          *   constructor.
          */
-        template <typename K, typename... Args>
-        stateful_cell(std::shared_ptr<K> k, Args... args) :
+        template <typename... Args>
+        stateful_cell(key_ref k, Args... args) :
             cell<T>(k),
             state(state_manager::global().get<S>(k, args...)) {
         }

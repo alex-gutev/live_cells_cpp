@@ -40,8 +40,7 @@ namespace live_cells {
          * @param args Argument cells
          * @param key Key identifying cell
          */
-        template <typename K>
-        dependent_cell(std::shared_ptr<K> key, Ts... args) :
+        dependent_cell(key_ref key, Ts... args) :
             cell<T>(key),
             observable(args...) {}
 

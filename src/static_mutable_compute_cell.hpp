@@ -28,8 +28,8 @@ namespace live_cells {
          * @param reverse   Reverse computation function
          * @param arguments Set of argument cells referenced in @a compute
          */
-        template <typename K, typename C, typename R>
-        static_mutable_compute_cell_state(std::shared_ptr<K> key, C&& compute, R&& reverse, const std::unordered_set<observable_ref> &arguments) :
+        template <typename C, typename R>
+        static_mutable_compute_cell_state(key_ref key, C&& compute, R&& reverse, const std::unordered_set<observable_ref> &arguments) :
             parent(key, arguments),
             compute_fn(std::forward<C>(compute)),
             reverse_fn(std::forward<R>(reverse)) {}
@@ -84,13 +84,13 @@ namespace live_cells {
          *
          * @param args Arguments to @a compute
          */
-        template <typename K, typename C, typename R, typename... Args>
-        static_mutable_compute_cell(std::shared_ptr<K> k, C&& compute, R&& reverse, Args&&... args) :
+        template <typename C, typename R, typename... Args>
+        static_mutable_compute_cell(key_ref k, C&& compute, R&& reverse, Args&&... args) :
             parent(k, std::forward<C>(compute), std::forward<R>(reverse), {std::forward<Args>(args)...}) {}
 
         template <typename C, typename R, typename... Args>
         static_mutable_compute_cell(C&& compute, R&& reverse, Args&&... args) :
-            parent(std::make_shared<unique_key>(), std::forward<C>(compute), std::forward<R>(reverse), std::unordered_set<observable_ref>({std::forward<Args>(args)...})) {}
+            parent(key_ref::create<unique_key>(), std::forward<C>(compute), std::forward<R>(reverse), std::unordered_set<observable_ref>({std::forward<Args>(args)...})) {}
 
         T value() const override {
             return this->state->value();

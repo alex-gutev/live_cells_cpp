@@ -23,7 +23,7 @@ namespace live_cells {
          *
          * @param Key identifying observable
          */
-        virtual void will_update(const key::ref &k) = 0;
+        virtual void will_update(const key_ref &k) = 0;
 
         /**
          * Notifies this observer that the value of the observable
@@ -31,7 +31,7 @@ namespace live_cells {
          *
          * @param Key identifying observable
          */
-        virtual void update(const key::ref &k) = 0;
+        virtual void update(const key_ref &k) = 0;
     };
 
     /**
@@ -45,16 +45,15 @@ namespace live_cells {
         /**
          * Construct an observable with a unique_key.
          */
-        observable() : observable(std::make_shared<unique_key>()) {}
+        observable() : observable(key_ref::create<unique_key>()) {}
 
         /**
          * Construct an observable with a given key @a k.
          *
          * @param k The key
          */
-        template <typename K>
-        observable(std::shared_ptr<K> k) :
-            key_(std::static_pointer_cast<const live_cells::key>(k)) {}
+        observable(key_ref k) :
+            key_(k) {}
 
         virtual ~observable() noexcept = default;
 
@@ -89,7 +88,7 @@ namespace live_cells {
         /**
          * Retrieve the key that uniquely identifies this cell.
          */
-        key::ref key() const {
+        key_ref key() const {
             return key_;
         }
 
@@ -97,7 +96,7 @@ namespace live_cells {
         /**
          * The key identifying this observable.
          */
-        key::ref key_;
+        key_ref key_;
     };
 
     /**
@@ -241,8 +240,7 @@ namespace live_cells {
      * @return true if the key of @a a is equal to the key of @a b.
      */
     inline bool operator==(const observable_ref &a, const observable_ref &b) {
-        key_equality cmp;
-        return cmp(a->key(), b->key());
+        return a->key() == b->key();
     }
 
     inline bool operator!=(const observable_ref &a, const observable_ref &b) {
@@ -254,8 +252,7 @@ namespace live_cells {
 template<>
 struct std::hash<live_cells::observable_ref> {
     std::size_t operator()(const live_cells::observable_ref &a) const noexcept {
-        live_cells::key_hash h;
-        return h(a->key());
+        return a->key()->hash();
     }
 };
 

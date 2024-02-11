@@ -21,9 +21,9 @@ struct simple_observer : live_cells::observer {
      */
     size_t notify_count = 0;
 
-    void will_update(const live_cells::key::ref &k) override {}
+    void will_update(const live_cells::key_ref &k) override {}
 
-    void update(const live_cells::key::ref &k) override {
+    void update(const live_cells::key_ref &k) override {
         notify_count++;
     }
 };
@@ -52,9 +52,9 @@ struct value_observer : live_cells::observer {
     value_observer(const live_cells::cell<T> &cell) :
         cell(cell) {}
 
-    void will_update(const live_cells::key::ref &k) override {}
+    void will_update(const live_cells::key_ref &k) override {}
 
-    void update(const live_cells::key::ref &k) override {
+    void update(const live_cells::key_ref &k) override {
         values.push_back(cell.value());
     }
 };

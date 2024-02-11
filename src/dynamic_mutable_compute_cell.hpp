@@ -28,8 +28,8 @@ namespace live_cells {
          * @param compute   Value computation function
          * @param reverse   Reverse computation function
          */
-        template <typename K, typename C, typename R>
-        dynamic_mutable_compute_cell_state(std::shared_ptr<K> key, C&& compute, R&& reverse) :
+        template <typename C, typename R>
+        dynamic_mutable_compute_cell_state(key_ref key, C&& compute, R&& reverse) :
             parent(key, {}),
             compute_fn(std::forward<C>(compute)),
             reverse_fn(std::forward<R>(reverse)) {}
@@ -103,13 +103,13 @@ namespace live_cells {
          *   value that was assigned to the cell, which is passed to
          *   this function.
          */
-        template <typename K, typename C, typename R>
-        dynamic_mutable_compute_cell(std::shared_ptr<K> k, C&& compute, R&& reverse) :
+        template <typename C, typename R>
+        dynamic_mutable_compute_cell(key_ref k, C&& compute, R&& reverse) :
             parent(k, std::forward<C>(compute), std::forward<R>(reverse)) {}
 
         template <typename C, typename R>
         dynamic_mutable_compute_cell(C&& compute, R&& reverse) :
-            parent(std::make_shared<unique_key>(), std::forward<C>(compute), std::forward<R>(reverse)) {}
+            parent(key_ref::create<unique_key>(), std::forward<C>(compute), std::forward<R>(reverse)) {}
 
         T value() const override {
             return this->state->value();

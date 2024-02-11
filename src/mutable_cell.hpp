@@ -66,8 +66,7 @@ namespace live_cells {
          * @param key    Key identifying the state
          * @param value  Initial value
          */
-        template <typename K>
-        mutable_cell_state(std::shared_ptr<K> key, T value) :
+        mutable_cell_state(key_ref key, T value) :
             cell_state(key),
             value_(value) {
         }
@@ -138,7 +137,7 @@ namespace live_cells {
         /**
          * Create a mutable cell with a default initialized value.
          */
-        mutable_cell() : parent(std::make_shared<unique_key>()) {}
+        mutable_cell() : parent(key_ref::create<unique_key>()) {}
 
         /**
          * Create a mutable cell with an initial value.
@@ -146,7 +145,7 @@ namespace live_cells {
          * @param value The initial value of the cell.
          */
         mutable_cell(T value) :
-            mutable_cell(std::make_shared<unique_key>(), value) {}
+            mutable_cell(key_ref::create<unique_key>(), value) {}
 
         /**
          * Create a mutable cell with an initial value.
@@ -161,8 +160,7 @@ namespace live_cells {
          * @param key   Key identifying cell
          * @param value Initial value
          */
-        template <typename K>
-        mutable_cell(std::shared_ptr<K> key, T value) :
+        mutable_cell(key_ref key, T value) :
             parent(key, value) {
         }
 
@@ -206,8 +204,8 @@ namespace live_cells {
      *
      * @return A mutable cell
      */
-    template<typename K, typename T>
-    mutable_cell<T> variable(std::shared_ptr<K> key, T value) {
+    template<typename T>
+    mutable_cell<T> variable(key_ref key, T value) {
         return mutable_cell<T>(key, value);
     }
 

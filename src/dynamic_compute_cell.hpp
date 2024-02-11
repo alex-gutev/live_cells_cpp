@@ -26,8 +26,8 @@ namespace live_cells {
          * @param key     Key identifying cell state
          * @param compute Value computation function.
          */
-        template <typename K, typename F>
-        dynamic_compute_cell_state(std::shared_ptr<K> key, F&& compute) :
+        template <typename F>
+        dynamic_compute_cell_state(key_ref key, F&& compute) :
             compute_cell_state<T>(key),
             compute_(std::function<T()>(std::forward<F>(compute))) {}
 
@@ -96,7 +96,7 @@ namespace live_cells {
          * @param compute Value computation function.
          */
         dynamic_compute_cell(std::function<T()> compute) :
-            dynamic_compute_cell(std::make_shared<unique_key>(), compute) {}
+            dynamic_compute_cell(key_ref::create<unique_key>(), compute) {}
 
         /**
          * Create a dynamic computed cell with a given value
@@ -105,8 +105,7 @@ namespace live_cells {
          * @param key     Key identifying cell.
          * @param compute Value computation function.
          */
-        template <typename K>
-        dynamic_compute_cell(std::shared_ptr<K> key, std::function<T()> compute) :
+        dynamic_compute_cell(key_ref key, std::function<T()> compute) :
             parent(key, compute) {}
 
         T value() const override {

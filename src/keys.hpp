@@ -12,8 +12,6 @@ namespace live_cells {
      */
     class key {
     public:
-        typedef std::shared_ptr<const key> ref;
-
         virtual ~key() noexcept = default;
 
         /**
@@ -36,6 +34,50 @@ namespace live_cells {
     };
 
     /**
+     * Polymorphic key holder.
+     *
+     * This class holds a key, while preserving its runtime type.
+     *
+     * Copying this class only copies the reference, not the
+     * underlying object, which is kept in memory until the last
+     * key_ref pointing to it is destroyed.
+     */
+    class key_ref {
+    public:
+        /**
+         * Create a key_ref holding a key of type @a T.
+         *
+         * A new @a T is constructed with arguments @a args.
+         *
+         * @param args Arguments to pass to constructor of @a T.
+         */
+        template <typename T, typename... Args>
+        static key_ref create(Args... args) {
+            return key_ref(
+                std::static_pointer_cast<const key>(
+                    std::make_shared<T>(args...)
+                )
+            );
+        }
+
+        const key &operator *() const {
+            return *key_;
+        }
+
+        const key *operator->() const {
+            return key_.get();
+        }
+
+    private:
+        /**
+         * Reference to the underlying key.
+         */
+        std::shared_ptr<const key> key_;
+
+        key_ref(std::shared_ptr<const key> ref) : key_(ref) {}
+    };
+
+    /**
      * A key of which every instance is unique.
      *
      * An instance of this class compares equal only when compared to
@@ -43,12 +85,6 @@ namespace live_cells {
      */
     class unique_key : public key {
     public:
-        static key::ref make_unique() {
-            return std::static_pointer_cast<key>(
-                std::make_shared<unique_key>()
-            );
-        }
-
         bool eq(const key &k) const noexcept override;
 
         std::size_t hash() const noexcept override;
@@ -66,23 +102,13 @@ namespace live_cells {
         return !k1.eq(k2);
     }
 
-    /**
-     * Cell key equality comparison function
-     */
-    struct key_equality {
-        bool operator()(const key::ref &k1, const key::ref &k2) const {
-            return k1 != nullptr && k2 != nullptr && *k1 == *k2;
-        }
-    };
+    inline bool operator ==(const key_ref &k1, const key_ref &k2) {
+        return *k1 == *k2;
+    }
 
-    /**
-     * Cell key hash function
-     */
-    struct key_hash {
-        std::size_t operator()(const key::ref k) const {
-            return k->hash();
-        }
-    };
+    inline bool operator !=(const key_ref &k1, const key_ref &k2) {
+        return *k1 != *k2;
+    }
 
 }  // live_cells
 
@@ -90,6 +116,13 @@ template<>
 struct std::hash<live_cells::key> {
     std::size_t operator()(const live_cells::key& k) const noexcept {
         return k.hash();
+    }
+};
+
+template<>
+struct std::hash<live_cells::key_ref> {
+    std::size_t operator()(const live_cells::key_ref &k) const noexcept {
+        return k->hash();
     }
 };
 

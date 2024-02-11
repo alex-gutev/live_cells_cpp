@@ -31,8 +31,7 @@ namespace live_cells {
          * @param arguments Set of argument observables to value
          *   computation function.
          */
-        template <typename K>
-        mutable_compute_cell_state(std::shared_ptr<K> key, const std::unordered_set<observable_ref> &arguments) :
+        mutable_compute_cell_state(key_ref key, const std::unordered_set<observable_ref> &arguments) :
             parent(key),
             arguments(arguments) {}
 
@@ -84,7 +83,7 @@ namespace live_cells {
             reverse = false;
         }
 
-        void will_update(const key::ref &k) override {
+        void will_update(const key_ref &k) override {
             if (!updating) {
                 updating = true;
 
@@ -93,7 +92,7 @@ namespace live_cells {
             }
         }
 
-        void update(const key::ref &k) override {
+        void update(const key_ref &k) override {
             if (updating) {
                 this->notify_update();
                 updating = false;

@@ -32,7 +32,7 @@ namespace live_cells {
          *
          * @param k The key
          */
-        cell_state(key::ref k) : key_(k) {}
+        cell_state(key_ref k) : key_(k) {}
 
         virtual ~cell_state() noexcept;
 
@@ -89,7 +89,7 @@ namespace live_cells {
         /**
          * Key identifying this state.
          */
-        key::ref key_;
+        key_ref key_;
 
         /**
          * Set of observers
@@ -136,7 +136,7 @@ namespace live_cells {
          * @return Reference to the state
          */
         template <typename S, typename... Args>
-        std::shared_ptr<S> get(key::ref k, Args... args) {
+        std::shared_ptr<S> get(key_ref k, Args... args) {
             if (k->is_unique()) {
                 return std::make_shared<S>(k, args...);
             }
@@ -163,7 +163,7 @@ namespace live_cells {
          *
          * @param k The key
          */
-        void remove(key::ref k) {
+        void remove(key_ref k) {
             if (!k->is_unique()) {
                 states.erase(k);
             }
@@ -176,7 +176,7 @@ namespace live_cells {
         /**
          * State table
          */
-        std::unordered_map<key::ref, std::weak_ptr<cell_state>, key_hash, key_equality> states;
+        std::unordered_map<key_ref, std::weak_ptr<cell_state>> states;
 
         state_manager() = default;
         state_manager(const state_manager &) = delete;

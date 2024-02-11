@@ -73,11 +73,11 @@ namespace live_cells {
 
         /* observer methods */
 
-        void will_update(const key::ref &k) override {
+        void will_update(const key_ref &k) override {
             is_updating = true;
         }
 
-        void update(const key::ref &k) override {
+        void update(const key_ref &k) override {
             if (is_updating) {
                 is_updating = false;
                 call_with_tracker();
