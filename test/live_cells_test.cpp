@@ -118,6 +118,26 @@ observer_guard<T> with_observer(live_cells::observable &cell, std::shared_ptr<T>
     return observer_guard<T>(cell, observer);
 }
 
+template <typename T>
+class value_key : public live_cells::key {
+    const T value;
+
+public:
+    value_key(T&& value) :
+        value(std::forward<T>(value)) {}
+
+    bool eq(const live_cells::key &k) const noexcept override {
+        auto *k2 = dynamic_cast<const value_key<T>*>(&k);
+
+        return k2 != nullptr && value == k2->value;
+    }
+
+    std::size_t hash() const noexcept override {
+        std::hash<T> hash;
+
+        return hash(value);
+    }
+};
 
 BOOST_AUTO_TEST_SUITE(constant_cell)
 
@@ -481,6 +501,212 @@ BOOST_AUTO_TEST_CASE(inequality_cells_compare_not_equal_if_different_arguments) 
     BOOST_CHECK(neq1 != neq2);
     BOOST_CHECK(neq1 != neq3);
     BOOST_CHECK(!(neq1 == neq2));
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+
+BOOST_AUTO_TEST_SUITE(compute_cell)
+
+BOOST_AUTO_TEST_CASE(compute_cell_applied_on_constant_cell_value) {
+    auto a = live_cells::value_cell(1);
+    auto b = live_cells::computed(a, [] (auto a) {
+        return a + 1;
+    });
+
+    BOOST_CHECK_EQUAL(b.value(), 2);
+}
+
+BOOST_AUTO_TEST_CASE(compute_cell_reevaluated_when_argument_cell_changes) {
+    auto a = live_cells::variable(1);
+    auto b = live_cells::computed(a, [] (auto a) {
+        return a + 1;
+    });
+
+    a.value(5);
+
+    BOOST_CHECK_EQUAL(b.value(), 6);
+}
+
+BOOST_AUTO_TEST_CASE(nary_compute_cell_reevaluated_when_1st_argument_cell_changes) {
+    auto a = live_cells::variable(1);
+    auto b = live_cells::variable(2);
+
+    auto c = live_cells::computed(a, b, [] (auto a, auto b) {
+        return a + b;
+    });
+
+    a.value(5);
+
+    BOOST_CHECK_EQUAL(c.value(), 7);
+}
+
+BOOST_AUTO_TEST_CASE(nary_compute_cell_reevaluated_when_2nd_argument_cell_changes) {
+    auto a = live_cells::variable(1);
+    auto b = live_cells::variable(2);
+
+    auto c = live_cells::computed(a, b, [] (auto a, auto b) {
+        return a + b;
+    });
+
+    b.value(8);
+
+    BOOST_CHECK_EQUAL(c.value(), 9);
+}
+
+BOOST_AUTO_TEST_CASE(observers_notified_when_1st_argument_changes) {
+    auto a = live_cells::variable(1);
+    auto b = live_cells::variable(2);
+
+    auto c = live_cells::computed(a, b, [] (auto a, auto b) {
+        return a + b;
+    });
+
+    auto observer = std::make_shared<simple_observer>();
+    auto guard = with_observer(c, observer);
+
+    a.value(8);
+
+    BOOST_CHECK_EQUAL(observer->notify_count, 1);
+}
+
+BOOST_AUTO_TEST_CASE(observers_notified_when_2nd_argument_changes) {
+    auto a = live_cells::variable(1);
+    auto b = live_cells::variable(2);
+
+    auto c = live_cells::computed(a, b, [] (auto a, auto b) {
+        return a + b;
+    });
+
+    auto observer = std::make_shared<simple_observer>();
+    auto guard = with_observer(c, observer);
+
+    b.value(8);
+
+    BOOST_CHECK_EQUAL(observer->notify_count, 1);
+}
+
+BOOST_AUTO_TEST_CASE(observers_notified_on_each_change) {
+    auto a = live_cells::variable(1);
+    auto b = live_cells::variable(2);
+
+    auto c = live_cells::computed(a, b, [] (auto a, auto b) {
+        return a + b;
+    });
+
+    auto observer = std::make_shared<simple_observer>();
+    auto guard = with_observer(c, observer);
+
+    b.value(8);
+    a.value(10);
+    b.value(100);
+
+    BOOST_CHECK_EQUAL(observer->notify_count, 3);
+}
+
+BOOST_AUTO_TEST_CASE(observers_not_called_after_removal) {
+    auto a = live_cells::variable(1);
+    auto b = live_cells::variable(2);
+
+    auto c = live_cells::computed(a, b, [] (auto a, auto b) {
+        return a + b;
+    });
+
+    auto observer = std::make_shared<simple_observer>();
+
+    {
+        auto guard = with_observer(c, observer);
+
+        b.value(8);
+    }
+
+    a.value(10);
+    b.value(100);
+
+    BOOST_CHECK_EQUAL(observer->notify_count, 1);
+}
+
+BOOST_AUTO_TEST_CASE(all_observers_called) {
+    auto a = live_cells::variable(1);
+    auto b = live_cells::variable(2);
+
+    auto c = live_cells::computed(a, b, [] (auto a, auto b) {
+        return a + b;
+    });
+
+    auto observer1 = std::make_shared<simple_observer>();
+    auto observer2 = std::make_shared<simple_observer>();
+
+    auto guard1 = with_observer(c, observer1);
+
+    b.value(8);
+
+    auto guard2 = with_observer(c, observer2);
+
+    a.value(10);
+    b.value(100);
+
+    BOOST_CHECK_EQUAL(observer1->notify_count, 3);
+    BOOST_CHECK_EQUAL(observer2->notify_count, 2);
+}
+
+BOOST_AUTO_TEST_CASE(compares_equal_if_same_key) {
+    using live_cells::key_ref;
+
+    typedef value_key<std::string> key_type;
+
+    auto a = live_cells::variable(0);
+    auto b = live_cells::variable(1);
+
+    live_cells::observable_ref c1 = live_cells::computed(key_ref::create<key_type>("the-key"), a, b, [] (auto a, auto b) {
+        return a + b;
+    });
+
+    live_cells::observable_ref c2 = live_cells::computed(key_ref::create<key_type>("the-key"), a, b, [] (auto a, auto b) {
+        return a + b;
+    });
+
+    std::hash<live_cells::observable_ref> hash;
+
+    BOOST_CHECK(c1 == c2);
+    BOOST_CHECK(!(c1 != c2));
+    BOOST_CHECK(hash(c1) == hash(c2));
+}
+
+BOOST_AUTO_TEST_CASE(compares_not_equal_if_same_key) {
+    using live_cells::key_ref;
+
+    typedef value_key<std::string> key_type;
+
+    auto a = live_cells::variable(0);
+    auto b = live_cells::variable(1);
+
+    live_cells::observable_ref c1 = live_cells::computed(key_ref::create<key_type>("the-key1"), a, b, [] (auto a, auto b) {
+        return a + b;
+    });
+
+    live_cells::observable_ref c2 = live_cells::computed(key_ref::create<key_type>("the-key2"), a, b, [] (auto a, auto b) {
+        return a + b;
+    });
+
+    BOOST_CHECK(c1 != c2);
+    BOOST_CHECK(!(c1 == c2));
+}
+
+BOOST_AUTO_TEST_CASE(compares_not_equal_with_default_key) {
+    auto a = live_cells::variable(0);
+    auto b = live_cells::variable(1);
+
+    live_cells::observable_ref c1 = live_cells::computed(a, b, [] (auto a, auto b) {
+        return a + b;
+    });
+
+    live_cells::observable_ref c2 = live_cells::computed(a, b, [] (auto a, auto b) {
+        return a + b;
+    });
+
+    BOOST_CHECK(c1 != c2);
+    BOOST_CHECK(!(c1 == c2));
 }
 
 BOOST_AUTO_TEST_SUITE_END()
