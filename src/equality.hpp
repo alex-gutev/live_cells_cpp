@@ -9,7 +9,7 @@ namespace live_cells {
 
     namespace internal {
 
-        std::size_t hash_combine(std::size_t seed) {
+        inline std::size_t hash_combine(std::size_t seed) {
             return seed;
         }
 
