@@ -5,6 +5,7 @@
 
 #include "observable.hpp"
 #include "cell_state.hpp"
+#include "exceptions.hpp"
 
 namespace live_cells {
 
@@ -22,7 +23,13 @@ namespace live_cells {
          */
         T value() {
             if (stale) {
-                value_ = compute();
+                try {
+                    value_ = compute();
+                }
+                catch (const stop_compute_exception &) {
+                    // Prevent value from being updated
+                }
+
                 stale = !is_active();
             }
 

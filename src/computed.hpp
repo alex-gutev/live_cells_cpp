@@ -6,6 +6,7 @@
 
 #include "compute_cell.hpp"
 #include "dynamic_compute_cell.hpp"
+#include "exceptions.hpp"
 
 namespace live_cells {
     /**
@@ -170,6 +171,17 @@ namespace live_cells {
     template <typename A, typename... As>
     auto computed(key_ref key, A arg1, As... args) {
         return internal::make_compute_cell(key, std::make_tuple(), arg1, args...);
+    }
+
+    /**
+     * Stop the computation of the current cell's value.
+     *
+     * When this method is called within a cell's compute value
+     * function, the cell's value is not recomputed. Instead its
+     * current value is preserved.
+     */
+    inline void none() {
+        throw stop_compute_exception();
     }
 
 }  // live_cells
