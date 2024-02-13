@@ -29,7 +29,7 @@ namespace live_cells {
         template <typename F>
         dynamic_compute_cell_state(key_ref key, F&& compute) :
             compute_cell_state<T>(key),
-            compute_(std::function<T()>(std::forward<F>(compute))) {}
+            compute_(std::forward<F>(compute)) {}
 
     protected:
         T compute() override {

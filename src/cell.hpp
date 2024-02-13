@@ -40,7 +40,7 @@ namespace live_cells {
      * @return The value of the cell.
      */
     template <typename T>
-    auto use(T cell) -> decltype(cell.value()) {
+    auto use(T cell) {
         argument_tracker::global().track_argument(
             observable_ref(cell)
         );

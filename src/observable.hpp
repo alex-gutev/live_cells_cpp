@@ -118,117 +118,40 @@ namespace live_cells {
         /**
          * Create a polymorphic holder for @a observable.
          *
+         * @param observable Pointer to the observable.
+         */
+        observable_ref(std::shared_ptr<observable> observable) :
+            wrapped(observable) {}
+
+        /**
+         * Create a polymorphic holder for @a observable.
+         *
          * @param observable The observable.
          */
         template <typename T>
-        observable_ref(T observable) :
-            wrapped(wrap(observable)) {}
-
-        observable_ref(const observable_ref &ref) :
-            wrapped(ref.wrapped->clone()) {}
-
-        observable_ref(observable_ref&& ref) :
-            wrapped(std::move(ref.wrapped)) {
-        }
-
-        observable_ref &operator=(const observable_ref &ref) {
-            wrapped = ref.wrapped->clone();
-            return *this;
-        }
-
-        observable_ref &operator=(observable_ref&& ref) {
-            wrapped = std::move(ref.wrapped);
-            return *this;
-        }
+        observable_ref(T o) :
+            wrapped(std::static_pointer_cast<observable>(std::make_shared<T>(o))) {}
 
         /**
          * Provide access to the wrapped observable.
          */
         observable *operator ->() {
-            return wrapped->get();
+            return wrapped.get();
         }
 
         /**
          * Provide access to the wrapped observable.
          */
         const observable *operator ->() const {
-            return wrapped->get();
+            return wrapped.get();
         }
 
     private:
         /**
-         * Holds an observable and provides a clone() method.
-         */
-        struct holder {
-            /**
-             * Return a new wrapper holding an exact copy of the
-             * observable held in this wrapper.
-             */
-            virtual std::unique_ptr<holder> clone() const = 0;
-
-            /**
-             * Return a pointer to the underlying observable.
-             */
-            virtual observable *get() = 0;
-            virtual const observable *get() const = 0;
-        };
-
-        /**
-         * A wrapper holding an observable of type @a T.
-         */
-        template <typename T>
-        struct t_holder : holder {
-            /**
-             * Create a wrapper holding @a observable.
-             *
-             * @param observable The observable.
-             */
-            t_holder(T observable) :
-                observable_(observable) {}
-
-            std::unique_ptr<holder> clone() const override {
-                auto ptr = std::make_unique<t_holder>(observable_);
-
-                return std::unique_ptr<holder>(
-                    static_cast<holder*>(ptr.release())
-                );
-            }
-
-            observable *get() override {
-                return &observable_;
-            }
-
-            const observable *get() const override {
-                return &observable_;
-            }
-
-        private:
-            /** Observable held by this wrapper */
-            T observable_;
-
-        };
-
-        /**
          * Pointer to the wrapper holding the observable.
          */
-        std::unique_ptr<holder> wrapped;
+        std::shared_ptr<observable> wrapped;
 
-        /**
-         * Create a polymorphic wrapper holding an observable.
-         *
-         * @param observable The observable
-         *
-         * @return Pointer to a wrapper holding a copy of @a
-         *   observable.
-         */
-        template <typename T>
-        static std::unique_ptr<holder> wrap(T observable) {
-            auto ptr = std::make_unique<t_holder<T>>(observable);
-
-            return std::unique_ptr<holder>(
-                static_cast<holder*>(ptr.release())
-            );
-        }
     };
 
     /**

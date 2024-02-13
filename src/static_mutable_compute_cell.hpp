@@ -90,7 +90,7 @@ namespace live_cells {
 
         template <typename C, typename R, typename... Args>
         static_mutable_compute_cell(C&& compute, R&& reverse, Args&&... args) :
-            parent(key_ref::create<unique_key>(), std::forward<C>(compute), std::forward<R>(reverse), std::unordered_set<observable_ref>({std::forward<Args>(args)...})) {}
+            parent(key_ref::create<unique_key>(), std::forward<C>(compute), std::forward<R>(reverse), std::unordered_set<observable_ref>({observable_ref(args)...})) {}
 
         T value() const override {
             return this->state->value();
