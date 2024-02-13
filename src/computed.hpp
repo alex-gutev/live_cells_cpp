@@ -132,6 +132,24 @@ namespace live_cells {
     }
 
     /**
+     * Create a cell with a value that is a function of one or more
+     * argument cells.
+     *
+     * The argument cells, referenced by @a compute, are determined
+     * dynamically. For this to work, the values of the argument cells
+     * must be referenced using live_cells::use() within @a compute().
+     *
+     * @param key     Key identifying the cell
+     * @param compute Compute value function
+     *
+     * @return The cell
+     */
+    template <typename F>
+    auto computed(key_ref key, F&& compute) {
+        return dynamic_compute_cell<decltype(compute())>(key, std::forward<F>(compute));
+    }
+
+    /**
      * Create a cell with a value that is a function of the values of
      * one or more argument cells.
      *
