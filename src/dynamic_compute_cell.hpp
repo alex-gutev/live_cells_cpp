@@ -60,7 +60,7 @@ namespace live_cells {
 
             try {
                 // Determine arguments and add observers
-                compute();
+                this->value();
             }
             catch (...) {
                 // Prevent exception from being propagated to caller
