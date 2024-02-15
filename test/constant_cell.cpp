@@ -7,7 +7,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "live_cells.hpp"
+#include "constant_cell.hpp"
 #include "test_util.hpp"
 
 using live_cells::use;

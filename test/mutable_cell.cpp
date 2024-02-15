@@ -7,7 +7,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "live_cells.hpp"
+#include "mutable_cell.hpp"
 #include "test_util.hpp"
 
 BOOST_AUTO_TEST_SUITE(mutable_cell)

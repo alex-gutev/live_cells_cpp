@@ -7,7 +7,10 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "live_cells.hpp"
+#include "constant_cell.hpp"
+#include "mutable_cell.hpp"
+#include "equality.hpp"
+
 #include "test_util.hpp"
 
 
