@@ -3,10 +3,10 @@ check_PROGRAMS = test-live-cells
 TESTS = test-live-cells
 
 test_live_cells_SOURCES = constant_cell.cpp \
+	mutable_cell.cpp \
+	equality.cpp \
 	compute_cell.cpp \
 	dynamic_compute_cell.cpp \
-	equality.cpp \
-	mutable_cell.cpp \
 	live_cells_test.cpp
 
 test_live_cells_CPPFLAGS = -I$(top_srcdir)/src $(BOOST_CPPFLAGS)
