@@ -7,6 +7,7 @@ test_live_cells_SOURCES = constant_cell.cpp \
 	equality.cpp \
 	compute_cell.cpp \
 	dynamic_compute_cell.cpp \
+	store_cell.cpp \
 	live_cells_test.cpp
 
 test_live_cells_CPPFLAGS = -I$(top_srcdir)/src $(BOOST_CPPFLAGS)
