@@ -8,10 +8,11 @@
 #include "constant_cell.hpp"
 #include "mutable_cell.hpp"
 
-#include "equality.hpp"
-#include "numeric.hpp"
-
 #include "computed.hpp"
 #include "store_cell.hpp"
+
+#include "equality.hpp"
+#include "numeric.hpp"
+#include "boolean.hpp"
 
 #endif /* LIVE_CELLS_HPP */
