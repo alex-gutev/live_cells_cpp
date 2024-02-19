@@ -1,5 +1,5 @@
 # Live Cells CPP
 
-This is the C++ port of the [Live Cells](https://alex-gutev.github.io/live_cells/).
+This is the C++ port of [Live Cells](https://alex-gutev.github.io/live_cells/).
 
 _Coming Soon_
