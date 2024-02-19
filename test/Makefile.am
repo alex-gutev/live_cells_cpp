@@ -10,6 +10,7 @@ test_live_cells_SOURCES = constant_cell.cpp \
 	store_cell.cpp \
 	numeric.cpp \
 	boolean.cpp \
+	errors.cpp \
 	live_cells_test.cpp
 
 test_live_cells_CPPFLAGS = -I$(top_srcdir)/src $(BOOST_CPPFLAGS)
