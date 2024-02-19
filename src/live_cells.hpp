@@ -14,5 +14,6 @@
 #include "equality.hpp"
 #include "numeric.hpp"
 #include "boolean.hpp"
+#include "errors.hpp"
 
 #endif /* LIVE_CELLS_HPP */
