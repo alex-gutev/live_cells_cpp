@@ -4,30 +4,11 @@
 #include <typeinfo>
 
 #include "computed.hpp"
+#include "util.hpp"
 
 namespace live_cells {
 
     namespace internal {
-
-        inline std::size_t hash_combine(std::size_t seed) {
-            return seed;
-        }
-
-        /**
-         * Combine the hash code (using std::hash) of @a v and @a rest.
-         *
-         * @param seed Starting hash value
-         * @param v    A value
-         * @param rest Remaining values
-         *
-         * @return Combined hash code
-         */
-        template <typename T, typename... Rest>
-        std::size_t hash_combine(std::size_t seed, const T& v, const Rest&... rest)
-        {
-            seed ^= std::hash<T>{}(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-            return hash_combine(seed, rest...);
-        }
 
         /**
          * Equality comparison cell key
@@ -48,10 +29,7 @@ namespace live_cells {
             }
 
             size_t hash() const noexcept override {
-                size_t seed = 0;
-                hash_combine(seed, typeid(*this).hash_code(), a.key(), b.key());
-
-                return seed;
+                return hash_combine(0, typeid(*this).hash_code(), a.key(), b.key());
             }
         };
 
@@ -74,10 +52,7 @@ namespace live_cells {
             }
 
             size_t hash() const noexcept override {
-                size_t seed = 0;
-                hash_combine(seed, typeid(*this).hash_code(), a.key(), b.key());
-
-                return seed;
+                return hash_combine(0, typeid(*this).hash_code(), a.key(), b.key());
             }
         };
 

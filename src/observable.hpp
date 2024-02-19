@@ -5,6 +5,9 @@
 
 namespace live_cells {
 
+    template <typename T>
+    class cell;
+
     /**
      * Defines the observer interface for observing a cell.
      */
@@ -144,6 +147,25 @@ namespace live_cells {
          */
         const observable *operator ->() const {
             return wrapped.get();
+        }
+
+        /**
+         * Retrieve the value held by the observable.
+         *
+         * This method attempts to cast the reference to the
+         * underlying observable, to cell<T>.
+         *
+         * @return The value held by the observable.
+         *
+         * @throws std::bad_cast if the observable does not hold a
+         *   value of type T.
+         */
+        template <typename T>
+        T value() {
+            const observable &obs_ref = *wrapped;
+            const cell<T> &value_ref = dynamic_cast<const cell<T> &>(obs_ref);
+
+            return value_ref.value();
         }
 
     private:

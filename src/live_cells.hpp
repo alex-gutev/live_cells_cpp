@@ -10,4 +10,7 @@
 
 #include "equality.hpp"
 
+#include "computed.hpp"
+#include "store_cell.hpp"
+
 #endif /* LIVE_CELLS_HPP */

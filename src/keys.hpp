@@ -4,6 +4,8 @@
 #include <functional>
 #include <memory>
 
+#include "util.hpp"
+
 namespace live_cells {
 
     /**
@@ -92,6 +94,115 @@ namespace live_cells {
         bool is_unique() const noexcept override {
             return true;
         }
+    };
+
+    /**
+     * Base class for a key distinguished from other keys by one or
+     * more values.
+     *
+     * Keys of this type compare equal if their runtime type is the
+     * same, and their values are equal.
+     */
+    template <typename T, typename... Ts>
+    class value_key : public key {
+        /**
+         * First value distinguishing this key from other keys.
+         */
+        const T value;
+
+        /**
+         * Remaining values distinguishing this key from other keys.
+         */
+        const value_key<Ts...> rest;
+
+    public:
+        /**
+         * Create a key distinguished from other keys by one or more
+         * values.
+         *
+         * @param value First value
+         * @param rest  Remaining values
+         */
+        value_key(T value, Ts... rest)
+            : value(value),
+              rest(rest...) {
+        }
+
+        bool eq(const key &other) const noexcept override {
+            auto *key = dynamic_cast<const value_key<T,Ts...> *>(other);
+
+            return key != nullptr && values_equal(*key);
+        }
+
+        std::size_t hash() const noexcept override {
+            return internal::hash_combine(0, typeid(*this).hash_code(), hash_values());
+        }
+
+    private:
+        /**
+         * Check whether the values of this key are equal to the
+         * values of @a key.
+         *
+         * @param key Another key
+         *
+         * @return true if the values are equal.
+         */
+        bool values_equal(const value_key<T,Ts...> key) const noexcept {
+            return value == key.value && rest.values_equal(key.rest);
+        }
+
+        /**
+         * Compute the hash code of the values held in this key.
+         *
+         * @return The combined hash code.
+         */
+        std::size_t hash_values() const noexcept {
+            return internal::hash_combine(0, value, rest);
+        }
+    };
+
+    /**
+     * Base class for a key distinguished from other keys by one
+     * value.
+     *
+     * Keys of this type compare equal if their runtime type is the
+     * same, and their values are equal.
+     */
+    template <typename T>
+    class value_key<T> : public key {
+        /**
+         * Value distinguishing this key from other keys.
+         */
+        const T value;
+
+    public:
+        /**
+         * Create a key distinguished from other keys by one value.
+         *
+         * @param value The value
+         */
+        value_key(T value) :
+            value(value) {}
+
+        bool eq(const key &other) const noexcept override {
+            auto *key = dynamic_cast<const value_key<T> *>(&other);
+
+            return key != nullptr && values_equal(*key);
+        }
+
+        std::size_t hash() const noexcept override {
+            return internal::hash_combine(0, typeid(*this).hash_code(), hash_values());
+        }
+
+    private:
+        bool values_equal(const value_key<T> key) const noexcept {
+            return value == key.value;
+        }
+
+        std::size_t hash_values() const noexcept {
+            return std::hash<T>{}(value);
+        }
+
     };
 
     inline bool operator ==(const key &k1, const key &k2) {

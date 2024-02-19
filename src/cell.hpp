@@ -21,6 +21,11 @@ namespace live_cells {
         using observable::observable;
 
         /**
+         * The type of value held by this cell type.
+         */
+        typedef T value_type;
+
+        /**
          * Get the value of the cell.
          *
          * @return The value
