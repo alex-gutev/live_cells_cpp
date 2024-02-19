@@ -9,6 +9,7 @@
 #include "mutable_cell.hpp"
 
 #include "equality.hpp"
+#include "numeric.hpp"
 
 #include "computed.hpp"
 #include "store_cell.hpp"

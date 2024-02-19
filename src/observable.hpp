@@ -1,6 +1,8 @@
 #ifndef LIVE_CELLS_OBSERVABLE_H
 #define LIVE_CELLS_OBSERVABLE_H
 
+#include <type_traits>
+
 #include "keys.hpp"
 
 namespace live_cells {
@@ -101,6 +103,16 @@ namespace live_cells {
          */
         key_ref key_;
     };
+
+    /**
+     * Shorthand for std::enable_if_t that checks whether type T is an
+     * observable.
+     *
+     * This should only be used as a template parameter.
+     */
+    template <typename T>
+    using enable_if_observable =
+        std::enable_if_t<std::is_base_of<observable, T>::value>;
 
     /**
      * Polymorphic observable holder which allows an observable to be
