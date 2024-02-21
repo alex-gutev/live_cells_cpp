@@ -29,6 +29,7 @@
 
 #include "computed.hpp"
 #include "store_cell.hpp"
+#include "peek_cell.hpp"
 
 #include "equality.hpp"
 #include "numeric.hpp"
