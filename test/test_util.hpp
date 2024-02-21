@@ -20,6 +20,8 @@
 #ifndef TEST_LIVE_CELLS_TEST_UTIL_HPP
 #define TEST_LIVE_CELLS_TEST_UTIL_HPP
 
+#include <initializer_list>
+
 /**
  * An observer that records the number of times it's update() method
  * was called.
@@ -68,6 +70,21 @@ struct value_observer : live_cells::observer {
 
         if (values.empty() || values.back() != value) {
             values.push_back(value);
+        }
+    }
+
+    /**
+     * Check that the values received are equal to `vs`.
+     */
+    template <typename U>
+    void check_values(std::initializer_list<U> vs) {
+        BOOST_CHECK_EQUAL(values.size(), vs.size());
+
+        auto it = values.begin();
+
+        for (const auto &v : vs) {
+            BOOST_CHECK_EQUAL(*it, v);
+            ++it;
         }
     }
 };
