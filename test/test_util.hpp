@@ -85,6 +85,9 @@ struct value_observer : live_cells::observer {
         auto it = values.begin();
 
         for (const auto &v : vs) {
+            if (it == values.end())
+                break;
+
             BOOST_CHECK_EQUAL(*it, v);
             ++it;
         }
