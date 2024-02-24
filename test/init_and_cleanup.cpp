@@ -31,7 +31,7 @@
 #include "test_util.hpp"
 #include "test_lifecyle.hpp"
 
-BOOST_AUTO_TEST_SUITE(peek_cell)
+BOOST_AUTO_TEST_SUITE(init_and_cleanup)
 
 BOOST_AUTO_TEST_CASE(init_not_called_before_adding_observer) {
     auto counter = std::make_shared<state_counter>();
