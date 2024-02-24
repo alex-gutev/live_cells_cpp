@@ -26,6 +26,7 @@
 
 #include "observable.hpp"
 #include "mutable_cell.hpp"
+#include "exceptions.hpp"
 
 namespace live_cells {
 
@@ -61,7 +62,13 @@ namespace live_cells {
             if (stale) {
                 computed = true;
 
-                this->silent_set(compute());
+                try {
+                    this->silent_set(compute());
+                }
+                catch (const stop_compute_exception &) {
+                    // Prevent value from being updated
+                }
+
                 stale = !this->is_active();
             }
 
@@ -103,7 +110,7 @@ namespace live_cells {
         }
 
         void will_update(const key_ref &k) override {
-            if (!updating) {
+            if (!reverse && !updating) {
                 updating = true;
 
                 this->notify_will_update();
