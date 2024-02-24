@@ -13,6 +13,7 @@ test_live_cells_SOURCES = constant_cell.cpp \
 	errors.cpp \
 	consistency.cpp \
 	peek_cell.cpp \
+	init_and_cleanup.cpp \
 	live_cells_test.cpp
 
 test_live_cells_CPPFLAGS = -I$(top_srcdir)/src $(BOOST_CPPFLAGS)
