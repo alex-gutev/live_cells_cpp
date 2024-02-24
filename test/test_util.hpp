@@ -22,6 +22,8 @@
 
 #include <initializer_list>
 
+#include "observable.hpp"
+
 /**
  * An observer that records the number of times it's update() method
  * was called.

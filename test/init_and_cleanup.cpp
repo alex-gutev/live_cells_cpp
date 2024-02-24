@@ -26,14 +26,10 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "constant_cell.hpp"
-#include "mutable_cell.hpp"
-#include "computed.hpp"
+#include "keys.hpp"
 
 #include "test_util.hpp"
 #include "test_lifecyle.hpp"
-
-using live_cells::use;
 
 BOOST_AUTO_TEST_SUITE(peek_cell)
 
