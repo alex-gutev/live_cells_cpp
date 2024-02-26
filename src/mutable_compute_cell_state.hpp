@@ -131,7 +131,13 @@ namespace live_cells {
          */
         void init() override {
             cell_state::init();
-            stale = true;
+
+            try {
+                this->silent_set(this->value());
+            }
+            catch (...) {
+                // Prevent exception from being propagated to caller
+            }
 
             for (auto arg : arguments) {
                 arg->add_observer(observer_ptr());

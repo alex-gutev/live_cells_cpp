@@ -70,19 +70,6 @@ namespace live_cells {
             reverse_fn(value);
         }
 
-
-        void init() override {
-            parent::init();
-
-            try {
-                // Determine arguments and add observers
-                compute();
-            }
-            catch (...) {
-                // Prevent exception from being propagated to caller
-            }
-        }
-
     private:
         /** Value computation function */
         std::function<T()> compute_fn;
