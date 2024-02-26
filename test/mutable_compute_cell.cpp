@@ -405,8 +405,6 @@ BOOST_AUTO_TEST_CASE(previous_value_preserved_when_none_used) {
     auto guard = with_observer(evens, obs);
 
     a.value(1);
-
-    std::cout << "evens: " << evens.value() << "\n";
     a.value(2);
     a.value(3);
     a.value(4);
