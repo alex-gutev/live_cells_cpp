@@ -415,4 +415,36 @@ BOOST_AUTO_TEST_CASE(previous_value_preserved_when_none_used) {
     obs->check_values({0, 2, 4});
 }
 
+BOOST_AUTO_TEST_CASE(exception_in_init_handled) {
+    auto a = live_cells::variable(0);
+    auto cell = live_cells::mutable_computed(a, [] (auto a) {
+        if (a == 0) {
+            throw an_exception();
+        }
+
+        return a;
+    }, [=] (auto v) {
+        a.value(v);
+    });
+
+    BOOST_CHECK_THROW(cell.value(), an_exception);
+}
+
+BOOST_AUTO_TEST_CASE(exception_in_init_reproduced_on_access_while_observed) {
+    auto a = live_cells::variable(0);
+    auto cell = live_cells::mutable_computed(a, [] (auto a) {
+        if (a == 0) {
+            throw an_exception();
+        }
+
+        return a;
+    }, [=] (auto v) {
+        a.value(v);
+    });
+
+    auto guard = with_observer(cell, std::make_shared<simple_observer>());
+
+    BOOST_CHECK_THROW(cell.value(), an_exception);
+}
+
 BOOST_AUTO_TEST_SUITE_END();
