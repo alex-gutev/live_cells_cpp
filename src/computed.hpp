@@ -26,6 +26,7 @@
 #include "compute_cell.hpp"
 #include "dynamic_compute_cell.hpp"
 #include "exceptions.hpp"
+#include "util.hpp"
 
 namespace live_cells {
     /**
@@ -35,100 +36,46 @@ namespace live_cells {
 
         /**
          * Create a compute_cell with compute function @a fn called on
-         * the arguments in the tuple @a args.
+         * the arguments @a args.
          *
+         * @param key  Key identifyinf the cell.
          * @param fn   Compute value function.
-         * @param args Tuple holding arguments to @a fn
+         * @param args Argument cells
          *
          * @return A compute_cell
          */
-        template <typename F, typename Tuple, std::size_t... I>
-        auto unpack_compute_args(F fn, Tuple args, std::index_sequence<I...>) {
-            typedef decltype(fn(std::get<I>(args).value()...)) value_type;
+        template<typename F, typename... As>
+        auto make_compute_cell(key_ref key, F fn, As... args) {
+            typedef decltype(fn(args.value()...)) value_type;
 
-            return compute_cell<value_type, typename std::tuple_element<I, Tuple>::type...>(
-                [fn, args] {
-                    return fn(std::get<I>(args).value()...);
+            return compute_cell<value_type, As...>(
+                key,
+                [=] {
+                    return fn(args.value()...);
                 },
-                std::get<I>(args)...
+                args...
             );
         }
 
         /**
          * Create a compute_cell with compute function @a fn called on
-         * the arguments in the tuple @a args.
+         * the arguments @a args.
          *
-         * @param key  Key identifying the cell.
          * @param fn   Compute value function.
-         * @param args Tuple holding arguments to @a fn
+         * @param args Argument cells
          *
          * @return A compute_cell
          */
-        template <typename F, typename Tuple, std::size_t... I>
-        auto unpack_compute_args(key_ref key, F fn, Tuple args, std::index_sequence<I...>) {
-            typedef decltype(fn(std::get<I>(args).value()...)) value_type;
+        template <typename F, typename... As>
+        auto make_compute_cell(F fn, As... args) {
+            typedef decltype(fn(args.value()...)) value_type;
 
-            return compute_cell<value_type, typename std::tuple_element<I, Tuple>::type...>(
-                key,
-                [fn, args] {
-                    return fn(std::get<I>(args).value()...);
+            return compute_cell<value_type, As...>(
+                [=] {
+                    return fn(args.value()...);
                 },
-                std::get<I>(args)...
+                args...
             );
-        }
-
-        template <typename F, typename Tuple>
-        auto unpack_compute_args(F fn, Tuple args) {
-            constexpr auto size = std::tuple_size<Tuple>::value;
-            return unpack_compute_args(fn, args, std::make_index_sequence<size>{});
-        }
-
-        template <typename F, typename Tuple>
-        auto unpack_compute_args(key_ref key, F fn, Tuple args) {
-            constexpr auto size = std::tuple_size<Tuple>::value;
-            return unpack_compute_args(key, fn, args, std::make_index_sequence<size>{});
-        }
-
-        template <typename Tuple, typename F>
-        auto make_compute_cell(Tuple args, F fn) {
-            return unpack_compute_args(fn, args);
-        }
-
-        template <typename Tuple, typename F>
-        auto make_compute_cell(key_ref key, Tuple args, F fn) {
-            return unpack_compute_args(key, fn, args);
-        }
-
-        /**
-         * Create a compute_cell.
-         *
-         * @param packed compute_cell arguments till this point packed in a tuple.
-         *
-         * @param arg1   First argument to compute function.
-         *
-         * @param args   Remaining arguments followed by the compute function.
-         *
-         * @return A compute_cell
-         */
-        template <typename Tuple, typename A, typename... As>
-        auto make_compute_cell(Tuple packed, A arg1, As... args) {
-            return make_compute_cell(std::tuple_cat(packed, std::make_tuple(arg1)), args...);
-        }
-
-        /**
-         * Create a compute_cell.
-         *
-         * @param packed compute_cell arguments till this point packed in a tuple.
-         *
-         * @param arg1   First argument to compute function.
-         *
-         * @param args   Remaining arguments followed by the compute function.
-         *
-         * @return A compute_cell
-         */
-        template <typename Tuple, typename A, typename... As>
-        auto make_compute_cell(key_ref key, Tuple packed, A arg1, As... args) {
-            return make_compute_cell(key, std::tuple_cat(packed, std::make_tuple(arg1)), args...);
         }
 
     }  // internal
@@ -185,7 +132,14 @@ namespace live_cells {
      */
     template <typename A, typename... As>
     auto computed(A arg1, As... args) {
-        return internal::make_compute_cell(std::make_tuple(), arg1, args...);
+        auto packed = internal::pack<1>(arg1, args...);
+
+        auto fn_args = std::get<0>(packed);
+        auto fn = std::get<1>(packed);
+
+        return internal::unpack([&] (auto... args) {
+            return internal::make_compute_cell(fn, args...);
+        }, fn_args);
     }
 
     /**
@@ -207,7 +161,14 @@ namespace live_cells {
      */
     template <typename A, typename... As>
     auto computed(key_ref key, A arg1, As... args) {
-        return internal::make_compute_cell(key, std::make_tuple(), arg1, args...);
+        auto packed = internal::pack<1>(arg1, args...);
+
+        auto fn_args = std::get<0>(packed);
+        auto fn = std::get<1>(packed);
+
+        return internal::unpack([&] (auto... args) {
+            return internal::make_compute_cell(key, fn, args...);
+        }, fn_args);
     }
 
     /**
