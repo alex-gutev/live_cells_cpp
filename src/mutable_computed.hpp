@@ -25,6 +25,7 @@
 
 #include "static_mutable_compute_cell.hpp"
 #include "dynamic_mutable_compute_cell.hpp"
+#include "util.hpp"
 
 namespace live_cells {
     /**
@@ -34,47 +35,24 @@ namespace live_cells {
 
         /**
          * Create a static_mutable_compute_cell with compute function
-         * @a compute called on the arguments in the tuple @a args,
-         * and reverse compute function @a reverse.
+         * @a compute called on the arguments @a args, and reverse
+         * compute function @a reverse.
          *
          * @param compute Compute value function.
          * @param reverse Reverse compute function.
-         * @param args    Tuple holding arguments to @a fn
+         * @param args    Arguments to @a fn
          *
          * @return A static_mutable_compute_cell
          */
-        template <typename C, typename R, typename Tuple, std::size_t... I>
-        auto unpack_mutable_compute_args(C compute, R reverse, Tuple args, std::index_sequence<I...>) {
-            typedef decltype(compute(std::get<I>(args).value()...)) value_type;
+        template <typename C, typename R, typename... As>
+        auto make_mutable_compute_cell(C compute, R reverse, As... args) {
+            typedef decltype(compute(args.value()...)) value_type;
 
-            auto fn = [compute, args] {
-                return compute(std::get<I>(args).value()...);
+            auto fn = [=] {
+                return compute(args.value()...);
             };
 
-            return static_mutable_compute_cell<value_type>(fn, reverse, std::get<I>(args)...);
-        }
-
-        template <typename Tuple, typename C, typename R>
-        auto make_mutable_compute_cell(Tuple args, C compute, R reverse) {
-            constexpr auto size = std::tuple_size<Tuple>::value;
-            return unpack_mutable_compute_args(compute, reverse, args, std::make_index_sequence<size>());
-        }
-
-        /**
-         * Create a static_mutable_compute_cell.
-         *
-         * @param packed cell arguments till this point packed in a tuple.
-         *
-         * @param arg1   First argument to compute function.
-         *
-         * @param args    Remaining arguments followed by the compute,
-         *    and reverse compute functions.
-         *
-         * @return A static_mutable_compute_cell
-         */
-        template <typename Tuple, typename A, typename... As>
-        auto make_mutable_compute_cell(Tuple packed, A arg1, As... args) {
-            return make_mutable_compute_cell(std::tuple_cat(packed, std::make_tuple(arg1)), args...);
+            return static_mutable_compute_cell<value_type>(fn, reverse, args...);
         }
 
     }  // internal
@@ -139,7 +117,15 @@ namespace live_cells {
      */
     template <typename A1, typename A2, typename... As>
     auto mutable_computed(A1 arg1, A2 arg2, As... args) {
-        return internal::make_mutable_compute_cell(std::make_tuple(), arg1, arg2, args...);
+        auto packed = internal::pack<2>(arg1, arg2, args...);
+
+        auto fn_args = std::get<0>(packed);
+        auto compute = std::get<1>(packed);
+        auto reverse = std::get<2>(packed);
+
+        return internal::unpack([&] (auto... args) {
+            return internal::make_mutable_compute_cell(compute, reverse, args...);
+        }, fn_args);
     }
 
 }  // live_cells
