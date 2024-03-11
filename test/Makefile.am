@@ -17,6 +17,7 @@ test_live_cells_SOURCES = constant_cell.cpp \
 	mutable_compute_cell.cpp \
 	dynamic_mutable_compute_cell.cpp \
 	mutable_cell_view.cpp \
+	cell_watcher.cpp \
 	live_cells_test.cpp
 
 test_live_cells_CPPFLAGS = -I$(top_srcdir)/src $(BOOST_CPPFLAGS)
