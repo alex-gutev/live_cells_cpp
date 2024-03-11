@@ -20,7 +20,7 @@
 #ifndef LIVE_CELLS_OBSERVABLE_H
 #define LIVE_CELLS_OBSERVABLE_H
 
-#include <type_traits>
+#include <concepts>
 
 #include "keys.hpp"
 
@@ -124,14 +124,10 @@ namespace live_cells {
     };
 
     /**
-     * Shorthand for std::enable_if_t that checks whether type T is an
-     * observable.
-     *
-     * This should only be used as a template parameter.
+     * Restricts `T` to types derived from `observable`.
      */
     template <typename T>
-    using enable_if_observable =
-        std::enable_if_t<std::is_base_of<observable, T>::value>;
+    concept Observable = std::derived_from<T, observable>;
 
     /**
      * Polymorphic observable holder which allows an observable to be
