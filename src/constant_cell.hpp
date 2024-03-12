@@ -60,26 +60,28 @@ namespace live_cells {
      * never changes.
      */
     template <typename T>
-    class constant_cell : public cell<T> {
+    class constant_cell {
     public:
         /**
          * Construct a cell with a constant value.
          *
          * @param value The constant value
          */
-        constant_cell(const T &value) :
-            cell<T>(key_ref::create<constant_key<T>>(value)),
-            m_value(value) {}
+        constant_cell(const T &value) : m_value(value) {}
 
-        T value() const override {
+        key_ref key() const {
+            return key_ref::create<constant_key<T>>(m_value);
+        }
+
+        T value() const {
             return m_value;
         }
 
-        void add_observer(observer::ref) override {
+        void add_observer(observer::ref) {
             // Do nothing
         }
 
-        void remove_observer(observer::ref) override {
+        void remove_observer(observer::ref) {
             // Do nothing
         }
 

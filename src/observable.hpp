@@ -59,152 +59,119 @@ namespace live_cells {
     };
 
     /**
-     * Base observable interface.
+     * Concept defining an observable object.
      *
-     * This interface provides methods for adding and removing
-     * observers.
-     */
-    class observable {
-    public:
-        /**
-         * Construct an observable with a unique_key.
-         */
-        observable() : observable(key_ref::create<unique_key>()) {}
-
-        /**
-         * Construct an observable with a given key @a k.
-         *
-         * @param k The key
-         */
-        observable(key_ref k) :
-            key_(k) {}
-
-        virtual ~observable() noexcept = default;
-
-        /**
-         * Add an observer for this observable.
-         *
-         * The observer is notified of changes to this observable's
-         * value.
-         *
-         * @param o The observer.
-         */
-        virtual void add_observer(observer::ref o) = 0;
-
-        /**
-         * Remove an observer for this observable.
-         *
-         * The observer, which was previously added using @a
-         * add_observer(), is removed and no longer notified of
-         * changes to this observable's value.
-         *
-         * **NOTE**:
-         *
-         * If @a add_observer() was called more than once
-         * for this observer, it @a remove_observer() must be called
-         * the same number of times before the observer is actually
-         * removed.
-         *
-         * @param o The observer.
-         */
-        virtual void remove_observer(observer::ref o) = 0;
-
-        /**
-         * Retrieve the key that uniquely identifies this cell.
-         */
-        key_ref key() const {
-            return key_;
-        }
-
-    protected:
-        /**
-         * The key identifying this observable.
-         */
-        key_ref key_;
-    };
-
-    /**
-     * Restricts `T` to types derived from `observable`.
+     * Observable types must the following methods:
+     *
+     * - void add_observer(observer::ref o);
+     *
+     *   Add observer `o` for this Observable.
+     *
+     * - void remove_observer(observer::ref o):
+     *
+     *   Remove observer `o` from the this Observable.
+     *
+     *   Implementations should only remove `o` after this method is
+     *   called the same number of times as add_observer was called
+     *   with the same observer `o`.
+     *
+     * - key_ref key() const;
+     *
+     *   Return a key that uniquely identifies the observable.
      */
     template <typename T>
-    concept Observable = std::derived_from<T, observable>;
+    concept Observable = requires(T o) {
+        { o.add_observer(observer::ref()) };
+        { o.remove_observer(observer::ref()) };
+        { o.key() } -> std::same_as<key_ref>;
+    };
+
 
     /**
-     * Polymorphic observable holder which allows an observable to be
-     * copied while preserving its runtime type.
+     * Polymorphic observable holder.
      *
-     * A statically typed observable cannot be copied or stored in a
-     * container, such as std::vector, unless its exact type is known
-     * at compile-time. This class wraps an observable and allows it
-     * to be copied while preserving its type.
-     *
-     * **NOTE**:
-     *
-     * When an observable_ref is copied, the underlying
-     * observable is still copied but its type is preserved.
+     * This class erases the types of Observables, so that an
+     * observable can be used and stored in containers, when its exact
+     * type is not known at compile-time.
      */
     class observable_ref {
     public:
         /**
-         * Create a polymorphic holder for @a observable.
-         *
-         * @param observable Pointer to the observable.
+         * Create an `observable_ref` that wraps the `Observable` `o`.
          */
-        observable_ref(std::shared_ptr<observable> observable) :
-            wrapped(observable) {}
+        template <Observable O>
+        observable_ref(O o) :
+            obs_ref(std::static_pointer_cast<ref_base>(std::make_shared<typed_ref<O>>(o))) {}
 
         /**
-         * Create a polymorphic holder for @a observable.
-         *
-         * @param observable The observable.
+         * Add an observer to the underlying Observable.
          */
-        template <typename T>
-        observable_ref(T o) :
-            wrapped(std::static_pointer_cast<observable>(std::make_shared<T>(o))) {}
-
-        /**
-         * Provide access to the wrapped observable.
-         */
-        observable *operator ->() {
-            return wrapped.get();
+        void add_observer(observer::ref obs) {
+            obs_ref->add_observer(obs);
         }
 
         /**
-         * Provide access to the wrapped observable.
+         * Remove an observer from the underlying Observable.
+         *
+         * NOTE: The observer is only removed when this method is
+         * called the same number of times `add_observer(obs)` was
+         * called for the same observer `obs`.
          */
-        const observable *operator ->() const {
-            return wrapped.get();
+        void remove_observer(observer::ref obs) {
+            obs_ref->remove_observer(obs);
         }
 
         /**
-         * Retrieve the value held by the observable.
-         *
-         * This method attempts to cast the reference to the
-         * underlying observable, to cell<T>.
-         *
-         * @return The value held by the observable.
-         *
-         * @throws std::bad_cast if the observable does not hold a
-         *   value of type T.
+         * Returns the key that uniquely identifies the underlying
+         * Observable.
          */
-        template <typename T>
-        T value() {
-            const observable &obs_ref = *wrapped;
-            const cell<T> &value_ref = dynamic_cast<const cell<T> &>(obs_ref);
-
-            return value_ref.value();
+        key_ref key() const {
+            return obs_ref->key();
         }
 
     private:
         /**
+         * Typeless wrapper interface.
+         */
+        struct ref_base {
+            virtual ~ref_base() = default;
+
+            virtual void add_observer(observer::ref obs) = 0;
+            virtual void remove_observer(observer::ref obs) = 0;
+
+            virtual key_ref key() const = 0;
+        };
+
+        /**
+         * Wrapper holding an observable of type O.
+         */
+        template <Observable O>
+        struct typed_ref : ref_base {
+            O observable;
+
+            typed_ref(O obs) : observable(obs) {}
+
+            virtual void add_observer(observer::ref obs) {
+                observable.add_observer(obs);
+            }
+
+            virtual void remove_observer(observer::ref obs) {
+                observable.remove_observer(obs);
+            }
+
+            virtual key_ref key() const {
+                return observable.key();
+            }
+        };
+
+        /**
          * Pointer to the wrapper holding the observable.
          */
-        std::shared_ptr<observable> wrapped;
-
+        std::shared_ptr<ref_base> obs_ref;
     };
 
     /**
-     * Compares to polymorphic observables by their keys.
+     * Compare two polymorphic observables by their keys.
      *
      * @param a A polymorphic observable
      * @param b A polymorphic observable
@@ -212,7 +179,7 @@ namespace live_cells {
      * @return true if the key of @a a is equal to the key of @a b.
      */
     inline bool operator==(const observable_ref &a, const observable_ref &b) {
-        return a->key() == b->key();
+        return a.key() == b.key();
     }
 
     inline bool operator!=(const observable_ref &a, const observable_ref &b) {
@@ -221,10 +188,11 @@ namespace live_cells {
 
 }  // live_cells
 
+
 template<>
 struct std::hash<live_cells::observable_ref> {
     std::size_t operator()(const live_cells::observable_ref &a) const noexcept {
-        return a->key()->hash();
+        return a.key()->hash();
     }
 };
 
