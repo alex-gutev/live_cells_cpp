@@ -96,9 +96,9 @@ public:
  * Cell state for testing the cell lifecycle.
  */
 template <typename T>
-class test_managed_cell : public live_cells::stateful_cell<T, test_managed_cell_state> {
+class test_managed_cell : public live_cells::stateful_cell<test_managed_cell_state> {
     /** Shorthand for parent class */
-    typedef live_cells::stateful_cell<T, test_managed_cell_state> parent;
+    typedef live_cells::stateful_cell<test_managed_cell_state> parent;
 
     /** Constant cell value */
     const T value_;
@@ -124,8 +124,13 @@ public:
         value_(cell.value_) {
     }
 
-    T value() const override {
+    T value() const {
         return value_;
+    }
+
+    T operator()() const {
+        live_cells::argument_tracker::global().track_argument(*this);
+        return value();
     }
 };
 

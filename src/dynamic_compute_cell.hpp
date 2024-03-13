@@ -127,8 +127,13 @@ namespace live_cells {
         dynamic_compute_cell(key_ref key, std::function<T()> compute) :
             parent(key, compute) {}
 
-        T value() const override {
+        T value() const {
             return this->state->value();
+        }
+
+        T operator()() const {
+            argument_tracker::global().track_argument(*this);
+            return value();
         }
     };
 

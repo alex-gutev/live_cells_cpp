@@ -85,6 +85,11 @@ namespace live_cells {
             // Do nothing
         }
 
+        T operator()() const {
+            // No need to track a constant cell
+            return m_value;
+        }
+
     private:
         const T m_value;
 

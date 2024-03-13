@@ -38,7 +38,7 @@ BOOST_AUTO_TEST_SUITE(dynamic_compute_cell)
 BOOST_AUTO_TEST_CASE(applied_on_constant_cell_value) {
     auto a = live_cells::value_cell(1);
     auto b = live_cells::computed([=] {
-        return use(a) + 1;
+        return a() + 1;
     });
 
     BOOST_CHECK_EQUAL(b.value(), 2);
@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_CASE(applied_on_constant_cell_value) {
 BOOST_AUTO_TEST_CASE(reevaluated_when_argument_cell_changes) {
     auto a = live_cells::variable(1);
     auto b = live_cells::computed([=] {
-        return use(a) + 1;
+        return a() + 1;
     });
 
     a.value(5);
@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(nary_compute_cell_reevaluated_when_1st_argument_cell_change
     auto b = live_cells::variable(2);
 
     auto c = live_cells::computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     });
 
     a.value(5);
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_CASE(nary_compute_cell_reevaluated_when_2nd_argument_cell_change
     auto b = live_cells::variable(2);
 
     auto c = live_cells::computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     });
 
     b.value(8);
@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_CASE(observers_notified_when_1st_argument_changes) {
     auto b = live_cells::variable(2);
 
     auto c = live_cells::computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     });
 
     auto observer = std::make_shared<simple_observer>();
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE(observers_notified_when_2nd_argument_changes) {
     auto b = live_cells::variable(2);
 
     auto c = live_cells::computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     });
 
     auto observer = std::make_shared<simple_observer>();
@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_CASE(observers_notified_on_each_change) {
     auto b = live_cells::variable(2);
 
     auto c = live_cells::computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     });
 
     auto observer = std::make_shared<simple_observer>();
@@ -136,7 +136,7 @@ BOOST_AUTO_TEST_CASE(observers_not_called_after_removal) {
     auto b = live_cells::variable(2);
 
     auto c = live_cells::computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     });
 
     auto observer = std::make_shared<simple_observer>();
@@ -158,7 +158,7 @@ BOOST_AUTO_TEST_CASE(all_observers_called) {
     auto b = live_cells::variable(2);
 
     auto c = live_cells::computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     });
 
     auto observer1 = std::make_shared<simple_observer>();
@@ -183,7 +183,7 @@ BOOST_AUTO_TEST_CASE(arguments_tracked_correctly_in_conditionals) {
     auto c = live_cells::variable(3);
 
     auto d = live_cells::computed([=] {
-        return use(a) ? use(b) : use(c);
+        return a() ? b() : c();
     });
 
     auto observer = std::make_shared<value_observer<int>>(d);
@@ -202,12 +202,12 @@ BOOST_AUTO_TEST_CASE(dynamic_cell_argument_tracked_correctly) {
     auto c = live_cells::variable(3);
 
     auto d = live_cells::computed([=] {
-        return use(a) ? use(b) : use(c);
+        return a() ? b() : c();
     });
 
     auto e = live_cells::variable(0);
     auto f = live_cells::computed([=] {
-        return use(d) + use(e);
+        return d() + e();
     });
 
     auto observer = std::make_shared<value_observer<int>>(f);
@@ -224,11 +224,11 @@ BOOST_AUTO_TEST_CASE(dynamic_cell_argument_tracked_correctly) {
 BOOST_AUTO_TEST_CASE(value_preserved_when_none_called) {
     auto a = live_cells::variable(10);
     auto evens = live_cells::computed([=] {
-        if ((use(a) % 2) != 0) {
+        if ((a() % 2) != 0) {
             live_cells::none();
         }
 
-        return use(a);
+        return a();
     });
 
     auto observer = std::make_shared<value_observer<int>>(evens);
@@ -273,11 +273,11 @@ BOOST_AUTO_TEST_CASE(compares_equal_if_same_key) {
     auto b = live_cells::variable(1);
 
     live_cells::observable_ref c1 = live_cells::computed(key_ref::create<key_type>("the-key"), [=] {
-        return use(a) + use(b);
+        return a() + b();
     });
 
     live_cells::observable_ref c2 = live_cells::computed(key_ref::create<key_type>("the-key"), [=] {
-        return use(a) + use(b);
+        return a() + b();
     });
 
     std::hash<live_cells::observable_ref> hash;
@@ -296,11 +296,11 @@ BOOST_AUTO_TEST_CASE(compares_not_equal_if_same_key) {
     auto b = live_cells::variable(1);
 
     live_cells::observable_ref c1 = live_cells::computed(key_ref::create<key_type>("the-key1"), [=] {
-        return use(a) + use(b);
+        return a() + b();
     });
 
     live_cells::observable_ref c2 = live_cells::computed(key_ref::create<key_type>("the-key2"), [=] {
-        return use(a) + use(b);
+        return a() + b();
     });
 
     BOOST_CHECK(c1 != c2);
@@ -312,11 +312,11 @@ BOOST_AUTO_TEST_CASE(compares_not_equal_with_default_key) {
     auto b = live_cells::variable(1);
 
     live_cells::observable_ref c1 = live_cells::computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     });
 
     live_cells::observable_ref c2 = live_cells::computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     });
 
     BOOST_CHECK(c1 != c2);
@@ -333,7 +333,7 @@ BOOST_AUTO_TEST_CASE(keyed_cells_manage_same_observers) {
 
         auto f = [=] {
             return live_cells::computed(key, [=] {
-                return use(a) + 1;
+                return a() + 1;
             });
         };
 
@@ -362,7 +362,7 @@ BOOST_AUTO_TEST_CASE(keyed_cell_state_reinitialized_on_add_observer_post_dispose
 
     auto f = [=] {
         return live_cells::computed(key, [=] {
-            return use(a) + 1;
+            return a() + 1;
         });
     };
 

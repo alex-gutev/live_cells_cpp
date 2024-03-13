@@ -24,6 +24,7 @@
 
 #include "cell_state.hpp"
 #include "stateful_cell.hpp"
+#include "tracker.hpp"
 
 namespace live_cells {
 
@@ -197,6 +198,11 @@ namespace live_cells {
          */
         void value(T value) const {
             this->state->value(value);
+        }
+
+        T operator()() const {
+            argument_tracker::global().track_argument(*this);
+            return value();
         }
     };
 
