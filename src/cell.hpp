@@ -92,7 +92,7 @@ namespace live_cells {
         /**
          * Retrieve the value held by the underlying Cell.
          */
-        T value() {
+        T value() const {
             return ref->value();
         }
 
