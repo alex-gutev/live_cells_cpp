@@ -154,6 +154,8 @@ namespace live_cells {
         typedef stateful_cell<mutable_cell_state<T>> parent;
 
     public:
+        typedef T value_type;
+
         /**
          * Create a mutable cell with a default initialized value.
          */

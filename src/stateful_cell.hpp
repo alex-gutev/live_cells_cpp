@@ -22,7 +22,7 @@
 
 #include <memory>
 
-#include "cell.hpp"
+#include "observable.hpp"
 #include "cell_state.hpp"
 
 namespace live_cells {

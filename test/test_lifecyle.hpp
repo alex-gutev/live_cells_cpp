@@ -104,6 +104,8 @@ class test_managed_cell : public live_cells::stateful_cell<test_managed_cell_sta
     const T value_;
 
 public:
+    typedef T value_type;
+
     /**
      * Create a cell for testing the cell lifecycle.
      *

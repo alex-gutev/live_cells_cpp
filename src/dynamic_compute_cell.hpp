@@ -108,6 +108,8 @@ namespace live_cells {
         typedef stateful_cell<dynamic_compute_cell_state<T>> parent;
 
     public:
+        typedef T value_type;
+
         /**
          * Create a dynamic computed cell with a given value
          * computation function.

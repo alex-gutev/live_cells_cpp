@@ -36,6 +36,7 @@ namespace live_cells {
     template <typename T, Observable... Ts>
     class compute_cell : public dependent_cell<T, Ts...> {
     public:
+        typedef T value_type;
         /**
          * Create a cell with a value that is a function of the values
          * of the cells @a args.

@@ -1,7 +1,7 @@
 #ifndef LIVE_CELLS_ERRORS_HPP
 #define LIVE_CELLS_ERRORS_HPP
 
-#include "cell.hpp"
+#include "observable.hpp"
 #include "computed.hpp"
 #include "store_cell.hpp"
 

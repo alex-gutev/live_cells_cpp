@@ -22,7 +22,7 @@
 
 #include "keys.hpp"
 #include "observable.hpp"
-#include "cell.hpp"
+#include "observable.hpp"
 
 #include "constant_cell.hpp"
 #include "mutable_cell.hpp"

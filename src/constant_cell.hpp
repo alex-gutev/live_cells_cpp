@@ -23,7 +23,7 @@
 #include <functional>
 #include <memory>
 
-#include "cell.hpp"
+#include "observable.hpp"
 
 namespace live_cells {
 
@@ -62,6 +62,8 @@ namespace live_cells {
     template <typename T>
     class constant_cell {
     public:
+        typedef T value_type;
+
         /**
          * Construct a cell with a constant value.
          *

@@ -24,7 +24,7 @@
 #include <memory>
 
 #include "keys.hpp"
-#include "cell.hpp"
+#include "observable.hpp"
 
 namespace live_cells {
     /**

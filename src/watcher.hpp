@@ -25,7 +25,7 @@
 #include <unordered_set>
 
 #include "keys.hpp"
-#include "cell.hpp"
+#include "observable.hpp"
 #include "tracker.hpp"
 
 namespace live_cells {

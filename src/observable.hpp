@@ -61,6 +61,12 @@ namespace live_cells {
     /**
      * Concept defining an observable object.
      *
+     * Observables must define the following types:
+     *
+     * - value_type
+     *
+     *   The type of value held by the observable.
+     *
      * Observable types must the following methods:
      *
      * - void add_observer(observer::ref o);
@@ -75,6 +81,10 @@ namespace live_cells {
      *   called the same number of times as add_observer was called
      *   with the same observer `o`.
      *
+     * - value_type value() const;
+     *
+     *   Return the value held by the observable.
+     *
      * - key_ref key() const;
      *
      *   Return a key that uniquely identifies the observable.
@@ -83,6 +93,7 @@ namespace live_cells {
     concept Observable = requires(T o) {
         { o.add_observer(observer::ref()) };
         { o.remove_observer(observer::ref()) };
+        { o.value() } -> std::same_as<typename T::value_type>;
         { o.key() } -> std::same_as<key_ref>;
     };
 
@@ -129,6 +140,22 @@ namespace live_cells {
             return obs_ref->key();
         }
 
+        /**
+         * Retrieve the value held by the observable.
+         *
+         * This method attempts to cast the underlying observable to
+         * an observable holding a value of type `T`. If the
+         * underlying observable does not hold a value of type `T` an
+         * std::bad_cast exception is thrown.
+         */
+        template <typename T>
+        T value() const {
+            auto &base = *obs_ref;
+            auto &typed = dynamic_cast<typed_ref_base<T>&>(base);
+
+            return typed.value();
+        }
+
     private:
         /**
          * Typeless wrapper interface.
@@ -143,24 +170,37 @@ namespace live_cells {
         };
 
         /**
+         * Base wrapper interface for observables holding values of
+         * type T.
+         */
+        template <typename T>
+        struct typed_ref_base : ref_base {
+            virtual T value() const = 0;
+        };
+
+        /**
          * Wrapper holding an observable of type O.
          */
         template <Observable O>
-        struct typed_ref : ref_base {
+        struct typed_ref : typed_ref_base<typename O::value_type> {
             O observable;
 
             typed_ref(O obs) : observable(obs) {}
 
-            virtual void add_observer(observer::ref obs) {
+            void add_observer(observer::ref obs) override {
                 observable.add_observer(obs);
             }
 
-            virtual void remove_observer(observer::ref obs) {
+            void remove_observer(observer::ref obs) override {
                 observable.remove_observer(obs);
             }
 
-            virtual key_ref key() const {
+            key_ref key() const override {
                 return observable.key();
+            }
+
+            O::value_type value() const override {
+                return observable.value();
             }
         };
 

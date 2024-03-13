@@ -1,7 +1,7 @@
 #ifndef LIVE_CELLS_NUMERIC_HPP
 #define LIVE_CELLS_NUMERIC_HPP
 
-#include "cell.hpp"
+#include "observable.hpp"
 #include "computed.hpp"
 
 namespace live_cells {

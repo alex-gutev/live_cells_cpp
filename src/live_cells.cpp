@@ -23,7 +23,7 @@
 #include "cell_state.hpp"
 #include "mutable_cell.hpp"
 #include "tracker.hpp"
-#include "cell.hpp"
+#include "observable.hpp"
 
 /* Keys */
 
