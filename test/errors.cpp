@@ -19,11 +19,11 @@ BOOST_AUTO_TEST_SUITE(error_handling)
 BOOST_AUTO_TEST_CASE(on_error_catch_all) {
     auto a = live_cells::variable(1);
     auto b = live_cells::computed([=] () {
-        if (use(a) <= 0) {
+        if (a() <= 0) {
             throw an_exception();
         }
 
-        return use(a);
+        return a();
     });
 
     auto c = live_cells::variable(2);
@@ -45,14 +45,14 @@ BOOST_AUTO_TEST_CASE(on_error_catch_all) {
 BOOST_AUTO_TEST_CASE(on_error_with_exception_type) {
     auto a = live_cells::variable(1);
     auto b = live_cells::computed([=] () {
-        if (use(a) < 0) {
+        if (a() < 0) {
             throw an_exception();
         }
-        else if (use(a) == 0) {
+        else if (a() == 0) {
             throw std::invalid_argument("A cannot be 0");
         }
 
-        return use(a);
+        return a();
     });
 
     auto c = live_cells::variable(2);
