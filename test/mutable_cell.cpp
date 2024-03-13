@@ -141,8 +141,8 @@ BOOST_AUTO_TEST_CASE(batch_updates) {
         b.value(2);
     });
 
-    BOOST_CHECK(observer1->values == std::vector<int>({1}));
-    BOOST_CHECK(observer2->values == std::vector<int>({2}));
+    observer1->check_values({1});
+    observer2->check_values({2});
 }
 
 BOOST_AUTO_TEST_SUITE_END()

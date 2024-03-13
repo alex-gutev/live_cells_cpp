@@ -50,7 +50,7 @@ struct value_observer : live_cells::observer {
     /**
      * The observed cell
      */
-    const live_cells::cell<T> &cell;
+    const live_cells::cell_ref<T> cell;
 
     /**
      * The values of the cell for every update() call.
@@ -62,7 +62,7 @@ struct value_observer : live_cells::observer {
      *
      * @param cell The cell being observed.
      */
-    value_observer(const live_cells::cell<T> &cell) :
+    value_observer(const live_cells::cell_ref<T> &cell) :
         cell(cell) {}
 
     void will_update(const live_cells::key_ref &k) override {}
@@ -97,12 +97,12 @@ struct value_observer : live_cells::observer {
 /**
  * Manages the adding and removing of a cell observer.
  */
-template <typename T>
+template <live_cells::Observable O, typename T>
 class observer_guard {
     /**
      * The observed cell
      */
-    live_cells::observable &cell;
+    O &cell;
 
     /**
      * The observer
@@ -118,14 +118,14 @@ public:
      * @param cell     The cell to observe
      * @param observer The observer
      */
-    observer_guard(live_cells::observable &cell, std::shared_ptr<T> observer) :
+    observer_guard(O &cell, std::shared_ptr<T> observer) :
         cell(cell),
         observer(observer) {
         cell.add_observer(observer);
     }
 
-    observer_guard(const observer_guard<T> &) = delete;
-    observer_guard(observer_guard<T>&& g) :
+    observer_guard(const observer_guard &) = delete;
+    observer_guard(observer_guard&& g) :
         cell(g.cell) {
         observer.swap(g.observer);
     }
@@ -136,7 +136,7 @@ public:
         }
     }
 
-    observer_guard &operator ==(const observer_guard<T> &) = delete;
+    observer_guard &operator ==(const observer_guard &) = delete;
 };
 
 /**
@@ -148,9 +148,9 @@ public:
  * @return An observer_guard that removes the observer when the guard
  *   object is destroyed.
  */
-template <typename T>
-observer_guard<T> with_observer(live_cells::observable &cell, std::shared_ptr<T> observer) {
-    return observer_guard<T>(cell, observer);
+template <live_cells::Observable O, typename T>
+auto with_observer(O &cell, std::shared_ptr<T> observer) {
+    return observer_guard<O,T>(cell, observer);
 }
 
 template <typename T>

@@ -146,11 +146,11 @@ namespace live_cells {
      * A stateful cell which can have its value set directly.
      */
     template<typename T>
-    class mutable_cell : public stateful_cell<T, mutable_cell_state<T>> {
+    class mutable_cell : public stateful_cell<mutable_cell_state<T>> {
         /**
          * Shorthand for parent class
          */
-        typedef stateful_cell<T, mutable_cell_state<T>> parent;
+        typedef stateful_cell<mutable_cell_state<T>> parent;
 
     public:
         /**
@@ -183,7 +183,7 @@ namespace live_cells {
             parent(key, value) {
         }
 
-        T value() const override {
+        T value() const {
             return this->state->value();
         }
 

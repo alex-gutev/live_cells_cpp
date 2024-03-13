@@ -36,9 +36,11 @@ namespace live_cells {
      * while still pointing to the same shared state.
      *
      * @a S is the class which will be used to hold the cell's state.
+     *
+     * NOTE: This class is not meant to be used polymorphically.
      */
-    template <typename T, typename S>
-    class stateful_cell : public cell<T> {
+    template <typename S>
+    class stateful_cell {
     public:
         /**
          * Create a stateful cell and associate it with a state.
@@ -60,19 +62,28 @@ namespace live_cells {
          */
         template <typename... Args>
         stateful_cell(key_ref k, Args... args) :
-            cell<T>(k),
+            key_(k),
             state(state_manager::global().get<S>(k, args...)) {
         }
 
-        void add_observer(observer::ref o) override {
+        key_ref key() const {
+            return key_;
+        }
+
+        void add_observer(observer::ref o) {
             state->add_observer(o);
         }
 
-        void remove_observer(observer::ref o) override {
+        void remove_observer(observer::ref o) {
             state->remove_observer(o);
         }
 
     protected:
+        /**
+         * Key identifying the cell
+         */
+        const key_ref key_;
+
         /**
          * Reference to the cell's state.
          */
