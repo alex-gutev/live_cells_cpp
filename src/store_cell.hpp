@@ -58,7 +58,7 @@ namespace live_cells {
         void init() override {
             parent::init();
 
-            cell->add_observer(this->observer_ptr());
+            cell.add_observer(this->observer_ptr());
 
             try {
                 // Compute the initial value
@@ -70,7 +70,7 @@ namespace live_cells {
         }
 
         void pause() override {
-            cell->remove_observer(this->observer_ptr());
+            cell.remove_observer(this->observer_ptr());
             parent::pause();
         }
 
@@ -83,7 +83,6 @@ namespace live_cells {
          * Store cell argument cell
          */
         observable_ref cell;
-
     };
 
     /**
@@ -94,11 +93,11 @@ namespace live_cells {
      * it is accessed.
      */
     template <typename T>
-    class store_cell : public stateful_cell<T, store_cell_state<T>> {
+    class store_cell : public stateful_cell<store_cell_state<T>> {
         /**
          * Shorthand for parent class
          */
-        typedef stateful_cell<T, store_cell_state<T>> parent;
+        typedef stateful_cell<store_cell_state<T>> parent;
 
         /**
          * Cell key type
@@ -106,6 +105,8 @@ namespace live_cells {
         typedef store_cell_key<observable_ref> key_type;
 
     public:
+        typedef T value_type;
+
         /**
          * Create a store cell.
          *
@@ -117,7 +118,7 @@ namespace live_cells {
         store_cell(observable_ref cell) :
             parent(key_ref::create<key_type>(cell), cell) {}
 
-        T value() const override {
+        T value() const {
             return this->state->value();
         }
     };
@@ -136,9 +137,9 @@ namespace live_cells {
      * @return A cell which has the same value as @a cell, but caches
      * it in memory when it hasn't changed.
      */
-    template <typename T>
-    auto store(const T &cell) {
-        return store_cell<typename T::value_type>(observable_ref(cell));
+    template <Observable C>
+    auto store(const C &cell) {
+        return store_cell<typename C::value_type>(observable_ref(cell));
     }
 
 }  // live_cells
