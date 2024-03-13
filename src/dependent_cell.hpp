@@ -34,8 +34,8 @@ namespace live_cells {
      * The observers of this cell are notified when the values of the
      * argument cells change.
      */
-    template <typename T, typename... Ts>
-    class dependent_cell : public cell<T> {
+    template <typename T, Observable... Ts>
+    class dependent_cell {
     public:
 
         /**
@@ -47,7 +47,9 @@ namespace live_cells {
          *
          * @param args Argument cells
          */
-        dependent_cell(Ts... args) : observable(args...) {}
+        dependent_cell(Ts... args) :
+            key_(key_ref::create<unique_key>()),
+            observable(args...) {}
 
         /**
          * Create a cell with a value dependent on the argument cells
@@ -60,18 +62,23 @@ namespace live_cells {
          * @param key Key identifying cell
          */
         dependent_cell(key_ref key, Ts... args) :
-            cell<T>(key),
+            key_(key),
             observable(args...) {}
 
-        void add_observer(observer::ref o) override {
+        void add_observer(observer::ref o) {
             observable.add_observer(o);
         }
 
-        void remove_observer(observer::ref o) override {
+        void remove_observer(observer::ref o) {
             observable.remove_observer(o);
         }
 
+        key_ref key() const {
+            return key_;
+        }
+
     protected:
+        const key_ref key_;
         merged_observable<Ts...> observable;
     };
 

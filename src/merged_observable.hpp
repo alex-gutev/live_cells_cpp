@@ -28,8 +28,8 @@ namespace live_cells {
      * This class allows an observer to be added to multiple
      * observables simultaneously via a single observable object.
      */
-    template <typename T, typename... Ts>
-    class merged_observable : public observable {
+    template <Observable T, Observable... Ts>
+    class merged_observable {
     public:
 
         /**
@@ -46,12 +46,12 @@ namespace live_cells {
             first(first),
             rest(rest...) {}
 
-        void add_observer(observer::ref o) override {
+        void add_observer(observer::ref o) {
             first.add_observer(o);
             rest.add_observer(o);
         }
 
-        void remove_observer(observer::ref o) override {
+        void remove_observer(observer::ref o) {
             first.remove_observer(o);
             rest.remove_observer(o);
         }
@@ -61,17 +61,17 @@ namespace live_cells {
         merged_observable<Ts...> rest;
     };
 
-    template <typename T>
-    class merged_observable<T> : public observable {
+    template <Observable T>
+    class merged_observable<T> {
     public:
 
         merged_observable(T o) : first(o) {}
 
-        void add_observer(observer::ref o) override {
+        void add_observer(observer::ref o) {
             first.add_observer(o);
         }
 
-        void remove_observer(observer::ref o) override {
+        void remove_observer(observer::ref o) {
             first.remove_observer(o);
         }
 

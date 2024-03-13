@@ -56,7 +56,7 @@ namespace live_cells {
                 if (!arguments.count(cell)) {
                     arguments.emplace(cell);
 
-                    cell->add_observer(this->observer_ptr());
+                    cell.add_observer(this->observer_ptr());
                 }
             });
 
@@ -90,7 +90,7 @@ namespace live_cells {
             compute_cell_state<T>::pause();
 
             for (auto arg : arguments) {
-                arg->remove_observer(this->observer_ptr());
+                arg.remove_observer(this->observer_ptr());
             }
 
             arguments.clear();
@@ -101,11 +101,11 @@ namespace live_cells {
      * A computed cell which determines its argument cells at runtime.
      */
     template <typename T>
-    class dynamic_compute_cell : public stateful_cell<T, dynamic_compute_cell_state<T>> {
+    class dynamic_compute_cell : public stateful_cell<dynamic_compute_cell_state<T>> {
         /**
          * Shorthand for parent class
          */
-        typedef stateful_cell<T, dynamic_compute_cell_state<T>> parent;
+        typedef stateful_cell<dynamic_compute_cell_state<T>> parent;
 
     public:
         /**

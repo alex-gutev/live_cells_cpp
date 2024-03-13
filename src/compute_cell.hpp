@@ -20,6 +20,8 @@
 #ifndef LIVE_CELLS_COMPUTE_CELL_HPP
 #define LIVE_CELLS_COMPUTE_CELL_HPP
 
+#include <concepts>
+
 #include "dependent_cell.hpp"
 
 namespace live_cells {
@@ -31,7 +33,7 @@ namespace live_cells {
      * The value computation function is provided to this class on
      * construction.
      */
-    template <typename T, typename... Ts>
+    template <typename T, Observable... Ts>
     class compute_cell : public dependent_cell<T, Ts...> {
     public:
         /**
@@ -62,7 +64,7 @@ namespace live_cells {
             dependent_cell<T, Ts...>(key, args...),
             compute(compute) {}
 
-        T value() const override {
+        T value() const {
             return compute();
         }
 
@@ -70,6 +72,40 @@ namespace live_cells {
         const std::function<T()> compute;
 
     };
+
+    /**
+     * Create a stateless computed cell with a given compute value
+     * function and argument observables.
+     *
+     * @param f A function of no arguments, called to compute the
+     *    value of the cell.
+     *
+     * @param args List of argument Observables on which the value of
+     *   this cell depends.
+     *
+     * @return The computed cell.
+     */
+    auto make_compute_cell(std::invocable auto f, auto... args) {
+        return compute_cell<decltype(f()), decltype(args)...>(f, args...);
+    }
+
+    /**
+     * Create a stateless computed cell with a given compute value
+     * function and argument observables.
+     *
+     * @param key Key identifying the cell.
+     *
+     * @param f A function of no arguments, called to compute the
+     *    value of the cell.
+     *
+     * @param args List of argument Observables on which the value of
+     *   this cell depends.
+     *
+     * @return The computed cell.
+     */
+    auto make_compute_cell(key_ref key, std::invocable auto f, auto... args) {
+        return compute_cell<decltype(f()), decltype(args)...>(key, f, args...);
+    }
 
 }  // live_cells
 
