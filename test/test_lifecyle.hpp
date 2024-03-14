@@ -23,6 +23,7 @@
 #include <memory>
 
 #include "stateful_cell.hpp"
+#include "tracker.hpp"
 
 /**
  * Tracks the number of times each cell state lifecycle method was
