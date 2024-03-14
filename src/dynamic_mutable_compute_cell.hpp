@@ -59,7 +59,7 @@ namespace live_cells {
                 if (!this->arguments.count(cell)) {
                     this->arguments.emplace(cell);
 
-                    cell->add_observer(this->observer_ptr());
+                    cell.add_observer(this->observer_ptr());
                 }
             });
 
@@ -119,7 +119,7 @@ namespace live_cells {
         dynamic_mutable_compute_cell(C&& compute, R&& reverse) :
             parent(key_ref::create<unique_key>(), std::forward<C>(compute), std::forward<R>(reverse)) {}
 
-        T value() const override {
+        T value() const {
             return this->state->value();
         }
 
@@ -136,6 +136,10 @@ namespace live_cells {
             this->state->value(value);
         }
 
+        T operator()() const {
+            argument_tracker::global().track_argument(*this);
+            return value();
+        }
     };
 
 }  // live_cells

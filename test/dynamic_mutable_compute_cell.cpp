@@ -35,15 +35,13 @@
 #include "test_util.hpp"
 #include "test_lifecyle.hpp"
 
-using live_cells::use;
-
 BOOST_AUTO_TEST_SUITE(dynamic_mutable_compute_cell)
 
 BOOST_AUTO_TEST_CASE(value_computed_on_construction) {
     auto a = live_cells::variable(1);
 
     auto b = live_cells::mutable_computed([=] {
-        return use(a) + 1;
+        return a() + 1;
     }, [=] (auto b) {
         a.value(b - 1);
     });
@@ -55,7 +53,7 @@ BOOST_AUTO_TEST_CASE(value_recomputed_when_argument_cell_changes) {
     auto a = live_cells::variable(1);
 
     auto b = live_cells::mutable_computed([=] {
-        return use(a) + 1;
+        return a() + 1;
     }, [=] (auto b) {
         a.value(b - 1);
     });
@@ -71,7 +69,7 @@ BOOST_AUTO_TEST_CASE(value_recomputed_when_1st_argument_cell_changes) {
     auto b = live_cells::variable(3.0);
 
     auto c = live_cells::mutable_computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     }, [=] (auto c) {
         auto half = c / 2;
 
@@ -90,7 +88,7 @@ BOOST_AUTO_TEST_CASE(value_recomputed_when_2nd_argument_cell_changes) {
     auto b = live_cells::variable(3.0);
 
     auto c = live_cells::mutable_computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     }, [=] (auto c) {
         auto half = c / 2;
 
@@ -109,7 +107,7 @@ BOOST_AUTO_TEST_CASE(observers_notified_when_value_recomputed) {
     auto b = live_cells::variable(3.0);
 
     auto c = live_cells::mutable_computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     }, [=] (auto c) {
         auto half = c / 2;
 
@@ -131,7 +129,7 @@ BOOST_AUTO_TEST_CASE(observer_not_called_after_removal) {
     auto b = live_cells::variable(3.0);
 
     auto c = live_cells::mutable_computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     }, [=] (auto c) {
         auto half = c / 2;
 
@@ -160,7 +158,7 @@ BOOST_AUTO_TEST_CASE(set_value_updates_argument_cell_values) {
     auto b = live_cells::variable(3.0);
 
     auto c = live_cells::mutable_computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     }, [=] (auto c) {
         auto half = c / 2;
 
@@ -180,7 +178,7 @@ BOOST_AUTO_TEST_CASE(set_value_notifies_observers) {
     auto b = live_cells::variable(3.0);
 
     auto c = live_cells::mutable_computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     }, [=] (auto c) {
         auto half = c / 2;
 
@@ -208,7 +206,7 @@ BOOST_AUTO_TEST_CASE(every_set_value_notifies_observers) {
     auto b = live_cells::variable(3.0);
 
     auto c = live_cells::mutable_computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     }, [=] (auto c) {
         auto half = c / 2;
 
@@ -237,7 +235,7 @@ BOOST_AUTO_TEST_CASE(consistent_state_when_setting_value_in_batch) {
     auto b = live_cells::variable(3.0);
 
     auto c = live_cells::mutable_computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     }, [=] (auto c) {
         auto half = c / 2;
 
@@ -274,7 +272,7 @@ BOOST_AUTO_TEST_CASE(observers_notified_correct_number_of_times_when_set_value_i
     auto b = live_cells::variable(3.0);
 
     auto c = live_cells::mutable_computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     }, [=] (auto c) {
         auto half = c / 2;
 
@@ -311,7 +309,7 @@ BOOST_AUTO_TEST_CASE(all_observers_notified_correct_number_of_times_when_set_val
     auto b = live_cells::variable(2);
 
     auto sum = live_cells::mutable_computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     }, [=] (auto c) {
         auto half = c / 2;
 
@@ -352,7 +350,7 @@ BOOST_AUTO_TEST_CASE(correct_values_produced_across_all_observers) {
     auto b = live_cells::variable(2);
 
     auto sum = live_cells::mutable_computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     }, [=] (auto c) {
         auto half = c / 2;
 
@@ -394,7 +392,7 @@ BOOST_AUTO_TEST_CASE(arguments_tracked_when_using_conditionals) {
     auto c = live_cells::variable(3);
 
     auto d = live_cells::mutable_computed([=] {
-        return use(a) ? use(b) : use(c);
+        return a() ? b() : c();
     }, [=] (auto d) {
         a.value(true);
         b.value(d);
@@ -417,7 +415,7 @@ BOOST_AUTO_TEST_CASE(arguments_tracked_when_argument_is_dynamic_mutable_compute_
     auto c = live_cells::variable(3);
 
     auto d = live_cells::mutable_computed([=] {
-        return use(a) ? use(b) : use(c);
+        return a() ? b() : c();
     }, [=] (auto d) {
         a.value(true);
         b.value(d);
@@ -427,7 +425,7 @@ BOOST_AUTO_TEST_CASE(arguments_tracked_when_argument_is_dynamic_mutable_compute_
     auto e = live_cells::variable(0);
 
     auto f = live_cells::mutable_computed([=] {
-        return use(d) + use(e);
+        return d() + e();
     }, [=] (auto f) {
         auto half = f / 2;
 
@@ -450,25 +448,25 @@ BOOST_AUTO_TEST_CASE(no_intermediate_values_with_unequal_branches) {
     auto a = live_cells::variable(0);
 
     auto sum1 = live_cells::mutable_computed([=] {
-        return use(a) + 1;
+        return a() + 1;
     }, [=] (auto v) {
         // Not necessary for this test
     });
 
     auto sum = live_cells::mutable_computed([=] {
-        return use(sum1) + 10;
+        return sum1() + 10;
     }, [=] (auto v) {
         // Not necessary for this test
     });
 
     auto prod = live_cells::mutable_computed([=] {
-        return use(a) * 8;
+        return a() * 8;
     }, [=] (auto v) {
         // Not necessary for this test
     });
 
     auto result = live_cells::mutable_computed([=] {
-        return use(sum) + use(prod);
+        return sum() + prod();
     }, [=] (auto v) {
         // Not necessary for this test
     });
@@ -492,13 +490,13 @@ BOOST_AUTO_TEST_CASE(no_intermediate_values_with_batch_set) {
     auto select = live_cells::variable(true);
 
     auto sum = live_cells::mutable_computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     }, [=] (auto v) {
         // Not necessary for this test
     });
 
     auto result = live_cells::mutable_computed([=] {
-        return use(select) ? use(c) : use(sum);
+        return select() ? c() : sum();
     }, [=] (auto v) {
         // Not necessary for this test
     });
@@ -524,11 +522,11 @@ BOOST_AUTO_TEST_CASE(previous_value_preserved_when_none_used) {
     auto a = live_cells::variable(0);
 
     auto evens = live_cells::mutable_computed([=] {
-        if (use(a) % 2) {
+        if (a() % 2) {
             live_cells::none();
         }
 
-        return use(a);
+        return a();
     }, [=] (auto v) {
         a.value(v);
     });
@@ -548,11 +546,11 @@ BOOST_AUTO_TEST_CASE(previous_value_preserved_when_none_used) {
 BOOST_AUTO_TEST_CASE(exception_in_init_handled) {
     auto a = live_cells::variable(0);
     auto cell = live_cells::mutable_computed([=] {
-        if (use(a) == 0) {
+        if (a() == 0) {
             throw an_exception();
         }
 
-        return use(a);
+        return a();
     }, [=] (auto v) {
         a.value(v);
     });
@@ -563,11 +561,11 @@ BOOST_AUTO_TEST_CASE(exception_in_init_handled) {
 BOOST_AUTO_TEST_CASE(exception_in_init_reproduced_on_access_while_observed) {
     auto a = live_cells::variable(0);
     auto cell = live_cells::mutable_computed([=] {
-        if (use(a) == 0) {
+        if (a() == 0) {
             throw an_exception();
         }
 
-        return use(a);
+        return a();
     }, [=] (auto v) {
         a.value(v);
     });
