@@ -24,6 +24,7 @@
 #include <tuple>
 #include <utility>
 
+#include "make_cell.hpp"
 #include "compute_cell.hpp"
 #include "mutable_cell.hpp"
 
@@ -33,10 +34,13 @@ namespace live_cells {
      * value, nor tracks observers.
      */
     template <std::invocable F, typename R, typename... Os>
-    class mutable_cell_view : public compute_cell<F, Os...> {
+    class mutable_cell_view_base : public compute_cell_base<F, Os...> {
 
         /** Shorthand for parent class */
-        typedef compute_cell<F, Os...> parent;
+        typedef compute_cell_base<F, Os...> parent;
+
+        /** Shorthand for the type of value held by this cell */
+        typedef std::invoke_result_t<F> value_type;
 
     public:
         using parent::value;
@@ -58,32 +62,8 @@ namespace live_cells {
          *
          * @param args Arguments to @a compute
          */
-        mutable_cell_view(F compute, R reverse, Os... args) :
+        mutable_cell_view_base(F compute, R reverse, Os... args) :
             parent(compute, args...),
-            reverse(reverse) {}
-
-
-        /**
-         * Create a stateless mutable computed cell.
-         *
-         * @param key Key identifying the cell.
-         *
-         * @param compute Compute value function.
-         *
-         *   This function should compute the cell's value as a
-         *   function of the cells in @a args.
-         *
-         * @param reverse Reverse computation function.
-         *
-         *   This function should set the values of the cells in @a
-         *   args, such that @a compute returns the same value as the
-         *   value that was assigned to the cell, which is passed to
-         *   this function.
-         *
-         * @param args Arguments to @a compute
-         */
-        mutable_cell_view(key_ref key, F compute, R reverse, Os... args) :
-            parent(key, compute, args...),
             reverse(reverse) {}
 
         /**
@@ -91,7 +71,7 @@ namespace live_cells {
          *
          * @param value The value to which to set the cell.
          */
-        void value(parent::value_type value) {
+        void value(value_type value) {
             batch([&] {
                 reverse(value);
             });
@@ -100,6 +80,13 @@ namespace live_cells {
     private:
         const R reverse;
     };
+
+    /**
+     * Static mutable computed cell class that satisfies the `Cell`
+     * concept constraints.
+     */
+    template <std::invocable F, typename R, Cell... Ts>
+    using mutable_cell_view = make_mutable_cell<mutable_cell_view_base<F,R,Ts...>>;
 
     /**
      * Create a stateless mutable computed cell with a given compute

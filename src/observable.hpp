@@ -56,6 +56,36 @@ namespace live_cells {
     };
 
     /**
+     * Concept defining an object which can be identified by a key.
+     *
+     * The following methods are required:
+     *
+     * - key_ref key()
+     *
+     *   Return the key, which identifies the object.
+     */
+    template <typename T>
+    concept Keyable = requires(const T &o) {
+        { o.key() } -> std::same_as<key_ref>;
+    };
+
+    /**
+     * Concept defining an observable that can be tracked dynamically
+     * as a dependency.
+     *
+     * The following methods are required:
+     *
+     * - operator()
+     *
+     *   Return the observable's value and register it as a
+     *   dependency.
+     */
+    template <typename T>
+    concept Trackable = requires(const T &o) {
+        { o() } -> std::same_as<decltype(o.value())>;
+    };
+
+    /**
      * Concept defining an observable object.
      *
      * Cells must define the following types:

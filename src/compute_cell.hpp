@@ -24,7 +24,7 @@
 #include <type_traits>
 
 #include "dependent_cell.hpp"
-#include "tracker.hpp"
+#include "make_cell.hpp"
 
 namespace live_cells {
 
@@ -36,9 +36,8 @@ namespace live_cells {
      * construction.
      */
     template <std::invocable F, Cell... Ts>
-    class compute_cell : public dependent_cell<std::invoke_result_t<F>, Ts...> {
+    class compute_cell_base : public dependent_cell<Ts...> {
     public:
-        typedef std::invoke_result_t<F> value_type;
         /**
          * Create a cell with a value that is a function of the values
          * of the cells @a args.
@@ -48,38 +47,25 @@ namespace live_cells {
          *
          * @param args Argument cell observables
          */
-        compute_cell(F compute, Ts... args) :
-            dependent_cell<value_type, Ts...>(args...),
+        compute_cell_base(F compute, Ts... args) :
+            dependent_cell<Ts...>(args...),
             compute(compute) {}
 
-        /**
-         * Create a cell with a value that is a function of the values
-         * of the cells @a args.
-         *
-         * @param key Key identifying cell
-         *
-         * @param compute A function of no arguments, that is called
-         *   to compute the cell's value when necessary.
-         *
-         * @param args Argument cell observables
-         */
-        compute_cell(key_ref key, F compute, Ts... args) :
-            dependent_cell<value_type, Ts...>(key, args...),
-            compute(compute) {}
-
-        value_type value() const {
+        auto value() const {
             return compute();
-        }
-
-        value_type operator()() const {
-            argument_tracker::global().track_argument(*this);
-            return value();
         }
 
     private:
         const F compute;
 
     };
+
+    /**
+     * Static computed cell class that satisfies the `Cell`
+     * concept constraints.
+     */
+    template <std::invocable F, Cell... Ts>
+    using compute_cell = make_cell<compute_cell_base<F,Ts...>>;
 
     /**
      * Create a stateless computed cell with a given compute value
