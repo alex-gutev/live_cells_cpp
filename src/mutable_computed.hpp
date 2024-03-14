@@ -51,9 +51,9 @@ namespace live_cells {
      *
      * @return The cell.
      */
-    template <typename F, typename R>
+    template <std::invocable F, typename R>
     auto mutable_computed(F&& fn, R&& reverse) {
-        return dynamic_mutable_compute_cell<decltype(fn())>(
+        return dynamic_mutable_compute_cell<F,R>(
             std::forward<F>(fn),
             std::forward<R>(reverse)
         );

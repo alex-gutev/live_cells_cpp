@@ -22,6 +22,8 @@
 
 #include <functional>
 #include <memory>
+#include <concepts>
+#include <type_traits>
 
 #include "keys.hpp"
 #include "mutable_compute_cell_state.hpp"
@@ -32,11 +34,11 @@ namespace live_cells {
      * Maintains the state for a mutable computed cell with a
      * dynamically determined argument list.
      */
-    template<typename T>
-    class dynamic_mutable_compute_cell_state : public mutable_compute_cell_state<T> {
+    template<std::invocable F, typename R, typename value_type = std::invoke_result_t<F>>
+    class dynamic_mutable_compute_cell_state : public mutable_compute_cell_state<value_type> {
 
         /** Shorthand for parent class */
-        typedef mutable_compute_cell_state<T> parent;
+        typedef mutable_compute_cell_state<value_type> parent;
 
     public:
 
@@ -47,14 +49,14 @@ namespace live_cells {
          * @param compute   Value computation function
          * @param reverse   Reverse computation function
          */
-        template <typename C, typename R>
-        dynamic_mutable_compute_cell_state(key_ref key, C&& compute, R&& reverse) :
+        template <typename T, typename U>
+        dynamic_mutable_compute_cell_state(key_ref key, T&& compute, U&& reverse) :
             parent(key, {}),
-            compute_fn(std::forward<C>(compute)),
-            reverse_fn(std::forward<R>(reverse)) {}
+            compute_fn(std::forward<T>(compute)),
+            reverse_fn(std::forward<U>(reverse)) {}
 
     protected:
-        T compute() override {
+        value_type compute() override {
             auto t = argument_tracker::global().with_tracker([this] (auto cell) {
                 if (!this->arguments.count(cell)) {
                     this->arguments.emplace(cell);
@@ -66,16 +68,16 @@ namespace live_cells {
             return compute_fn();
         }
 
-        void reverse_compute(T value) override {
+        void reverse_compute(value_type value) override {
             reverse_fn(value);
         }
 
     private:
         /** Value computation function */
-        std::function<T()> compute_fn;
+        F compute_fn;
 
         /** Reverse computation function */
-        std::function<void(T)> reverse_fn;
+        R reverse_fn;
 
     };
 
@@ -83,16 +85,16 @@ namespace live_cells {
      * A mutable computed cell with the argument cells determined
      * dynamically
      */
-    template <typename T>
+    template <std::invocable F, typename R>
     class dynamic_mutable_compute_cell :
-        public stateful_cell<dynamic_mutable_compute_cell_state<T>> {
+        public stateful_cell<dynamic_mutable_compute_cell_state<F,R>> {
 
         /** Shorthand for parent class */
-        typedef stateful_cell<dynamic_mutable_compute_cell_state<T>> parent;
+        typedef stateful_cell<dynamic_mutable_compute_cell_state<F,R>> parent;
 
     public:
 
-        typedef T value_type;
+        typedef std::invoke_result_t<F> value_type;
 
         /**
          * Create a dynamic mutable computed cell.
@@ -111,15 +113,15 @@ namespace live_cells {
          *   value that was assigned to the cell, which is passed to
          *   this function.
          */
-        template <typename C, typename R>
-        dynamic_mutable_compute_cell(key_ref k, C&& compute, R&& reverse) :
-            parent(k, std::forward<C>(compute), std::forward<R>(reverse)) {}
+        template <typename T, typename U>
+        dynamic_mutable_compute_cell(key_ref k, T&& compute, U&& reverse) :
+            parent(k, std::forward<T>(compute), std::forward<U>(reverse)) {}
 
-        template <typename C, typename R>
-        dynamic_mutable_compute_cell(C&& compute, R&& reverse) :
-            parent(key_ref::create<unique_key>(), std::forward<C>(compute), std::forward<R>(reverse)) {}
+        template <typename T, typename U>
+        dynamic_mutable_compute_cell(T&& compute, U&& reverse) :
+            parent(key_ref::create<unique_key>(), std::forward<T>(compute), std::forward<U>(reverse)) {}
 
-        T value() const {
+        value_type value() const {
             return this->state->value();
         }
 
@@ -132,11 +134,11 @@ namespace live_cells {
          * NOTE: This method is marked const to allow the value of the
          * cell to be set when it is copy-captured by a lambda.
          */
-        void value(T value) const {
+        void value(value_type value) const {
             this->state->value(value);
         }
 
-        T operator()() const {
+        value_type operator()() const {
             argument_tracker::global().track_argument(*this);
             return value();
         }
