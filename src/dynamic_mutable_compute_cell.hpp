@@ -85,12 +85,14 @@ namespace live_cells {
      */
     template <typename T>
     class dynamic_mutable_compute_cell :
-        public stateful_cell<T, dynamic_mutable_compute_cell_state<T>> {
+        public stateful_cell<dynamic_mutable_compute_cell_state<T>> {
 
         /** Shorthand for parent class */
-        typedef stateful_cell<T, dynamic_mutable_compute_cell_state<T>> parent;
+        typedef stateful_cell<dynamic_mutable_compute_cell_state<T>> parent;
 
     public:
+
+        typedef T value_type;
 
         /**
          * Create a dynamic mutable computed cell.

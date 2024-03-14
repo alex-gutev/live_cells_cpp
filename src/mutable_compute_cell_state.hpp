@@ -91,7 +91,7 @@ namespace live_cells {
             this->silent_set(value);
 
             try {
-                batch([=] () {
+                batch([&, this] () {
                     reverse_compute(value);
                 });
             }
@@ -140,7 +140,7 @@ namespace live_cells {
             }
 
             for (auto arg : arguments) {
-                arg->add_observer(observer_ptr());
+                arg.add_observer(observer_ptr());
             }
         }
 
@@ -153,7 +153,7 @@ namespace live_cells {
             stale = true;
 
             for (auto arg : arguments) {
-                arg->remove_observer(observer_ptr());
+                arg.remove_observer(observer_ptr());
             }
         }
 

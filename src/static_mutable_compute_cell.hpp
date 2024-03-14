@@ -77,12 +77,13 @@ namespace live_cells {
      */
     template <typename T>
     class static_mutable_compute_cell :
-        public stateful_cell<T, static_mutable_compute_cell_state<T>> {
+        public stateful_cell<static_mutable_compute_cell_state<T>> {
 
         /** Shorthand for parent class */
-        typedef stateful_cell<T, static_mutable_compute_cell_state<T>> parent;
+        typedef stateful_cell<static_mutable_compute_cell_state<T>> parent;
 
     public:
+        typedef T value_type;
 
         /**
          * Create a static mutable computed cell.
@@ -111,7 +112,7 @@ namespace live_cells {
         static_mutable_compute_cell(C&& compute, R&& reverse, Args&&... args) :
             parent(key_ref::create<unique_key>(), std::forward<C>(compute), std::forward<R>(reverse), std::unordered_set<observable_ref>({observable_ref(args)...})) {}
 
-        T value() const override {
+        T value() const {
             return this->state->value();
         }
 
@@ -128,6 +129,10 @@ namespace live_cells {
             this->state->value(value);
         }
 
+        T operator()() const {
+            argument_tracker::global().track_argument(*this);
+            return value();
+        }
     };
 
 }  // live_cells
