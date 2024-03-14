@@ -33,8 +33,6 @@
 #include "test_util.hpp"
 #include "test_lifecyle.hpp"
 
-using live_cells::use;
-
 BOOST_AUTO_TEST_SUITE(cell_watcher)
 
 BOOST_AUTO_TEST_CASE(called_on_register) {
@@ -44,7 +42,7 @@ BOOST_AUTO_TEST_CASE(called_on_register) {
     value_observer<int> obs(a);
 
     auto watch = live_cells::watch([&] {
-        obs.values.push_back(use(a) + use(b));
+        obs.values.push_back(a() + b());
     });
 
     obs.check_values({3});
@@ -57,7 +55,7 @@ BOOST_AUTO_TEST_CASE(called_when_cell_values_change) {
     value_observer<int> obs(a);
 
     auto watch = live_cells::watch([&] {
-        obs.values.push_back(use(a) + use(b));
+        obs.values.push_back(a() + b());
     });
 
     a.value(5);
@@ -73,7 +71,7 @@ BOOST_AUTO_TEST_CASE(called_when_cell_values_change_during_batch_update) {
     value_observer<int> obs(a);
 
     auto watch = live_cells::watch([&] {
-        obs.values.push_back(use(a) + use(b));
+        obs.values.push_back(a() + b());
     });
 
     live_cells::batch([=] {
@@ -92,11 +90,11 @@ BOOST_AUTO_TEST_CASE(called_when_cell_values_change_in_conditional_expression) {
     value_observer<int> obs(a);
 
     auto watch = live_cells::watch([&] {
-        if (use(select)) {
-            obs.values.push_back(use(a));
+        if (select()) {
+            obs.values.push_back(a());
         }
         else {
-            obs.values.push_back(use(b));
+            obs.values.push_back(b());
         }
     });
 
@@ -115,7 +113,7 @@ BOOST_AUTO_TEST_CASE(not_called_after_stop) {
     value_observer<int> obs(a);
 
     auto watch = live_cells::watch([&] {
-        obs.values.push_back(use(a) + use(b));
+        obs.values.push_back(a() + b());
     });
 
     a.value(5);
@@ -133,8 +131,8 @@ BOOST_AUTO_TEST_CASE(init_called_when_cell_is_watched) {
     auto cell = test_managed_cell<int>(counter, 1);
 
     auto watch = live_cells::watch([&] {
-        use(cell);
-        use(cell);
+        cell();
+        cell();
     });
 
     BOOST_CHECK_EQUAL(counter->ctor_count, 1);
@@ -148,8 +146,8 @@ BOOST_AUTO_TEST_CASE(dispose_called_when_stop_called) {
     auto cell = test_managed_cell<int>(counter, 1);
 
     auto watch = live_cells::watch([&] {
-        use(cell);
-        use(cell);
+        cell();
+        cell();
     });
 
     watch->stop();
@@ -165,13 +163,13 @@ BOOST_AUTO_TEST_CASE(dispose_not_called_when_not_all_watchers_stopped) {
     auto cell = test_managed_cell<int>(counter, 1);
 
     auto watch1 = live_cells::watch([&] {
-        use(cell);
-        use(cell);
+        cell();
+        cell();
     });
 
     auto watch2 = live_cells::watch([&] {
-        use(cell);
-        use(cell);
+        cell();
+        cell();
     });
 
     watch1->stop();
@@ -191,7 +189,7 @@ BOOST_AUTO_TEST_CASE(watcher_stopped_in_destructor) {
 
     {
         auto watch = live_cells::watch([&] {
-            obs.values.push_back(use(a) + use(cell));
+            obs.values.push_back(a() + cell());
         });
 
         a.value(2);

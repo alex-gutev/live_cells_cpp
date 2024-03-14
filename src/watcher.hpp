@@ -117,7 +117,7 @@ namespace live_cells {
                 auto t = argument_tracker::global().with_tracker([this] (auto cell) {
                     if (!arguments.count(cell)) {
                         arguments.emplace(cell);
-                        cell->add_observer(
+                        cell.add_observer(
                             std::static_pointer_cast<observer>(this->shared_from_this())
                         );
                     }
@@ -134,7 +134,7 @@ namespace live_cells {
              */
             void stop() {
                 for (auto arg : arguments) {
-                    arg->remove_observer(
+                    arg.remove_observer(
                         std::static_pointer_cast<observer>(this->shared_from_this())
                     );
                 }
