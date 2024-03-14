@@ -97,7 +97,7 @@ struct value_observer : live_cells::observer {
 /**
  * Manages the adding and removing of a cell observer.
  */
-template <live_cells::Observable O, typename T>
+template <live_cells::Cell O, typename T>
 class observer_guard {
     /**
      * The observed cell
@@ -148,7 +148,7 @@ public:
  * @return An observer_guard that removes the observer when the guard
  *   object is destroyed.
  */
-template <live_cells::Observable O, typename T>
+template <live_cells::Cell O, typename T>
 auto with_observer(O &cell, std::shared_ptr<T> observer) {
     return observer_guard<O,T>(cell, observer);
 }

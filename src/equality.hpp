@@ -85,7 +85,7 @@ namespace live_cells {
      *
      * @return A computed cell which evaluates the expression a == b.
      */
-    template <Observable T, Observable U>
+    template <Cell T, Cell U>
     auto operator ==(const T &a, const U &b) {
         typedef internal::eq_cell_key<T,U> key;
 
@@ -102,7 +102,7 @@ namespace live_cells {
      *
      * @return A computed cell which evaluates the expression a != b.
      */
-    template <Observable T, Observable U>
+    template <Cell T, Cell U>
     auto operator !=(const T &a, const U &b) {
         typedef internal::neq_cell_key<T,U> key;
 

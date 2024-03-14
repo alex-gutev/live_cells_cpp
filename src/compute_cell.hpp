@@ -34,7 +34,7 @@ namespace live_cells {
      * The value computation function is provided to this class on
      * construction.
      */
-    template <typename T, Observable... Ts>
+    template <typename T, Cell... Ts>
     class compute_cell : public dependent_cell<T, Ts...> {
     public:
         typedef T value_type;
@@ -87,7 +87,7 @@ namespace live_cells {
      * @param f A function of no arguments, called to compute the
      *    value of the cell.
      *
-     * @param args List of argument Observables on which the value of
+     * @param args List of argument Cells on which the value of
      *   this cell depends.
      *
      * @return The computed cell.
@@ -105,7 +105,7 @@ namespace live_cells {
      * @param f A function of no arguments, called to compute the
      *    value of the cell.
      *
-     * @param args List of argument Observables on which the value of
+     * @param args List of argument Cells on which the value of
      *   this cell depends.
      *
      * @return The computed cell.

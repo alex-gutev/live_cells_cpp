@@ -143,7 +143,7 @@ namespace live_cells {
      * @return A cell which has the same value as @a cell, but caches
      * it in memory when it hasn't changed.
      */
-    template <Observable C>
+    template <Cell C>
     auto store(const C &cell) {
         return store_cell<typename C::value_type>(observable_ref(cell));
     }

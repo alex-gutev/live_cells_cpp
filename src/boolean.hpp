@@ -13,7 +13,7 @@ namespace live_cells {
      * NOTE: This operator is short-circuiting which means that the
      * value of cell `b` is only referenced if `a` is true.
      */
-    template <Observable T, Observable U>
+    template <Cell T, Cell U>
     auto operator && (const T &a, const U &b) {
         return compute_cell<bool, T, U>([=] () {
             return a.value() && b.value();
@@ -27,7 +27,7 @@ namespace live_cells {
      * NOTE: This operator is short-circuiting which means that the
      * value of cell `b` is only referenced if `a` is false.
      */
-    template <Observable T, Observable U>
+    template <Cell T, Cell U>
     auto operator || (const T &a, const U &b) {
         return compute_cell<bool, T, U>([=] () {
             return a.value() || b.value();
@@ -38,7 +38,7 @@ namespace live_cells {
      * Returns a cell which evaluates to the logical not of the value
      * of a cell.
      */
-    auto operator ! (const Observable auto &cell) {
+    auto operator ! (const Cell auto &cell) {
         return computed(cell, [] (auto value) {
             return !value;
         });
@@ -52,7 +52,7 @@ namespace live_cells {
      * evaluates to the value of the `if_true` cell. Otherwise the
      * cell evaluates to the value of the `if_false` cell.
      */
-    template <Observable T, Observable U, Observable V>
+    template <Cell T, Cell U, Cell V>
     auto select(T condition, U if_true, V if_false) {
         return compute_cell<typename U::value_type, T, U, V>([=] () {
             return condition.value() ? if_true.value() : if_false.value();

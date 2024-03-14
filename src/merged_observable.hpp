@@ -25,22 +25,22 @@ namespace live_cells {
     /**
      * A single observable which merges multiple observables.
      *
-     * This class allows an observer to be added to multiple
-     * observables simultaneously via a single observable object.
+     * This class allows an observer to be added to multiple cells
+     * simultaneously via a single observable object.
      */
-    template <Observable T, Observable... Ts>
+    template <Cell T, Cell... Ts>
     class merged_observable {
     public:
 
         /**
-         * Create an observable that merges the observables @a first
+         * Create an observable that merges the cells @a first
          * and @a rest... into one.
          *
          * When add_observer() and remove_observer() are called, they
-         * are applied to @a first and every observable in @a rest.
+         * are applied to @a first and every cell in @a rest.
          *
-         * @param first An observable
-         * @param rest Obseravbles
+         * @param first A cell
+         * @param rest Cells
          */
         merged_observable(T first, Ts... rest) :
             first(first),
@@ -61,7 +61,7 @@ namespace live_cells {
         merged_observable<Ts...> rest;
     };
 
-    template <Observable T>
+    template <Cell T>
     class merged_observable<T> {
     public:
 

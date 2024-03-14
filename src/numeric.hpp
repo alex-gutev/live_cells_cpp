@@ -9,7 +9,7 @@ namespace live_cells {
      * Returns a computed cell that evaluates `a + b` on the values
      * held in cells `a` and `b`.
      */
-    auto operator +(const Observable auto &a, const Observable auto &b) {
+    auto operator +(const Cell auto &a, const Cell auto &b) {
         return computed(a, b, [] (auto a, auto b) {
             return a + b;
         });
@@ -19,7 +19,7 @@ namespace live_cells {
      * Returns a computed cell that evaluates `a - b` on the values
      * held in cells `a` and `b`.
      */
-    auto operator -(const Observable auto &a, const Observable auto &b) {
+    auto operator -(const Cell auto &a, const Cell auto &b) {
         return computed(a, b, [] (auto a, auto b) {
             return a - b;
         });
@@ -29,7 +29,7 @@ namespace live_cells {
      * Returns a computed cell that evaluates to `-cell`, on the value
      * held in `cell`.
      */
-    auto operator -(const Observable auto &cell) {
+    auto operator -(const Cell auto &cell) {
         return computed(cell, [] (auto value) {
             return -value;
         });
@@ -39,7 +39,7 @@ namespace live_cells {
      * Returns a computed cell that evaluates `a * b` on the values
      * held in cells `a` and `b`.
      */
-    auto operator *(const Observable auto &a, const Observable auto &b) {
+    auto operator *(const Cell auto &a, const Cell auto &b) {
         return computed(a, b, [] (auto a, auto b) {
             return a * b;
         });
@@ -49,7 +49,7 @@ namespace live_cells {
      * Returns a computed cell that evaluates `a / b` on the values
      * held in cells `a` and `b`.
      */
-    auto operator /(const Observable auto &a, const Observable auto &b) {
+    auto operator /(const Cell auto &a, const Cell auto &b) {
         return computed(a, b, [] (auto a, auto b) {
             return a / b;
         });
@@ -59,7 +59,7 @@ namespace live_cells {
      * Returns a computed cell that evaluates `a % b` on the values
      * held in cells `a` and `b`.
      */
-    auto operator %(const Observable auto &a, const Observable auto &b) {
+    auto operator %(const Cell auto &a, const Cell auto &b) {
         return computed(a, b, [] (auto a, auto b) {
             return a % b;
         });
@@ -69,7 +69,7 @@ namespace live_cells {
      * Returns a computed cell that evaluates `a < b` on the values
      * held in cells `a` and `b`.
      */
-    auto operator <(const Observable auto &a, const Observable auto &b) {
+    auto operator <(const Cell auto &a, const Cell auto &b) {
         return computed(a, b, [] (auto a, auto b) {
             return a < b;
         });
@@ -79,7 +79,7 @@ namespace live_cells {
      * Returns a computed cell that evaluates `a <= b` on the values
      * held in cells `a` and `b`.
      */
-    auto operator <=(const Observable auto &a, const Observable auto &b) {
+    auto operator <=(const Cell auto &a, const Cell auto &b) {
         return computed(a, b, [] (auto a, auto b) {
             return a <= b;
         });
@@ -89,7 +89,7 @@ namespace live_cells {
      * Returns a computed cell that evaluates `a > b` on the values
      * held in cells `a` and `b`.
      */
-    auto operator >(const Observable auto &a, const Observable auto &b) {
+    auto operator >(const Cell auto &a, const Cell auto &b) {
         return computed(a, b, [] (auto a, auto b) {
             return a > b;
         });
@@ -99,7 +99,7 @@ namespace live_cells {
      * Returns a computed cell that evaluates `a >= b` on the values
      * held in cells `a` and `b`.
      */
-    auto operator >=(const Observable auto &a, const Observable auto &b) {
+    auto operator >=(const Cell auto &a, const Cell auto &b) {
         return computed(a, b, [] (auto a, auto b) {
             return a >= b;
         });

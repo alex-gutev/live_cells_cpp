@@ -34,7 +34,7 @@ namespace live_cells {
      * The observers of this cell are notified when the values of the
      * argument cells change.
      */
-    template <typename T, Observable... Ts>
+    template <typename T, Cell... Ts>
     class dependent_cell {
     public:
 

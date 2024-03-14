@@ -58,21 +58,21 @@ namespace live_cells {
     /**
      * Concept defining an observable object.
      *
-     * Observables must define the following types:
+     * Cells must define the following types:
      *
      * - value_type
      *
      *   The type of value held by the observable.
      *
-     * Observable types must the following methods:
+     * Cell types must the following methods:
      *
      * - void add_observer(observer::ref o);
      *
-     *   Add observer `o` for this Observable.
+     *   Add observer `o` for this Cell.
      *
      * - void remove_observer(observer::ref o):
      *
-     *   Remove observer `o` from the this Observable.
+     *   Remove observer `o` from this Cell.
      *
      *   Implementations should only remove `o` after this method is
      *   called the same number of times as add_observer was called
@@ -92,7 +92,7 @@ namespace live_cells {
      *   Return a key that uniquely identifies the observable.
      */
     template <typename T>
-    concept Observable = requires(T o) {
+    concept Cell = requires(T o) {
         { o.add_observer(observer::ref()) };
         { o.remove_observer(observer::ref()) };
         { o.value() } -> std::same_as<typename T::value_type>;
@@ -104,28 +104,28 @@ namespace live_cells {
     /**
      * Polymorphic observable holder.
      *
-     * This class erases the types of Observables, so that an
-     * observable can be used and stored in containers, when its exact
-     * type is not known at compile-time.
+     * This class erases the types of Cells, so that a cell can be
+     * used and stored in containers, when its exact type is not known
+     * at compile-time.
      */
     class observable_ref {
     public:
         /**
-         * Create an `observable_ref` that wraps the `Observable` `o`.
+         * Create an `observable_ref` that wraps the `Cell` `o`.
          */
-        template <Observable O>
+        template <Cell O>
         observable_ref(O o) :
             obs_ref(std::static_pointer_cast<ref_base>(std::make_shared<typed_ref<O>>(o))) {}
 
         /**
-         * Add an observer to the underlying Observable.
+         * Add an observer to the underlying Cell.
          */
         void add_observer(observer::ref obs) {
             obs_ref->add_observer(obs);
         }
 
         /**
-         * Remove an observer from the underlying Observable.
+         * Remove an observer from the underlying Cell.
          *
          * NOTE: The observer is only removed when this method is
          * called the same number of times `add_observer(obs)` was
@@ -137,7 +137,7 @@ namespace live_cells {
 
         /**
          * Returns the key that uniquely identifies the underlying
-         * Observable.
+         * Cell.
          */
         key_ref key() const {
             return obs_ref->key();
@@ -184,7 +184,7 @@ namespace live_cells {
         /**
          * Wrapper holding an observable of type O.
          */
-        template <Observable O>
+        template <Cell O>
         struct typed_ref : typed_ref_base<typename O::value_type> {
             O observable;
 
