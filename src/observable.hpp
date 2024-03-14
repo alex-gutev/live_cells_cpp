@@ -108,13 +108,13 @@ namespace live_cells {
      * used and stored in containers, when its exact type is not known
      * at compile-time.
      */
-    class observable_ref {
+    class cell {
     public:
         /**
-         * Create an `observable_ref` that wraps the `Cell` `o`.
+         * Create a `cell` that wraps the `Cell` `o`.
          */
         template <Cell O>
-        observable_ref(O o) :
+        cell(O o) :
             obs_ref(std::static_pointer_cast<ref_base>(std::make_shared<typed_ref<O>>(o))) {}
 
         /**
@@ -173,8 +173,7 @@ namespace live_cells {
         };
 
         /**
-         * Base wrapper interface for observables holding values of
-         * type T.
+         * Base wrapper interface for cells holding values of type T.
          */
         template <typename T>
         struct typed_ref_base : ref_base {
@@ -182,7 +181,7 @@ namespace live_cells {
         };
 
         /**
-         * Wrapper holding an observable of type O.
+         * Wrapper holding a Cell of type O.
          */
         template <Cell O>
         struct typed_ref : typed_ref_base<typename O::value_type> {
@@ -221,11 +220,11 @@ namespace live_cells {
      *
      * @return true if the key of @a a is equal to the key of @a b.
      */
-    inline bool operator==(const observable_ref &a, const observable_ref &b) {
+    inline bool operator==(const cell &a, const cell &b) {
         return a.key() == b.key();
     }
 
-    inline bool operator!=(const observable_ref &a, const observable_ref &b) {
+    inline bool operator!=(const cell &a, const cell &b) {
         return !(a == b);
     }
 
@@ -233,8 +232,8 @@ namespace live_cells {
 
 
 template<>
-struct std::hash<live_cells::observable_ref> {
-    std::size_t operator()(const live_cells::observable_ref &a) const noexcept {
+struct std::hash<live_cells::cell> {
+    std::size_t operator()(const live_cells::cell &a) const noexcept {
         return a.key()->hash();
     }
 };

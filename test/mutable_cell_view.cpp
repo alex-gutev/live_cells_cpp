@@ -293,19 +293,19 @@ BOOST_AUTO_TEST_CASE(compares_equal_if_same_key) {
 
     auto a = live_cells::variable(0);
 
-    live_cells::observable_ref c1 = live_cells::cell_view(key_ref::create<key_type>("the-key"), a, [] (auto a) {
+    live_cells::cell c1 = live_cells::cell_view(key_ref::create<key_type>("the-key"), a, [] (auto a) {
         return a + 1;
     }, [=] (auto b) {
         a.value(b - 1);
     });
 
-    live_cells::observable_ref c2 = live_cells::cell_view(key_ref::create<key_type>("the-key"), a, [] (auto a) {
+    live_cells::cell c2 = live_cells::cell_view(key_ref::create<key_type>("the-key"), a, [] (auto a) {
         return a + 1;
     }, [=] (auto b) {
         a.value(b - 1);
     });
 
-    std::hash<live_cells::observable_ref> hash;
+    std::hash<live_cells::cell> hash;
 
     BOOST_CHECK(c1 == c2);
     BOOST_CHECK(!(c1 != c2));
@@ -319,13 +319,13 @@ BOOST_AUTO_TEST_CASE(compares_not_equal_if_different_same_key) {
 
     auto a = live_cells::variable(0);
 
-    live_cells::observable_ref c1 = live_cells::cell_view(key_ref::create<key_type>("the-key1"), a, [] (auto a) {
+    live_cells::cell c1 = live_cells::cell_view(key_ref::create<key_type>("the-key1"), a, [] (auto a) {
         return a + 1;
     }, [=] (auto b) {
         a.value(b - 1);
     });
 
-    live_cells::observable_ref c2 = live_cells::cell_view(key_ref::create<key_type>("the-key2"), a, [] (auto a) {
+    live_cells::cell c2 = live_cells::cell_view(key_ref::create<key_type>("the-key2"), a, [] (auto a) {
         return a + 1;
     }, [=] (auto b) {
         a.value(b - 1);
@@ -342,13 +342,13 @@ BOOST_AUTO_TEST_CASE(compares_not_equal_with_default_key) {
 
     auto a = live_cells::variable(0);
 
-    live_cells::observable_ref c1 = live_cells::cell_view(a, [] (auto a) {
+    live_cells::cell c1 = live_cells::cell_view(a, [] (auto a) {
         return a + 1;
     }, [=] (auto b) {
         a.value(b - 1);
     });
 
-    live_cells::observable_ref c2 = live_cells::cell_view(a, [] (auto a) {
+    live_cells::cell c2 = live_cells::cell_view(a, [] (auto a) {
         return a + 1;
     }, [=] (auto b) {
         a.value(b - 1);

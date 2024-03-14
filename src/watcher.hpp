@@ -88,7 +88,7 @@ namespace live_cells {
             watch_observer(const watch_observer &) = delete;
 
             /** Argument cells referenced by watch function */
-            std::unordered_set<observable_ref> arguments;
+            std::unordered_set<cell> arguments;
 
             /**
              * Is an argument cell value update currently in progresss?

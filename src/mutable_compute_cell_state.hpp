@@ -51,7 +51,7 @@ namespace live_cells {
          * @param arguments Set of argument observables to value
          *   computation function.
          */
-        mutable_compute_cell_state(key_ref key, const std::unordered_set<observable_ref> &arguments) :
+        mutable_compute_cell_state(key_ref key, const std::unordered_set<cell> &arguments) :
             parent(key),
             arguments(arguments) {}
 
@@ -162,7 +162,7 @@ namespace live_cells {
          * Set of argument cells referenced by the value computation
          * function.
          */
-        std::unordered_set<observable_ref> arguments;
+        std::unordered_set<cell> arguments;
 
         /**
          * Does the current have to be recomputed?

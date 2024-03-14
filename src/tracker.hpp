@@ -37,7 +37,7 @@ namespace live_cells {
          *
          * @param arg The referenced observable.
          */
-        typedef std::function<void(const observable_ref &arg)> track_fn;
+        typedef std::function<void(const cell &arg)> track_fn;
 
         /**
          * Registers a track argument callback function on
@@ -111,7 +111,7 @@ namespace live_cells {
          *
          * @param arg A cell that was referenced as an argument.
          */
-        void track_argument(const observable_ref &arg);
+        void track_argument(const cell &arg);
 
         /**
          * Register a track argument callback function.

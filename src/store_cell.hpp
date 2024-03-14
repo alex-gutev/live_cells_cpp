@@ -50,16 +50,16 @@ namespace live_cells {
          * @param k    Key identifying the cell
          * @param cell The argument cell
          */
-        store_cell_state(key_ref k, observable_ref cell) :
+        store_cell_state(key_ref k, cell arg) :
             parent(k),
-            cell(cell) {}
+            arg(arg) {}
 
     protected:
 
         void init() override {
             parent::init();
 
-            cell.add_observer(this->observer_ptr());
+            arg.add_observer(this->observer_ptr());
 
             try {
                 // Compute the initial value
@@ -71,19 +71,19 @@ namespace live_cells {
         }
 
         void pause() override {
-            cell.remove_observer(this->observer_ptr());
+            arg.remove_observer(this->observer_ptr());
             parent::pause();
         }
 
         T compute() override {
-            return cell.value<T>();
+            return arg.value<T>();
         }
 
     private:
         /**
          * Store cell argument cell
          */
-        observable_ref cell;
+        cell arg;
     };
 
     /**
@@ -103,7 +103,7 @@ namespace live_cells {
         /**
          * Cell key type
          */
-        typedef store_cell_key<observable_ref> key_type;
+        typedef store_cell_key<cell> key_type;
 
     public:
         typedef T value_type;
@@ -116,7 +116,7 @@ namespace live_cells {
          *
          * @param cell The argument cell.
          */
-        store_cell(observable_ref cell) :
+        store_cell(cell cell) :
             parent(key_ref::create<key_type>(cell), cell) {}
 
         T value() const {
@@ -138,14 +138,14 @@ namespace live_cells {
      * is only recomputed, when it will actually change instead of
      * computing the value every time it is accessed.
      *
-     * @param cell The cell
+     * @param arg The argument cell
      *
-     * @return A cell which has the same value as @a cell, but caches
+     * @return A cell which has the same value as @a arg, but caches
      * it in memory when it hasn't changed.
      */
     template <Cell C>
-    auto store(const C &cell) {
-        return store_cell<typename C::value_type>(observable_ref(cell));
+    auto store(const C &arg) {
+        return store_cell<typename C::value_type>(cell(arg));
     }
 
 }  // live_cells

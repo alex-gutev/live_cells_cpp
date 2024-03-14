@@ -48,7 +48,7 @@ namespace live_cells {
          * @param arguments Set of argument cells referenced in @a compute
          */
         template <typename C, typename R>
-        static_mutable_compute_cell_state(key_ref key, C&& compute, R&& reverse, const std::unordered_set<observable_ref> &arguments) :
+        static_mutable_compute_cell_state(key_ref key, C&& compute, R&& reverse, const std::unordered_set<cell> &arguments) :
             parent(key, arguments),
             compute_fn(std::forward<C>(compute)),
             reverse_fn(std::forward<R>(reverse)) {}
@@ -110,7 +110,7 @@ namespace live_cells {
 
         template <typename C, typename R, typename... Args>
         static_mutable_compute_cell(C&& compute, R&& reverse, Args&&... args) :
-            parent(key_ref::create<unique_key>(), std::forward<C>(compute), std::forward<R>(reverse), std::unordered_set<observable_ref>({observable_ref(args)...})) {}
+            parent(key_ref::create<unique_key>(), std::forward<C>(compute), std::forward<R>(reverse), std::unordered_set<cell>({cell(args)...})) {}
 
         T value() const {
             return this->state->value();

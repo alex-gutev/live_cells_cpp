@@ -50,7 +50,7 @@ struct value_observer : live_cells::observer {
     /**
      * The observed cell
      */
-    const live_cells::observable_ref cell;
+    const live_cells::cell cell;
 
     /**
      * The values of the cell for every update() call.
@@ -62,7 +62,7 @@ struct value_observer : live_cells::observer {
      *
      * @param cell The cell being observed.
      */
-    value_observer(const live_cells::observable_ref &cell) :
+    value_observer(const live_cells::cell &cell) :
         cell(cell) {}
 
     void will_update(const live_cells::key_ref &k) override {}

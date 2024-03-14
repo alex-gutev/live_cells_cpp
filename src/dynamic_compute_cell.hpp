@@ -67,7 +67,7 @@ namespace live_cells {
         /**
          * Set of argument cells referenced by value computation function.
          */
-        std::unordered_set<observable_ref> arguments;
+        std::unordered_set<cell> arguments;
 
         /**
          * Value computation function.

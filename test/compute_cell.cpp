@@ -184,15 +184,15 @@ BOOST_AUTO_TEST_CASE(compares_equal_if_same_key) {
     auto a = live_cells::variable(0);
     auto b = live_cells::variable(1);
 
-    live_cells::observable_ref c1 = live_cells::computed(key_ref::create<key_type>("the-key"), a, b, [] (auto a, auto b) {
+    live_cells::cell c1 = live_cells::computed(key_ref::create<key_type>("the-key"), a, b, [] (auto a, auto b) {
         return a + b;
     });
 
-    live_cells::observable_ref c2 = live_cells::computed(key_ref::create<key_type>("the-key"), a, b, [] (auto a, auto b) {
+    live_cells::cell c2 = live_cells::computed(key_ref::create<key_type>("the-key"), a, b, [] (auto a, auto b) {
         return a + b;
     });
 
-    std::hash<live_cells::observable_ref> hash;
+    std::hash<live_cells::cell> hash;
 
     BOOST_CHECK(c1 == c2);
     BOOST_CHECK(!(c1 != c2));
@@ -207,11 +207,11 @@ BOOST_AUTO_TEST_CASE(compares_not_equal_if_different_key) {
     auto a = live_cells::variable(0);
     auto b = live_cells::variable(1);
 
-    live_cells::observable_ref c1 = live_cells::computed(key_ref::create<key_type>("the-key1"), a, b, [] (auto a, auto b) {
+    live_cells::cell c1 = live_cells::computed(key_ref::create<key_type>("the-key1"), a, b, [] (auto a, auto b) {
         return a + b;
     });
 
-    live_cells::observable_ref c2 = live_cells::computed(key_ref::create<key_type>("the-key2"), a, b, [] (auto a, auto b) {
+    live_cells::cell c2 = live_cells::computed(key_ref::create<key_type>("the-key2"), a, b, [] (auto a, auto b) {
         return a + b;
     });
 
@@ -223,11 +223,11 @@ BOOST_AUTO_TEST_CASE(compares_not_equal_with_default_key) {
     auto a = live_cells::variable(0);
     auto b = live_cells::variable(1);
 
-    live_cells::observable_ref c1 = live_cells::computed(a, b, [] (auto a, auto b) {
+    live_cells::cell c1 = live_cells::computed(a, b, [] (auto a, auto b) {
         return a + b;
     });
 
-    live_cells::observable_ref c2 = live_cells::computed(a, b, [] (auto a, auto b) {
+    live_cells::cell c2 = live_cells::computed(a, b, [] (auto a, auto b) {
         return a + b;
     });
 

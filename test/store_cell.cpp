@@ -175,10 +175,10 @@ BOOST_AUTO_TEST_CASE(compare_equal_if_same_argument_cell) {
         return a * a;
     });
 
-    live_cells::observable_ref s1 = live_cells::store(b);
-    live_cells::observable_ref s2 = live_cells::store(b);
+    live_cells::cell s1 = live_cells::store(b);
+    live_cells::cell s2 = live_cells::store(b);
 
-    std::hash<live_cells::observable_ref> hash;
+    std::hash<live_cells::cell> hash;
 
     BOOST_CHECK(s1 == s2);
     BOOST_CHECK(!(s1 != s2));
@@ -196,8 +196,8 @@ BOOST_AUTO_TEST_CASE(compare_not_equal_if_different_argument_cell) {
         return a + a;
     });
 
-    live_cells::observable_ref s1 = live_cells::store(b1);
-    live_cells::observable_ref s2 = live_cells::store(b2);
+    live_cells::cell s1 = live_cells::store(b1);
+    live_cells::cell s2 = live_cells::store(b2);
 
     BOOST_CHECK(s1 != s2);
     BOOST_CHECK(!(s1 == s2));

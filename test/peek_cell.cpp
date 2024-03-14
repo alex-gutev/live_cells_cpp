@@ -70,10 +70,10 @@ BOOST_AUTO_TEST_CASE(does_not_notify_observers) {
 BOOST_AUTO_TEST_CASE(compare_equal_if_same_argument_cell) {
     auto a = live_cells::variable(0);
 
-    live_cells::observable_ref p1 = live_cells::peek(a);
-    live_cells::observable_ref p2 = live_cells::peek(a);
+    live_cells::cell p1 = live_cells::peek(a);
+    live_cells::cell p2 = live_cells::peek(a);
 
-    std::hash<live_cells::observable_ref> hash;
+    std::hash<live_cells::cell> hash;
 
     BOOST_CHECK(p1 == p2);
     BOOST_CHECK(!(p1 != p2));
@@ -84,10 +84,10 @@ BOOST_AUTO_TEST_CASE(compare_not_equal_if_different_argument_cells) {
     auto a = live_cells::variable(0);
     auto b = live_cells::variable(0);
 
-    live_cells::observable_ref p1 = live_cells::peek(a);
-    live_cells::observable_ref p2 = live_cells::peek(b);
+    live_cells::cell p1 = live_cells::peek(a);
+    live_cells::cell p2 = live_cells::peek(b);
 
-    std::hash<live_cells::observable_ref> hash;
+    std::hash<live_cells::cell> hash;
 
     BOOST_CHECK(p1 != p2);
     BOOST_CHECK(!(p1 == p2));
