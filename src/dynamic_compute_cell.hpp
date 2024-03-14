@@ -24,6 +24,7 @@
 #include <functional>
 #include <utility>
 #include <concepts>
+#include <type_traits>
 
 #include "compute_state.hpp"
 #include "stateful_cell.hpp"
@@ -35,9 +36,10 @@ namespace live_cells {
      * State for a computed cell which determines its argument cells
      * dynamically.
      */
-    template <typename T, std::invocable F>
-    class dynamic_compute_cell_state : public compute_cell_state<T> {
+    template <std::invocable F>
+    class dynamic_compute_cell_state : public compute_cell_state<std::invoke_result_t<F>> {
     public:
+        typedef std::invoke_result_t<F> value_type;
 
         /**
          * Create a dynamic computed cell state, with a given value
@@ -47,11 +49,11 @@ namespace live_cells {
          * @param compute Value computation function.
          */
         dynamic_compute_cell_state(key_ref key, F compute) :
-            compute_cell_state<T>(key),
+            compute_cell_state<value_type>(key),
             compute_(compute) {}
 
     protected:
-        T compute() override {
+        value_type compute() override {
             auto t = argument_tracker::global().with_tracker([this] (auto cell) {
                 if (!arguments.count(cell)) {
                     arguments.emplace(cell);
@@ -75,7 +77,7 @@ namespace live_cells {
         const F compute_;
 
         void init() override {
-            compute_cell_state<T>::init();
+            compute_cell_state<value_type>::init();
 
             try {
                 // Determine arguments and add observers
@@ -87,7 +89,7 @@ namespace live_cells {
         }
 
         void pause() override {
-            compute_cell_state<T>::pause();
+            compute_cell_state<value_type>::pause();
 
             for (auto arg : arguments) {
                 arg.remove_observer(this->observer_ptr());
@@ -100,15 +102,15 @@ namespace live_cells {
     /**
      * A computed cell which determines its argument cells at runtime.
      */
-    template <typename T, std::invocable F>
-    class dynamic_compute_cell : public stateful_cell<dynamic_compute_cell_state<T,F>> {
+    template <std::invocable F>
+    class dynamic_compute_cell : public stateful_cell<dynamic_compute_cell_state<F>> {
         /**
          * Shorthand for parent class
          */
-        typedef stateful_cell<dynamic_compute_cell_state<T,F>> parent;
+        typedef stateful_cell<dynamic_compute_cell_state<F>> parent;
 
     public:
-        typedef T value_type;
+        typedef std::invoke_result_t<F> value_type;
 
         /**
          * Create a dynamic computed cell with a given value
@@ -129,11 +131,11 @@ namespace live_cells {
         dynamic_compute_cell(key_ref key, F compute) :
             parent(key, compute) {}
 
-        T value() const {
+        value_type value() const {
             return this->state->value();
         }
 
-        T operator()() const {
+        value_type operator()() const {
             argument_tracker::global().track_argument(*this);
             return value();
         }

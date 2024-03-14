@@ -42,9 +42,9 @@ namespace live_cells {
      *
      * @return The cell
      */
-    template <typename F>
+    template <std::invocable F>
     auto computed(F&& compute) {
-        return dynamic_compute_cell<decltype(compute()),F>(std::forward<F>(compute));
+        return dynamic_compute_cell<F>(std::forward<F>(compute));
     }
 
     /**
@@ -60,9 +60,9 @@ namespace live_cells {
      *
      * @return The cell
      */
-    template <typename F>
+    template <std::invocable F>
     auto computed(key_ref key, F&& compute) {
-        return dynamic_compute_cell<decltype(compute()),F>(key, std::forward<F>(compute));
+        return dynamic_compute_cell<F>(key, std::forward<F>(compute));
     }
 
     /**
