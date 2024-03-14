@@ -66,11 +66,11 @@ namespace live_cells {
      *
      * Cell types must the following methods:
      *
-     * - void add_observer(observer::ref o);
+     * - void add_observer(observer::ref o) const;
      *
      *   Add observer `o` for this Cell.
      *
-     * - void remove_observer(observer::ref o):
+     * - void remove_observer(observer::ref o) const;
      *
      *   Remove observer `o` from this Cell.
      *
@@ -92,7 +92,7 @@ namespace live_cells {
      *   Return a key that uniquely identifies the observable.
      */
     template <typename T>
-    concept Cell = requires(T o) {
+    concept Cell = requires(const T &o) {
         { o.add_observer(observer::ref()) };
         { o.remove_observer(observer::ref()) };
         { o.value() } -> std::same_as<typename T::value_type>;
