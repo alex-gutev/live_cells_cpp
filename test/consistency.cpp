@@ -30,8 +30,6 @@
 #include "live_cells.hpp"
 #include "test_util.hpp"
 
-using live_cells::use;
-
 BOOST_AUTO_TEST_SUITE(cell_state_consistency)
 
 BOOST_AUTO_TEST_CASE(no_intermediate_value_with_multi_argument_cells) {
@@ -92,15 +90,15 @@ BOOST_AUTO_TEST_CASE(no_intermediate_value_with_dynamic_compute_cell) {
     auto a = live_cells::variable(0);
 
     auto sum = live_cells::computed([=] {
-        return use(a) + 1;
+        return a() + 1;
     });
 
     auto prod = live_cells::computed([=] {
-        return use(a) * 8;
+        return a() * 8;
     });
 
     auto result = live_cells::computed([=] {
-        return use(sum) + use(prod);
+        return sum() + prod();
     });
 
     auto observer = std::make_shared<value_observer<int>>(result);
@@ -116,18 +114,18 @@ BOOST_AUTO_TEST_CASE(no_intermediate_value_with_dynamic_compute_cells_and_unequa
     auto a = live_cells::variable(0);
 
     auto sum1 = live_cells::computed([=] {
-        return use(a) + 1;
+        return a() + 1;
     });
     auto sum = live_cells::computed([=] {
-        return use(sum1) + 10;
+        return sum1() + 10;
     });
 
     auto prod = live_cells::computed([=] {
-        return use(a) * 8;
+        return a() * 8;
     });
 
     auto result = live_cells::computed([=] {
-        return use(sum) + use(prod);
+        return sum() + prod();
     });
 
     auto observer = std::make_shared<value_observer<int>>(result);
@@ -235,11 +233,11 @@ BOOST_AUTO_TEST_CASE(no_intermediate_values_with_batch_and_dynamic_compute_cell)
     auto select = live_cells::variable(true);
 
     auto sum = live_cells::computed([=] {
-        return use(a) + use(b);
+        return a() + b();
     });
 
     auto result = live_cells::computed([=] {
-        return use(select) ? use(c) : use(sum);
+        return select() ? c() : sum();
     });
 
     auto observer = std::make_shared<value_observer<int>>(result);
