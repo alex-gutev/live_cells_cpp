@@ -21,6 +21,7 @@
 #define LIVE_CELLS_COMPUTE_CELL_HPP
 
 #include <concepts>
+#include <type_traits>
 
 #include "dependent_cell.hpp"
 #include "tracker.hpp"
@@ -34,10 +35,10 @@ namespace live_cells {
      * The value computation function is provided to this class on
      * construction.
      */
-    template <typename T, std::invocable F, Cell... Ts>
-    class compute_cell : public dependent_cell<T, Ts...> {
+    template <std::invocable F, Cell... Ts>
+    class compute_cell : public dependent_cell<std::invoke_result_t<F>, Ts...> {
     public:
-        typedef T value_type;
+        typedef std::invoke_result_t<F> value_type;
         /**
          * Create a cell with a value that is a function of the values
          * of the cells @a args.
@@ -48,7 +49,7 @@ namespace live_cells {
          * @param args Argument cell observables
          */
         compute_cell(F compute, Ts... args) :
-            dependent_cell<T, Ts...>(args...),
+            dependent_cell<value_type, Ts...>(args...),
             compute(compute) {}
 
         /**
@@ -63,14 +64,14 @@ namespace live_cells {
          * @param args Argument cell observables
          */
         compute_cell(key_ref key, F compute, Ts... args) :
-            dependent_cell<T, Ts...>(key, args...),
+            dependent_cell<value_type, Ts...>(key, args...),
             compute(compute) {}
 
-        T value() const {
+        value_type value() const {
             return compute();
         }
 
-        T operator()() const {
+        value_type operator()() const {
             argument_tracker::global().track_argument(*this);
             return value();
         }
@@ -93,7 +94,7 @@ namespace live_cells {
      * @return The computed cell.
      */
     auto make_compute_cell(std::invocable auto f, auto... args) {
-        return compute_cell<decltype(f()), decltype(f), decltype(args)...>(f, args...);
+        return compute_cell<decltype(f), decltype(args)...>(f, args...);
     }
 
     /**
@@ -111,7 +112,7 @@ namespace live_cells {
      * @return The computed cell.
      */
     auto make_compute_cell(key_ref key, std::invocable auto f, auto... args) {
-        return compute_cell<decltype(f()), decltype(f), decltype(args)...>(key, f, args...);
+        return compute_cell<decltype(f), decltype(args)...>(key, f, args...);
     }
 
 }  // live_cells

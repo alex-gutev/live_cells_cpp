@@ -32,11 +32,11 @@ namespace live_cells {
      * A stateless mutable computed cell that does not hold its own
      * value, nor tracks observers.
      */
-    template <typename T, std::invocable F, typename R, typename... Os>
-    class mutable_cell_view : public compute_cell<T, F, Os...> {
+    template <std::invocable F, typename R, typename... Os>
+    class mutable_cell_view : public compute_cell<F, Os...> {
 
         /** Shorthand for parent class */
-        typedef compute_cell<T, F, Os...> parent;
+        typedef compute_cell<F, Os...> parent;
 
     public:
         using parent::value;
@@ -91,7 +91,7 @@ namespace live_cells {
          *
          * @param value The value to which to set the cell.
          */
-        void value(T value) {
+        void value(parent::value_type value) {
             batch([&] {
                 reverse(value);
             });
@@ -115,7 +115,6 @@ namespace live_cells {
      */
     auto make_mutable_cell_view(std::invocable auto compute, auto reverse, auto... args) {
         return mutable_cell_view<
-            decltype(compute()),
             decltype(compute),
             decltype(reverse),
             decltype(args)...>(
@@ -141,7 +140,6 @@ namespace live_cells {
      */
     auto make_mutable_cell_view(key_ref key, std::invocable auto compute, auto reverse, auto... args) {
         return mutable_cell_view<
-            decltype(compute()),
             decltype(compute),
             decltype(reverse),
             decltype(args)...>(
