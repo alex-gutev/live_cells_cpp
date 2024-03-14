@@ -21,10 +21,9 @@ namespace live_cells {
      *
      * @return The new cell
      */
-    template <typename T, typename U>
-    auto on_error(const T &cell, const U &error_value) {
+    auto on_error(const Cell auto &cell, const Cell auto &error_value) {
         return store(
-            compute_cell<typename T::value_type, T, U>([=] () {
+            make_compute_cell([=] () {
                 try {
                     return cell.value();
                 }
@@ -42,10 +41,10 @@ namespace live_cells {
      * Type `E` cannot be deduced so it should be specified
      * explicitly.
      */
-    template <typename E, typename T, typename U>
-    auto on_error(const T &cell, const U &error_value) {
+    template <typename E>
+    auto on_error(const Cell auto &cell, const Cell auto &error_value) {
         return store(
-            compute_cell<typename T::value_type, T, U>([=] () {
+            make_compute_cell([=] () {
                 try {
                     return cell.value();
                 }

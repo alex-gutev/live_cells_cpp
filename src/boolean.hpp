@@ -13,9 +13,8 @@ namespace live_cells {
      * NOTE: This operator is short-circuiting which means that the
      * value of cell `b` is only referenced if `a` is true.
      */
-    template <Cell T, Cell U>
-    auto operator && (const T &a, const U &b) {
-        return compute_cell<bool, T, U>([=] () {
+    auto operator && (const Cell auto &a, const Cell auto &b) {
+        return make_compute_cell([=] () {
             return a.value() && b.value();
         }, a, b);
     }
@@ -27,9 +26,8 @@ namespace live_cells {
      * NOTE: This operator is short-circuiting which means that the
      * value of cell `b` is only referenced if `a` is false.
      */
-    template <Cell T, Cell U>
-    auto operator || (const T &a, const U &b) {
-        return compute_cell<bool, T, U>([=] () {
+    auto operator || (const Cell auto &a, const Cell auto &b) {
+        return make_compute_cell([=] () {
             return a.value() || b.value();
         }, a, b);
     }
@@ -52,9 +50,8 @@ namespace live_cells {
      * evaluates to the value of the `if_true` cell. Otherwise the
      * cell evaluates to the value of the `if_false` cell.
      */
-    template <Cell T, Cell U, Cell V>
-    auto select(T condition, U if_true, V if_false) {
-        return compute_cell<typename U::value_type, T, U, V>([=] () {
+    auto select(Cell auto condition, Cell auto if_true, Cell auto if_false) {
+        return make_compute_cell([=] () {
             return condition.value() ? if_true.value() : if_false.value();
         }, condition, if_true, if_false);
     }
@@ -67,10 +64,9 @@ namespace live_cells {
      * evaluates to the value of the `if_true` cell. Otherwise the
      * cell preserves its current value as if by calling `none()`.
      */
-    template <typename T, typename U>
-    auto select(T condition, U if_true) {
+    auto select(Cell auto condition, Cell auto if_true) {
         return store(
-            compute_cell<typename U::value_type, T, U>([=] () {
+            make_compute_cell([=] () {
                 if (!condition.value()) {
                     none();
                 }

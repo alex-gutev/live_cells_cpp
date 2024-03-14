@@ -29,56 +29,6 @@
 #include "util.hpp"
 
 namespace live_cells {
-    /**
-     * Namespace for private definitions
-     */
-    namespace internal {
-
-        /**
-         * Create a compute_cell with compute function @a fn called on
-         * the arguments @a args.
-         *
-         * @param key  Key identifyinf the cell.
-         * @param fn   Compute value function.
-         * @param args Argument cells
-         *
-         * @return A compute_cell
-         */
-        template<typename F, typename... As>
-        auto make_compute_cell(key_ref key, F fn, As... args) {
-            typedef decltype(fn(args.value()...)) value_type;
-
-            return compute_cell<value_type, As...>(
-                key,
-                [=] {
-                    return fn(args.value()...);
-                },
-                args...
-            );
-        }
-
-        /**
-         * Create a compute_cell with compute function @a fn called on
-         * the arguments @a args.
-         *
-         * @param fn   Compute value function.
-         * @param args Argument cells
-         *
-         * @return A compute_cell
-         */
-        template <typename F, typename... As>
-        auto make_compute_cell(F fn, As... args) {
-            typedef decltype(fn(args.value()...)) value_type;
-
-            return compute_cell<value_type, As...>(
-                [=] {
-                    return fn(args.value()...);
-                },
-                args...
-            );
-        }
-
-    }  // internal
 
     /**
      * Create a cell with a value that is a function of one or more
@@ -137,8 +87,12 @@ namespace live_cells {
         auto fn_args = std::get<0>(packed);
         auto fn = std::get<1>(packed);
 
-        return internal::unpack([&] (auto... args) {
-            return internal::make_compute_cell(fn, args...);
+        return std::apply([&] (auto... args) {
+            auto f = [=] {
+                return fn(args.value()...);
+            };
+
+            return make_compute_cell(f, args...);
         }, fn_args);
     }
 
@@ -166,8 +120,12 @@ namespace live_cells {
         auto fn_args = std::get<0>(packed);
         auto fn = std::get<1>(packed);
 
-        return internal::unpack([&] (auto... args) {
-            return internal::make_compute_cell(key, fn, args...);
+        return std::apply([&] (auto... args) {
+            auto f = [=] {
+                return fn(args.value()...);
+            };
+
+            return make_compute_cell(key, f, args...);
         }, fn_args);
     }
 
