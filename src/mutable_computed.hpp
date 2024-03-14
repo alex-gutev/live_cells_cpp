@@ -22,41 +22,13 @@
 
 #include <tuple>
 #include <utility>
+#include <concepts>
 
 #include "static_mutable_compute_cell.hpp"
 #include "dynamic_mutable_compute_cell.hpp"
 #include "util.hpp"
 
 namespace live_cells {
-    /**
-     * Namespace for private definitions
-     */
-    namespace internal {
-
-        /**
-         * Create a static_mutable_compute_cell with compute function
-         * @a compute called on the arguments @a args, and reverse
-         * compute function @a reverse.
-         *
-         * @param compute Compute value function.
-         * @param reverse Reverse compute function.
-         * @param args    Arguments to @a fn
-         *
-         * @return A static_mutable_compute_cell
-         */
-        template <typename C, typename R, typename... As>
-        auto make_mutable_compute_cell(C compute, R reverse, As... args) {
-            typedef decltype(compute(args.value()...)) value_type;
-
-            auto fn = [=] {
-                return compute(args.value()...);
-            };
-
-            return static_mutable_compute_cell<value_type>(fn, reverse, args...);
-        }
-
-    }  // internal
-
     /**
      * Create a mutable computed cell.
      *
@@ -123,8 +95,12 @@ namespace live_cells {
         auto compute = std::get<1>(packed);
         auto reverse = std::get<2>(packed);
 
-        return internal::unpack([&] (auto... args) {
-            return internal::make_mutable_compute_cell(compute, reverse, args...);
+        return std::apply([&] (auto... args) {
+            auto fn = [=] {
+                return compute(args.value()...);
+            };
+
+            return make_mutable_compute_cell(fn, reverse, args...);
         }, fn_args);
     }
 
