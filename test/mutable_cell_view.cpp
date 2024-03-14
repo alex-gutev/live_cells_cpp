@@ -35,8 +35,6 @@
 #include "test_util.hpp"
 #include "test_lifecyle.hpp"
 
-using live_cells::use;
-
 BOOST_AUTO_TEST_SUITE(mutable_cell_view)
 
 BOOST_AUTO_TEST_CASE(value_computed_on_construction) {
