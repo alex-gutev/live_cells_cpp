@@ -32,17 +32,11 @@ namespace live_cells {
      * A stateless mutable computed cell that does not hold its own
      * value, nor tracks observers.
      */
-    template <typename T, typename... Os>
-    class mutable_cell_view : public compute_cell<T, Os...> {
+    template <typename T, std::invocable F, typename R, typename... Os>
+    class mutable_cell_view : public compute_cell<T, F, Os...> {
 
         /** Shorthand for parent class */
-        typedef compute_cell<T, Os...> parent;
-
-        /** Compute function type */
-        typedef std::function<T()> compute_fn;
-
-        /** Reverse function type */
-        typedef std::function<void(const T&)> reverse_fn;
+        typedef compute_cell<T, F, Os...> parent;
 
     public:
         using parent::value;
@@ -64,7 +58,7 @@ namespace live_cells {
          *
          * @param args Arguments to @a compute
          */
-        mutable_cell_view(compute_fn compute, reverse_fn reverse, Os... args) :
+        mutable_cell_view(F compute, R reverse, Os... args) :
             parent(compute, args...),
             reverse(reverse) {}
 
@@ -88,7 +82,7 @@ namespace live_cells {
          *
          * @param args Arguments to @a compute
          */
-        mutable_cell_view(key_ref key, compute_fn compute, reverse_fn reverse, Os... args) :
+        mutable_cell_view(key_ref key, F compute, R reverse, Os... args) :
             parent(key, compute, args...),
             reverse(reverse) {}
 
@@ -104,35 +98,59 @@ namespace live_cells {
         }
 
     private:
-        const reverse_fn reverse;
+        const R reverse;
     };
 
     /**
-     * Namespace for private definitions
+     * Create a stateless mutable computed cell with a given compute
+     * and reverse function and argument cells.
+     *
+     * @param f A function of no arguments, called to compute the
+     *    value of the cell.
+     *
+     * @param args List of argument Cells on which the value of
+     *   this cell depends.
+     *
+     * @return The computed cell.
      */
-    namespace internal {
-        template <typename C, typename R, typename... As>
-        auto make_mutable_cell_view(C compute, R reverse, As... args) {
-            typedef decltype(compute(args.value()...)) value_type;
+    auto make_mutable_cell_view(std::invocable auto compute, auto reverse, auto... args) {
+        return mutable_cell_view<
+            decltype(compute()),
+            decltype(compute),
+            decltype(reverse),
+            decltype(args)...>(
+                compute,
+                reverse,
+                args...
+        );
+    }
 
-            auto fn = [=] {
-                return compute(args.value()...);
-            };
-
-            return mutable_cell_view<value_type, As...>(fn, reverse, args...);
-        }
-
-        template <typename C, typename R, typename... As>
-        auto make_mutable_cell_view(key_ref key, C compute, R reverse, As... args) {
-            typedef decltype(compute(args.value()...)) value_type;
-
-            auto fn = [=] {
-                return compute(args.value()...);
-            };
-
-            return mutable_cell_view<value_type, As...>(key, fn, reverse, args...);
-        }
-    }  // internal
+    /**
+     * Create a stateless computed cell with a given compute and
+     * reverse function function and argument cells
+     *
+     * @param key Key identifying the cell.
+     *
+     * @param f A function of no arguments, called to compute the
+     *    value of the cell.
+     *
+     * @param args List of argument Cells on which the value of
+     *   this cell depends.
+     *
+     * @return The computed cell.
+     */
+    auto make_mutable_cell_view(key_ref key, std::invocable auto compute, auto reverse, auto... args) {
+        return mutable_cell_view<
+            decltype(compute()),
+            decltype(compute),
+            decltype(reverse),
+            decltype(args)...>(
+                key,
+                compute,
+                reverse,
+                args...
+        );
+    }
 
     /**
      * Create a stateless mutable computed cell.
@@ -167,8 +185,12 @@ namespace live_cells {
         auto compute = std::get<1>(packed);
         auto reverse = std::get<2>(packed);
 
-        return internal::unpack([&] (auto... args) {
-            return internal::make_mutable_cell_view(key, compute, reverse, args...);
+        return std::apply([&] (auto... args) {
+            auto f = [=] {
+                return compute(args.value()...);
+            };
+
+            return make_mutable_cell_view(key, f, reverse, args...);
         }, fn_args);
     }
 
@@ -180,8 +202,12 @@ namespace live_cells {
         auto compute = std::get<1>(packed);
         auto reverse = std::get<2>(packed);
 
-        return internal::unpack([&] (auto... args) {
-            return internal::make_mutable_cell_view(compute, reverse, args...);
+        return std::apply([&] (auto... args) {
+            auto f = [=] {
+                return compute(args.value()...);
+            };
+
+            return make_mutable_cell_view(f, reverse, args...);
         }, fn_args);
     }
 
