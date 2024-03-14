@@ -38,10 +38,13 @@ namespace live_cells {
     /**
      * Maintains the state of a store cell.
      */
-    template <typename T>
-    class store_cell_state : public compute_cell_state<T> {
+    template <Cell C>
+    class store_cell_state : public compute_cell_state<typename C::value_type> {
+        /** Shorthand for the value type of C */
+        typedef C::value_type value_type;
+
         /** Shorthand for parent class */
-        typedef compute_cell_state<T> parent;
+        typedef compute_cell_state<value_type> parent;
 
     public:
         /**
@@ -50,7 +53,7 @@ namespace live_cells {
          * @param k    Key identifying the cell
          * @param cell The argument cell
          */
-        store_cell_state(key_ref k, cell arg) :
+        store_cell_state(key_ref k, C arg) :
             parent(k),
             arg(arg) {}
 
@@ -75,15 +78,15 @@ namespace live_cells {
             parent::pause();
         }
 
-        T compute() override {
-            return arg.value<T>();
+        value_type compute() override {
+            return arg.value();
         }
 
     private:
         /**
          * Store cell argument cell
          */
-        cell arg;
+        const C arg;
     };
 
     /**
@@ -93,20 +96,20 @@ namespace live_cells {
      * computed cell, which would otherwise be recomputed every time
      * it is accessed.
      */
-    template <typename T>
-    class store_cell : public stateful_cell<store_cell_state<T>> {
+    template <Cell C>
+    class store_cell : public stateful_cell<store_cell_state<C>> {
         /**
          * Shorthand for parent class
          */
-        typedef stateful_cell<store_cell_state<T>> parent;
+        typedef stateful_cell<store_cell_state<C>> parent;
 
         /**
          * Cell key type
          */
-        typedef store_cell_key<cell> key_type;
+        typedef store_cell_key<key_ref> key_type;
 
     public:
-        typedef T value_type;
+        typedef C::value_type value_type;
 
         /**
          * Create a store cell.
@@ -116,14 +119,14 @@ namespace live_cells {
          *
          * @param cell The argument cell.
          */
-        store_cell(cell cell) :
-            parent(key_ref::create<key_type>(cell), cell) {}
+        store_cell(C cell) :
+            parent(key_ref::create<key_type>(cell.key()), cell) {}
 
-        T value() const {
+        value_type value() const {
             return this->state->value();
         }
 
-        T operator()() const {
+        value_type operator()() const {
             argument_tracker::global().track_argument(*this);
             return value();
         }
@@ -145,7 +148,7 @@ namespace live_cells {
      */
     template <Cell C>
     auto store(const C &arg) {
-        return store_cell<typename C::value_type>(cell(arg));
+        return store_cell<C>(arg);
     }
 
 }  // live_cells

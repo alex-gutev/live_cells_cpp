@@ -46,12 +46,12 @@ namespace live_cells {
             first(first),
             rest(rest...) {}
 
-        void add_observer(observer::ref o) {
+        void add_observer(observer::ref o) const {
             first.add_observer(o);
             rest.add_observer(o);
         }
 
-        void remove_observer(observer::ref o) {
+        void remove_observer(observer::ref o) const {
             first.remove_observer(o);
             rest.remove_observer(o);
         }
@@ -67,11 +67,11 @@ namespace live_cells {
 
         merged_observable(T o) : first(o) {}
 
-        void add_observer(observer::ref o) {
+        void add_observer(observer::ref o) const {
             first.add_observer(o);
         }
 
-        void remove_observer(observer::ref o) {
+        void remove_observer(observer::ref o) const {
             first.remove_observer(o);
         }
 

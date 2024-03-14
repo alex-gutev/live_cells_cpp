@@ -65,11 +65,11 @@ namespace live_cells {
             key_(key),
             observable(args...) {}
 
-        void add_observer(observer::ref o) {
+        void add_observer(observer::ref o) const {
             observable.add_observer(o);
         }
 
-        void remove_observer(observer::ref o) {
+        void remove_observer(observer::ref o) const {
             observable.remove_observer(o);
         }
 

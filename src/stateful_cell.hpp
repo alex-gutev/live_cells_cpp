@@ -70,11 +70,11 @@ namespace live_cells {
             return key_;
         }
 
-        void add_observer(observer::ref o) {
+        void add_observer(observer::ref o) const {
             state->add_observer(o);
         }
 
-        void remove_observer(observer::ref o) {
+        void remove_observer(observer::ref o) const {
             state->remove_observer(o);
         }
 

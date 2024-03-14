@@ -79,11 +79,11 @@ namespace live_cells {
             return m_value;
         }
 
-        void add_observer(observer::ref) {
+        void add_observer(observer::ref) const {
             // Do nothing
         }
 
-        void remove_observer(observer::ref) {
+        void remove_observer(observer::ref) const {
             // Do nothing
         }
 
