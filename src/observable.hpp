@@ -26,9 +26,6 @@
 
 namespace live_cells {
 
-    template <typename T>
-    class cell;
-
     /**
      * Defines the observer interface for observing a cell.
      */
