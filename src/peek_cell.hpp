@@ -76,9 +76,9 @@ namespace live_cells {
      * A peek cell, has the same value as another cell but it does not
      * notify observers when its value has changed.
      */
-    template <typename C>
-    class peek_cell : public stateful_cell<typename C::value_type, peek_cell_state<C>> {
-        typedef stateful_cell<typename C::value_type, peek_cell_state<C>> parent;
+    template <Observable C>
+    class peek_cell : public stateful_cell<peek_cell_state<C>> {
+        typedef stateful_cell<peek_cell_state<C>> parent;
 
     public:
         /**
