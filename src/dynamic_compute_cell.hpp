@@ -23,6 +23,7 @@
 #include <unordered_set>
 #include <functional>
 #include <utility>
+#include <concepts>
 
 #include "compute_state.hpp"
 #include "stateful_cell.hpp"
@@ -34,7 +35,7 @@ namespace live_cells {
      * State for a computed cell which determines its argument cells
      * dynamically.
      */
-    template <typename T>
+    template <typename T, std::invocable F>
     class dynamic_compute_cell_state : public compute_cell_state<T> {
     public:
 
@@ -45,10 +46,9 @@ namespace live_cells {
          * @param key     Key identifying cell state
          * @param compute Value computation function.
          */
-        template <typename F>
-        dynamic_compute_cell_state(key_ref key, F&& compute) :
+        dynamic_compute_cell_state(key_ref key, F compute) :
             compute_cell_state<T>(key),
-            compute_(std::forward<F>(compute)) {}
+            compute_(compute) {}
 
     protected:
         T compute() override {
@@ -72,7 +72,7 @@ namespace live_cells {
         /**
          * Value computation function.
          */
-        std::function<T()> compute_;
+        const F compute_;
 
         void init() override {
             compute_cell_state<T>::init();
@@ -100,12 +100,12 @@ namespace live_cells {
     /**
      * A computed cell which determines its argument cells at runtime.
      */
-    template <typename T>
-    class dynamic_compute_cell : public stateful_cell<dynamic_compute_cell_state<T>> {
+    template <typename T, std::invocable F>
+    class dynamic_compute_cell : public stateful_cell<dynamic_compute_cell_state<T,F>> {
         /**
          * Shorthand for parent class
          */
-        typedef stateful_cell<dynamic_compute_cell_state<T>> parent;
+        typedef stateful_cell<dynamic_compute_cell_state<T,F>> parent;
 
     public:
         typedef T value_type;
@@ -116,7 +116,7 @@ namespace live_cells {
          *
          * @param compute Value computation function.
          */
-        dynamic_compute_cell(std::function<T()> compute) :
+        dynamic_compute_cell(F compute) :
             dynamic_compute_cell(key_ref::create<unique_key>(), compute) {}
 
         /**
@@ -126,7 +126,7 @@ namespace live_cells {
          * @param key     Key identifying cell.
          * @param compute Value computation function.
          */
-        dynamic_compute_cell(key_ref key, std::function<T()> compute) :
+        dynamic_compute_cell(key_ref key, F compute) :
             parent(key, compute) {}
 
         T value() const {
