@@ -23,6 +23,7 @@
 #include <concepts>
 
 #include "dependent_cell.hpp"
+#include "tracker.hpp"
 
 namespace live_cells {
 
@@ -67,6 +68,11 @@ namespace live_cells {
 
         T value() const {
             return compute();
+        }
+
+        T operator()() const {
+            argument_tracker::global().track_argument(*this);
+            return value();
         }
 
     private:

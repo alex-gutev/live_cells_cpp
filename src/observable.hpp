@@ -82,6 +82,11 @@ namespace live_cells {
      *
      *   Return the value held by the observable.
      *
+     * - value_type operator()() const;
+     *
+     *   Track this cell as a referenced argument cell and return its
+     *   value.
+     *
      * - key_ref key() const;
      *
      *   Return a key that uniquely identifies the observable.
@@ -91,6 +96,7 @@ namespace live_cells {
         { o.add_observer(observer::ref()) };
         { o.remove_observer(observer::ref()) };
         { o.value() } -> std::same_as<typename T::value_type>;
+        { o() } -> std::same_as<typename T::value_type>;
         { o.key() } -> std::same_as<key_ref>;
     };
 

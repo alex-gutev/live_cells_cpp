@@ -23,6 +23,7 @@
 #include "keys.hpp"
 #include "compute_state.hpp"
 #include "stateful_cell.hpp"
+#include "tracker.hpp"
 
 namespace live_cells {
 
@@ -120,6 +121,11 @@ namespace live_cells {
 
         T value() const {
             return this->state->value();
+        }
+
+        T operator()() const {
+            argument_tracker::global().track_argument(*this);
+            return value();
         }
     };
 
