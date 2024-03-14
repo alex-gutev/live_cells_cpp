@@ -81,6 +81,8 @@ namespace live_cells {
         typedef stateful_cell<peek_cell_state<C>> parent;
 
     public:
+        typedef C::value_type value_type;
+
         /**
          * Create a peek cell with the same value as `cell`.
          */
@@ -88,8 +90,13 @@ namespace live_cells {
             parent(key_ref::create<peek_cell_key>(cell.key()), cell),
             cell(cell) {}
 
-        typename C::value_type value() const override {
+        typename C::value_type value() const {
             return cell.value();
+        }
+
+        typename C::value_type operator()() const {
+            argument_tracker::global().track_argument(*this);
+            return value();
         }
 
     private:

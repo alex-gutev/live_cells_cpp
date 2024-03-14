@@ -33,8 +33,6 @@
 #include "test_util.hpp"
 #include "test_lifecyle.hpp"
 
-using live_cells::use;
-
 BOOST_AUTO_TEST_SUITE(peek_cell)
 
 BOOST_AUTO_TEST_CASE(value_equals_argument_cell) {
@@ -52,7 +50,7 @@ BOOST_AUTO_TEST_CASE(does_not_notify_observers) {
     auto b = live_cells::variable(1);
 
     auto sum = live_cells::computed([=] {
-        return use(live_cells::peek(a)) + use(b);
+        return live_cells::peek(a)() + b();
     });
 
     auto observer = std::make_shared<value_observer<int>>(sum);
