@@ -35,16 +35,41 @@ namespace live_cells {
         using value_key<T>::value_key;
     };
 
+    /** Forward declaration */
+    template <Cell C>
+    class store_cell_state;
+
+    /**
+     * Defines the computation function of the state of a store_cell.
+     */
+    template <Cell C>
+    class store_cell_compute_state {
+        /**
+         * Argument cell
+         */
+        const C arg;
+
+        friend class store_cell_state<C>;
+
+    public:
+        store_cell_compute_state(C arg) :
+            arg(arg) {}
+
+        C::value_type operator()(observer::ref) {
+            return arg.value();
+        }
+    };
+
     /**
      * Maintains the state of a store cell.
      */
     template <Cell C>
-    class store_cell_state : public compute_cell_state<typename C::value_type> {
+    class store_cell_state : public compute_cell_state<store_cell_compute_state<C>> {
         /** Shorthand for the value type of C */
         typedef C::value_type value_type;
 
         /** Shorthand for parent class */
-        typedef compute_cell_state<value_type> parent;
+        typedef compute_cell_state<store_cell_compute_state<C>> parent;
 
     public:
         /**
@@ -54,15 +79,14 @@ namespace live_cells {
          * @param cell The argument cell
          */
         store_cell_state(key_ref k, C arg) :
-            parent(k),
-            arg(arg) {}
+            parent(k, arg) {}
 
     protected:
 
         void init() override {
             parent::init();
 
-            arg.add_observer(this->observer_ptr());
+            this->compute.arg.add_observer(this->observer_ptr());
 
             try {
                 // Compute the initial value
@@ -74,19 +98,9 @@ namespace live_cells {
         }
 
         void pause() override {
-            arg.remove_observer(this->observer_ptr());
+            this->compute.arg.remove_observer(this->observer_ptr());
             parent::pause();
         }
-
-        value_type compute() override {
-            return arg.value();
-        }
-
-    private:
-        /**
-         * Store cell argument cell
-         */
-        const C arg;
     };
 
     /**

@@ -32,15 +32,54 @@
 
 namespace live_cells {
 
+    /** Forward Declaration */
+    template <std::invocable F>
+    class dynamic_compute_cell_state;
+
+    /**
+     * Defines the computation function of the state of a
+     * dynamic_compute_cell.
+     */
+    template <std::invocable F>
+    class dynamic_compute_state {
+        /**
+         * Value computation function.
+         */
+        const F compute;
+
+        /**
+         * Set of argument cells referenced by value computation function.
+         */
+        std::unordered_set<cell> arguments;
+
+        friend class dynamic_compute_cell_state<F>;
+
+    public:
+        dynamic_compute_state(F compute) :
+            compute(compute) {}
+
+        auto operator()(observer::ref state) {
+            auto t = argument_tracker::global().with_tracker([this, state] (auto cell) {
+                if (!arguments.count(cell)) {
+                    arguments.emplace(cell);
+
+                    cell.add_observer(state);
+                }
+            });
+
+            return compute();
+        }
+    };
+
     /**
      * State for a computed cell which determines its argument cells
      * dynamically.
      */
     template <std::invocable F>
-    class dynamic_compute_cell_state : public compute_cell_state<std::invoke_result_t<F>> {
-    public:
-        typedef std::invoke_result_t<F> value_type;
+    class dynamic_compute_cell_state : public compute_cell_state<dynamic_compute_state<F>> {
+        typedef compute_cell_state<dynamic_compute_state<F>> parent;
 
+    public:
         /**
          * Create a dynamic computed cell state, with a given value
          * computation function.
@@ -49,35 +88,11 @@ namespace live_cells {
          * @param compute Value computation function.
          */
         dynamic_compute_cell_state(key_ref key, F compute) :
-            compute_cell_state<value_type>(key),
-            compute_(compute) {}
+            parent(key, compute) {}
 
     protected:
-        value_type compute() override {
-            auto t = argument_tracker::global().with_tracker([this] (auto cell) {
-                if (!arguments.count(cell)) {
-                    arguments.emplace(cell);
-
-                    cell.add_observer(this->observer_ptr());
-                }
-            });
-
-            return compute_();
-        }
-
-    private:
-        /**
-         * Set of argument cells referenced by value computation function.
-         */
-        std::unordered_set<cell> arguments;
-
-        /**
-         * Value computation function.
-         */
-        const F compute_;
-
         void init() override {
-            compute_cell_state<value_type>::init();
+            parent::init();
 
             try {
                 // Determine arguments and add observers
@@ -89,13 +104,13 @@ namespace live_cells {
         }
 
         void pause() override {
-            compute_cell_state<value_type>::pause();
+            parent::pause();
 
-            for (auto arg : arguments) {
+            for (auto arg : this->compute.arguments) {
                 arg.remove_observer(this->observer_ptr());
             }
 
-            arguments.clear();
+            this->compute.arguments.clear();
         }
     };
 
@@ -110,6 +125,9 @@ namespace live_cells {
         typedef stateful_cell<dynamic_compute_cell_state<F>> parent;
 
     public:
+        /**
+         * Shorthand for the type of value held by this cell.
+         */
         typedef std::invoke_result_t<F> value_type;
 
         /**
