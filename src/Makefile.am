@@ -1,3 +1,3 @@
-bin_PROGRAMS = lc_main
+lib_LIBRARIES = liblivecells.a
 
-lc_main_SOURCES = live_cells.cpp main.cpp
+liblivecells_a_SOURCES = live_cells.cpp
