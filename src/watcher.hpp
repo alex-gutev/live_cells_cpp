@@ -37,8 +37,7 @@ namespace live_cells {
      * automatically removes it on destruction. The watch function can
      * also be removed prior to destruction with the stop() method.
      */
-    template <typename F>
-    class watcher : public std::enable_shared_from_this<watcher<F>> {
+    class watcher : public std::enable_shared_from_this<watcher> {
     public:
 
         /**
@@ -46,8 +45,14 @@ namespace live_cells {
          *
          * @param callback A cell watch function.
          */
-        watcher(F callback) : observer(std::make_shared<watch_observer>(callback)) {
-            observer->call_with_tracker();
+        template <typename F>
+        watcher(F callback) :
+            observer(
+                std::static_pointer_cast<base_observer>(
+                    std::make_shared<watch_observer<F>>(callback)
+                )
+            ) {
+            observer->init();
         }
 
         watcher(const watcher &) = delete;
@@ -71,24 +76,56 @@ namespace live_cells {
             observer->stop();
         }
 
-        template <typename U>
-        friend std::shared_ptr<watcher<U>> watch(U fn);
-
     private:
+
+        /**
+         * Base watch function observer type.
+         */
+        struct base_observer : public observer, public std::enable_shared_from_this<base_observer> {
+
+            /** Argument cells referenced by watch function */
+            std::unordered_set<cell> arguments;
+
+            virtual ~base_observer() = default;
+
+            /**
+             * Call watch function to determine dependencies.
+             */
+            virtual void init() = 0;
+
+            /**
+             * Remove the watch function.
+             *
+             * The watch function will no longer be called after calling
+             * this method.
+             */
+            void stop() {
+                for (auto arg : arguments) {
+                    arg.remove_observer(
+                        std::static_pointer_cast<observer>(this->shared_from_this())
+                    );
+                }
+
+                arguments.clear();
+            }
+        };
 
         /**
          * The observer which calls the watch function when the cell
          * values change.
          */
-        struct watch_observer : public observer, public std::enable_shared_from_this<watch_observer> {
+        template <typename F>
+        struct watch_observer : public base_observer {
             /** Cell watch function */
             const F callback;
 
             watch_observer(F callback) : callback(callback) {}
+
             watch_observer(const watch_observer &) = delete;
 
-            /** Argument cells referenced by watch function */
-            std::unordered_set<cell> arguments;
+            void init() override {
+                call_with_tracker();
+            }
 
             /**
              * Is an argument cell value update currently in progresss?
@@ -115,8 +152,8 @@ namespace live_cells {
              */
             void call_with_tracker() {
                 auto t = argument_tracker::global().with_tracker([this] (auto cell) {
-                    if (!arguments.count(cell)) {
-                        arguments.emplace(cell);
+                    if (!this->arguments.count(cell)) {
+                        this->arguments.emplace(cell);
                         cell.add_observer(
                             std::static_pointer_cast<observer>(this->shared_from_this())
                         );
@@ -125,26 +162,10 @@ namespace live_cells {
 
                 callback();
             }
-
-            /**
-             * Remove the watch function.
-             *
-             * The watch function will no longer be called after calling
-             * this method.
-             */
-            void stop() {
-                for (auto arg : arguments) {
-                    arg.remove_observer(
-                        std::static_pointer_cast<observer>(this->shared_from_this())
-                    );
-                }
-
-                arguments.clear();
-            }
         };
 
         /** The cell observer that calls the watch function */
-        std::shared_ptr<watch_observer> observer;
+        std::shared_ptr<base_observer> observer;
     };
 
     /**
@@ -164,8 +185,8 @@ namespace live_cells {
      *   called.
      */
     template <typename F>
-    std::shared_ptr<watcher<F>> watch(F fn) {
-        auto w = std::make_shared<watcher<F>>(fn);
+    std::shared_ptr<watcher> watch(F fn) {
+        auto w = std::make_shared<watcher>(fn);
 
         return w;
     }
