@@ -1,4 +1,4 @@
-pkglib_LIBRARIES = liblivecells.a
+lib_LIBRARIES = liblive_cells.a
 pkginclude_HEADERS = boolean.hpp \
 	cell_state.hpp \
 	compute_cell.hpp \
@@ -30,4 +30,4 @@ pkginclude_HEADERS = boolean.hpp \
 	watcher.hpp \
 	live_cells.hpp
 
-liblivecells_a_SOURCES = live_cells.cpp
+liblive_cells_a_SOURCES = live_cells.cpp
