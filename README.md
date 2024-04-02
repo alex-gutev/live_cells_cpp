@@ -212,4 +212,4 @@ Now that your project is set up, all you need to do is include the
 ```
 
 You're all set to start following the introductory
-[tutorial](https://alex-gutev.github.io/live_cells_cpp/docs/basics),
+[tutorial](https://alex-gutev.github.io/live_cells_cpp/docs/category/basics),
