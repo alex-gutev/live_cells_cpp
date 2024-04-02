@@ -36,8 +36,8 @@
 BOOST_AUTO_TEST_SUITE(equality_comparison)
 
 BOOST_AUTO_TEST_CASE(constant_cells_equal_if_equal_values) {
-    auto a = live_cells::value_cell(1);
-    auto b = live_cells::value_cell(1);
+    auto a = live_cells::value(1);
+    auto b = live_cells::value(1);
 
     auto eq = a == b;
 
@@ -45,8 +45,8 @@ BOOST_AUTO_TEST_CASE(constant_cells_equal_if_equal_values) {
 }
 
 BOOST_AUTO_TEST_CASE(constant_cells_not_equal_if_unequal_values) {
-    auto a = live_cells::value_cell(1);
-    auto b = live_cells::value_cell(2);
+    auto a = live_cells::value(1);
+    auto b = live_cells::value(2);
 
     auto eq = a == b;
 
@@ -54,8 +54,8 @@ BOOST_AUTO_TEST_CASE(constant_cells_not_equal_if_unequal_values) {
 }
 
 BOOST_AUTO_TEST_CASE(constant_cells_unequal_if_unequal_values) {
-    auto a = live_cells::value_cell(3);
-    auto b = live_cells::value_cell(4);
+    auto a = live_cells::value(3);
+    auto b = live_cells::value(4);
 
     auto neq = a != b;
 
@@ -63,8 +63,8 @@ BOOST_AUTO_TEST_CASE(constant_cells_unequal_if_unequal_values) {
 }
 
 BOOST_AUTO_TEST_CASE(constant_cells_not_unequal_if_equal_values) {
-    auto a = live_cells::value_cell(3);
-    auto b = live_cells::value_cell(3);
+    auto a = live_cells::value(3);
+    auto b = live_cells::value(3);
 
     auto neq = a != b;
 
@@ -190,8 +190,8 @@ BOOST_AUTO_TEST_CASE(equality_cells_compare_not_equal_if_different_arguments) {
     auto b = live_cells::variable(2);
 
     live_cells::cell eq1(a == b);
-    live_cells::cell eq2(a == live_cells::value_cell(2));
-    live_cells::cell eq3(live_cells::value_cell(2) == b);
+    live_cells::cell eq2(a == live_cells::value(2));
+    live_cells::cell eq3(live_cells::value(2) == b);
 
     BOOST_CHECK(eq1 != eq2);
     BOOST_CHECK(eq1 != eq3);
@@ -217,8 +217,8 @@ BOOST_AUTO_TEST_CASE(inequality_cells_compare_not_equal_if_different_arguments) 
     auto b = live_cells::variable(2);
 
     live_cells::cell neq1(a != b);
-    live_cells::cell neq2(a != live_cells::value_cell(2));
-    live_cells::cell neq3(live_cells::value_cell(2) != b);
+    live_cells::cell neq2(a != live_cells::value(2));
+    live_cells::cell neq3(live_cells::value(2) != b);
 
     BOOST_CHECK(neq1 != neq2);
     BOOST_CHECK(neq1 != neq3);

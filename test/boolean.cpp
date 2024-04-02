@@ -88,7 +88,7 @@ BOOST_AUTO_TEST_CASE(logical_not) {
 }
 
 BOOST_AUTO_TEST_CASE(select_with_if_false) {
-    auto a = live_cells::value_cell<std::string>("true");
+    auto a = live_cells::value<std::string>("true");
     auto b = live_cells::variable<std::string>("false");
 
     auto cond = live_cells::variable(true);

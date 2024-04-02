@@ -226,7 +226,7 @@ BOOST_AUTO_TEST_CASE(correct_values_produced_across_all_observers) {
     });
 
     auto c = live_cells::store(a + sum);
-    auto d = sum + live_cells::value_cell(2);
+    auto d = sum + live_cells::value(2);
 
     auto obs_c = std::make_shared<value_observer<int>>(c);
     auto obs_d = std::make_shared<value_observer<int>>(d);

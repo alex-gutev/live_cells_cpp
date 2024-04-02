@@ -36,7 +36,7 @@
 BOOST_AUTO_TEST_SUITE(dynamic_compute_cell)
 
 BOOST_AUTO_TEST_CASE(applied_on_constant_cell_value) {
-    auto a = live_cells::value_cell(1);
+    auto a = live_cells::value(1);
     auto b = live_cells::computed([=] {
         return a() + 1;
     });

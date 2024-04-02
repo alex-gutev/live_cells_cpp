@@ -98,14 +98,14 @@ namespace live_cells {
     };
 
     /**
-     * Create a cell which holds a constant value.
+     * Create a cell that holds a constant value.
      *
      * @param value The constant value.
      *
      * @return A cell
      */
     template <typename T>
-    constant_cell<T> value_cell(const T &value) {
+    constant_cell<T> value(const T &value) {
         return constant_cell<T>(value);
     }
 

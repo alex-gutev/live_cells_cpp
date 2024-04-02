@@ -36,8 +36,8 @@
 BOOST_AUTO_TEST_SUITE(numeric_operators)
 
 BOOST_AUTO_TEST_CASE(additon) {
-    auto a = live_cells::value_cell(5);
-    auto b = live_cells::value_cell(6);
+    auto a = live_cells::value(5);
+    auto b = live_cells::value(6);
 
     auto c = a + b;
 
@@ -45,8 +45,8 @@ BOOST_AUTO_TEST_CASE(additon) {
 }
 
 BOOST_AUTO_TEST_CASE(subtraction) {
-    auto a = live_cells::value_cell(13);
-    auto b = live_cells::value_cell(20);
+    auto a = live_cells::value(13);
+    auto b = live_cells::value(20);
 
     auto c = a - b;
 
@@ -54,8 +54,8 @@ BOOST_AUTO_TEST_CASE(subtraction) {
 }
 
 BOOST_AUTO_TEST_CASE(multiplication) {
-    auto a = live_cells::value_cell(10);
-    auto b = live_cells::value_cell(8);
+    auto a = live_cells::value(10);
+    auto b = live_cells::value(8);
 
     auto c = a * b;
 
@@ -63,8 +63,8 @@ BOOST_AUTO_TEST_CASE(multiplication) {
 }
 
 BOOST_AUTO_TEST_CASE(division) {
-    auto a = live_cells::value_cell(8);
-    auto b = live_cells::value_cell(4);
+    auto a = live_cells::value(8);
+    auto b = live_cells::value(4);
 
     auto c = a / b;
 
@@ -72,8 +72,8 @@ BOOST_AUTO_TEST_CASE(division) {
 }
 
 BOOST_AUTO_TEST_CASE(modulu) {
-    auto a = live_cells::value_cell(17);
-    auto b = live_cells::value_cell(3);
+    auto a = live_cells::value(17);
+    auto b = live_cells::value(3);
 
     auto c = a % b;
 
@@ -81,8 +81,8 @@ BOOST_AUTO_TEST_CASE(modulu) {
 }
 
 BOOST_AUTO_TEST_CASE(less_than) {
-    auto a = live_cells::value_cell(3);
-    auto b = live_cells::value_cell(8);
+    auto a = live_cells::value(3);
+    auto b = live_cells::value(8);
 
     auto lt = a < b;
     auto gt = b < a;
@@ -94,8 +94,8 @@ BOOST_AUTO_TEST_CASE(less_than) {
 }
 
 BOOST_AUTO_TEST_CASE(less_than_or_equal) {
-    auto a = live_cells::value_cell(3);
-    auto b = live_cells::value_cell(8);
+    auto a = live_cells::value(3);
+    auto b = live_cells::value(8);
 
     auto lt = a <= b;
     auto gt = b <= a;
@@ -107,8 +107,8 @@ BOOST_AUTO_TEST_CASE(less_than_or_equal) {
 }
 
 BOOST_AUTO_TEST_CASE(greater_than) {
-    auto a = live_cells::value_cell(3);
-    auto b = live_cells::value_cell(8);
+    auto a = live_cells::value(3);
+    auto b = live_cells::value(8);
 
     auto gt = a > b;
     auto lt = b > a;
@@ -120,8 +120,8 @@ BOOST_AUTO_TEST_CASE(greater_than) {
 }
 
 BOOST_AUTO_TEST_CASE(greater_than_or_equal) {
-    auto a = live_cells::value_cell(3);
-    auto b = live_cells::value_cell(8);
+    auto a = live_cells::value(3);
+    auto b = live_cells::value(8);
 
     auto gt = a >= b;
     auto lt = b >= a;

@@ -35,8 +35,8 @@ BOOST_AUTO_TEST_SUITE(cell_state_consistency)
 BOOST_AUTO_TEST_CASE(no_intermediate_value_with_multi_argument_cells) {
     auto a = live_cells::variable(0);
 
-    auto sum = a + live_cells::value_cell(1);
-    auto prod = a * live_cells::value_cell(8);
+    auto sum = a + live_cells::value(1);
+    auto prod = a * live_cells::value(8);
     auto result = sum + prod;
 
     auto observer = std::make_shared<value_observer<int>>(result);
@@ -51,8 +51,8 @@ BOOST_AUTO_TEST_CASE(no_intermediate_value_with_multi_argument_cells) {
 BOOST_AUTO_TEST_CASE(no_intermediate_value_with_store_cells) {
     auto a = live_cells::variable(0);
 
-    auto sum = live_cells::store(a + live_cells::value_cell(1));
-    auto prod = live_cells::store(a * live_cells::value_cell(8));
+    auto sum = live_cells::store(a + live_cells::value(1));
+    auto prod = live_cells::store(a * live_cells::value(8));
     auto result = sum + prod;
 
     auto observer = std::make_shared<value_observer<int>>(result);
@@ -66,12 +66,12 @@ BOOST_AUTO_TEST_CASE(no_intermediate_value_with_store_cells) {
 
 BOOST_AUTO_TEST_CASE(no_intermediate_value_with_store_cells_and_unequal_branches) {
     using live_cells::store;
-    using live_cells::value_cell;
+    using live_cells::value;
 
     auto a = live_cells::variable(0);
 
-    auto sum = store(store(a + value_cell(1)) + value_cell(10));
-    auto prod = store(a * value_cell(8));
+    auto sum = store(store(a + value(1)) + value(10));
+    auto prod = store(a * value(8));
     auto result = store(sum + prod);
 
     auto observer = std::make_shared<value_observer<int>>(result);
@@ -265,7 +265,7 @@ BOOST_AUTO_TEST_CASE(all_store_cell_observers_called_correct_number_of_times) {
     auto sum = live_cells::store(a + b);
 
     auto c = live_cells::store(a + sum);
-    auto d = sum + live_cells::value_cell(2);
+    auto d = sum + live_cells::value(2);
 
     auto observer_c = std::make_shared<simple_observer>();
     auto observer_d = std::make_shared<simple_observer>();
@@ -298,7 +298,7 @@ BOOST_AUTO_TEST_CASE(correct_values_produced_across_all_store_cell_observers) {
     auto sum = live_cells::store(a + b);
 
     auto c = live_cells::store(a + sum);
-    auto d = sum + live_cells::value_cell(2);
+    auto d = sum + live_cells::value(2);
 
     auto observer_c = std::make_shared<value_observer<int>>(c);
     auto observer_d = std::make_shared<value_observer<int>>(d);
