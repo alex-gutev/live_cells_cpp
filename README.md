@@ -2,12 +2,11 @@
 
 > [!CAUTION]
 > This software is still in beta, and will likely experience rapid
-> before the first official release.
+> changes before the first official release.
 
 
-This is the C++ port of [Live
-Cells](https://livecells.viditrack.com/), reactive programming
-library.
+This is the C++ port of the [Live
+Cells](https://livecells.viditrack.com/) reactive programming library.
 
 ## Examples
 
