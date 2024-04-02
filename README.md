@@ -11,7 +11,6 @@ Cells](https://livecells.viditrack.com/) reactive programming library.
 ## Examples
 
 > [!NOTE]
-
 > This section contains examples demonstrating the main features of
 > the library. Head to the
 > [documentation](https://alex-gutev.github.io/live_cells_cpp/docs/intro),
