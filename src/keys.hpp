@@ -150,6 +150,8 @@ namespace live_cells {
         bool eq(const key &other) const noexcept override {
             auto *key = dynamic_cast<const value_key<T,Ts...> *>(other);
 
+            // TODO: Compare runtime type as well
+
             return key != nullptr && values_equal(*key);
         }
 
