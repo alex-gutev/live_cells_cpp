@@ -81,9 +81,9 @@ auto sum = a + b;
 
 That looks exactly like a normal variable definition.
 
-This can be used for example to print run a certain function
-automatically whenever a certain condition is met. For example let's
-print a message to standard output whenever the sum exceeds `100`:
+This can be used for example to run a routine automatically whenever a
+certain condition is met. For example let's print a message to
+standard output whenever the sum exceeds `100`:
 
 ```c++
 auto watcher = live_cells::watch([=] {
