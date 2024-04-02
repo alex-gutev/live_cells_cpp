@@ -5,7 +5,7 @@
 <meta name="generator" content="Docusaurus v3.1.1">
 <title data-rh="true">Cells | Live Cells C++</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://alex-gutev.github.io/live_cells_cpp/docs/basics/cells"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Cells | Live Cells C++"><meta data-rh="true" name="description" content="Introduction to the cell -- the basic building block of Live Cells."><meta data-rh="true" property="og:description" content="Introduction to the cell -- the basic building block of Live Cells."><link data-rh="true" rel="canonical" href="https://alex-gutev.github.io/live_cells_cpp/docs/basics/cells"><link data-rh="true" rel="alternate" href="https://alex-gutev.github.io/live_cells_cpp/docs/basics/cells" hreflang="en"><link data-rh="true" rel="alternate" href="https://alex-gutev.github.io/live_cells_cpp/docs/basics/cells" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/live_cells_cpp/blog/rss.xml" title="Live Cells C++ RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/live_cells_cpp/blog/atom.xml" title="Live Cells C++ Atom Feed"><link rel="stylesheet" href="/live_cells_cpp/assets/css/styles.dee90d74.css">
-<script src="/live_cells_cpp/assets/js/runtime~main.c3f65778.js" defer="defer"></script>
+<script src="/live_cells_cpp/assets/js/runtime~main.c57b032b.js" defer="defer"></script>
 <script src="/live_cells_cpp/assets/js/main.4059adf0.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -141,7 +141,7 @@ updated when the <code>batch_update</code> is destroyed (on leaving the scope).<
 variables holding our cells. This is because the actual type varies
 depending on the type of cell (constant cell, mutable cell, computed
 cell, etc.) and also on the parameters used to create the cell. For
-the type of a computed cell depends on the value computation
+example, the type of a computed cell depends on the value computation
 function.</p>
 <p>All cell types satisfy the <code>live_cells::Cell</code> concept, which specifies
 the cell protocol. We&#x27;ve already used two methods specified by the
