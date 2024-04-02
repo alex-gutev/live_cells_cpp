@@ -31,7 +31,7 @@ And are observed as follows:
 
 ```c++
 auto watcher = live_cells::watch([=] {
-	std::cout << a() << ", " << b() << std::endl;
+    std::cout << a() << ", " << b() << std::endl;
 });
 ```
 
@@ -66,7 +66,7 @@ cells. For example the following cell is defined as the sum of cells
 
 ```c++
 auto sum = live_cells::computed([=] {
-	return a() + b();
+    return a() + b();
 });
 ```
 
@@ -87,9 +87,9 @@ print a message to standard output whenever the sum exceeds `100`:
 
 ```c++
 auto watcher = live_cells::watch([=] {
-	if (sum() > 100) {
-		std::cout << "Sum exceeds 100!!!\n";
-	}
+    if (sum() > 100) {
+        std::cout << "Sum exceeds 100!!!\n";
+    }
 });
 ```
 
@@ -136,7 +136,7 @@ To begin using Live Cells:
    make install
    ```
    
-	This will install Live Cells at `/usr/local`. You can choose an
+    This will install Live Cells at `/usr/local`. You can choose an
     alternative prefix with:
    
    ```sh
@@ -152,12 +152,9 @@ The Live Cells library consists of headers, installed in
 `<prefix>/include/live_cells`, and a static library `liblive_cells.a`
 installed in `<prefix>/lib`.
 
-:::note
-
-`<prefix>` is `/usr/local`, unless specified otherwise with the
-`--prefix` argument to the `configure` script.
-
-:::
+> [!NOTE]
+> `<prefix>` is `/usr/local`, unless specified otherwise with the
+> `--prefix` argument to the `configure` script.
 
 To use live cells in your C++ project, you'll need to do the following:
 
@@ -194,12 +191,9 @@ list(APPEND CMAKE_MODULE_PATH "<prefix>/share/live_cells/cmake)
 find_package(live_cells REQUIRED)
 ```
 
-:::note
-
-Substitute `<prefix>` with the install prefix given to the `configure`
-script.
-
-:::
+> [!NOTE]
+> Substitute `<prefix>` with the install prefix given to the
+> `configure` script.
 
 ### Using Live Cells
 
