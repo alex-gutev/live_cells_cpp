@@ -114,7 +114,7 @@ namespace live_cells {
     }  // internal
 
     /**
-     * Polymorphic cell holder.
+     * \brief Dynamically typed cell container.
      *
      * This class erases the types of Cells, so that a cell can be
      * used and stored in containers, when its exact type is not known
@@ -123,45 +123,55 @@ namespace live_cells {
     class cell {
     public:
         /**
-         * Create a `cell` that wraps the `Cell` `o`.
+         * \brief Create a container holding the \p Cell \a o.
+         *
+         * \param o The cell to hold in the container
          */
         template <Cell O>
         cell(O o) :
             obs_ref(std::static_pointer_cast<internal::ref_base>(std::make_shared<internal::typed_ref<O>>(o))) {}
 
         /**
-         * Add an observer to the underlying Cell.
+         * \brief Add an observer to the underlying \p Cell.
+         *
+         * \param obs The observer to add to the cell.
          */
         void add_observer(observer::ref obs) {
             obs_ref->add_observer(obs);
         }
 
         /**
-         * Remove an observer from the underlying Cell.
+         * \brief Remove an observer from the underlying \p Cell.
          *
-         * NOTE: The observer is only removed when this method is
-         * called the same number of times `add_observer(obs)` was
-         * called for the same observer `obs`.
+         * \note The observer is only removed when this method is
+         * called the same number of times \ref add_observer was
+         * called for the same observer \a obs.
+         *
+         * \param obs The observer to remove from the cell.
          */
         void remove_observer(observer::ref obs) {
             obs_ref->remove_observer(obs);
         }
 
         /**
-         * Returns the key that uniquely identifies the underlying
-         * Cell.
+         * \brief Get the key that uniquely identifies the underlying
+         * \p Cell.
+         *
+         * \return The key identifying the underlying cell.
          */
         key_ref key() const {
             return obs_ref->key();
         }
 
         /**
-         * Retrieve the value held by the cell.
+         * \brief Get the value held by the underlying \p Cell.
          *
-         * This method attempts to cast the underlying cell to a cell
-         * holding a value of type `T`. If the underlying cell does
-         * not hold a value of type `T`, an std::bad_cast exception is
+         * This method attempts to cast the underlying \p Cell to a cell
+         * holding a value of type \a T. If the underlying cell does
+         * not hold a value of type \a T, an \p std::bad_cast exception is
          * thrown.
+         *
+         * \return The value of the underlying cell.
          */
         template <typename T>
         T value() const {
@@ -172,12 +182,14 @@ namespace live_cells {
         }
 
         /**
-         * Set the value of the cell to `value`.
+         * \brief Set the value of the underlying \p cell.
          *
          * This method attempts to cast the underlying cell to a cell
-         * holding a value of type `T`. If the underlying cell does
-         * not hold a value of type `T`, or is not a MutableCell, an
-         * std::bad_cast exception is thrown.
+         * holding a value of type \a T. If the underlying cell does
+         * not hold a value of type \a T, or is not a \p MutableCell, an
+         * \p std::bad_cast exception is thrown.
+         *
+         * \param value The value to set the underlying cell to.
          */
         template <typename T>
         void value(T value) {
@@ -190,7 +202,8 @@ namespace live_cells {
     protected:
 
         /**
-         * Pointer to the wrapper holding the observable.
+         * \brief Pointer to the container holding the underlying
+         * cell.
          */
         std::shared_ptr<internal::ref_base> obs_ref;
     };

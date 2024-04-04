@@ -29,9 +29,9 @@
 namespace live_cells {
 
     /**
-     * Defer changes to the values of mutable cells.
+     * \brief Defer changes to the values of mutable cells.
      *
-     * When an instance of this object is in scope, observers of
+     * When an instance of this class is in scope, observers of
      * mutable cells will not be notified immediately when the values
      * of the cells are set, but instead will be notified when this
      * object is destroyed.
@@ -40,7 +40,8 @@ namespace live_cells {
      * the observers will only be notified when the first instance is
      * destroyed.
      *
-     * NOTE: Do not allocate instances of this object dynamically.
+     * \warning Do not allocate instances of this class using dynamic
+     * allocation.
      */
     class batch_update {
     public:
