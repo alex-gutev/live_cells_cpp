@@ -62,19 +62,36 @@ namespace live_cells {
     template <typename T>
     class constant_cell {
     public:
+        /** \brief The type of the constant value. */
         typedef T value_type;
 
         /**
-         * Construct a cell with a constant value.
+         * \brief Construct a cell with a constant value.
          *
-         * @param value The constant value
+         * \note Every \p constant_cell holding the same \a value is
+         * identified by the same key.
+         *
+         * \param value The constant value.
          */
         constant_cell(const T &value) : m_value(value) {}
 
+        /**
+         * \brief Get the key that identifies this cell.
+         *
+         * All \p constant_cell's with the same value have the same
+         * key.
+         *
+         * \return The key.
+         */
         key_ref key() const {
             return key_ref::create<constant_key<T>>(m_value);
         }
 
+        /**
+         * \brief Get the constant value held by this cell.
+         *
+         * \return The constant value.
+         */
         T value() const {
             return m_value;
         }
@@ -87,6 +104,14 @@ namespace live_cells {
             // Do nothing
         }
 
+        /**
+         * \brief Get the constant value held by this cell.
+         *
+         * \note This cell is not tracked as a dependency since its
+         * value never changes.
+         *
+         * \return The constant value.
+         */
         T operator()() const {
             // No need to track a constant cell
             return m_value;
