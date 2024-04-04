@@ -28,15 +28,15 @@
 
 namespace live_cells {
     /**
-     * Maintains the state of a stateful cell.
+     * \brief Maintains the state of a stateful cell.
      *
      * The state consists of the cell's observers and its value. The
      * base class provides functionality for keeping track of
      * observers added to the cell.
      *
      * This object is intended to be held in an std::shared_ptr with a
-     * single instance per key. Multiple cell objects with same key
-     * reference the same cell_state.
+     * single instance per unique cell key. Multiple cell objects with
+     * same key reference the same cell_state.
      *
      * A state is created when the first stateful cell with a given
      * key is created, and is destroyed when the last cell with the
@@ -44,12 +44,13 @@ namespace live_cells {
      */
     class cell_state : public std::enable_shared_from_this<cell_state> {
     public:
+        /** \brief Shared pointer to a \p cell_state */
         typedef std::shared_ptr<cell_state> ref;
 
         /**
-         * Create a cell state with a given key.
+         * \brief Create a cell state with a given key.
          *
-         * @param k The key
+         * \param k The key
          */
         cell_state(key_ref k) : key_(k) {}
 
@@ -58,47 +59,55 @@ namespace live_cells {
         cell_state& operator=(const cell_state &other) = delete;
 
         /**
-         * Called before the first observer is added.
+         * \brief Called before the first observer is added.
          *
-         * If the state needs to set up observers to other cells, it
-         * should be done in this method.
+         * Subclasses should override this method to include
+         * initialization logic specific to this cell state.
+         *
+         * \note If the state needs to set up observers to other
+         * cells, it should be done in this method.
          */
         virtual void init() {}
 
         /**
-         * Called after the last observer is removed.
+         * \brief Called after the last observer is removed.
          *
-         * Observers added in init() should be removed in this method.
+         * Subclasses should override this method to include cleanup
+         * logic specific to this cell state.
+         *
+         * \note Observers added in \p init() should be removed in this
+         * method.
          */
         virtual void pause() {}
 
         /**
-         * Add an observer to the cell's set of observers.
+         * \brief Add an observer to the cell's set of observers.
          *
-         * @param o The observer
+         * \param o The observer to add
          */
         virtual void add_observer(observer::ref o);
 
         /**
-         * Remove an observer from the cell's set of observers.
+         * \brief Remove an observer from the cell's set of observers.
          *
-         * Like observable::remove_observer(), this method should be
-         * called the same number of times, for a given observer, as
-         * add_observer() before the observer is actually removed.
+         * Like the \p remove_observer method of the \p Cell concept,
+         * this method should be called the same number of times, for
+         * a given observer \a o, as \p add_observer() was called,
+         * before the observer is actually removed.
          *
-         * @param o The observer
+         * \param o The observer to remove
          */
         virtual void remove_observer(observer::ref o);
 
         /**
-         * Notify the observers that the cell's value will change.
+         * \brief Notify the observers that the cell's value will change.
          *
          * This should be called before the value is changed.
          */
         virtual void notify_will_update();
 
         /**
-         * Notify the observers that the cell's value has changed.
+         * \brief Notify the observers that the cell's value has changed.
          *
          * This should be called after the value has been changed.
          */
@@ -106,17 +115,21 @@ namespace live_cells {
 
     protected:
         /**
-         * Key identifying this state.
+         * \brief Key identifying the cell corresponding to this
+         * state.
          */
         key_ref key_;
 
         /**
-         * Set of observers
+         * \brief The set of observers observing changes to the values
+         * in the cell corresponding to this state.
          */
         std::unordered_map<observer::ref, std::size_t> observers;
 
         /**
-         * Does the cell have at least one observer?
+         * \brief Does the cell have at least one observer?
+         *
+         * \return \p true if the cell has at least one observer.
          */
         bool is_active() const {
             return !observers.empty();
@@ -124,7 +137,7 @@ namespace live_cells {
     };
 
     /**
-     * Keeps track of the association between keys and cell states.
+     * \brief Maintains the association between keys and cell states.
      */
     class state_manager {
     public:
