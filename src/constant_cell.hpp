@@ -28,17 +28,18 @@
 namespace live_cells {
 
     /**
-     * Key identifying a constant cell.
+     * \brief Key identifying a \p constant_cell.
      */
     template <typename T>
     struct constant_key : key {
-        /** Constant value */
+        /** \brief Constant value */
         const T value;
 
         /**
-         * Create a constant cell key for a given value.
+         * \brief Create a constant cell key identifying a \p
+         * constant_cell with a given value.
          *
-         * @param value The value
+         * \param value The value
          */
         constant_key(T value) : value(value) {}
 
