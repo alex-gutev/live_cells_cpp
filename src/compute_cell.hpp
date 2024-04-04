@@ -29,40 +29,60 @@
 namespace live_cells {
 
     /**
-     * A cell with a value that is a function of one or more argument
+     * \brief A cell with a value that is a function of one or more argument
      * cells.
      *
      * The value computation function is provided to this class on
      * construction.
+     *
+     * \note This class is not intended to be instantiated directly by
+     * users of the library. Instead create a computed cell with the
+     * function \a computed.
+     *
+     * \note This is not a complete cell type and is such it does not
+     * satisfy the \p Cell concept.
      */
     template <std::invocable F, Cell... Ts>
     class compute_cell_base : public dependent_cell<Ts...> {
     public:
         /**
-         * Create a cell with a value that is a function of the values
-         * of the cells @a args.
+         * \brief Create a cell with a value that is a function of the
+         * values of the cells \a args.
          *
-         * @param compute A function of no arguments, that is called
+         * \param compute A function of no arguments, that is called
          *   to compute the cell's value when necessary.
          *
-         * @param args Argument cell observables
+         * \param args Argument cells referenced by \a compute
          */
         compute_cell_base(F compute, Ts... args) :
             dependent_cell<Ts...>(args...),
             compute(compute) {}
 
+        /**
+         * \brief Get the value of the cell.
+         *
+         * \note The value of the cell is recomputed whenever it this
+         * method is called.
+         *
+         * \return The cell's value
+         */
         auto value() const {
             return compute();
         }
 
     private:
+        /** \brief Compute value function */
         const F compute;
 
     };
 
     /**
-     * Static computed cell class that satisfies the `Cell`
-     * concept constraints.
+     * \brief A computed cell with a static argument list.
+     *
+     * This cell is stateless in that it does not cache its value, nor
+     * keeps track of its own observers. Instead, its value is
+     * computed whenever \p value() is called and observers added to
+     * this cell are added directly to the argument cells.
      */
     template <std::invocable F, Cell... Ts>
     using compute_cell = make_cell<compute_cell_base<F,Ts...>>;

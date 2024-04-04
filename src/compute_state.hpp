@@ -31,35 +31,35 @@
 namespace live_cells {
 
     /**
-     * Defines a type that computes a value when the call operator
-     * `operator()` is invoked.
+     * \brief Defines a type that computes a value when the call
+     * operator \p operator() is invoked.
      *
-     * The call operator must accept a single `observer::ref`
+     * The call operator must accept a single \p observer::ref
      * argument.
      */
     template <typename T>
     concept Computable = std::invocable<T,observer::ref>;
 
     /**
-     * Cell state for a cell which computes a value as a function of
+     * \brief Cell state for a cell which computes a value as a function of
      * one or more argument cells.
      *
-     * The actual computation is defined by the Computable `C`.
+     * The actual computation is defined by the \p Computable \a C.
      */
     template <Computable C>
     class compute_cell_state : public cell_state, public observer {
     public:
         /**
-         * Shorthand for computed value type
+         * \brief Shorthand for computed value type
          */
         typedef std::invoke_result_t<C,observer::ref> value_type;
 
         /**
-         * Create a computed cell state.
+         * \brief Create a computed cell state.
          *
-         * @param k Key identifying cell
+         * \param k Key identifying the cell
          *
-         * @param args Arguments forwarded to the constructor of `C`.
+         * \param args Arguments forwarded to the constructor of \a C.
          */
         template <typename... Args>
         requires std::constructible_from<C,Args...>
@@ -68,10 +68,10 @@ namespace live_cells {
             compute(std::forward<Args>(args)...) {}
 
         /**
-         * Retrieve the latest value
+         * \brief Retrieve the latest cached value.
          *
-         * The value is computed using C::operator(), which is passed
-         * a shared_ptr, of type `observer`, to `this`.
+         * The value is computed using \p C::operator(), which is passed
+         * a \p shared_ptr, of type \p observer, pointing to \p this.
          */
         value_type value() {
             if (stale) {
@@ -90,24 +90,24 @@ namespace live_cells {
 
     protected:
         /**
-         * Does the current have to be recomputed?
+         * \brief Does the value have to be recomputed?
          */
         bool stale = true;
 
         /**
-         * Are the argument cells in the process of updating their
-         * values.
+         * \brief Are the argument cells in the process of updating their
+         * values?
          */
         bool updating = false;
 
         /**
-         * Compute value function.
+         * \brief Compute value function.
          */
         C compute;
 
         /**
-         * Get an observer::ref for this, that can be passed to
-         * observable::add_observer and observable::remove_observer.
+         * \brief Get an \p observer::ref for this, that can be passed to
+         * \p add_observer and \p remove_observer of \p Cell.
          */
         std::shared_ptr<observer> observer_ptr() {
             return std::dynamic_pointer_cast<observer>(this->shared_from_this());
@@ -140,6 +140,9 @@ namespace live_cells {
         }
 
     private:
+        /**
+         * \brief The cached value.
+         */
         value_type value_;
     };
 
