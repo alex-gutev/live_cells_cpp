@@ -55,7 +55,7 @@ namespace live_cells {
     };
 
     /**
-     * A cell which holds a constant value
+     * \brief A cell which holds a constant value
      *
      * Adding observers to this cell has no effect since its value
      * never changes.
