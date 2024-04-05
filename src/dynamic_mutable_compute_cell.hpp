@@ -31,23 +31,23 @@
 namespace live_cells {
 
     /**
-     * Maintains the state for a mutable computed cell with a
-     * dynamically determined argument list.
+     * \brief Maintains the state of a \p
+     * dynamic_mutable_compute_cell.
      */
     template<std::invocable F, typename R, typename value_type = std::invoke_result_t<F>>
     class dynamic_mutable_compute_cell_state : public mutable_compute_cell_state<value_type> {
 
-        /** Shorthand for parent class */
+        /** \brief Shorthand for parent class */
         typedef mutable_compute_cell_state<value_type> parent;
 
     public:
 
         /**
-         * Create the state for a dynamic mutable computed cell.
+         * \brief Create the state for a dynamic mutable computed cell.
          *
-         * @param key       Key identifying cell
-         * @param compute   Value computation function
-         * @param reverse   Reverse computation function
+         * \param key       Key identifying cell
+         * \param compute   Value computation function
+         * \param reverse   Reverse computation function
          */
         template <typename T, typename U>
         dynamic_mutable_compute_cell_state(key_ref key, T&& compute, U&& reverse) :
@@ -73,43 +73,44 @@ namespace live_cells {
         }
 
     private:
-        /** Value computation function */
+        /** \brief Value computation function */
         F compute_fn;
 
-        /** Reverse computation function */
+        /** \brief Reverse computation function */
         R reverse_fn;
 
     };
 
     /**
-     * A mutable computed cell with the argument cells determined
-     * dynamically
+     * \brief A mutable computed cell with the argument cells
+     * determined dynamically
      */
     template <std::invocable F, typename R>
     class dynamic_mutable_compute_cell :
         public stateful_cell<dynamic_mutable_compute_cell_state<F,R>> {
 
-        /** Shorthand for parent class */
+        /** \brief Shorthand for parent class */
         typedef stateful_cell<dynamic_mutable_compute_cell_state<F,R>> parent;
 
     public:
 
+        /**
+         * \brief Shorthand for the type of value held by this cell.
+         */
         typedef std::invoke_result_t<F> value_type;
 
         /**
-         * Create a dynamic mutable computed cell.
+         * \brief Create a dynamic mutable computed cell.
          *
-         * @param k Key identifying cell
+         * \param k Key identifying cell
          *
-         * @param compute Compute value function.
-         *
+         * \param compute Compute value function.\n
          *   This function should compute the cell's value as a
-         *   function of the cells in @a args.
+         *   function of the cells in \a args.
          *
-         * @param reverse Reverse computation function.
-         *
-         *   This function should set the values of the cells in @a
-         *   args, such that @a compute returns the same value as the
+         * \param reverse Reverse computation function.\n
+         *   This function should set the values of the cells in \a
+         *   args, such that \a compute returns the same value as the
          *   value that was assigned to the cell, which is passed to
          *   this function.
          */
@@ -117,6 +118,19 @@ namespace live_cells {
         dynamic_mutable_compute_cell(key_ref k, T&& compute, U&& reverse) :
             parent(k, std::forward<T>(compute), std::forward<U>(reverse)) {}
 
+        /**
+         * \brief Create a dynamic mutable computed cell.
+         *
+         * \param compute Compute value function.\n
+         *   This function should compute the cell's value as a
+         *   function of the cells in \a args.
+         *
+         * \param reverse Reverse computation function.\n
+         *   This function should set the values of the cells in \a
+         *   args, such that \a compute returns the same value as the
+         *   value that was assigned to the cell, which is passed to
+         *   this function.
+         */
         template <typename T, typename U>
         dynamic_mutable_compute_cell(T&& compute, U&& reverse) :
             parent(key_ref::create<unique_key>(), std::forward<T>(compute), std::forward<U>(reverse)) {}
@@ -126,12 +140,12 @@ namespace live_cells {
         }
 
         /**
-         * Set the value of the cell.
+         * \brief Set the value of the cell.
          *
-         * This method triggers the reverse computation function of
-         * the cell.
+         * This method calls the reverse computation function of the
+         * cell.
          *
-         * NOTE: This method is marked const to allow the value of the
+         * \note This method is marked const to allow the value of the
          * cell to be set when it is copy-captured by a lambda.
          */
         void value(value_type value) const {

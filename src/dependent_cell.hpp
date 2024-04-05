@@ -28,24 +28,32 @@
 namespace live_cells {
 
     /**
-     * Provides an interface for a cell with a value that is dependent
-     * on one or more argument cells.
+     * \brief Provides an interface for a cell with a value that is
+     * dependent on one or more argument cells.
      *
      * The observers of this cell are notified when the values of the
      * argument cells change.
+     *
+     * \note This cell is stateless with its value computed whenever it is
+     * accessed and its observers added directly to the argument
+     * cells.
+     *
+     * \note This is not a complete class and hence does not satisfy
+     * the \p Cell concept. Subclasses should a \p value() method that
+     * computes the cells value.
      */
     template <Cell... Ts>
     class dependent_cell {
     public:
 
         /**
-         * Create a cell with a value dependent on the argument cells
-         * @a args.
+         * \brief Create a cell with a value dependent on the argument
+         * cells in \a args.
          *
-         * The observers of this cell are notified whenever the values
-         * of one of @a args changes.
+         * The observers of this cell are notified whenever the value
+         * of one of \a args changes.
          *
-         * @param args Argument cells
+         * \param args Argument cells
          */
         dependent_cell(Ts... args) :
             observable(args...) {}

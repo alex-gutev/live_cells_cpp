@@ -32,32 +32,47 @@
 
 namespace live_cells {
 
-    /** Forward Declaration */
     template <std::invocable F>
     class dynamic_compute_cell_state;
 
     /**
-     * Defines the computation function of the state of a
-     * dynamic_compute_cell.
+     * \brief Defines the computation function of the state of a
+     * \p dynamic_compute_cell.
      */
     template <std::invocable F>
     class dynamic_compute_state {
         /**
-         * Value computation function.
+         * \brief Value computation function.
          */
         const F compute;
 
         /**
-         * Set of argument cells referenced by value computation function.
+         * \brief Set of argument cells referenced by value computation function.
          */
         std::unordered_set<cell> arguments;
 
         friend class dynamic_compute_cell_state<F>;
 
     public:
+        /**
+         * Create the computation state for a \p dynamic_compute_cell.
+         *
+         * The function \a compute is called with no arguments, to
+         * compute the value of the cell. It should reference its
+         * argument cells using the function call operator so that
+         * they are registered as dependencies of the computed cell.
+         *
+         * \param compute Function of no arguments called to compute
+         *    the value of the cell.
+         */
         dynamic_compute_state(F compute) :
             compute(compute) {}
 
+        /**
+         * \brief Compute the value of \p dynamic_compute_cell.
+         *
+         * \param state The computed cell state.
+         */
         auto operator()(observer::ref state) {
             auto t = argument_tracker::global().with_tracker([this, state] (auto cell) {
                 if (!arguments.count(cell)) {
@@ -72,8 +87,7 @@ namespace live_cells {
     };
 
     /**
-     * State for a computed cell which determines its argument cells
-     * dynamically.
+     * \brief Maintains the state of a \p dynamic_compute_cell.
      */
     template <std::invocable F>
     class dynamic_compute_cell_state : public compute_cell_state<dynamic_compute_state<F>> {
@@ -81,11 +95,11 @@ namespace live_cells {
 
     public:
         /**
-         * Create a dynamic computed cell state, with a given value
-         * computation function.
+         * \brief Create a dynamic computed cell state, with a given
+         * value computation function.
          *
-         * @param key     Key identifying cell state
-         * @param compute Value computation function.
+         * \param key     Key identifying cell state
+         * \param compute Value computation function.
          */
         dynamic_compute_cell_state(key_ref key, F compute) :
             parent(key, compute) {}
@@ -115,36 +129,51 @@ namespace live_cells {
     };
 
     /**
-     * A computed cell which determines its argument cells at runtime.
+     * \brief A computed cell which determines its argument cells at runtime.
+     *
+     * This is a stateful cell that caches its value when computed and
+     * maintains its own observer set.
      */
     template <std::invocable F>
     class dynamic_compute_cell : public stateful_cell<dynamic_compute_cell_state<F>> {
         /**
-         * Shorthand for parent class
+         * \brief Shorthand for parent class
          */
         typedef stateful_cell<dynamic_compute_cell_state<F>> parent;
 
     public:
         /**
-         * Shorthand for the type of value held by this cell.
+         * \brief Shorthand for the type of value held by this cell.
          */
         typedef std::invoke_result_t<F> value_type;
 
         /**
-         * Create a dynamic computed cell with a given value
+         * \brief Create a dynamic computed cell with a given value
          * computation function.
          *
-         * @param compute Value computation function.
+         * The function \a compute is called with no arguments to
+         * compute the value of the cell when necessary. It should
+         * reference its argument cells using the function call
+         * operator so that they are registered as dependencies of
+         * this cell.
+         *
+         * \param compute Value computation function.
          */
         dynamic_compute_cell(F compute) :
             dynamic_compute_cell(key_ref::create<unique_key>(), compute) {}
 
         /**
-         * Create a dynamic computed cell with a given value
+         * \brief Create a dynamic computed cell with a given value
          * computation function.
          *
-         * @param key     Key identifying cell.
-         * @param compute Value computation function.
+         * The function \a compute is called with no arguments to
+         * compute the value of the cell when necessary. It should
+         * reference its argument cells using the function call
+         * operator so that they are registered as dependencies of
+         * this cell.
+         *
+         * \param key     Key identifying cell.
+         * \param compute Value computation function.
          */
         dynamic_compute_cell(key_ref key, F compute) :
             parent(key, compute) {}
