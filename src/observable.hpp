@@ -114,9 +114,9 @@ namespace live_cells {
     }  // internal
 
     /**
-     * \brief Dynamically typed cell container.
+     * \brief Dynamically typed \p Cell container.
      *
-     * This class erases the types of Cells, so that a cell can be
+     * This class erases the types of \p Cell's, so that a cell can be
      * used and stored in containers, when its exact type is not known
      * at compile-time.
      */
@@ -182,7 +182,7 @@ namespace live_cells {
         }
 
         /**
-         * \brief Set the value of the underlying \p cell.
+         * \brief Set the value of the underlying \p Cell.
          *
          * This method attempts to cast the underlying cell to a cell
          * holding a value of type \a T. If the underlying cell does
@@ -209,67 +209,76 @@ namespace live_cells {
     };
 
     /**
-     * Typed polymorphic cell holder.
+     * \brief Dynamically typed \p Cell container with a static value
+     * type.
      *
-     * Like `cell`, this class erases the types of Cells, so that a
-     * cell can be used and stored in containers, when its exact type
+     * Like \p cell, this class erases the types of \p Cell's, so that
+     * a cell can be used and stored in containers when its exact type
      * is not known at compile-time. However, this class enforces that
-     * the value type of the underlying cell is convertible to `T`
+     * the value type of the underlying \p Cell is convertible to \a
+     * T.
      */
     template <typename T>
     class typed_cell {
     public:
-
+        /**
+         * \brief Create a container holding the \p Cell \a cell.
+         *
+         * \param cell The cell to hold in the container
+         */
         template <TypedCell<T> C>
         typed_cell(C cell) :
             ref(std::static_pointer_cast<internal::typed_ref_base<T>>(std::make_shared<internal::typed_ref<C>>(cell))) {
         }
 
         /**
-         * Add an observer to the underlying Cell.
+         * \brief Add an observer to the underlying \p Cell.
+         *
+         * \param obs The observer to add to the cell.
          */
         void add_observer(observer::ref obs) {
             ref->add_observer(obs);
         }
 
         /**
-         * Remove an observer from the underlying Cell.
+         * \brief Remove an observer from the underlying \p Cell.
          *
-         * NOTE: The observer is only removed when this method is
-         * called the same number of times `add_observer(obs)` was
-         * called for the same observer `obs`.
+         * \note The observer is only removed when this method is
+         * called the same number of times \ref add_observer was
+         * called for the same observer \a obs.
+         *
+         * \param obs The observer to remove from the cell.
          */
         void remove_observer(observer::ref obs) {
             ref->remove_observer(obs);
         }
 
         /**
-         * Returns the key that uniquely identifies the underlying
-         * Cell.
+         * \brief Get the key that uniquely identifies the underlying
+         * \p Cell.
+         *
+         * \return The key identifying the underlying cell.
          */
         key_ref key() const {
             return ref->key();
         }
 
         /**
-         * Retrieve the value held by the cell.
+         * \brief Get the value held by the underlying \p Cell.
          *
-         * This method attempts to cast the underlying cell to a cell
-         * holding a value of type `T`. If the underlying cell does
-         * not hold a value of type `T`, an std::bad_cast exception is
-         * thrown.
+         * \return The value of the underlying cell.
          */
         T value() const {
             return ref->value();
         }
 
         /**
-         * Set the value of the cell to `value`.
+         * \brief Set the value of the underlying \p Cell.
          *
-         * This method attempts to cast the underlying cell to a cell
-         * holding a value of type `T`. If the underlying cell does
-         * not hold a value of type `T`, or is not a MutableCell, an
+         * If the underlying cell does is not a \p MutableCell, an \p
          * std::bad_cast exception is thrown.
+         *
+         * \param value The value to set the underlying cell to.
          */
         void value(T value) {
             auto &base = *ref;
@@ -279,39 +288,69 @@ namespace live_cells {
         }
 
     private:
+        /**
+         * \brief Pointer to the container holding the underlying
+         * cell.
+         */
         std::shared_ptr<internal::typed_ref_base<T>> ref;
     };
 
     /**
-     * Compare two polymorphic cells by their keys.
+     * \relates cell
      *
-     * @param a A polymorphic observable
-     * @param b A polymorphic observable
+     * \brief Compare two \p cell's by their keys.
      *
-     * @return true if the key of @a a is equal to the key of @a b.
+     * \param a A dynamically typed cell
+     * \param b A dynamically typed cell
+     *
+     * \return \p true if the key of \a a is equal to the key of \a b.
      */
     inline bool operator==(const cell &a, const cell &b) {
         return a.key() == b.key();
     }
 
+    /**
+     * \relates cell
+     *
+     * \brief Compare two \p cell's by their keys.
+     *
+     * \param a A dynamically typed cell
+     * \param b A dynamically typed cell
+     *
+     * \return \p true if the key of \a a is not equal to the key of
+     * \a b.
+     */
     inline bool operator!=(const cell &a, const cell &b) {
         return !(a == b);
     }
 
 
     /**
-     * Compare two typed polymorphic cells by their keys.
+     * \relates typed_cell
      *
-     * @param a A polymorphic observable
-     * @param b A polymorphic observable
+     * \brief Compare two \p typed_cell's by their keys.
      *
-     * @return true if the key of @a a is equal to the key of @a b.
+     * \param a A dynamically typed cell
+     * \param b A dynamically typed cell
+     *
+     * \return \p true if the key of \a a is equal to the key of \a b.
      */
     template <typename T1, typename T2>
     inline bool operator==(const typed_cell<T1> &a, const typed_cell<T2> &b) {
         return a.key() == b.key();
     }
 
+    /**
+     * \relates typed_cell
+     *
+     * \brief Compare two \p typed_cell's by their keys.
+     *
+     * \param a A dynamically typed cell
+     * \param b A dynamically typed cell
+     *
+     * \return \p true if the key of \a a is not equal to the key of
+     * \a b.
+     */
     template <typename T1, typename T2>
     inline bool operator!=(const typed_cell<T1> &a, const typed_cell<T2> &b) {
         return !(a == b);

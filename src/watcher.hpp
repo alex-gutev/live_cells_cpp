@@ -31,19 +31,25 @@
 namespace live_cells {
 
     /**
-     * Handle for a cell watch function.
+     * \brief Handle for a cell watch function.
      *
      * This class registers a cell watch function on construction and
      * automatically removes it on destruction. The watch function can
-     * also be removed prior to destruction with the stop() method.
+     * also be removed prior to destruction with the \p stop() method.
      */
     class watcher : public std::enable_shared_from_this<watcher> {
     public:
 
         /**
-         * Register a cell watch function @a callback.
+         * \brief Register the cell watch function \a callback.
          *
-         * @param callback A cell watch function.
+         * \a callback is called whenever the values of the \p Cell's
+         * referenced with it, using the function call operator,
+         * change. It is called once immediately, before the
+         * constructor returns, to determine which cells are
+         * referenced.
+         *
+         * \param callback A function of no arguments.
          */
         template <typename F>
         watcher(F callback) :
@@ -58,7 +64,7 @@ namespace live_cells {
         watcher(const watcher &) = delete;
 
         /**
-         * Remove the registered cell watch function
+         * \brief Remove the registered cell watch function.
          */
         ~watcher() {
             stop();
@@ -67,7 +73,7 @@ namespace live_cells {
         watcher &operator=(const watcher &) = delete;
 
         /**
-         * Remove the watch function.
+         * \brief Remove the watch function.
          *
          * The watch function will no longer be called after calling
          * this method.
@@ -79,22 +85,22 @@ namespace live_cells {
     private:
 
         /**
-         * Base watch function observer type.
+         * \brief Base watch function observer type.
          */
         struct base_observer : public observer, public std::enable_shared_from_this<base_observer> {
 
-            /** Argument cells referenced by watch function */
+            /** \brief Argument cells referenced by watch function */
             std::unordered_set<cell> arguments;
 
             virtual ~base_observer() = default;
 
             /**
-             * Call watch function to determine dependencies.
+             * \brief Call watch function to determine dependencies.
              */
             virtual void init() = 0;
 
             /**
-             * Remove the watch function.
+             * \brief Remove the watch function.
              *
              * The watch function will no longer be called after calling
              * this method.
@@ -111,12 +117,12 @@ namespace live_cells {
         };
 
         /**
-         * The observer which calls the watch function when the cell
-         * values change.
+         * \brief The observer which calls the watch function when the
+         * cell values change.
          */
         template <typename F>
         struct watch_observer : public base_observer {
-            /** Cell watch function */
+            /** \brief Cell watch function */
             const F callback;
 
             watch_observer(F callback) : callback(callback) {}
@@ -128,7 +134,8 @@ namespace live_cells {
             }
 
             /**
-             * Is an argument cell value update currently in progresss?
+             * \brief Is an argument cell value update currently in
+             * progresss?
              */
             bool is_updating = false;
 
@@ -147,8 +154,8 @@ namespace live_cells {
             }
 
             /**
-             * Call the watch function and dynamically determine its
-             * arguments.
+             * \brief Call the watch function and dynamically
+             * determine its arguments.
              */
             void call_with_tracker() {
                 auto t = argument_tracker::global().with_tracker([this] (auto cell) {
@@ -164,25 +171,27 @@ namespace live_cells {
             }
         };
 
-        /** The cell observer that calls the watch function */
+        /** \brief The cell observer that calls the watch function */
         std::shared_ptr<base_observer> observer;
     };
 
     /**
-     * Register a cell watch function.
+     * \relates watcher
      *
-     * The function @a fn is called whenever the values of the cells,
-     * referenced by it, change.
+     * \brief Register a cell watch function.
      *
-     * @a fn is always called once immediately before this function
-     * returns.
+     * The function \a fn is called whenever the values of the cells
+     * referenced within it change.
      *
-     * @param fn Watch function
+     * \a fn is always called once immediately before this function
+     * returns, to determine which cells it references.
      *
-     * @return A shared pointer to a watch handle. The watch function
+     * \param fn A function of no arguments.
+     *
+     * \return A shared pointer to a watch handle.\n The watch function
      *   is called for all changes to the values of the argument cells
-     *   until the watch handle is destroyed, or its stop() method is
-     *   called.
+     *   until the watch handle is destroyed, or its \p
+     *   watcher::stop() method is called.
      */
     template <typename F>
     std::shared_ptr<watcher> watch(F fn) {

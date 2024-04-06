@@ -25,11 +25,12 @@
 namespace live_cells {
 
     /**
-     * Indicates that the value of a cell should not be computed.
+     * \brief Exception indicating that the value of a cell should not
+     * be computed.
      *
-     * When this exception is thrown inside a cell's value computation
-     * function, the cell's value is not updated. Instead it's current
-     * value is preserved.
+     * When this exception is thrown inside the value computation
+     * function of a computed cell, the cell's value is not
+     * updated. Instead its current value is preserved.
      */
     struct stop_compute_exception : std::exception {
         const char *what() const noexcept override {

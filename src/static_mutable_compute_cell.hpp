@@ -31,8 +31,8 @@
 namespace live_cells {
 
     /**
-     * Maintains the state for a mutable computed cell with an
-     * argument list determined at compile-time.
+     * \brief Maintains the state for a \p
+     * static_mutable_compute_cell.
      */
     template <std::invocable F, typename R>
     class static_mutable_compute_cell_state : public mutable_compute_cell_state<std::invoke_result_t<F>> {
@@ -44,12 +44,12 @@ namespace live_cells {
     public:
 
         /**
-         * Create the state for a static mutable computed cell.
+         * \brief Create the state for a static_mutable_compute cell.
          *
-         * @param key       Key identifying cell
-         * @param compute   Value computation function
-         * @param reverse   Reverse computation function
-         * @param arguments Set of argument cells referenced in @a compute
+         * \param key       Key identifying cell
+         * \param compute   Value computation function
+         * \param reverse   Reverse computation function
+         * \param arguments Set of argument cells referenced in \a compute
          */
         template <typename T, typename U>
         static_mutable_compute_cell_state(key_ref key, T&& compute, U&& reverse, const std::unordered_set<cell> &arguments) :
@@ -58,25 +58,36 @@ namespace live_cells {
             reverse_fn(std::forward<U>(reverse)) {}
 
     protected:
+        /**
+         * \brief Compute the value of the cell as a function of the
+         * arguments.
+         *
+         * \return The computed value.
+         */
         value_type compute() override {
             return compute_fn();
         }
 
+        /**
+         * \brief Call the reverse computation function of the cell.
+         *
+         * \param value The value assigned to the cell.
+         */
         void reverse_compute(value_type value) override {
             reverse_fn(value);
         }
 
     private:
-        /** Value computation function */
+        /** \brief Value computation function */
         const F compute_fn;
 
-        /** Reverse computation function */
+        /** \brief Reverse computation function */
         const R reverse_fn;
 
     };
 
     /**
-     * A mutable computed cell with arguments determined at
+     * \brief A mutable computed cell with arguments determined at
      * compile-time.
      */
     template <std::invocable F, typename R>
@@ -87,52 +98,81 @@ namespace live_cells {
         typedef stateful_cell<static_mutable_compute_cell_state<F,R>> parent;
 
     public:
+        /**
+         * \brief The type of value held by this cell.
+         */
         typedef std::invoke_result_t<F> value_type;
 
         /**
-         * Create a static mutable computed cell.
+         * \brief Create a static mutable computed cell.
          *
-         * @param k Key identifying cell
+         * \param k Key identifying cell
          *
-         * @param compute Compute value function.
+         * \param compute Compute value function.\n
+         *   This function is called with no arguments to compute the
+         *   value of the cell.
          *
-         *   This function should compute the cell's value as a
-         *   function of the cells in @a args.
-         *
-         * @param reverse Reverse computation function.
-         *
-         *   This function should set the values of the cells in @a
-         *   args, such that @a compute returns the same value as the
+         * \param reverse Reverse computation function.\n
+         *   This function should set the values of the cells in \a
+         *   args, such that \a compute returns the same value as the
          *   value that was assigned to the cell, which is passed to
          *   this function.
          *
-         * @param args Arguments to @a compute
+         * \param args Arguments to \a compute
          */
         template <typename T, typename U, typename... Args>
         static_mutable_compute_cell(key_ref k, T&& compute, U&& reverse, Args&&... args) :
             parent(k, std::forward<T>(compute), std::forward<U>(reverse), {std::forward<Args>(args)...}) {}
 
+        /**
+         * \brief Create a static mutable computed cell.
+         *
+         * \param compute Compute value function.\n
+         *   This function is called with no arguments to compute the
+         *   value of the cell.
+         *
+         * \param reverse Reverse computation function.\n
+         *   This function should set the values of the cells in \a
+         *   args, such that \a compute returns the same value as the
+         *   value that was assigned to the cell, which is passed to
+         *   this function.
+         *
+         * \param args Arguments to \a compute
+         */
         template <typename T, typename U, typename... Args>
         static_mutable_compute_cell(T&& compute, U&& reverse, Args&&... args) :
             parent(key_ref::create<unique_key>(), std::forward<T>(compute), std::forward<U>(reverse), std::unordered_set<cell>({cell(args)...})) {}
 
+        /**
+         * \brief Get the value of the cell.
+         *
+         * \return The value.
+         */
         value_type value() const {
             return this->state->value();
         }
 
         /**
-         * Set the value of the cell.
+         * \brief Set the value of the cell.
          *
          * This method triggers the reverse computation function of
          * the cell.
          *
-         * NOTE: This method is marked const to allow the value of the
+         * \note This method is marked const to allow the value of the
          * cell to be set when it is copy-captured by a lambda.
+         *
+         * \param value The new value
          */
         void value(value_type value) const {
             this->state->value(value);
         }
 
+        /**
+         * \brief Get the value of the cell and track it as a
+         * dependency.
+         *
+         * \return The value.
+         */
         value_type operator()() const {
             argument_tracker::global().track_argument(*this);
             return value();
@@ -141,15 +181,17 @@ namespace live_cells {
 
 
     /**
-     * Create a static_mutable_compute_cell with compute function @a
-     * compute, reverse compute function @a reverse and arguments @a
-     * args.
+     * \relates static_mutable_compute_cell
      *
-     * @param compute Compute value function.
-     * @param reverse Reverse compute function.
-     * @param args    Argument cells
+     * \brief Create a \p static_mutable_compute_cell with compute
+     * function \a compute, reverse compute function \a reverse and
+     * arguments \a args.
      *
-     * @return A static_mutable_compute_cell
+     * \param compute Compute value function.
+     * \param reverse Reverse compute function.
+     * \param args    Argument cells
+     *
+     * \return The cell
      */
     template <std::invocable C, typename R, Cell... As>
     auto make_mutable_compute_cell(C compute, R reverse, As... args) {

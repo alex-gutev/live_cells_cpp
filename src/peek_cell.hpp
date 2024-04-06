@@ -26,14 +26,14 @@
 
 namespace live_cells {
     /**
-     * Key identifying a peek_cell.
+     * \brief Key identifying a peek_cell.
      */
     struct peek_cell_key : value_key<key_ref> {
         using value_key<key_ref>::value_key;
     };
 
     /**
-     * Peek cell state.
+     * \brief Maintains the state of a \p peek_cell.
      *
      * This state merely adds an observer on the argument cell when
      * the state is initialized, and removes it when its disposed.
@@ -42,10 +42,10 @@ namespace live_cells {
     class peek_cell_state : public cell_state, public observer {
     public:
         /**
-         * Create a peek_cell state.
+         * \brief Create a \p peek_cell state.
          *
-         * @param k    Key identifying cell
-         * @param cell Argument cell
+         * \param k    Key identifying cell
+         * \param cell Argument cell
          */
         peek_cell_state(key_ref k, C cell) :
             cell_state(k),
@@ -66,46 +66,69 @@ namespace live_cells {
         }
 
     private:
-        /** Argument cell */
+        /** \brief Argument cell */
         C cell;
     };
 
     /**
-     * Create a peek_cell.
-     *
-     * A peek cell, has the same value as another cell but it does not
-     * notify observers when its value has changed.
+     * \brief A \p Cell that reads the value of another \p Cell
+     * without notifying its observers when it changes.
      */
     template <Cell C>
     class peek_cell : public stateful_cell<peek_cell_state<C>> {
         typedef stateful_cell<peek_cell_state<C>> parent;
 
     public:
+        /**
+         * \brief The type of value held by this cell
+         */
         typedef C::value_type value_type;
 
         /**
-         * Create a peek cell with the same value as `cell`.
+         * \brief Create a peek cell that reads the value of \a cell.
+         *
+         * \param cell The cell of which to read the value.
          */
         peek_cell(const C &cell) :
             parent(key_ref::create<peek_cell_key>(cell.key()), cell),
             cell(cell) {}
 
+        /**
+         * \brief Get the value of the argument cell.
+         *
+         * \return The cell value
+         */
         typename C::value_type value() const {
             return cell.value();
         }
 
+        /**
+         * \brief Get the value of the argument cell and track it as a
+         * dependency.
+         *
+         * \return The cell value
+         */
         typename C::value_type operator()() const {
             argument_tracker::global().track_argument(*this);
             return value();
         }
 
     private:
+        /**
+         * \brief The argument cell.
+         */
         const C cell;
     };
 
     /**
-     * Return a cell with the same value as `cell` but one which does
-     * not notify its observer when its value has changed.
+     * \relates peek_cell
+     *
+     * \brief Create a \p Cell that reads the value of \a cell but does
+     * not notify its observers when the value has changes.
+     *
+     * \param cell The \p Cell of which to read the value.
+     *
+     * \return The peek cell
      */
     template <typename C>
     auto peek(const C &cell) {

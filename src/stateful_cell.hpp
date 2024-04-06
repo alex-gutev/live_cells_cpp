@@ -28,36 +28,38 @@
 namespace live_cells {
 
     /**
-     * Base class for a cell with a state.
+     * \brief Base class for a cell with a state.
      *
      * The state is associated with the cell by its key. The cell
-     * holds a shared_pointer to the state. This allows cell objects
+     * holds a \p shared_ptr to the state. This allows cell objects
      * to be freely copied, and even recreated using the same key,
      * while still pointing to the same shared state.
      *
-     * @a S is the class which will be used to hold the cell's state.
+     * \a S is the class which will be used to hold the cell's state.
      *
-     * NOTE: This class is not meant to be used polymorphically.
+     * \warning This class may be inherited but it is not meant to be
+     * used polymorphically.
      */
     template <typename S>
     class stateful_cell {
     public:
         /**
-         * Create a stateful cell and associate it with a state.
+         * \brief Create a stateful cell and associate it with a
+         * state.
          *
-         * If there is a state associated with key @a k, it is
+         * If there is a state associated with key \a k, it is
          * associated with the constructed cell. Otherwise:
          *
-         * 1. A new state is created by calling the constructor of @a
-         *    S, passing the key @a k followed by @a args.
+         * 1. A new state is created by calling the constructor of \a
+         *    S, passing the key \a k followed by \a args.
          *
-         * 2. The state is associated with key @a k.
+         * 2. The state is associated with key \a k.
          *
          * 3. The state is associated with the constructed cell.
          *
-         * @param k The key identifying the cell's state
+         * \param k The key identifying the cell
          *
-         * @param args Additional arguments to pass to the state
+         * \param args Additional arguments to pass to the state
          *   constructor.
          */
         template <typename... Args>
@@ -66,26 +68,41 @@ namespace live_cells {
             state(state_manager::global().get<S>(k, args...)) {
         }
 
+        /**
+         * \brief Get the key identifying the cell.
+         *
+         * \return The key identifying the cell
+         */
         key_ref key() const {
             return key_;
         }
 
+        /**
+         * \brief Add an observer to the cell.
+         *
+         * \param o The observer to add.
+         */
         void add_observer(observer::ref o) const {
             state->add_observer(o);
         }
 
+        /**
+         * \brief Remove an observer from the cell.
+         *
+         * \param o The observer to remove.
+         */
         void remove_observer(observer::ref o) const {
             state->remove_observer(o);
         }
 
     protected:
         /**
-         * Key identifying the cell
+         * \brief Key identifying the cell
          */
         const key_ref key_;
 
         /**
-         * Reference to the cell's state.
+         * \brief Reference to the cell's state.
          */
         std::shared_ptr<S> state;
     };

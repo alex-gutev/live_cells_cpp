@@ -27,30 +27,31 @@
 namespace live_cells {
 
     /**
-     * Defines the observer interface for observing a cell.
+     * \brief Defines the interface for observing changes to the value
+     * of a \p Cell.
      */
     class observer {
     public:
         /**
-         * observer pointer type
+         * \brief Shared pointer to an \p observer.
          */
         typedef std::shared_ptr<observer> ref;
 
         virtual ~observer() noexcept = default;
 
         /**
-         * Notifies this observer that the value of the observable
-         * identified by @a k is going to change.
+         * \brief Notifies this observer that the value of the \p Cell
+         * identified by \a k is going to change.
          *
-         * @param Key identifying observable
+         * \param k identifying observable
          */
         virtual void will_update(const key_ref &k) = 0;
 
         /**
-         * Notifies this observer that the value of the observable
-         * identified by @a k has changed.
+         * \brief Notifies this observer that the value of the \p Cell
+         * identified by \a k has changed.
          *
-         * @param Key identifying observable
+         * \param k identifying observable
          */
         virtual void update(const key_ref &k) = 0;
     };

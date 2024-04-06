@@ -28,40 +28,51 @@
 namespace live_cells {
 
     /**
-     * Key identifying a store_cell
+     * \brief Key identifying a \p store_cell
      */
     template <typename T>
     struct store_cell_key : value_key<T> {
         using value_key<T>::value_key;
     };
 
-    /** Forward declaration */
     template <Cell C>
     class store_cell_state;
 
     /**
-     * Defines the computation function of the state of a store_cell.
+     * \brief Defines the computation function of a \p store_cell.
      */
     template <Cell C>
     class store_cell_compute_state {
         /**
-         * Argument cell
+         * \brief Argument cell
          */
         const C arg;
 
         friend class store_cell_state<C>;
 
     public:
+        /**
+         * Create the computation state of a \p store_cell.
+         *
+         * \param arg The argument cell.
+         */
         store_cell_compute_state(C arg) :
             arg(arg) {}
 
+        /**
+         * \brief Compute the value of the argument cell.
+         *
+         * \param ref The \p store_cell state
+         *
+         * \return The computed value
+         */
         C::value_type operator()(observer::ref) {
             return arg.value();
         }
     };
 
     /**
-     * Maintains the state of a store cell.
+     * \brief Maintains the state of a \p store_cell.
      */
     template <Cell C>
     class store_cell_state : public compute_cell_state<store_cell_compute_state<C>> {
@@ -73,10 +84,10 @@ namespace live_cells {
 
     public:
         /**
-         * Create a store cell state.
+         * \brief Create a \p store_cell state.
          *
-         * @param k    Key identifying the cell
-         * @param cell The argument cell
+         * \param k    Key identifying the cell
+         * \param cell The argument cell
          */
         store_cell_state(key_ref k, C arg) :
             parent(k, arg) {}
@@ -104,7 +115,10 @@ namespace live_cells {
     };
 
     /**
-     * A cell that stores the value of another cell in memory.
+     * \brief A \p Cell that caches the value of another \p Cell.
+     *
+     * This cell reads the value of another cell and caches it until
+     * it changes.
      *
      * This is useful to cache the computed value of a lightweight
      * computed cell, which would otherwise be recomputed every time
@@ -123,23 +137,35 @@ namespace live_cells {
         typedef store_cell_key<key_ref> key_type;
 
     public:
+        /**
+         * \brief The type of value held by this cell.
+         */
         typedef C::value_type value_type;
 
         /**
-         * Create a store cell.
-         *
-         * The value of this cell is the value of the argument cell @a
+         * \brief Create a store cell that caches the value of \a
          * cell.
          *
-         * @param cell The argument cell.
+         * \param cell The argument cell.
          */
         store_cell(C cell) :
             parent(key_ref::create<key_type>(cell.key()), cell) {}
 
+        /**
+         * \brief Get the value of the cell.
+         *
+         * \return The value of the cell.
+         */
         value_type value() const {
             return this->state->value();
         }
 
+        /**
+         * \brief Get the value of the cell and track it as a
+         * dependency.
+         *
+         * \return The value of the cell.
+         */
         value_type operator()() const {
             argument_tracker::global().track_argument(*this);
             return value();
@@ -147,18 +173,23 @@ namespace live_cells {
     };
 
     /**
-     * Create a cell which caches the value of @a cell in memory.
+     * \relates store_cell
      *
-     * This is useful if @a cell is a lightweight computed cell. The
-     * returned cell caches its value in memory. Accessing the value
-     * through the returned cell guarantees that the value of @a cell
-     * is only recomputed, when it will actually change instead of
-     * computing the value every time it is accessed.
+     * \brief Create a \p Cell that caches the value of another \p
+     * Cell.
      *
-     * @param arg The argument cell
+     * The returned cell reads the value of \a arg and caches it until
+     * it changes.
      *
-     * @return A cell which has the same value as @a arg, but caches
-     * it in memory when it hasn't changed.
+     * This cell guarantes that the value of \a arg is only recomputed
+     * when it when its dependencies change instead of being computed
+     * every time it is accessed, provided its value is only accessed
+     * through the returned cell.
+     *
+     * \param arg The argument cell
+     *
+     * \return A cell which has the same value as \a arg, but caches
+     *    it in memory until it changes.
      */
     template <Cell C>
     auto store(const C &arg) {
