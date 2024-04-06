@@ -17,6 +17,8 @@
  *
  */
 
+/** \file */
+
 #ifndef LIVE_CELLS_MUTABLE_CELL_VIEW_HPP
 #define LIVE_CELLS_MUTABLE_CELL_VIEW_HPP
 
@@ -30,46 +32,53 @@
 
 namespace live_cells {
     /**
-     * A stateless mutable computed cell that does not hold its own
-     * value, nor tracks observers.
+     * \brief A stateless mutable computed cell that does not cache
+     * its own value.
+     *
+     * The value of the cell is computed whenever it is accessed and
+     * observers are added directly to the argument cells.
+     *
+     * \warning This is not a complete cell and hence does not
+     * satisfy the \p Cell concept. As such this class should not be
+     * instantiated directly. Instead the \p cell_view()
+     * function should be used to create stateless mutable computed
+     * cells.
      */
     template <std::invocable F, typename R, typename... Os>
     class mutable_cell_view_base : public compute_cell_base<F, Os...> {
 
-        /** Shorthand for parent class */
+        /** \brief Shorthand for parent class */
         typedef compute_cell_base<F, Os...> parent;
 
-        /** Shorthand for the type of value held by this cell */
+        /** \brief Shorthand for the type of value held by this cell */
         typedef std::invoke_result_t<F> value_type;
 
     public:
         using parent::value;
 
         /**
-         * Create a stateless mutable computed cell.
+         * \brief Create a stateless mutable computed cell.
          *
-         * @param compute Compute value function.
+         * \param compute Compute value function.\n
+         *   This function, of no arguments, should compute the cell's
+         *   value as a function of the cells in \a args.
          *
-         *   This function should compute the cell's value as a
-         *   function of the cells in @a args.
-         *
-         * @param reverse Reverse computation function.
-         *
-         *   This function should set the values of the cells in @a
-         *   args, such that @a compute returns the same value as the
+         * \param reverse Reverse computation function.\n
+         *   This function should set the values of the cells in \a
+         *   args, such that \a compute returns the same value as the
          *   value that was assigned to the cell, which is passed to
          *   this function.
          *
-         * @param args Arguments to @a compute
+         * \param args Argument cells referenced in \a compute
          */
         mutable_cell_view_base(F compute, R reverse, Os... args) :
             parent(compute, args...),
             reverse(reverse) {}
 
         /**
-         * Set the cell's value to @a value.
+         * \brief Set the value of the cell.
          *
-         * @param value The value to which to set the cell.
+         * \param value The new value
          */
         void value(value_type value) {
             batch([&] {
@@ -78,12 +87,21 @@ namespace live_cells {
         }
 
     private:
+        /**
+         * \brief Reverse computation function.
+         */
         const R reverse;
     };
 
     /**
-     * Static mutable computed cell class that satisfies the `Cell`
-     * concept constraints.
+     * \brief A stateless mutable computed cell.
+     *
+     * This implements a mutable computed cell which does not cache
+     * its value. Instead its value is computed on demand and
+     * observers are added directly to the argument cells.
+     *
+     * \note This class satisfies the \p Cell and \p MutableCell
+     * concepts.
      */
     template <std::invocable F, typename R, Cell... Ts>
     using mutable_cell_view = make_mutable_cell<mutable_cell_view_base<F,R,Ts...>>;
