@@ -57,11 +57,12 @@ namespace live_cells {
     };
 
     /**
-     * Concept defining an object which can be identified by a key.
+     * \brief Concept defining an object that can be identified by a
+     * key.
      *
      * The following methods are required:
      *
-     * - key_ref key()
+     * - <tt>key_ref key()</tt>
      *
      *   Return the key, which identifies the object.
      */
@@ -71,12 +72,12 @@ namespace live_cells {
     };
 
     /**
-     * Concept defining an observable that can be tracked dynamically
-     * as a dependency.
+     * \brief Concept defining an observable object that can be
+     * tracked dynamically as a dependency.
      *
      * The following methods are required:
      *
-     * - operator()
+     * - <tt>operator()</tt>
      *
      *   Return the observable's value and register it as a
      *   dependency.
@@ -87,38 +88,37 @@ namespace live_cells {
     };
 
     /**
-     * Concept defining an observable object.
+     * \brief Defines the cell protocol.
      *
      * Cells must define the following types:
      *
-     * - value_type
+     * - \c value_type
      *
      *   The type of value held by the observable.
      *
      * Cell types must the following methods:
      *
-     * - void add_observer(observer::ref o) const;
+     * - <tt>void add_observer(observer::ref o) const</tt>;
      *
-     *   Add observer `o` for this Cell.
+     *   Add observer \a o to this cell.
      *
-     * - void remove_observer(observer::ref o) const;
+     * - <tt>void remove_observer(observer::ref o) const</tt>;
      *
-     *   Remove observer `o` from this Cell.
+     *   Remove observer \a o from this cell.
      *
-     *   Implementations should only remove `o` after this method is
-     *   called the same number of times as add_observer was called
-     *   with the same observer `o`.
+     *   Implementations should only remove \a o after this method is
+     *   called the same number of times as \c add_observer() was called
+     *   with the same observer \a o.
      *
-     * - value_type value() const;
+     * - <tt>value_type value() const</tt>;
      *
      *   Return the value held by the observable.
      *
-     * - value_type operator()() const;
+     * - <tt>value_type operator()() const</tt>;
      *
-     *   Track this cell as a referenced argument cell and return its
-     *   value.
+     *   Track this cell as a dependency and return its value.
      *
-     * - key_ref key() const;
+     * - <tt>key_ref key() const</tt>;
      *
      *   Return a key that uniquely identifies the observable.
      */
@@ -132,20 +132,22 @@ namespace live_cells {
     };
 
     /**
-     * Concept defining a Cell with a specific value type `T`.
+     * \brief Concept that constrains \p Cell to cells holding a
+     * specific value type \a T.
      */
     template <typename C, typename T>
     concept TypedCell = Cell<C> && std::convertible_to<typename C::value_type, T>;
 
     /**
-     * Concept defining a Cell which can have its value set.
+     * \brief Concept defining a \p Cell that can have its value set.
      *
-     * The following method must be defined on `C` to satisfy the
+     * The following method must be defined on \a C to satisfy the
      * constraints:
      *
-     * - void value(value_type);
+     * - <tt>void value(value_type)</tt>;
      *
-     *   Set the value of the cell.
+     *   Set the value of the cell, and notify the observers of the
+     *   cell that its value has changed.
      */
     template <typename C>
     concept MutableCell = Cell<C> && requires(C c) {
@@ -153,7 +155,8 @@ namespace live_cells {
     };
 
     /**
-     * Concept defining a MutableCell with a specific value type `T`.
+     * \brief Concept that constrains \p MutableCell to cells holding
+     * a specific value type \a T.
      */
     template <typename C, typename T>
     concept TypedMutableCell = TypedCell<C,T> && MutableCell<C>;
