@@ -28,49 +28,61 @@
 namespace live_cells {
 
     /**
-     * Defines the interface for a 'key' which uniquely identifies a
-     * cell.
+     * \brief Defines the interface for a \e key which uniquely
+     * identifies a cell.
      */
     class key {
     public:
         virtual ~key() noexcept = default;
 
         /**
-         * Compare this key to another key for equality.
+         * \brief Compare this key to another key for equality.
          *
-         * @param k The key to compare to
+         * \param k The key to compare to
          *
-         * @return true if this is equal to @a k.
+         * \return \p true if this is equal to \aa k.
          */
         virtual bool eq(const key &k) const noexcept = 0;
 
         /**
-         * Return a hash code for this key.
+         * \brief Compute the hash code for this key.
+         *
+         * \return Hash code
          */
         virtual std::size_t hash() const noexcept = 0;
 
+        /**
+         * \brief Is this a unique key?
+         *
+         * A key is unique if it is identified by a single \p key
+         * instance.
+         *
+         * \return \p true if this key is unique.
+         */
         virtual bool is_unique() const noexcept {
             return false;
         }
     };
 
     /**
-     * Polymorphic key holder.
+     * \brief Dynamically type \p key container.
      *
-     * This class holds a key, while preserving its runtime type.
+     * This container holds a \p key, while preserving its runtime
+     * type.
      *
      * Copying this class only copies the reference, not the
-     * underlying object, which is kept in memory until the last
+     * underlying object, which is kept in memory until the last \p
      * key_ref pointing to it is destroyed.
      */
     class key_ref {
     public:
         /**
-         * Create a key_ref holding a key of type @a T.
+         * \brief Create a \p key_ref holding a key of type \a T.
          *
-         * A new @a T is constructed with arguments @a args.
+         * A new \a T is constructed in place with arguments \a args
+         * passed to the constructor.
          *
-         * @param args Arguments to pass to constructor of @a T.
+         * \param args Arguments to pass to constructor of \a T.
          */
         template <typename T, typename... Args>
         static key_ref create(Args... args) {
@@ -81,17 +93,27 @@ namespace live_cells {
             );
         }
 
+        /**
+         * Get a reference to the underlying \p key.
+         *
+         * \return Reference to underlying \p key.
+         */
         const key &operator *() const {
             return *key_;
         }
 
+        /**
+         * Access a member of the underlying \p key.
+         *
+         * \return Pointer to underlying \p key.
+         */
         const key *operator->() const {
             return key_.get();
         }
 
     private:
         /**
-         * Reference to the underlying key.
+         * \brief Reference to the underlying key.
          */
         std::shared_ptr<const key> key_;
 
@@ -99,7 +121,7 @@ namespace live_cells {
     };
 
     /**
-     * A key of which every instance is unique.
+     * \brief A key of uniquely identified by a single instance.
      *
      * An instance of this class compares equal only when compared to
      * the same instance.
@@ -116,8 +138,8 @@ namespace live_cells {
     };
 
     /**
-     * Base class for a key distinguished from other keys by one or
-     * more values.
+     * \brief Base class for a key distinguished from other keys by
+     * one or more values.
      *
      * Keys of this type compare equal if their runtime type is the
      * same, and their values are equal.
@@ -125,22 +147,23 @@ namespace live_cells {
     template <typename T, typename... Ts>
     class value_key : public key {
         /**
-         * First value distinguishing this key from other keys.
+         * \brief First value distinguishing this key from other keys.
          */
         const T value;
 
         /**
-         * Remaining values distinguishing this key from other keys.
+         * \brief Key holding remaining values distinguishing they key
+         * from other keys.
          */
         const value_key<Ts...> rest;
 
     public:
         /**
-         * Create a key distinguished from other keys by one or more
-         * values.
+         * \brief Create a key distinguished from other keys by one or
+         * more \a values.
          *
-         * @param value First value
-         * @param rest  Remaining values
+         * \param value First value
+         * \param rest  Remaining values
          */
         value_key(T value, Ts... rest)
             : value(value),
@@ -161,12 +184,12 @@ namespace live_cells {
 
     private:
         /**
-         * Check whether the values of this key are equal to the
-         * values of @a key.
+         * \brief Check whether the values of this key are equal to
+         * the values of \a key.
          *
-         * @param key Another key
+         * \param key Another key
          *
-         * @return true if the values are equal.
+         * \return true if the values are equal.
          */
         bool values_equal(const value_key<T,Ts...> key) const noexcept {
             return value == key.value && rest.values_equal(key.rest);
@@ -175,7 +198,7 @@ namespace live_cells {
         /**
          * Compute the hash code of the values held in this key.
          *
-         * @return The combined hash code.
+         * \return The hash code.
          */
         std::size_t hash_values() const noexcept {
             return internal::hash_combine(0, value, rest);
@@ -183,7 +206,7 @@ namespace live_cells {
     };
 
     /**
-     * Base class for a key distinguished from other keys by one
+     * \brief Base class for a key distinguished from other keys by one
      * value.
      *
      * Keys of this type compare equal if their runtime type is the
@@ -192,15 +215,15 @@ namespace live_cells {
     template <typename T>
     class value_key<T> : public key {
         /**
-         * Value distinguishing this key from other keys.
+         * \brief Value distinguishing this key from other keys.
          */
         const T value;
 
     public:
         /**
-         * Create a key distinguished from other keys by one value.
+         * \brief Create a key distinguished from other keys by one value.
          *
-         * @param value The value
+         * \param value The value
          */
         value_key(T value) :
             value(value) {}

@@ -23,34 +23,45 @@
 namespace live_cells {
 
     /**
-     * A single observable which merges multiple observables.
+     * \brief Allows multiple cells to be observed at once.
      *
      * This class allows an observer to be added to multiple cells
-     * simultaneously via a single observable object.
+     * simultaneously via a single call to \p add_observer() and \p
+     * remove_observer()
      */
     template <Cell T, Cell... Ts>
     class merged_observable {
     public:
 
         /**
-         * Create an observable that merges the cells @a first
-         * and @a rest... into one.
+         * \brief Create a \p merged_observable that adds observers to the cells \a first
+         * and \a rest... into.
          *
-         * When add_observer() and remove_observer() are called, they
-         * are applied to @a first and every cell in @a rest.
+         * When \p add_observer() and \p remove_observer() are called,
+         * they are applied to \a first and every cell in \a rest.
          *
-         * @param first A cell
-         * @param rest Cells
+         * \param first A cell
+         * \param rest Remaining cells
          */
         merged_observable(T first, Ts... rest) :
             first(first),
             rest(rest...) {}
 
+        /**
+         * Add an observer to every cell given in constructor.
+         *
+         * \param o The observer to add
+         */
         void add_observer(observer::ref o) const {
             first.add_observer(o);
             rest.add_observer(o);
         }
 
+        /**
+         * Remove an observer from every cell given in constructor.
+         *
+         * \param o The observer to remove
+         */
         void remove_observer(observer::ref o) const {
             first.remove_observer(o);
             rest.remove_observer(o);

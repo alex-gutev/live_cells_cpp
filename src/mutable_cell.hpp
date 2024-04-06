@@ -74,7 +74,7 @@ namespace live_cells {
     };
 
     /**
-     * Maintains the state of a mutable cell.
+     * \brief Maintains the state of a \p mutable_cell.
      */
     template<typename T>
     class mutable_cell_state : public cell_state {
@@ -82,10 +82,11 @@ namespace live_cells {
         using cell_state::cell_state;
 
         /**
-         * Create a mutable cell state with a value initialized to @a value.
+         * \brief Create a mutable cell state with the value
+         * initialized to \a value.
          *
-         * @param key    Key identifying the state
-         * @param value  Initial value
+         * \param key    Key identifying the state
+         * \param value  Initial value
          */
         mutable_cell_state(key_ref key, T value) :
             cell_state(key),
@@ -93,14 +94,18 @@ namespace live_cells {
         }
 
         /**
-         * Retrieve the cell's value.
+         * \brief Get the value of the cell.
+         *
+         * \return The value
          */
         T value() {
             return value_;
         }
 
         /**
-         * Set the cell's value and notify its observers.
+         * \brief Set the value of the cell and notify its observers.
+         *
+         * \param value The new value.
          */
         void value(T value) {
             if (value_ != value) {
@@ -118,91 +123,110 @@ namespace live_cells {
 
     protected:
         /**
-         * Set the cell's value without notifying observers.
+         * \brief Set the cell's value without notifying observers.
+         *
+         * \param value The new value
          */
         void silent_set(T value) {
             value_ = std::move(value);
         }
 
         /**
-         * Is a batch update of mutable cells currently in effect.
+         * \brief Is a batch update of mutable cells currently in effect?
+         *
+         * \return \p true if a batch update is in effect
          */
         static bool is_batch_update() {
             return batch_update::is_batch_update();
         }
 
         /**
-         * Add this state to the list of batched mutable cell value
-         * updates.
+         * \brief Add this state to the list of mutable cells that
+         * were updating during the current batch update.
          */
         void add_to_batch() {
             batch_update::add_to_batch(this->shared_from_this());
         }
 
     private:
-        /** The cell's value */
+        /** \brief The cell's value */
         T value_;
     };
 
     /**
-     * A stateful cell which can have its value set directly.
+     * \brief A stateful cell which can have its value set directly.
      */
     template<typename T>
     class mutable_cell : public stateful_cell<mutable_cell_state<T>> {
         /**
-         * Shorthand for parent class
+         * \brief Shorthand for parent class
          */
         typedef stateful_cell<mutable_cell_state<T>> parent;
 
     public:
+        /**
+         * \brief The type of value held by this cell
+         */
         typedef T value_type;
 
         /**
-         * Create a mutable cell with a default initialized value.
+         * \brief Create a mutable cell with a default initialized
+         * value.
          */
         mutable_cell() : parent(key_ref::create<unique_key>()) {}
 
         /**
-         * Create a mutable cell with an initial value.
+         * \brief Create a mutable cell with an initial value.
          *
-         * @param value The initial value of the cell.
+         * \param value The initial value of the cell
          */
         mutable_cell(T value) :
             mutable_cell(key_ref::create<unique_key>(), value) {}
 
         /**
-         * Create a mutable cell with an initial value.
+         * \brief Create a mutable cell with an initial value
          *
-         * If there is no state associated with key @a key, a new
+         * If there is no state associated with key \a key, a new
          * state is created and the value of the cell is initialized
-         * to @a value.
+         * to \a value.
          *
-         * If there is a state associated with @a key, @a value is
+         * If there is a state associated with \a key, \a value is
          * ignored.
          *
-         * @param key   Key identifying cell
-         * @param value Initial value
+         * \param key   Key identifying cell
+         * \param value Initial value
          */
         mutable_cell(key_ref key, T value) :
             parent(key, value) {
         }
 
+        /**
+         * \brief Get the value of the cell.
+         *
+         * \return The value of the cell.
+         */
         T value() const {
             return this->state->value();
         }
 
         /**
-         * Set the value of the cell.
+         * \brief Set the value of the cell.
          *
-         * NOTE: This method is marked const to allow the value of the
+         * \note This method is marked const to allow the value of the
          * cell to be set when it is copy-captured by a lambda.
          *
-         * @param value The new value
+         * \param value The new value
          */
         void value(T value) const {
             this->state->value(value);
         }
 
+        /**
+         * \brief Get the value of the cell and track it as a
+         * dependency.
+         *
+         * \return The value of the cell.
+         */
         T operator()() const {
             argument_tracker::global().track_argument(*this);
             return value();

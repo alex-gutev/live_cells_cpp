@@ -28,49 +28,51 @@
 namespace live_cells {
 
     /**
-     * The return type of C::value().
+     * \brief The return type of C::value().
      */
     template <typename C>
     using cell_value_type = decltype(std::declval<C>().value());
 
     /**
-     * Define a cell class using `C` such that the constraints defined
-     * by the concept `Cell` are satisifed.
+     * \brief Defines a cell class using \a C such that the
+     * constraints defined by the concept \p Cell are satisifed.
      *
-     * In-effect, this class can be used to "generate" a cell
-     * interface from a "prototype" that does not satisfy all the
-     * constraints of `Cell`.
+     * In-effect, this class \e generates a cell interface from a \e
+     * prototype that does not satisfy all the constraints of \p Cell.
      *
-     * IMPORTANT: This class may be inherited but may not be used
+     * \warning This class may be inherited but may not be used
      * polymorphically.
      *
-     * C::value(), C::add_observer(), C::remove_observer() are used to
-     * implement the value(), add_observer() and remove_observer()
-     * methods respectively.
+     * \p C::value(), \p C::add_observer(), \p C::remove_observer()
+     * are used to implement the \p value(), \p add_observer() and \p
+     * remove_observer() methods respectively.
      *
-     * The return type of C::value() is used for `value_type`.
+     * The return type of \p C::value() is used to define the \p value_type.
      *
-     * If C::key() exists (that is `C` satisfies the `Keyable`
-     * concept), it is used to implement the key() method. Otherwise a
-     * default implementation is provided that returns the key given
-     * in the constructor.
+     * If \p C::key() exists (that is \a C satisfies the \p Keyable
+     * concept), it is used to implement the \p key()
+     * method. Otherwise a default implementation is provided that
+     * returns the key given in the constructor.
      *
-     * If C::operator() exists (that is `C` satisfies the `Trackable`
-     * concept), it is used to implement the operator()
+     * If \p C::operator()() exists (that is \a C satisfies the \p
+     * Trackable concept), it is used to implement the \p operator()()
      * method. Otherwise a default implementation is provided.
      */
     template <typename C>
     struct make_cell {
         /**
-         * Cell value type (return type of C::value()).
+         * \brief Cell value type (return type of \p C::value()).
          */
         typedef cell_value_type<C> value_type;
 
         /**
-         * Constructor that allows a `key` to be provided, with `args`
-         * forwarded to the constructor of `C`.
+         * \brief Constructor that allows a \a key to be provided,
+         * with \a args forwarded to the constructor of \a C.
          *
-         * This is only available if C::key() does not exist.
+         * \note This is only available if \p C::key() is not defined.
+         *
+         * \param key The key identifying the cell
+         * \param args Arguments forwarded to constructor of \a C
          */
         template <typename K, typename... Args>
         requires (!Keyable<C> && std::constructible_from<C,Args...>)
@@ -79,12 +81,14 @@ namespace live_cells {
             key_(std::forward<K>(key)) {}
 
         /**
-         * Constructor that forwards all its arguments `args` to the
-         * constructor of `C`.
+         * \brief Constructor that forwards all its arguments \a args
+         * to the constructor of \a C.
          *
-         * A `unique_key` is used as the key for this cell.
+         * A \p unique_key is used as the key for this cell.
          *
-         * This is only available if C::key() does not exist.
+         * \note This is only available if \p C::key() is not defined.
+         *
+         * \param args Arguments forwarded to constructor of \a C
          */
         template <typename... Args>
         requires (!Keyable<C> && std::constructible_from<C,Args...>)
@@ -93,14 +97,16 @@ namespace live_cells {
             key_(key_ref::create<unique_key>()) {}
 
         /**
-         * Constructor that forwards all its arguments `args` to the
-         * constructor of `C`.
+         * \brief Constructor that forwards all its arguments \a args
+         * to the constructor of \a C.
          *
          * This constructor does not generate or accept any key
          * arguments. If any are provided, they are forwarded to the
-         * constructor of `C`.
+         * constructor of \a C.
          *
-         * This is only available if C::key() exists.
+         * \note This is only available if \p C::key() is defined.
+         *
+         * \param args Arguments forwarded to constructor of \a C
          */
         template <typename... Args>
         requires (Keyable<C> && std::constructible_from<C,Args...>)
@@ -109,44 +115,108 @@ namespace live_cells {
 
         /** Cell methods */
 
+        /**
+         * \brief Add an observer to the cell.
+         *
+         * \note Implemented using \p C::add_observer().
+         *
+         * \param obs Observer to add to cell
+         */
         void add_observer(observer::ref obs) const {
             cell.add_observer(obs);
         }
 
+        /**
+         * \brief Remove an observer from the cell.
+         *
+         * \note Implemented using \p C::remove_observer().
+         *
+         * \param obs Observer to remove from cell
+         */
         void remove_observer(observer::ref obs) const {
             cell.remove_observer(obs);
         }
 
+        /**
+         * \brief Get the value of the cell.
+         *
+         * \note Implemented using \p C::value()
+         *
+         * \return The cell's value
+         */
         value_type value() const {
             return cell.value();
         }
 
+        /**
+         * \brief Get the value of the cell and track it as a
+         * dependency.
+         *
+         * \note Implemented using \p C::value()
+         *
+         * \return The cell's value
+         */
         value_type operator()() const requires (!Trackable<C>) {
             argument_tracker::global().track_argument(*this);
             return value();
         }
 
+        /**
+         * \brief Get the value of the cell and track it as a
+         * dependency.
+         *
+         * \note This is only available if \p C::operator()() is
+         * defined.
+         *
+         * \note Implemented using \p C::operator()()
+         *
+         * \return The cell's value
+         */
         value_type operator()() const requires (Trackable<C>) {
             return cell();
         }
 
+        /**
+         * \brief Get the key identifying the cell.
+         *
+         * \note Implemented using \p C::key().
+         *
+         * \return The key
+         */
         key_ref key() const requires Keyable<C> {
             return cell.key();
         }
 
+        /**
+         * \brief Get the key identifying the cell.
+         *
+         * \note This is only available if \p C::key() is not defined.
+         *
+         * \return The key
+         */
         key_ref key() const requires (!Keyable<C>) {
             return key_;
         }
 
     protected:
+        /**
+         * \p The partial cell implementation.
+         */
         C cell;
 
+        /**
+         * \brief Key identifying the cell.
+         *
+         * \note This member exists only if \p C::key() is not
+         * defined.
+         */
         const std::enable_if<!Keyable<C>, key_ref>::type key_;
     };
 
     /**
-     * Same as `make_cell` but also provides a value setter `void
-     * value(value_type)` for mutable cells.
+     * \brief Same as `make_cell` but also provides a value setter \p
+     * value(Parent::value_type) so that the definition satisfies the
+     * \p MutableCell concept.
      */
     template <typename C, typename Parent = make_cell<C>>
     class make_mutable_cell : public Parent {
@@ -156,9 +226,11 @@ namespace live_cells {
         using Parent::value;
 
         /**
-         * Set the value of the cell to `value.
+         * \brief Set the value of the cell to \a value.
          *
-         * The value is forwarded to `C::value(value)`.
+         * \note Implemented using \p C::value(value).
+         *
+         * \param value The new value of the cell
          */
         void value(Parent::value_type value) {
             Parent::cell.value(value);
