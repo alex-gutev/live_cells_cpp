@@ -61,6 +61,9 @@ auto w = live_cells::watch(...);
 
 # Getting Started
 
+\attention This software is still in the beta phase and may experience
+rapid and drastic changes between releases.
+
 ## Prerequisites
 
 This library requires the following:
