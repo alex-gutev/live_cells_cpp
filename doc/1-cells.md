@@ -463,3 +463,9 @@ few points to keep in mind when using cells:
    // the cell.
    a.value("bye");
    ```
+
+## Next
+
+Now that we've covered the basic you can proceed to the next
+[section](2-expressions.md), which introduces utilities for
+creating cells directly from expressions.
