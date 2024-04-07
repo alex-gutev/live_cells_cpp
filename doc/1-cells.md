@@ -407,8 +407,7 @@ few points to keep in mind when using cells:
    ```
    
    That's why, as you've probably noticed, the lambda functions
-   provided to [`live_cells::watch()`](@ref
-   live_cells::watcher::watch()) and `live_cells::computed()` capture
+   provided to [`live_cells::watch()`](@ref live_cells::watcher::watch()) and `live_cells::computed()` capture
    cells by value, not by reference.
    
    The cell state holds the cell's value and its observers.
