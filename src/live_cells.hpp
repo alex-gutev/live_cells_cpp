@@ -36,4 +36,11 @@
 #include "boolean.hpp"
 #include "errors.hpp"
 
+/**
+ * \namespace live_cells
+ *
+ * Namespace containing all functions and classes provided by the live
+ * cells library.
+ */
+
 #endif /* LIVE_CELLS_HPP */
