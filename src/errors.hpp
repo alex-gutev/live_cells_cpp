@@ -26,19 +26,19 @@
 
 namespace live_cells {
     /**
-     * Create a cell which handles all exceptions thrown while
-     * computing the value of a cell.
+     * \brief Create a Cell which handles all exceptions thrown while
+     * computing the value of a \a cell.
      *
      * If an exception is thrown during the computation of the value
-     * of `cell`, the cell evaluates to the value of the `error_value`
+     * of \a cell, the cell evaluates to the value of the \a error_value
      * cell.
      *
-     * @param cell        The cell for which to handle exceptions
+     * \param cell        The cell for which to handle exceptions
      *
-     * @param error_value The cell holding the value to use if an
+     * \param error_value The cell holding the value to use when an
      *    exception is thrown.
      *
-     * @return The new cell
+     * \return The new cell
      */
     auto on_error(const Cell auto &cell, const Cell auto &error_value) {
         return store(
@@ -54,11 +54,22 @@ namespace live_cells {
     }
 
     /**
-     * Like the other overload but only handles exceptions of type
-     * `E`, which is the first template type parameter.
+     * \brief Create a Cell which handles exceptions of type \a E
+     * thrown while computing the value of a \a cell.
      *
-     * Type `E` cannot be deduced so it should be specified
+     * If an exception is thrown during the computation of the value
+     * of \a cell, the cell evaluates to the value of the \a error_value
+     * cell.
+     *
+     * \note Type \a E cannot be deduced so it should be specified
      * explicitly.
+     *
+     * \param cell        The cell for which to handle exceptions
+     *
+     * \param error_value The cell holding the value to use when an
+     *    exception is thrown.
+     *
+     * \return The new cell
      */
     template <typename E>
     auto on_error(const Cell auto &cell, const Cell auto &error_value) {

@@ -62,12 +62,21 @@ namespace live_cells {
     }
 
     /**
-     * Create a cell which selects between the values of two cells
-     * based on the value of a condition cell.
+     * \brief Create a cell which selects between the values of two
+     * cells based on the value of a \a condition cell.
      *
-     * If the value of the `condition` cell is false, the cell
-     * evaluates to the value of the `if_true` cell. Otherwise the
-     * cell evaluates to the value of the `if_false` cell.
+     * If the value of the \a condition cell is \p true, the cell
+     * evaluates to the value of the \a if_true cell. Otherwise the
+     * cell evaluates to the value of the \a if_false cell.
+     *
+     * \param condition Condition cell used to select between \a
+     *    if_true and \a if_false
+     *
+     * \param if_true Cell selected when \a condition is \p true
+     *
+     * \param if_false Cell selected when \a condition is \p false
+     *
+     * \return The selection cell
      */
     auto select(Cell auto condition, Cell auto if_true, Cell auto if_false) {
         return make_compute_cell([=] () {
@@ -76,12 +85,18 @@ namespace live_cells {
     }
 
     /**
-     * Create a cell which evaluates to the value of another cell only
-     * if a condition is true.
+     * \brief reate a cell which evaluates to the value of another
+     * cell only if a \a condition is \p true.
      *
-     * If the value of the `condition` cell is false, the cell
-     * evaluates to the value of the `if_true` cell. Otherwise the
-     * cell preserves its current value as if by calling `none()`.
+     * If the value of the \a condition cell is \p true, the cell
+     * evaluates to the value of the \a if_true cell. Otherwise the
+     * cell preserves its current value as if by calling \p none().
+     *
+     * \param condition Condition cell
+     *
+     * \param if_true Cell selected when \a condition is \p true
+     *
+     * \return The selection cell
      */
     auto select(Cell auto condition, Cell auto if_true) {
         return store(

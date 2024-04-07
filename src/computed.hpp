@@ -31,16 +31,17 @@
 namespace live_cells {
 
     /**
-     * Create a cell with a value that is a function of one or more
-     * argument cells.
+     * \brief Create a cell with a value that is a function of one or
+     * more argument cells.
      *
-     * The argument cells, referenced by @a compute, are determined
-     * dynamically. For this to work, the values of the argument cells
-     * must be referenced using live_cells::use() within @a compute().
+     * The argument cells, referenced within \a compute, are
+     * determined dynamically. For this to work, the values of the
+     * argument cells must be referenced using the function call
+     * operator and not the \p Cell::value() getter method.
      *
-     * @param compute Compute value function
+     * \param compute Compute value function
      *
-     * @return The cell
+     * \return A computed cell
      */
     template <std::invocable F>
     auto computed(F&& compute) {
@@ -48,17 +49,18 @@ namespace live_cells {
     }
 
     /**
-     * Create a cell with a value that is a function of one or more
+     * \brief Create a cell with a value that is a function of one or more
      * argument cells.
      *
-     * The argument cells, referenced by @a compute, are determined
-     * dynamically. For this to work, the values of the argument cells
-     * must be referenced using live_cells::use() within @a compute().
+     * The argument cells, referenced within \a compute, are
+     * determined dynamically. For this to work, the values of the
+     * argument cells must be referenced using the function call
+     * operator and not the \p Cell::value() getter method.
      *
-     * @param key     Key identifying the cell
-     * @param compute Compute value function
+     * \param key     Key identifying the cell
+     * \param compute Compute value function
      *
-     * @return The cell
+     * \return A computed cell
      */
     template <std::invocable F>
     auto computed(key_ref key, F&& compute) {
@@ -66,19 +68,18 @@ namespace live_cells {
     }
 
     /**
-     * Create a cell with a value that is a function of the values of
-     * one or more argument cells.
+     * \brief Create a cell with a value that is a function of the
+     * values of one or more argument cells.
      *
-     * @param arg1 First argument to value computation function.
+     * \param arg1 First argument to value computation function.
      *
-     * @param args Remaining arguments followed by compute value function.
-     *
+     * \param args Remaining arguments followed by compute value function.\n
      *   The compute value function is called to compute the value of
      *   the cell when necessary. The values of the argument cells are
      *   passed to the compute value function in the same order as
      *   they are provided in this function.
      *
-     * @return The cell
+     * \return A computed cell
      */
     template <typename A, typename... As>
     auto computed(A arg1, As... args) {
@@ -97,21 +98,20 @@ namespace live_cells {
     }
 
     /**
-     * Create a cell with a value that is a function of the values of
-     * one or more argument cells.
+     * \brief Create a cell with a value that is a function of the
+     * values of one or more argument cells.
      *
-     * @param key Key identifying the cell
+     * \param key Key identifying the cell
      *
-     * @param arg1 First argument to value computation function.
+     * \param arg1 First argument to value computation function.
      *
-     * @param args Remaining arguments followed by compute value function.
-     *
+     * \param args Remaining arguments followed by compute value function.\n
      *   The compute value function is called to compute the value of
      *   the cell when necessary. The values of the argument cells are
      *   passed to the compute value function in the same order as
      *   they are provided in this function.
      *
-     * @return The cell
+     * \return A computed cell
      */
     template <typename A, typename... As>
     auto computed(key_ref key, A arg1, As... args) {
@@ -130,11 +130,12 @@ namespace live_cells {
     }
 
     /**
-     * Stop the computation of the current cell's value.
+     * \brief Stop the computation of the current computed cell's
+     * value.
      *
-     * When this method is called within a cell's compute value
-     * function, the cell's value is not recomputed. Instead its
-     * current value is preserved.
+     * When this method is called within the value computation of a
+     * cell, the cell's value is not recomputed. Instead its current
+     * value is preserved.
      */
     inline void none() {
         throw stop_compute_exception();

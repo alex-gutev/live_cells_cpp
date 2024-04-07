@@ -234,11 +234,11 @@ namespace live_cells {
     };
 
     /**
-     * Create a new mutable cell with an initial value.
+     * \brief Create a new mutable cell with an initial value.
      *
-     * @param value The initial value
+     * \param value The initial value
      *
-     * @return A mutable cell
+     * \return A mutable cell
      */
     template<typename T>
     mutable_cell<T> variable(T value) {
@@ -246,15 +246,16 @@ namespace live_cells {
     }
 
     /**
-     * Create a new mutable cell with a key and an initial value.
+     * \brief Create a new mutable cell, identified by a key, with an
+     * initial value.
      *
-     * NOTE: @a value is ignored if @a key already identifies a
-     * mutable cell state.
+     * \note \a value is ignored if \a key already identifies a
+     * mutable cell.
      *
-     * @param key   Key identifying cell
-     * @param value The initial value
+     * \param key   Key identifying cell
+     * \param value The initial value
      *
-     * @return A mutable cell
+     * \return A mutable cell
      */
     template<typename T>
     mutable_cell<T> variable(key_ref key, T value) {
@@ -262,13 +263,13 @@ namespace live_cells {
     }
 
     /**
-     * Batch changes to the values of mutable cells.
+     * \brief Batch changes to the values of mutable cells.
      *
-     * The function @a fn is called with zero arguments. Observers of
-     * mutable cells are only notified of changes to the cells' values
-     * after @a fn returns.
+     * The function \a fn is called with zero arguments. When the
+     * value of a mutable cell is set within \a fn, the observers of
+     * the cell are only notified of the change after \a fn returns.
      *
-     * @param fn A function of zero arguments
+     * \param fn A function of zero arguments
      */
     template<typename F>
     void batch(F fn) {

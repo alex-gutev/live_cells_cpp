@@ -30,26 +30,36 @@
 
 namespace live_cells {
     /**
-     * Create a mutable computed cell.
+     * \brief Create a mutable computed cell with dynamically
+     * determined argument cells.
      *
-     * This differs from the other overload in that the argument cells
+     * Ordinarily the value of the cell is the value computed by \a
+     * fn as a function of other cells.
+     *
+     * The returned cell is also a mutable cell, which means its value
+     * can be set explicitly. When the value of the cell is set
+     * explicitly, the reverse computation function \a reverse is
+     * called. \a reverse should set the values of the cells
+     * referenced in \a fn such that \a fn returns the same value as
+     * the value that was assigned to the cell.
+     *
+     * \attention The values of Cell's should be referenced in \a fn
+     * using the function call operator, so that they are tracked as
+     * dependencies of the mutable computed cell, and not using the \p
+     * Cell::value() getter method.
+     *
+     * \note This differs from the other overload in that the argument cells
      * are not specified explicitly, but are determined
      * dynamically.
      *
-     * The compute value function @a compute should use the `use()`
-     * function to retrieve the values of its arguments.
+     * \param fn Compute value function.\n
+     *   This function is called with no arguments.
      *
-     * @param fn Compute value function.
-     *
-     *   This function is called with no arguments. The values of the
-     *   argument cells should be referenced with `use()`.
-     *
-     * @param reverse Reverse computation function.
-     *
+     * \param reverse Reverse computation function.\n
      *   This function is passed the value that was assigned to the
      *   cell.
      *
-     * @return The cell.
+     * \return The mutable computed cell
      */
     template <std::invocable F, typename R>
     auto mutable_computed(F&& fn, R&& reverse) {
@@ -59,33 +69,31 @@ namespace live_cells {
         );
     }
 
+
     /**
-     * Create a mutable computed cell.
+     * \brief Create a mutable computed cell.
      *
-     * Ordinarily the value of the cell is the value computed by @a fn
-     * which is a function of the cells in @a args.
+     * Ordinarily the value of the cell is the value computed by a
+     * function of the cells in \a args.
      *
      * The returned cell is also a mutable cell, which means its value
      * can be set explicitly. When the value of the cell is set
-     * explicitly, the reverse computation function @a reverse is
-     * called. The function @a reverse, should set the values of the
-     * cells in @a args such that the compute value function @a fn
-     * returns the same value as the value that was assigned to the
-     * cell.
+     * explicitly, the reverse computation function is called. The
+     * reverse computation function, should set the values of the
+     * cells in \a args such that the compute value function returns
+     * the same value as the value that was assigned to the cell.
      *
-     * @param arg1 First argument to compute value function.
+     * \param arg1 First argument to compute value function.
      *
-     * @param arg2, args Remaining compute value function arguments
-     *    followed by compute value and reverse compute functions.
-     *
+     * \param arg2, args Remaining compute value function arguments
+     *    followed by compute value and reverse compute functions.\n\n
      *   The compute value function is passed the values of the
      *   argument cells, in the same order as they are provided in the
-     *   argument list.
-     *
+     *   argument list.\n\n
      *   The reverse compute function (last in the argument list) is
      *   passed the value that was assigned to the cell.
      *
-     * @return The cell.
+     * \return The mutable computed cell.
      */
     template <typename A1, typename A2, typename... As>
     auto mutable_computed(A1 arg1, A2 arg2, As... args) {
