@@ -1,0 +1,13 @@
+<map id="live_cells::static_mutable_compute_cell_state&lt; F, R &gt;" name="live_cells::static_mutable_compute_cell_state&lt; F, R &gt;">
+<area shape="rect" id="Node000001" title="Maintains the state for a static_mutable_compute_cell." alt="" coords="94,372,271,427"/>
+<area shape="rect" id="Node000002" href="$classlive__cells_1_1mutable__compute__cell__state.html" title=" " alt="" coords="105,255,261,324"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,338,185,372,180,372,180,338"/>
+<area shape="rect" id="Node000003" href="$classlive__cells_1_1mutable__cell__state.html" title="Maintains the state of a mutable_cell." alt="" coords="25,167,170,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="124,216,156,253,152,256,120,219"/>
+<area shape="rect" id="Node000004" href="$classlive__cells_1_1cell__state.html" title="Maintains the state of a stateful cell." alt="" coords="20,93,175,119"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="100,132,100,167,95,167,95,132"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="5,5,189,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="100,59,100,93,95,93,95,59"/>
+<area shape="rect" id="Node000006" href="$classlive__cells_1_1observer.html" title="Defines the interface for observing changes to the value of a Cell." alt="" coords="194,174,342,199"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="251,212,213,256,209,253,247,208"/>
+</map>

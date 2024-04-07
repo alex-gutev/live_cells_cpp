@@ -1,0 +1,9 @@
+<map id="live_cells::internal::typed_ref&lt; C &gt;" name="live_cells::internal::typed_ref&lt; C &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="405,53,547,93"/>
+<area shape="rect" id="Node000002" href="$structlive__cells_1_1internal_1_1typed__ref__base.html" title=" " alt="" coords="195,5,357,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="372,49,406,56,405,61,371,54"/>
+<area shape="rect" id="Node000003" href="$structlive__cells_1_1internal_1_1ref__base.html" title=" " alt="" coords="5,13,147,53"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="161,30,195,30,195,35,161,35"/>
+<area shape="rect" id="Node000004" href="$structlive__cells_1_1internal_1_1mutable__cell__ref.html" title=" " alt="" coords="195,84,357,139"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="371,90,405,84,406,89,372,96"/>
+</map>

@@ -1,0 +1,29 @@
+<map id="live_cells::cell_state" name="live_cells::cell_state">
+<area shape="rect" id="Node000001" title="Maintains the state of a stateful cell." alt="" coords="237,213,392,239"/>
+<area shape="rect" id="Node000003" href="$classlive__cells_1_1compute__cell__state.html" title=" " alt="" coords="441,5,619,60"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="328,200,373,136,404,101,438,69,456,58,459,62,442,73,407,104,377,139,333,203"/>
+<area shape="rect" id="Node000005" href="$classlive__cells_1_1compute__cell__state.html" title=" " alt="" coords="440,84,620,139"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="345,203,439,148,462,136,464,141,441,152,348,208"/>
+<area shape="rect" id="Node000007" href="$classlive__cells_1_1mutable__cell__state.html" title=" " alt="" coords="441,163,619,217"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="404,208,440,202,441,208,405,214"/>
+<area shape="rect" id="Node000008" href="$classlive__cells_1_1compute__cell__state.html" title="Cell state for a cell which computes a value as a function of one or more argument cells." alt="" coords="456,242,604,282"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="405,238,456,247,455,252,404,244"/>
+<area shape="rect" id="Node000009" href="$classlive__cells_1_1mutable__cell__state.html" title="Maintains the state of a mutable_cell." alt="" coords="457,306,603,346"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="350,243,441,292,470,303,468,308,439,296,347,248"/>
+<area shape="rect" id="Node000014" href="$classlive__cells_1_1peek__cell__state.html" title="Maintains the state of a peek_cell." alt="" coords="453,370,607,410"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="335,248,379,302,409,331,441,356,463,368,461,372,439,360,405,335,375,305,331,251"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,206,189,246"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,223,237,223,237,229,203,229"/>
+<area shape="rect" id="Node000004" href="$classlive__cells_1_1dynamic__compute__cell__state.html" title="Maintains the state of a dynamic_compute_cell." alt="" coords="668,13,863,53"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="633,30,668,30,668,35,633,35"/>
+<area shape="rect" id="Node000006" href="$classlive__cells_1_1store__cell__state.html" title="Maintains the state of a store_cell." alt="" coords="688,91,843,131"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="634,109,688,109,688,114,634,114"/>
+<area shape="rect" id="Node000010" href="$classlive__cells_1_1mutable__compute__cell__state.html" title=" " alt="" coords="687,253,843,322"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="616,309,687,297,688,303,617,314"/>
+<area shape="rect" id="Node000012" href="$classlive__cells_1_1mutable__compute__cell__state.html" title="Maintains the state of a mutable computed cell." alt="" coords="668,346,863,386"/>
+<area shape="poly" id="edge11_Node000009_Node000012" title=" " alt="" coords="617,338,668,347,667,352,616,343"/>
+<area shape="rect" id="Node000011" href="$classlive__cells_1_1static__mutable__compute__cell__state.html" title="Maintains the state for a static_mutable_compute_cell." alt="" coords="921,260,1098,315"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="857,285,920,285,920,290,857,290"/>
+<area shape="rect" id="Node000013" href="$classlive__cells_1_1dynamic__mutable__compute__cell__state.html" title="Maintains the state of a dynamic_mutable_compute_cell." alt="" coords="911,339,1108,393"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="876,363,910,363,910,369,876,369"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="live_cells::mutable_cell_view_base&lt; F, R, Os &gt;" name="live_cells::mutable_cell_view_base&lt; F, R, Os &gt;">
+<area shape="rect" id="Node000001" title="A stateless mutable computed cell that does not cache its own value." alt="" coords="11,181,165,236"/>
+<area shape="rect" id="Node000002" href="$classlive__cells_1_1compute__cell__base.html" title=" " alt="" coords="5,93,171,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,147,91,181,85,181,85,147"/>
+<area shape="rect" id="Node000003" href="$classlive__cells_1_1dependent__cell.html" title=" " alt="" coords="8,5,168,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="91,59,91,93,85,93,85,59"/>
+</map>

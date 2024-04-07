@@ -1,0 +1,5 @@
+<map id="live_cells::unique_key" name="live_cells::unique_key">
+<area shape="rect" id="Node000001" title="A key of uniquely identified by a single instance." alt="" coords="5,79,171,104"/>
+<area shape="rect" id="Node000002" href="$classlive__cells_1_1key.html" title="Defines the interface for a key which uniquely identifies a cell." alt="" coords="31,5,145,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,44,91,79,85,79,85,44"/>
+</map>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Live Cells C++: Live Cells C++</title>
+<title>Live Cells C++: Getting Started</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -67,7 +67,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('index.html',''); initResizable(); });
+$(function(){initNavTree('md_doc_2install.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -93,64 +93,12 @@ $(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Live Cells C++ </div></div>
+  <div class="headertitle"><div class="title">Getting Started</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_doc_2index"></a> Live Cells is a reactive programming library for C++ ported from <a href="https://livecells.viditrack.com">Live Cells</a> for Dart.</p>
-<h1><a class="anchor" id="autotoc_md21"></a>
-Features</h1>
-<h2><a class="anchor" id="autotoc_md22"></a>
-Declarative</h2>
-<ul>
-<li>A declarative reactive programming library for C++</li>
-<li>Define <code>cells</code> for your data</li>
-<li>Express complex logic as functions of cells</li>
-</ul>
-<div class="fragment"><div class="line"><span class="comment">// Define cells</span></div>
-<div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(0);</div>
-<div class="line"><span class="keyword">auto</span> b = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(1);</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">// Define a function of a cell</span></div>
-<div class="line"><span class="keyword">auto</span> sum = <a class="code hl_function" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a>([=] {</div>
-<div class="line">    <span class="keywordflow">return</span> a() + b();</div>
-<div class="line">});</div>
-<div class="ttc" id="anamespacelive__cells_html_a38ef71dbf501d266974a7fae279a8441"><div class="ttname"><a href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a></div><div class="ttdeci">auto computed(F &amp;&amp;compute)</div><div class="ttdef"><b>Definition</b> computed.hpp:46</div></div>
-<div class="ttc" id="anamespacelive__cells_html_ab365650aeb27f61f31622a49d4fb79a3"><div class="ttname"><a href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a></div><div class="ttdeci">mutable_cell&lt; T &gt; variable(T value)</div><div class="ttdef"><b>Definition</b> mutable_cell.hpp:244</div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md23"></a>
-Reactive</h2>
-<ul>
-<li>Define observers on your cells</li>
-<li>Observers called automatically when cell values change</li>
-<li>Observers are self-subscribing</li>
-<li>React to any event or data change with minimal boilerplate</li>
-</ul>
-<div class="fragment"><div class="line"><span class="keyword">auto</span> watcher = live_cells::watch([=] {</div>
-<div class="line">    <span class="keywordflow">if</span> (sum() &gt; 100) {</div>
-<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Sum exceeded 100!!\\n&quot;</span>;</div>
-<div class="line">    }</div>
-<div class="line">});</div>
-<div class="line"> </div>
-<div class="line">a.value(20);</div>
-<div class="line">b.value(90); <span class="comment">// Prints: Sum exceeded 100!!!</span></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md24"></a>
-Simple, powerful and maintainable</h2>
-<ul>
-<li>You only need to learn one basic building block &mdash; the cell</li>
-<li>No need to worry about adding and removing event listeners or callbacks</li>
-<li>No need to implement complicated interfaces or subclasses</li>
-<li>Powerful enough to express any application logic</li>
-<li>Express your application logic without it buried in layers of event handling and state synchronization code</li>
-</ul>
-<div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(...);</div>
-<div class="line"><span class="keyword">auto</span> b = <a class="code hl_function" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a>(...);</div>
-<div class="line"><span class="keyword">auto</span> w = live_cells::watch(...);</div>
-<div class="line"> </div>
-<div class="line"><span class="comment">// That&#39;s all you have to learn</span></div>
-</div><!-- fragment --><hr  />
-<h1><a class="anchor" id="autotoc_md26"></a>
-Getting Started</h1>
-<h2><a class="anchor" id="autotoc_md27"></a>
-Prerequisites</h2>
+<div class="textblock"><p><a class="anchor" id="autotoc_md33"></a> </p>
+<h1><a class="anchor" id="autotoc_md34"></a>
+Prerequisites</h1>
 <p>This library requires the following:</p>
 <ul>
 <li>A compiler that supports C++20.</li>
@@ -159,8 +107,8 @@ Prerequisites</h2>
 <ul>
 <li><a href="https://www.boost.org/">Boost Unit Test Framework</a> version 1.82</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md28"></a>
-Installation</h2>
+<h1><a class="anchor" id="autotoc_md35"></a>
+Installation</h1>
 <p>To begin using Live Cells:</p>
 <ol type="1">
 <li>Download the <a href="https://github.com/alex-gutev/live_cells_cpp/releases/latest">latest release</a>.</li>
@@ -174,8 +122,8 @@ Installation</h2>
 </div><!-- fragment --></li>
 </ol>
 <p>Live Cells should now be installed at <code>/usr/local</code> or the prefix you've given to <code>configure</code>.</p>
-<h2><a class="anchor" id="autotoc_md29"></a>
-Configuring your project</h2>
+<h1><a class="anchor" id="autotoc_md36"></a>
+Configuring your project</h1>
 <p>The Live Cells library consists of headers, installed in <code>&lt;prefix&gt;/include/live_cells</code>, and a static library <code>liblive_cells.a</code> installed in <code>&lt;prefix&gt;/lib</code>.</p>
 <dl class="section note"><dt>Note</dt><dd><code>&lt;prefix&gt;</code> is <code>/usr/local</code>, unless specified otherwise with the <code>--prefix</code> argument to the <code>configure</code> script.</dd></dl>
 <p>To use live cells in your C++ project, you'll need to do the following:</p>
@@ -183,29 +131,28 @@ Configuring your project</h2>
 <li>Add <code>&lt;prefix&gt;/include/live_cells</code> to your include path.</li>
 <li>Link <code>&lt;prefix&gt;/lib/liblive_cells.a</code> into your compiled binary</li>
 </ol>
-<h3><a class="anchor" id="autotoc_md30"></a>
-Autotools</h3>
+<h2><a class="anchor" id="autotoc_md37"></a>
+Autotools</h2>
 <p>Add the following to your <code>configure.ac</code>:</p>
 <div class="fragment"><div class="line">AC_LIB_HAVE_LINKFLAGS(live_cells)</div>
 </div><!-- fragment --><p>This searches for the <code>liblive_cells.a</code> in the default library search paths (or the paths specified by the user), adds the necessary linker options to the variable <code>LIBLIVE_CELLS</code> and adds directory where the header files were installed, to the project's include path.</p>
 <p>Add the following to your <code>Makefile.am</code></p>
 <div class="fragment"><div class="line">target_LDADD = $(LIBLIVE_CELLS)</div>
 </div><!-- fragment --><p>where <code>target</code> is the name of your compilation target.</p>
-<h3><a class="anchor" id="autotoc_md31"></a>
-CMake</h3>
+<h2><a class="anchor" id="autotoc_md38"></a>
+CMake</h2>
 <p>Add the following to your <code>CMakeLists.txt</code> file:</p>
 <div class="fragment"><div class="line">list(APPEND CMAKE_MODULE_PATH &quot;&lt;prefix&gt;/share/live_cells/cmake)</div>
 <div class="line">find_package(live_cells REQUIRED)</div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>Substitute <code>&lt;prefix&gt;</code> with the install prefix given to the <code>configure</code> script.</dd></dl>
-<h2><a class="anchor" id="autotoc_md32"></a>
-Using Live Cells</h2>
+<h1><a class="anchor" id="autotoc_md39"></a>
+Using Live Cells</h1>
 <p>Now that your project is set up, all you need to do is include the <code><a class="el" href="live__cells_8hpp_source.html">live_cells.hpp</a></code> header file:</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;live_cells/live_cells.hpp&gt;</span></div>
 <div class="line">...</div>
 </div><!-- fragment --><p>You're all set to start following the introductory <a class="el" href="md_doc_21-cells.html">tutorial</a>. </p>
-</div></div><!-- PageDoc -->
-<a href="doxygen_crawl.html"/>
-</div><!-- contents -->
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

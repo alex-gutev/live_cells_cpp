@@ -1,0 +1,11 @@
+<map id="live_cells::peek_cell_state&lt; C &gt;" name="live_cells::peek_cell_state&lt; C &gt;">
+<area shape="rect" id="Node000001" title="Maintains the state of a peek_cell." alt="" coords="201,183,354,223"/>
+<area shape="rect" id="Node000002" href="$classlive__cells_1_1cell__state.html" title="Maintains the state of a stateful cell." alt="" coords="112,108,267,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="214,140,258,181,255,185,210,144"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,5,189,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="128,53,180,106,176,110,124,57"/>
+<area shape="rect" id="Node000004" href="$classlive__cells_1_1key__ref.html" title="Dynamically type key container." alt="" coords="213,13,352,38"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="264,49,203,110,199,106,260,46"/>
+<area shape="rect" id="Node000005" href="$classlive__cells_1_1observer.html" title="Defines the interface for observing changes to the value of a Cell." alt="" coords="291,108,439,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="344,144,300,185,296,181,341,140"/>
+</map>

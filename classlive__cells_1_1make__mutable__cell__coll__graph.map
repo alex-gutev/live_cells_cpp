@@ -1,0 +1,7 @@
+<map id="live_cells::make_mutable_cell&lt; C, Parent &gt;" name="live_cells::make_mutable_cell&lt; C, Parent &gt;">
+<area shape="rect" id="Node000001" title="Same as make_cell but also provides a value setter value(Parent::value_type) so that the definition s..." alt="" coords="9,168,197,208"/>
+<area shape="rect" id="Node000002" href="$structlive__cells_1_1make__cell.html" title="Defines a cell class using C such that the constraints defined by the concept Cell are satisifed." alt="" coords="5,93,201,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,132,106,168,101,168,101,132"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="84,5,123,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="106,45,106,93,101,93,101,45"/>
+</map>

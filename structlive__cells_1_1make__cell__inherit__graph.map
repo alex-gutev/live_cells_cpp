@@ -1,0 +1,5 @@
+<map id="live_cells::make_cell&lt; C &gt;" name="live_cells::make_cell&lt; C &gt;">
+<area shape="rect" id="Node000001" title="Defines a cell class using C such that the constraints defined by the concept Cell are satisifed." alt="" coords="5,5,201,31"/>
+<area shape="rect" id="Node000002" href="$classlive__cells_1_1make__mutable__cell.html" title="Same as make_cell but also provides a value setter value(Parent::value_type) so that the definition s..." alt="" coords="9,79,197,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,44,106,79,101,79,101,44"/>
+</map>
