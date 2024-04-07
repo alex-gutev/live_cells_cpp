@@ -1,3 +1,64 @@
+# Live Cells C++
+
+Live Cells is a reactive programming library for C++ ported from [Live
+Cells](https://livecells.viditrack.com) for Dart.
+
+## Features
+
+### Declarative
+
+* A declarative reactive programming library for C++
+* Define `cells` for your data
+* Express complex logic as functions of cells
+
+```cpp
+// Define cells
+auto a = live_cells::variable(0);
+auto b = live_cells::variable(1);
+
+// Define a function of a cell
+auto sum = live_cells::computed([=] {
+    return a() + b();
+});
+```
+
+### Reactive
+
+* Define observers on your cells
+* Observers called automatically when cell values change
+* Observers are self-subscribing
+* React to any event or data change with minimal boilerplate
+
+```cpp
+auto watcher = live_cells::watch([=] {
+    if (sum() > 100) {
+        std::cout << "Sum exceeded 100!!\\n";
+    }
+});
+
+a.value(20);
+b.value(90); // Prints: Sum exceeded 100!!!
+```
+
+### Simple, powerful and maintainable
+
+* You only need to learn one basic building block &mdash; the cell
+* No need to worry about adding and removing event listeners or callbacks
+* No need to implement complicated interfaces or subclasses
+* Powerful enough to express any application logic
+* Express your application logic without it buried in layers of event
+  handling and state synchronization code
+  
+```cpp
+auto a = live_cells::variable(...);
+auto b = live_cells::computed(...);
+auto w = live_cells::watch(...);
+
+// That's all you have to learn
+```
+
+---
+
 # Getting Started
 
 ## Prerequisites
@@ -98,4 +159,3 @@ Now that your project is set up, all you need to do is include the
 
 You're all set to start following the introductory
 [tutorial](1-cells.md).
-
