@@ -105,70 +105,68 @@ $(function(){initNavTree('errors_8hpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * live_cells_cpp</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * Copyright (C) 2024  Alexander Gutev &lt;alex.gutev@gmail.com&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * This program is free software: you can redistribute it and/or modify</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * it under the terms of the GNU Lesser General Public License as published by</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * the Free Software Foundation, either version 3 of the License, or</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> * (at your option) any later version.</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * This program is distributed in the hope that it will be useful,</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> * GNU Lesser General Public License for more details.</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> * You should have received a copy of the GNU Lesser General Public License</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#ifndef LIVE_CELLS_ERRORS_HPP</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#define LIVE_CELLS_ERRORS_HPP</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;observable.hpp&quot;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;computed.hpp&quot;</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;store_cell.hpp&quot;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelive__cells.html">live_cells</a> {</div>
-<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="namespacelive__cells.html#a62bdb9a836d990bfdfc53919a790ad17">   43</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="namespacelive__cells.html#a62bdb9a836d990bfdfc53919a790ad17">on_error</a>(<span class="keyword">const</span> <a class="code hl_concept" href="conceptlive__cells_1_1Cell.html">Cell</a> <span class="keyword">auto</span> &amp;<a class="code hl_class" href="classlive__cells_1_1cell.html">cell</a>, <span class="keyword">const</span> <a class="code hl_concept" href="conceptlive__cells_1_1Cell.html">Cell</a> <span class="keyword">auto</span> &amp;<a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">error_value</a>) {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">return</span> store(</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <a class="code hl_function" href="namespacelive__cells.html#aa6434fa2dc02fa04209ae4a7ad66c462">make_compute_cell</a>([=] () {</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                <span class="keywordflow">try</span> {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                    <span class="keywordflow">return</span> <a class="code hl_class" href="classlive__cells_1_1cell.html">cell</a>.<a class="code hl_function" href="classlive__cells_1_1cell.html#a01d2d60e343d081b6528fba199cf299a">value</a>();</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                }</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                <span class="keywordflow">catch</span> (...) {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                    <span class="keywordflow">return</span> <a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">error_value</a>.value();</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            }, <a class="code hl_class" href="classlive__cells_1_1cell.html">cell</a>, <a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">error_value</a>)</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        );</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    }</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * may not use this file except in compliance with the License.  You</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * may obtain a copy of the License at</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> *   http://www.apache.org/licenses/LICENSE-2.0</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * Unless required by applicable law or agreed to in writing, software</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> * implied.  See the License for the specific language governing</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> * permissions and limitations under the License.</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#ifndef LIVE_CELLS_ERRORS_HPP</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#define LIVE_CELLS_ERRORS_HPP</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;observable.hpp&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;computed.hpp&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;store_cell.hpp&quot;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelive__cells.html">live_cells</a> {</div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="namespacelive__cells.html#a62bdb9a836d990bfdfc53919a790ad17">   41</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="namespacelive__cells.html#a62bdb9a836d990bfdfc53919a790ad17">on_error</a>(<span class="keyword">const</span> <a class="code hl_concept" href="conceptlive__cells_1_1Cell.html">Cell</a> <span class="keyword">auto</span> &amp;<a class="code hl_class" href="classlive__cells_1_1cell.html">cell</a>, <span class="keyword">const</span> <a class="code hl_concept" href="conceptlive__cells_1_1Cell.html">Cell</a> <span class="keyword">auto</span> &amp;<a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">error_value</a>) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">return</span> store(</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <a class="code hl_function" href="namespacelive__cells.html#aa6434fa2dc02fa04209ae4a7ad66c462">make_compute_cell</a>([=] () {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                <span class="keywordflow">try</span> {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                    <span class="keywordflow">return</span> <a class="code hl_class" href="classlive__cells_1_1cell.html">cell</a>.<a class="code hl_function" href="classlive__cells_1_1cell.html#a01d2d60e343d081b6528fba199cf299a">value</a>();</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                <span class="keywordflow">catch</span> (...) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                    <span class="keywordflow">return</span> <a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">error_value</a>.value();</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                }</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            }, <a class="code hl_class" href="classlive__cells_1_1cell.html">cell</a>, <a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">error_value</a>)</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        );</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
 </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> E&gt;</div>
-<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="namespacelive__cells.html#a6ddd87e56d95012fd3b380e950a02ed3">   75</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="namespacelive__cells.html#a62bdb9a836d990bfdfc53919a790ad17">on_error</a>(<span class="keyword">const</span> <a class="code hl_concept" href="conceptlive__cells_1_1Cell.html">Cell</a> <span class="keyword">auto</span> &amp;<a class="code hl_class" href="classlive__cells_1_1cell.html">cell</a>, <span class="keyword">const</span> <a class="code hl_concept" href="conceptlive__cells_1_1Cell.html">Cell</a> <span class="keyword">auto</span> &amp;<a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">error_value</a>) {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordflow">return</span> store(</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <a class="code hl_function" href="namespacelive__cells.html#aa6434fa2dc02fa04209ae4a7ad66c462">make_compute_cell</a>([=] () {</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                <span class="keywordflow">try</span> {</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                    <span class="keywordflow">return</span> <a class="code hl_class" href="classlive__cells_1_1cell.html">cell</a>.<a class="code hl_function" href="classlive__cells_1_1cell.html#a01d2d60e343d081b6528fba199cf299a">value</a>();</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                }</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                <span class="keywordflow">catch</span> (<span class="keyword">const</span> <a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">E</a> &amp;) {</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                    <span class="keywordflow">return</span> <a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">error_value</a>.value();</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                }</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            }, <a class="code hl_class" href="classlive__cells_1_1cell.html">cell</a>, <a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">error_value</a>)</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        );</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> E&gt;</div>
+<div class="foldopen" id="foldopen00073" data-start="{" data-end="}">
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="namespacelive__cells.html#a6ddd87e56d95012fd3b380e950a02ed3">   73</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="namespacelive__cells.html#a62bdb9a836d990bfdfc53919a790ad17">on_error</a>(<span class="keyword">const</span> <a class="code hl_concept" href="conceptlive__cells_1_1Cell.html">Cell</a> <span class="keyword">auto</span> &amp;<a class="code hl_class" href="classlive__cells_1_1cell.html">cell</a>, <span class="keyword">const</span> <a class="code hl_concept" href="conceptlive__cells_1_1Cell.html">Cell</a> <span class="keyword">auto</span> &amp;<a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">error_value</a>) {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">return</span> store(</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            <a class="code hl_function" href="namespacelive__cells.html#aa6434fa2dc02fa04209ae4a7ad66c462">make_compute_cell</a>([=] () {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                <span class="keywordflow">try</span> {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                    <span class="keywordflow">return</span> <a class="code hl_class" href="classlive__cells_1_1cell.html">cell</a>.<a class="code hl_function" href="classlive__cells_1_1cell.html#a01d2d60e343d081b6528fba199cf299a">value</a>();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                <span class="keywordflow">catch</span> (<span class="keyword">const</span> <a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">E</a> &amp;) {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                    <span class="keywordflow">return</span> <a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">error_value</a>.value();</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            }, <a class="code hl_class" href="classlive__cells_1_1cell.html">cell</a>, <a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">error_value</a>)</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        );</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    }</div>
 </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}  <span class="comment">// live_cells</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}  <span class="comment">// live_cells</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">#endif </span><span class="comment">/* LIVE_CELLS_ERRORS_HPP */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aclasslive__cells_1_1cell_html"><div class="ttname"><a href="classlive__cells_1_1cell.html">live_cells::cell</a></div><div class="ttdoc">Dynamically typed Cell container.</div><div class="ttdef"><b>Definition</b> observable.hpp:123</div></div>
-<div class="ttc" id="aclasslive__cells_1_1cell_html_a01d2d60e343d081b6528fba199cf299a"><div class="ttname"><a href="classlive__cells_1_1cell.html#a01d2d60e343d081b6528fba199cf299a">live_cells::cell::value</a></div><div class="ttdeci">T value() const</div><div class="ttdoc">Get the value held by the underlying Cell.</div><div class="ttdef"><b>Definition</b> observable.hpp:177</div></div>
-<div class="ttc" id="aclasslive__cells_1_1dynamic__compute__cell_html"><div class="ttname"><a href="classlive__cells_1_1dynamic__compute__cell.html">live_cells::dynamic_compute_cell</a></div><div class="ttdoc">A computed cell which determines its argument cells at runtime.</div><div class="ttdef"><b>Definition</b> dynamic_compute_cell.hpp:138</div></div>
-<div class="ttc" id="aconceptlive__cells_1_1Cell_html"><div class="ttname"><a href="conceptlive__cells_1_1Cell.html">live_cells::Cell</a></div><div class="ttdoc">Defines the cell protocol.</div><div class="ttdef"><b>Definition</b> types.hpp:126</div></div>
-<div class="ttc" id="anamespacelive__cells_html"><div class="ttname"><a href="namespacelive__cells.html">live_cells</a></div><div class="ttdef"><b>Definition</b> boolean.hpp:27</div></div>
-<div class="ttc" id="anamespacelive__cells_html_a62bdb9a836d990bfdfc53919a790ad17"><div class="ttname"><a href="namespacelive__cells.html#a62bdb9a836d990bfdfc53919a790ad17">live_cells::on_error</a></div><div class="ttdeci">auto on_error(const Cell auto &amp;cell, const Cell auto &amp;error_value)</div><div class="ttdoc">Create a Cell which handles all exceptions thrown while computing the value of a cell.</div><div class="ttdef"><b>Definition</b> errors.hpp:43</div></div>
-<div class="ttc" id="anamespacelive__cells_html_aa6434fa2dc02fa04209ae4a7ad66c462"><div class="ttname"><a href="namespacelive__cells.html#aa6434fa2dc02fa04209ae4a7ad66c462">live_cells::make_compute_cell</a></div><div class="ttdeci">auto make_compute_cell(std::invocable auto f, auto... args)</div><div class="ttdef"><b>Definition</b> compute_cell.hpp:102</div></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="preprocessor">#endif </span><span class="comment">/* LIVE_CELLS_ERRORS_HPP */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aclasslive__cells_1_1cell_html"><div class="ttname"><a href="classlive__cells_1_1cell.html">live_cells::cell</a></div><div class="ttdoc">Dynamically typed Cell container.</div><div class="ttdef"><b>Definition</b> observable.hpp:121</div></div>
+<div class="ttc" id="aclasslive__cells_1_1cell_html_a01d2d60e343d081b6528fba199cf299a"><div class="ttname"><a href="classlive__cells_1_1cell.html#a01d2d60e343d081b6528fba199cf299a">live_cells::cell::value</a></div><div class="ttdeci">T value() const</div><div class="ttdoc">Get the value held by the underlying Cell.</div><div class="ttdef"><b>Definition</b> observable.hpp:175</div></div>
+<div class="ttc" id="aclasslive__cells_1_1dynamic__compute__cell_html"><div class="ttname"><a href="classlive__cells_1_1dynamic__compute__cell.html">live_cells::dynamic_compute_cell</a></div><div class="ttdoc">A computed cell which determines its argument cells at runtime.</div><div class="ttdef"><b>Definition</b> dynamic_compute_cell.hpp:136</div></div>
+<div class="ttc" id="aconceptlive__cells_1_1Cell_html"><div class="ttname"><a href="conceptlive__cells_1_1Cell.html">live_cells::Cell</a></div><div class="ttdoc">Defines the cell protocol.</div><div class="ttdef"><b>Definition</b> types.hpp:124</div></div>
+<div class="ttc" id="anamespacelive__cells_html"><div class="ttname"><a href="namespacelive__cells.html">live_cells</a></div><div class="ttdef"><b>Definition</b> boolean.hpp:25</div></div>
+<div class="ttc" id="anamespacelive__cells_html_a62bdb9a836d990bfdfc53919a790ad17"><div class="ttname"><a href="namespacelive__cells.html#a62bdb9a836d990bfdfc53919a790ad17">live_cells::on_error</a></div><div class="ttdeci">auto on_error(const Cell auto &amp;cell, const Cell auto &amp;error_value)</div><div class="ttdoc">Create a Cell which handles all exceptions thrown while computing the value of a cell.</div><div class="ttdef"><b>Definition</b> errors.hpp:41</div></div>
+<div class="ttc" id="anamespacelive__cells_html_aa6434fa2dc02fa04209ae4a7ad66c462"><div class="ttname"><a href="namespacelive__cells.html#aa6434fa2dc02fa04209ae4a7ad66c462">live_cells::make_compute_cell</a></div><div class="ttdeci">auto make_compute_cell(std::invocable auto f, auto... args)</div><div class="ttdef"><b>Definition</b> compute_cell.hpp:100</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

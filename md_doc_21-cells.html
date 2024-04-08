@@ -101,8 +101,8 @@ $(function(){initNavTree('md_doc_21-cells.html',''); initResizable(); });
 <div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#a163ced4b8bef0f870be26c0a1e8c4c59">live_cells::value</a>(1);</div>
 <div class="line"><span class="keyword">auto</span> b = <a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">live_cells::value&lt;std::string&gt;</a>(<span class="stringliteral">&quot;hello world&quot;</span>);</div>
 <div class="line"><span class="keyword">auto</span> c = <a class="code hl_function" href="namespacelive__cells.html#a163ced4b8bef0f870be26c0a1e8c4c59">live_cells::value</a>(some_value);</div>
-<div class="ttc" id="aclasslive__cells_1_1dynamic__compute__cell_html"><div class="ttname"><a href="classlive__cells_1_1dynamic__compute__cell.html">live_cells::dynamic_compute_cell</a></div><div class="ttdoc">A computed cell which determines its argument cells at runtime.</div><div class="ttdef"><b>Definition</b> dynamic_compute_cell.hpp:138</div></div>
-<div class="ttc" id="anamespacelive__cells_html_a163ced4b8bef0f870be26c0a1e8c4c59"><div class="ttname"><a href="namespacelive__cells.html#a163ced4b8bef0f870be26c0a1e8c4c59">live_cells::value</a></div><div class="ttdeci">constant_cell&lt; T &gt; value(const T &amp;value)</div><div class="ttdef"><b>Definition</b> constant_cell.hpp:134</div></div>
+<div class="ttc" id="aclasslive__cells_1_1dynamic__compute__cell_html"><div class="ttname"><a href="classlive__cells_1_1dynamic__compute__cell.html">live_cells::dynamic_compute_cell</a></div><div class="ttdoc">A computed cell which determines its argument cells at runtime.</div><div class="ttdef"><b>Definition</b> dynamic_compute_cell.hpp:136</div></div>
+<div class="ttc" id="anamespacelive__cells_html_a163ced4b8bef0f870be26c0a1e8c4c59"><div class="ttname"><a href="namespacelive__cells.html#a163ced4b8bef0f870be26c0a1e8c4c59">live_cells::value</a></div><div class="ttdeci">constant_cell&lt; T &gt; value(const T &amp;value)</div><div class="ttdef"><b>Definition</b> constant_cell.hpp:132</div></div>
 </div><!-- fragment --><p><code><a class="el" href="namespacelive__cells.html#a163ced4b8bef0f870be26c0a1e8c4c59">live_cells::value()</a></code> takes the constant value and wraps it in a constant cell. The values of constant cells never change.</p>
 <p>The value of a cell is accessed using the <a class="el" href="classlive__cells_1_1constant__cell.html#a76c1cd346565bd3eeebfa19db6c06457"><code>value()</code></a> accessor method.</p>
 <div class="fragment"><div class="line">std::cout &lt;&lt; a.value() &lt;&lt; std::endl; <span class="comment">// Prints: 1</span></div>
@@ -118,7 +118,7 @@ Mutable Cells</h1>
 <div class="line"><span class="comment">// Set the value of a to 3</span></div>
 <div class="line">a.value(3);</div>
 <div class="line">std::cout &lt;&lt; a.value() &lt;&lt; std::endl; <span class="comment">// Prints: 3</span></div>
-<div class="ttc" id="anamespacelive__cells_html_ab365650aeb27f61f31622a49d4fb79a3"><div class="ttname"><a href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a></div><div class="ttdeci">mutable_cell&lt; T &gt; variable(T value)</div><div class="ttdoc">Create a new mutable cell with an initial value.</div><div class="ttdef"><b>Definition</b> mutable_cell.hpp:244</div></div>
+<div class="ttc" id="anamespacelive__cells_html_ab365650aeb27f61f31622a49d4fb79a3"><div class="ttname"><a href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a></div><div class="ttdeci">mutable_cell&lt; T &gt; variable(T value)</div><div class="ttdoc">Create a new mutable cell with an initial value.</div><div class="ttdef"><b>Definition</b> mutable_cell.hpp:242</div></div>
 </div><!-- fragment --><p><code><a class="el" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3" title="Create a new mutable cell with an initial value.">live_cells::variable()</a></code> takes the initial value of the cell.</p>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Observing Cells</h1>
@@ -186,7 +186,7 @@ Computed Cells</h1>
 <div class="line">auto sum = <a class="code hl_namespace" href="namespacelive__cells.html">live_cells</a>::computed([=] {</div>
 <div class="line">    <span class="keywordflow">return</span> a() + b()</div>
 <div class="line">});</div>
-<div class="ttc" id="anamespacelive__cells_html"><div class="ttname"><a href="namespacelive__cells.html">live_cells</a></div><div class="ttdef"><b>Definition</b> boolean.hpp:27</div></div>
+<div class="ttc" id="anamespacelive__cells_html"><div class="ttname"><a href="namespacelive__cells.html">live_cells</a></div><div class="ttdef"><b>Definition</b> boolean.hpp:25</div></div>
 </div><!-- fragment --><p>In the above example, <code>sum</code> is a computed cell with the value defined as the sum of cells <code>a</code> and <code>b</code>. The value of <code>sum</code> is recomputed whenever the values of either <code>a</code> or <code>b</code> change. This is demonstrated below:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> watcher = live_cells::watch([=] {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;The sum is &quot;</span>;</div>
@@ -223,7 +223,7 @@ Batch Updates</h1>
 <div class="line">    a.value(15);</div>
 <div class="line">    b.value(3);</div>
 <div class="line">});</div>
-<div class="ttc" id="anamespacelive__cells_html_a7b04ad09f594427e1650b75047540f80"><div class="ttname"><a href="namespacelive__cells.html#a7b04ad09f594427e1650b75047540f80">live_cells::batch</a></div><div class="ttdeci">void batch(F fn)</div><div class="ttdoc">Batch changes to the values of mutable cells.</div><div class="ttdef"><b>Definition</b> mutable_cell.hpp:275</div></div>
+<div class="ttc" id="anamespacelive__cells_html_a7b04ad09f594427e1650b75047540f80"><div class="ttname"><a href="namespacelive__cells.html#a7b04ad09f594427e1650b75047540f80">live_cells::batch</a></div><div class="ttdeci">void batch(F fn)</div><div class="ttdoc">Batch changes to the values of mutable cells.</div><div class="ttdef"><b>Definition</b> mutable_cell.hpp:273</div></div>
 </div><!-- fragment --><p>In the example above, the values of <code>a</code> and <code>b</code> are set to <code>15</code> and <code>3</code> respectively, within <code><a class="el" href="namespacelive__cells.html#a7b04ad09f594427e1650b75047540f80" title="Batch changes to the values of mutable cells.">live_cells::batch()</a></code>. The watch function, which observes both <code>a</code> and <code>b</code>, is only called once after the values of both <code>a</code> and <code>b</code> are set within <code><a class="el" href="namespacelive__cells.html#a7b04ad09f594427e1650b75047540f80" title="Batch changes to the values of mutable cells.">live_cells::batch()</a></code>.</p>
 <p>As a result the following is printed to the console:</p>
 <div class="fragment"><div class="line">a = 0, b = 1</div>
@@ -250,7 +250,7 @@ Batch Updates</h1>
 <div class="line">    a.value(15);</div>
 <div class="line">    b.value(3);</div>
 <div class="line">} <span class="comment">// Prints: a = 15, b = 3</span></div>
-<div class="ttc" id="aclasslive__cells_1_1batch__update_html"><div class="ttname"><a href="classlive__cells_1_1batch__update.html">live_cells::batch_update</a></div><div class="ttdoc">Defer changes to the values of mutable cells.</div><div class="ttdef"><b>Definition</b> mutable_cell.hpp:46</div></div>
+<div class="ttc" id="aclasslive__cells_1_1batch__update_html"><div class="ttname"><a href="classlive__cells_1_1batch__update.html">live_cells::batch_update</a></div><div class="ttdoc">Defer changes to the values of mutable cells.</div><div class="ttdef"><b>Definition</b> mutable_cell.hpp:44</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md5"></a>
 Cell Types</h1>
 <p>In the examples till this point we've been using <code>auto</code> to declare the variables holding our cells. This is because the actual type varies depending on the type of cell (constant cell, mutable cell, computed cell, etc.) and also on the parameters used to create the cell. For example, the type of a computed cell depends on the value computation function.</p>
@@ -263,7 +263,7 @@ Cell Types</h1>
 <div class="line">        <span class="keywordflow">return</span> a() + b();</div>
 <div class="line">    });</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacelive__cells_html_a38ef71dbf501d266974a7fae279a8441"><div class="ttname"><a href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a></div><div class="ttdeci">auto computed(F &amp;&amp;compute)</div><div class="ttdoc">Create a cell with a value that is a function of one or more argument cells.</div><div class="ttdef"><b>Definition</b> computed.hpp:47</div></div>
+<div class="ttc" id="anamespacelive__cells_html_a38ef71dbf501d266974a7fae279a8441"><div class="ttname"><a href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a></div><div class="ttdeci">auto computed(F &amp;&amp;compute)</div><div class="ttdoc">Create a cell with a value that is a function of one or more argument cells.</div><div class="ttdef"><b>Definition</b> computed.hpp:45</div></div>
 </div><!-- fragment --><p>This ensures that only an object that implements the cell protocol can be provided for <code>a</code> and <code>b</code>.</p>
 <p>The definition of the <code>add</code> function can be simplified using C++20's template shorthand syntax:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> add (<span class="keyword">const</span> Cell <span class="keyword">auto</span> &amp;a, <span class="keyword">const</span> Cell <span class="keyword">auto</span> &amp;b) {</div>
@@ -292,7 +292,7 @@ Dynamically Typed Cells</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Prints: 0</span></div>
 <div class="line">std::cout &lt;&lt; ref_a.value&lt;<span class="keywordtype">int</span>&gt;() &lt;&lt; std::endl;</div>
-<div class="ttc" id="aclasslive__cells_1_1cell_html"><div class="ttname"><a href="classlive__cells_1_1cell.html">live_cells::cell</a></div><div class="ttdoc">Dynamically typed Cell container.</div><div class="ttdef"><b>Definition</b> observable.hpp:123</div></div>
+<div class="ttc" id="aclasslive__cells_1_1cell_html"><div class="ttname"><a href="classlive__cells_1_1cell.html">live_cells::cell</a></div><div class="ttdoc">Dynamically typed Cell container.</div><div class="ttdef"><b>Definition</b> observable.hpp:121</div></div>
 </div><!-- fragment --><dl class="section attention"><dt>Attention</dt><dd>The template type parameter provided to <code>value</code> has to match the type of the value held in the cell exactly, otherwise an <code>std::bad_cast</code> exception is thrown.</dd></dl>
 <p>When the value type of the value held in the cell is known ahead of time, the <code><a class="el" href="classlive__cells_1_1typed__cell.html" title="Dynamically typed Cell container with a static value type.">live_cells::typed_cell</a></code> wrapper can be used which is the same as <code><a class="el" href="classlive__cells_1_1cell.html" title="Dynamically typed Cell container.">live_cells::cell</a></code> but takes the value type as a template parameter:</p>
 <div class="fragment"><div class="line"><span class="comment">// A vector that can hold cells of any type that hold an `int`</span></div>
