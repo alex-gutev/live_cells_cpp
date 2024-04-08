@@ -1,3 +1,7 @@
+# 0.1.3-beta - 2024-04-08
+
+* Switch to Apache 2.0 license
+
 # 0.1.2-beta - 2024-04-08
 
 * Change license to LGPL
