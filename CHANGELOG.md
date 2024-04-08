@@ -1,3 +1,7 @@
+# 0.1.2-beta - 2024-04-08
+
+* Change license to LGPL
+
 # 0.1.1-beta - 2024-04-07
 
 * Improve documentation
