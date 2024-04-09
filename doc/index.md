@@ -150,6 +150,17 @@ find_package(live_cells REQUIRED)
 \note Substitute `<prefix>` with the install prefix given to the `configure`
 script.
 
+
+Add `${LIVE_CELLS_LIBRARY}` to your compilation target with the
+following:
+
+```cmake
+target_link_libraries(<target> PRIVATE ${LIVE_CELLS_LIBRARY})
+```
+
+> [!NOTE]
+> Substitute `<target>` with your compilation target
+
 ## Using Live Cells
 
 Now that your project is set up, all you need to do is include the
