@@ -13,10 +13,10 @@ Cells](https://livecells.viditrack.com/) reactive programming library.
 > [!NOTE]
 > This section contains examples demonstrating the main features of
 > the library. Head to the
-> [documentation](https://alex-gutev.github.io/live_cells_cpp/docs/intro),
+> [documentation](https://alex-gutev.github.io/live_cells_cpp/index.html#autotoc_md26),
 > for a short tutorial.
 
-The basic building bloc of Live Cells is the cell, which is an object
+The basic building block of Live Cells is the cell, which is an object
 with a value and a set of observers, which react to changes in the
 value.
 
@@ -206,4 +206,4 @@ Now that your project is set up, all you need to do is include the
 ```
 
 You're all set to start following the introductory
-[tutorial](https://alex-gutev.github.io/live_cells_cpp/docs/category/basics),
+[tutorial](https://alex-gutev.github.io/live_cells_cpp/md_doc_21-cells.html),
