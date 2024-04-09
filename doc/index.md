@@ -158,8 +158,7 @@ following:
 target_link_libraries(<target> PRIVATE ${LIVE_CELLS_LIBRARY})
 ```
 
-> [!NOTE]
-> Substitute `<target>` with your compilation target
+\note Substitute `<target>` with your compilation target
 
 ## Using Live Cells
 
