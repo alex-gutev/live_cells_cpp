@@ -187,7 +187,7 @@ where `target` is the name of your compilation target.
 Add the following to your `CMakeLists.txt` file:
 
 ```cmake title="CMakeLists.txt
-list(APPEND CMAKE_MODULE_PATH "<prefix>/share/live_cells/cmake)
+list(APPEND CMAKE_MODULE_PATH "<prefix>/share/live_cells/cmake")
 find_package(live_cells REQUIRED)
 ```
 
