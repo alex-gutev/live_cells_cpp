@@ -195,7 +195,7 @@ Autotools</h3>
 <h3><a class="anchor" id="autotoc_md31"></a>
 CMake</h3>
 <p>Add the following to your <code>CMakeLists.txt</code> file:</p>
-<div class="fragment"><div class="line">list(APPEND CMAKE_MODULE_PATH &quot;&lt;prefix&gt;/share/live_cells/cmake)</div>
+<div class="fragment"><div class="line">list(APPEND CMAKE_MODULE_PATH &quot;&lt;prefix&gt;/share/live_cells/cmake&quot;)</div>
 <div class="line">find_package(live_cells REQUIRED)</div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>Substitute <code>&lt;prefix&gt;</code> with the install prefix given to the <code>configure</code> script.</dd></dl>
 <p>Add <code>${LIVE_CELLS_LIBRARY}</code> to your compilation target with the following:</p>
