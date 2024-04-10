@@ -45,6 +45,7 @@ namespace live_cells {
         template <typename T>
         struct typed_ref_base : ref_base {
             virtual T value() const = 0;
+            virtual T operator()() const = 0;
         };
 
         /**
@@ -80,6 +81,10 @@ namespace live_cells {
             typename O::value_type value() const override {
                 return observable.value();
             }
+
+            typename O::value_type operator()() const override {
+                return observable();
+            }
         };
 
         template <MutableCell C>
@@ -106,6 +111,10 @@ namespace live_cells {
 
             void value(typename C::value_type value) override {
                 observable.value();
+            }
+
+            typename C::value_type operator()() const override {
+                return observable();
             }
         };
 
@@ -197,6 +206,25 @@ namespace live_cells {
             typed.value(value);
         }
 
+        /**
+         * \brief Get the value held by the underlying \p Cell and
+         * track it as a dependency.
+         *
+         * This method attempts to cast the underlying \p Cell to a
+         * cell holding a value of type \a T. If the underlying cell
+         * does not hold a value of type \a T, an \p std::bad_cast
+         * exception is thrown.
+         *
+         * \return The value of the underlying cell.
+         */
+        template <typename T>
+        T operator()() const {
+            auto &base = *obs_ref;
+            auto &typed = dynamic_cast<internal::typed_ref_base<T>&>(base);
+
+            return typed();
+        }
+
     protected:
 
         /**
@@ -283,6 +311,16 @@ namespace live_cells {
             auto &typed = dynamic_cast<internal::mutable_cell_ref<T>&>(base);
 
             typed.value(value);
+        }
+
+        /**
+         * \brief Get the value held by the underlying \p Cell and
+         * track it as a dependency.
+         *
+         * \return The value of the underlying cell.
+         */
+        T operator()() const {
+            return ref();
         }
 
     private:
