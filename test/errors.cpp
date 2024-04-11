@@ -51,10 +51,10 @@ BOOST_AUTO_TEST_CASE(on_error_catch_all) {
 
     BOOST_CHECK_EQUAL(result.value(), 1);
 
-    a.value(0);
-    c.value(4);
-    a.value(10);
-    c.value(100);
+    a = 0;
+    c = 4;
+    a = 10;
+    c = 100;
 
     BOOST_CHECK(observer->values == std::vector<int>({2, 4, 10}));
 }
@@ -81,15 +81,15 @@ BOOST_AUTO_TEST_CASE(on_error_with_exception_type) {
 
         BOOST_CHECK_EQUAL(result.value(), 1);
 
-        a.value(0);
-        c.value(4);
-        a.value(10);
-        c.value(100);
+        a = 0;
+        c = 4;
+        a = 10;
+        c = 100;
 
         BOOST_CHECK(observer->values == std::vector<int>({2, 4, 10}));
     }
 
-    a.value(-1);
+    a = -1;
     BOOST_CHECK_THROW(result.value(), an_exception);
 }
 

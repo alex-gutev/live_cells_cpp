@@ -41,16 +41,16 @@ BOOST_AUTO_TEST_CASE(logical_and) {
 
     BOOST_CHECK(c.value());
 
-    a.value(false);
+    a = false;
     BOOST_CHECK(!c.value());
 
-    b.value(false);
+    b = false;
     BOOST_CHECK(!c.value());
 
-    a.value(true);
+    a = true;
     BOOST_CHECK(!c.value());
 
-    b.value(true);
+    b = true;
     BOOST_CHECK(c.value());
 }
 
@@ -62,16 +62,16 @@ BOOST_AUTO_TEST_CASE(logical_or) {
 
     BOOST_CHECK(c.value());
 
-    a.value(false);
+    a = false;
     BOOST_CHECK(c.value());
 
-    b.value(false);
+    b = false;
     BOOST_CHECK(!c.value());
 
-    a.value(true);
+    a = true;
     BOOST_CHECK(c.value());
 
-    b.value(true);
+    b = true;
     BOOST_CHECK(c.value());
 }
 
@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE(logical_not) {
 
     BOOST_CHECK(!(b.value()));
 
-    a.value(false);
+    a = false;
     BOOST_CHECK(b.value());
 }
 
@@ -97,9 +97,9 @@ BOOST_AUTO_TEST_CASE(select_with_if_false) {
 
     BOOST_CHECK_EQUAL(select.value(), "true");
 
-    cond.value(false);
-    b.value("else");
-    cond.value(true);
+    cond = false;
+    b = "else";
+    cond = true;
 
     BOOST_CHECK(observer->values == std::vector<std::string>({"false", "else", "true"}));
 
@@ -115,16 +115,16 @@ BOOST_AUTO_TEST_CASE(select_without_if_false) {
 
     BOOST_CHECK_EQUAL(select.value(), "true");
 
-    cond.value(false);
+    cond = false;
     BOOST_CHECK_EQUAL(select.value(), "true");
 
-    a.value("then");
+    a = "then";
     BOOST_CHECK_EQUAL(select.value(), "true");
 
-    cond.value(true);
+    cond = true;
     BOOST_CHECK_EQUAL(select.value(), "then");
 
-    a.value("when");
+    a = "when";
     BOOST_CHECK_EQUAL(select.value(), "when");
 }
 

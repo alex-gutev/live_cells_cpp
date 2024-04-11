@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE(takes_latest_argument_cell_value) {
     auto a = live_cells::variable<std::string>("hello");
     auto store = live_cells::store(a);
 
-    a.value("bye");
+    a = "bye";
 
     auto observer = std::make_shared<simple_observer>();
     auto guard = with_observer(store, observer);
@@ -59,8 +59,8 @@ BOOST_AUTO_TEST_CASE(observers_notified_when_argument_changes) {
     auto observer = std::make_shared<simple_observer>();
     auto guard = with_observer(store, observer);
 
-    a.value("bye");
-    a.value("goodbye");
+    a = "bye";
+    a = "goodbye";
 
     BOOST_CHECK_EQUAL(observer->notify_count, 2);
 }
@@ -73,10 +73,10 @@ BOOST_AUTO_TEST_CASE(all_observers_notified_when_argument_changes) {
     auto observer2 = std::make_shared<simple_observer>();
 
     auto guard1 = with_observer(store, observer1);
-    a.value("bye");
+    a = "bye";
 
     auto guard2 = with_observer(store, observer2);
-    a.value("goodbye");
+    a = "goodbye";
 
     BOOST_CHECK_EQUAL(observer1->notify_count, 2);
     BOOST_CHECK_EQUAL(observer2->notify_count, 1);
@@ -90,10 +90,10 @@ BOOST_AUTO_TEST_CASE(observer_not_called_after_removal) {
 
     {
         auto guard = with_observer(store, observer);
-        a.value("bye");
+        a = "bye";
     }
 
-    a.value("goodbye");
+    a = "goodbye";
 
     BOOST_CHECK_EQUAL(observer->notify_count, 1);
 }
@@ -105,7 +105,7 @@ BOOST_AUTO_TEST_CASE(value_updated_when_observer_called) {
     auto observer = std::make_shared<value_observer<std::string>>(store);
     auto guard = with_observer(store, observer);
 
-    a.value("bye");
+    a = "bye";
 
     BOOST_CHECK(observer->values == std::vector<std::string>({"bye"}));
 }
@@ -125,11 +125,11 @@ BOOST_AUTO_TEST_CASE(previous_value_preserved_if_none_used) {
     auto observer = std::make_shared<value_observer<int>>(store);
     auto guard = with_observer(store, observer);
 
-    a.value(1);
-    a.value(2);
-    a.value(3);
-    a.value(4);
-    a.value(5);
+    a = 1;
+    a = 2;
+    a = 3;
+    a = 4;
+    a = 5;
 
     BOOST_CHECK(observer->values == std::vector<int>({0, 2, 4}));
 }

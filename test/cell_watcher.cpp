@@ -56,8 +56,8 @@ BOOST_AUTO_TEST_CASE(called_when_cell_values_change) {
         obs.values.push_back(a() + b());
     });
 
-    a.value(5);
-    b.value(10);
+    a = 5;
+    b = 10;
 
     obs.check_values({3, 7, 15});
 }
@@ -73,8 +73,8 @@ BOOST_AUTO_TEST_CASE(called_when_cell_values_change_during_batch_update) {
     });
 
     live_cells::batch([=] {
-        a.value(5);
-        b.value(10);
+        a = 5;
+        b = 10;
     });
 
     obs.check_values({3, 15});
@@ -96,9 +96,9 @@ BOOST_AUTO_TEST_CASE(called_when_cell_values_change_in_conditional_expression) {
         }
     });
 
-    a.value(3);
-    select.value(false);
-    b.value(5);
+    a = 3;
+    select = false;
+    b = 5;
 
     obs.check_values({1, 3, 2, 5});
 }
@@ -114,12 +114,12 @@ BOOST_AUTO_TEST_CASE(not_called_after_stop) {
         obs.values.push_back(a() + b());
     });
 
-    a.value(5);
-    b.value(10);
+    a = 5;
+    b = 10;
     watch->stop();
 
-    b.value(100);
-    a.value(30);
+    b = 100;
+    a = 30;
 
     obs.check_values({3, 7, 15});
 }
@@ -190,12 +190,12 @@ BOOST_AUTO_TEST_CASE(watcher_stopped_in_destructor) {
             obs.values.push_back(a() + cell());
         });
 
-        a.value(2);
-        a.value(3);
+        a = 2;
+        a = 3;
     }
 
-    a.value(4);
-    a.value(5);
+    a = 4;
+    a = 5;
 
     obs.check_values({1, 3, 4});
 

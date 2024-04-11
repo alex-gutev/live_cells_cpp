@@ -40,8 +40,8 @@ BOOST_AUTO_TEST_CASE(no_intermediate_value_with_multi_argument_cells) {
     auto observer = std::make_shared<value_observer<int>>(result);
     auto guard = with_observer(result, observer);
 
-    a.value(2);
-    a.value(6);
+    a = 2;
+    a = 6;
 
     BOOST_CHECK(observer->values == std::vector<int>({(2 + 1) + (2 * 8), (6 + 1) + (6 * 8)}));
 }
@@ -56,8 +56,8 @@ BOOST_AUTO_TEST_CASE(no_intermediate_value_with_store_cells) {
     auto observer = std::make_shared<value_observer<int>>(result);
     auto guard = with_observer(result, observer);
 
-    a.value(2);
-    a.value(6);
+    a = 2;
+    a = 6;
 
     BOOST_CHECK(observer->values == std::vector<int>({(2 + 1) + (2 * 8), (6 + 1) + (6 * 8)}));
 }
@@ -75,8 +75,8 @@ BOOST_AUTO_TEST_CASE(no_intermediate_value_with_store_cells_and_unequal_branches
     auto observer = std::make_shared<value_observer<int>>(result);
     auto guard = with_observer(result, observer);
 
-    a.value(2);
-    a.value(6);
+    a = 2;
+    a = 6;
 
     BOOST_CHECK(observer->values == std::vector<int>({
                 (2 + 1 + 10) + (2 * 8),
@@ -102,8 +102,8 @@ BOOST_AUTO_TEST_CASE(no_intermediate_value_with_dynamic_compute_cell) {
     auto observer = std::make_shared<value_observer<int>>(result);
     auto guard = with_observer(result, observer);
 
-    a.value(2);
-    a.value(6);
+    a = 2;
+    a = 6;
 
     BOOST_CHECK(observer->values == std::vector<int>({(2 + 1) + (2 * 8), (6 + 1) + (6 * 8)}));
 }
@@ -129,8 +129,8 @@ BOOST_AUTO_TEST_CASE(no_intermediate_value_with_dynamic_compute_cells_and_unequa
     auto observer = std::make_shared<value_observer<int>>(result);
     auto guard = with_observer(result, observer);
 
-    a.value(2);
-    a.value(6);
+    a = 2;
+    a = 6;
 
     BOOST_CHECK(observer->values == std::vector<int>({
                 (2 + 1 + 10) + (2 * 8),
@@ -162,17 +162,17 @@ BOOST_AUTO_TEST_CASE(no_intermediate_values_with_batch_update) {
     auto guard = with_observer(msg, observer);
 
     live_cells::batch([&] {
-        a.value(1);
-        b.value(2);
-        op.value("+");
+        a = 1;
+        b = 2;
+        op = "+";
     });
 
     {
         live_cells::batch_update guard;
 
-        a.value(5);
-        b.value(6);
-        op.value("plus");
+        a = 5;
+        b = 6;
+        op = "plus";
     }
 
     BOOST_CHECK(observer->values == std::vector<std::string>({
@@ -205,17 +205,17 @@ BOOST_AUTO_TEST_CASE(no_intermediate_values_with_batch_and_store_cells) {
     auto guard = with_observer(msg, observer);
 
     live_cells::batch([&] {
-        a.value(1);
-        b.value(2);
-        op.value("+");
+        a = 1;
+        b = 2;
+        op = "+";
     });
 
     {
         live_cells::batch_update guard;
 
-        a.value(5);
-        b.value(6);
-        op.value("plus");
+        a = 5;
+        b = 6;
+        op = "plus";
     }
 
     BOOST_CHECK(observer->values == std::vector<std::string>({
@@ -242,16 +242,16 @@ BOOST_AUTO_TEST_CASE(no_intermediate_values_with_batch_and_dynamic_compute_cell)
     auto guard = with_observer(result, observer);
 
     live_cells::batch([&] {
-        select.value(true);
-        c.value(10);
-        a.value(5);
+        select = true;
+        c = 10;
+        a = 5;
     });
 
     {
         live_cells::batch_update guard;
 
-        b.value(20);
-        select.value(false);
+        b = 20;
+        select = false;
     }
 
     BOOST_CHECK(observer->values == std::vector<int>({10, 25}));
@@ -272,18 +272,18 @@ BOOST_AUTO_TEST_CASE(all_store_cell_observers_called_correct_number_of_times) {
     auto guard2 = with_observer(d, observer_d);
 
     live_cells::batch([&] {
-        a.value(2);
-        b.value(3);
+        a = 2;
+        b = 3;
     });
 
     live_cells::batch([&] {
-        a.value(3);
-        b.value(2);
+        a = 3;
+        b = 2;
     });
 
     live_cells::batch([&] {
-        a.value(10);
-        b.value(20);
+        a = 10;
+        b = 20;
     });
 
     BOOST_CHECK_EQUAL(observer_c->notify_count, 3);
@@ -305,18 +305,18 @@ BOOST_AUTO_TEST_CASE(correct_values_produced_across_all_store_cell_observers) {
     auto guard2 = with_observer(d, observer_d);
 
     live_cells::batch([&] {
-        a.value(2);
-        b.value(3);
+        a = 2;
+        b = 3;
     });
 
     live_cells::batch([&] {
-        a.value(3);
-        b.value(2);
+        a = 3;
+        b = 2;
     });
 
     live_cells::batch([&] {
-        a.value(10);
-        b.value(20);
+        a = 10;
+        b = 20;
     });
 
     BOOST_CHECK(observer_c->values == std::vector<int>({7, 8, 40}));

@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_CASE(compute_cell_reevaluated_when_argument_cell_changes) {
         return a + 1;
     });
 
-    a.value(5);
+    a = 5;
 
     BOOST_CHECK_EQUAL(b.value(), 6);
 }
@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(nary_compute_cell_reevaluated_when_1st_argument_cell_change
         return a + b;
     });
 
-    a.value(5);
+    a = 5;
 
     BOOST_CHECK_EQUAL(c.value(), 7);
 }
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_CASE(nary_compute_cell_reevaluated_when_2nd_argument_cell_change
         return a + b;
     });
 
-    b.value(8);
+    b = 8;
 
     BOOST_CHECK_EQUAL(c.value(), 9);
 }
@@ -89,7 +89,7 @@ BOOST_AUTO_TEST_CASE(observers_notified_when_1st_argument_changes) {
     auto observer = std::make_shared<simple_observer>();
     auto guard = with_observer(c, observer);
 
-    a.value(8);
+    a = 8;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 1);
 }
@@ -105,7 +105,7 @@ BOOST_AUTO_TEST_CASE(observers_notified_when_2nd_argument_changes) {
     auto observer = std::make_shared<simple_observer>();
     auto guard = with_observer(c, observer);
 
-    b.value(8);
+    b = 8;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 1);
 }
@@ -121,9 +121,9 @@ BOOST_AUTO_TEST_CASE(observers_notified_on_each_change) {
     auto observer = std::make_shared<simple_observer>();
     auto guard = with_observer(c, observer);
 
-    b.value(8);
-    a.value(10);
-    b.value(100);
+    b = 8;
+    a = 10;
+    b = 100;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 3);
 }
@@ -141,11 +141,11 @@ BOOST_AUTO_TEST_CASE(observers_not_called_after_removal) {
     {
         auto guard = with_observer(c, observer);
 
-        b.value(8);
+        b = 8;
     }
 
-    a.value(10);
-    b.value(100);
+    a = 10;
+    b = 100;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 1);
 }
@@ -163,12 +163,12 @@ BOOST_AUTO_TEST_CASE(all_observers_called) {
 
     auto guard1 = with_observer(c, observer1);
 
-    b.value(8);
+    b = 8;
 
     auto guard2 = with_observer(c, observer2);
 
-    a.value(10);
-    b.value(100);
+    a = 10;
+    b = 100;
 
     BOOST_CHECK_EQUAL(observer1->notify_count, 3);
     BOOST_CHECK_EQUAL(observer2->notify_count, 2);

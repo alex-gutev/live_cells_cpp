@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_CASE(reevaluated_when_argument_cell_changes) {
         return a() + 1;
     });
 
-    a.value(5);
+    a = 5;
 
     BOOST_CHECK_EQUAL(b.value(), 6);
 }
@@ -61,7 +61,7 @@ BOOST_AUTO_TEST_CASE(nary_compute_cell_reevaluated_when_1st_argument_cell_change
         return a() + b();
     });
 
-    a.value(5);
+    a = 5;
 
     BOOST_CHECK_EQUAL(c.value(), 7);
 }
@@ -74,7 +74,7 @@ BOOST_AUTO_TEST_CASE(nary_compute_cell_reevaluated_when_2nd_argument_cell_change
         return a() + b();
     });
 
-    b.value(8);
+    b = 8;
 
     BOOST_CHECK_EQUAL(c.value(), 9);
 }
@@ -90,7 +90,7 @@ BOOST_AUTO_TEST_CASE(observers_notified_when_1st_argument_changes) {
     auto observer = std::make_shared<simple_observer>();
     auto guard = with_observer(c, observer);
 
-    a.value(8);
+    a = 8;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 1);
 }
@@ -106,7 +106,7 @@ BOOST_AUTO_TEST_CASE(observers_notified_when_2nd_argument_changes) {
     auto observer = std::make_shared<simple_observer>();
     auto guard = with_observer(c, observer);
 
-    b.value(8);
+    b = 8;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 1);
 }
@@ -122,9 +122,9 @@ BOOST_AUTO_TEST_CASE(observers_notified_on_each_change) {
     auto observer = std::make_shared<simple_observer>();
     auto guard = with_observer(c, observer);
 
-    b.value(8);
-    a.value(10);
-    b.value(100);
+    b = 8;
+    a = 10;
+    b = 100;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 3);
 }
@@ -142,11 +142,11 @@ BOOST_AUTO_TEST_CASE(observers_not_called_after_removal) {
     {
         auto guard = with_observer(c, observer);
 
-        b.value(8);
+        b = 8;
     }
 
-    a.value(10);
-    b.value(100);
+    a = 10;
+    b = 100;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 1);
 }
@@ -164,12 +164,12 @@ BOOST_AUTO_TEST_CASE(all_observers_called) {
 
     auto guard1 = with_observer(c, observer1);
 
-    b.value(8);
+    b = 8;
 
     auto guard2 = with_observer(c, observer2);
 
-    a.value(10);
-    b.value(100);
+    a = 10;
+    b = 100;
 
     BOOST_CHECK_EQUAL(observer1->notify_count, 3);
     BOOST_CHECK_EQUAL(observer2->notify_count, 2);
@@ -187,9 +187,9 @@ BOOST_AUTO_TEST_CASE(arguments_tracked_correctly_in_conditionals) {
     auto observer = std::make_shared<value_observer<int>>(d);
     auto guard = with_observer(d, observer);
 
-    b.value(1);
-    a.value(false);
-    c.value(10);
+    b = 1;
+    a = false;
+    c = 10;
 
     BOOST_CHECK(observer->values == std::vector<int>({1, 3, 10}));
 }
@@ -211,10 +211,10 @@ BOOST_AUTO_TEST_CASE(dynamic_cell_argument_tracked_correctly) {
     auto observer = std::make_shared<value_observer<int>>(f);
     auto guard = with_observer(f, observer);
 
-    b.value(1);
-    e.value(10);
-    a.value(false);
-    c.value(10);
+    b = 1;
+    e = 10;
+    a = false;
+    c = 10;
 
     BOOST_CHECK(observer->values == std::vector<int>({1, 11, 13, 20}));
 }
@@ -232,11 +232,11 @@ BOOST_AUTO_TEST_CASE(value_preserved_when_none_called) {
     auto observer = std::make_shared<value_observer<int>>(evens);
     auto guard = with_observer(evens, observer);
 
-    a.value(1);
-    a.value(2);
-    a.value(3);
-    a.value(4);
-    a.value(5);
+    a = 1;
+    a = 2;
+    a = 3;
+    a = 4;
+    a = 5;
 
     BOOST_CHECK(observer->values == std::vector<int>({10, 2, 4}));
 }

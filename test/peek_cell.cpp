@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE(value_equals_argument_cell) {
 
     BOOST_CHECK_EQUAL(p.value(), 0);
 
-    a.value(2);
+    a = 2;
     BOOST_CHECK_EQUAL(p.value(), 2);
 }
 
@@ -54,13 +54,13 @@ BOOST_AUTO_TEST_CASE(does_not_notify_observers) {
     auto observer = std::make_shared<value_observer<int>>(sum);
     auto guard = with_observer(sum, observer);
 
-    a.value(1);
-    a.value(2);
-    a.value(3);
-    b.value(5);
-    b.value(10);
-    a.value(2);
-    b.value(13);
+    a = 1;
+    a = 2;
+    a = 3;
+    b = 5;
+    b = 10;
+    a = 2;
+    b = 13;
 
     observer->check_values({8, 13, 15});
 }

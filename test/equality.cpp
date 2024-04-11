@@ -75,7 +75,7 @@ BOOST_AUTO_TEST_CASE(equality_cell_recomputed_when_1st_arg_changes) {
 
     auto eq = a == b;
 
-    a.value(4);
+    a = 4;
 
     BOOST_CHECK(eq.value());
 }
@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_CASE(equality_cell_recomputed_when_2nd_arg_changes) {
 
     auto eq = a == b;
 
-    b.value(3);
+    b = 3;
 
     BOOST_CHECK(eq.value());
 }
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_CASE(equality_cell_observers_notified_on_1st_arg_change) {
     auto observer = std::make_shared<simple_observer>();
     auto guard = with_observer(eq, observer);
 
-    a.value(4);
+    a = 4;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 1);
 }
@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_CASE(equality_cell_observers_notified_on_2nd_arg_change) {
     auto observer = std::make_shared<simple_observer>();
     auto guard = with_observer(eq, observer);
 
-    b.value(3);
+    b = 3;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 1);
 }
@@ -125,7 +125,7 @@ BOOST_AUTO_TEST_CASE(inequality_cell_recomputed_when_1st_arg_changes) {
 
     auto neq = a != b;
 
-    a.value(4);
+    a = 4;
 
     BOOST_CHECK(!neq.value());
 }
@@ -136,7 +136,7 @@ BOOST_AUTO_TEST_CASE(inequality_cell_recomputed_when_2nd_arg_changes) {
 
     auto neq = a != b;
 
-    b.value(3);
+    b = 3;
 
     BOOST_CHECK(!neq.value());
 }
@@ -150,7 +150,7 @@ BOOST_AUTO_TEST_CASE(inequality_cell_observers_notified_on_1st_arg_change) {
     auto observer = std::make_shared<simple_observer>();
     auto guard = with_observer(neq, observer);
 
-    a.value(4);
+    a = 4;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 1);
 }
@@ -164,7 +164,7 @@ BOOST_AUTO_TEST_CASE(inequality_cell_observers_notified_on_2nd_arg_change) {
     auto observer = std::make_shared<simple_observer>();
     auto guard = with_observer(neq, observer);
 
-    b.value(3);
+    b = 3;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 1);
 }

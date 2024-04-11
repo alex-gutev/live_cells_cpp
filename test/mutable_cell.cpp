@@ -43,8 +43,8 @@ BOOST_AUTO_TEST_CASE(set_value_changes_value) {
 
 BOOST_AUTO_TEST_CASE(keeps_latest_set_value) {
     auto cell = live_cells::variable(15);
-    cell.value(23);
-    cell.value(101);
+    cell = 23;
+    cell = 101;
 
     BOOST_CHECK_EQUAL(cell.value(), 101);
 }
@@ -55,7 +55,7 @@ BOOST_AUTO_TEST_CASE(set_value_calls_observers) {
 
     auto guard = with_observer(cell, observer);
 
-    cell.value(23);
+    cell = 23;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 1);
 }
@@ -66,8 +66,8 @@ BOOST_AUTO_TEST_CASE(set_value_twice_calls_observers_twice) {
 
     auto guard = with_observer(cell, observer);
 
-    cell.value(23);
-    cell.value(101);
+    cell = 23;
+    cell = 101;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 2);
 }
@@ -78,10 +78,10 @@ BOOST_AUTO_TEST_CASE(observer_not_called_after_removal) {
 
     {
         auto guard = with_observer(cell, observer);
-        cell.value(23);
+        cell = 23;
     }
 
-    cell.value(101);
+    cell = 101;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 1);
 }
@@ -91,7 +91,7 @@ BOOST_AUTO_TEST_CASE(observer_not_called_if_new_value_equals_old) {
     auto observer = std::make_shared<simple_observer>();
 
     auto guard = with_observer(cell, observer);
-    cell.value(56);
+    cell = 56;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 0);
 }
@@ -103,11 +103,11 @@ BOOST_AUTO_TEST_CASE(all_observers_called) {
     auto observer2 = std::make_shared<simple_observer>();
 
     auto guard1 = with_observer(cell, observer1);
-    cell.value(5);
+    cell = 5;
 
     auto guard2 = with_observer(cell, observer2);
-    cell.value(8);
-    cell.value(12);
+    cell = 8;
+    cell = 12;
 
     BOOST_CHECK_EQUAL(observer1->notify_count, 3);
     BOOST_CHECK_EQUAL(observer2->notify_count, 2);
@@ -119,7 +119,7 @@ BOOST_AUTO_TEST_CASE(value_updated_when_observer_called) {
 
     auto guard = with_observer(cell, observer);
 
-    cell.value("bye");
+    cell = "bye";
 
     BOOST_CHECK(observer->values == std::vector<std::string>({"bye"}));
 }
@@ -135,8 +135,8 @@ BOOST_AUTO_TEST_CASE(batch_updates) {
     auto guard2 = with_observer(b, observer2);
 
     live_cells::batch([&] {
-        a.value(1);
-        b.value(2);
+        a = 1;
+        b = 2;
     });
 
     observer1->check_values({1});
