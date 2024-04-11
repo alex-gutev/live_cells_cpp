@@ -198,6 +198,40 @@ namespace live_cells {
             parent(key, value) {
         }
 
+
+        /**
+         * \brief Set the value of the cell.
+         *
+         * This is equivalent to \prop value(value).
+         *
+         * \param value The new value
+         *
+         * \return \a value
+         */
+        T operator=(const T &value) {
+            this->value(value);
+            return value;
+        }
+
+        /**
+         * \brief Set the value of the cell.
+         *
+         * This is equivalent to \prop value(value).
+         *
+         * \note This \c const version is provided to allow setting
+         * the value of a mutable cell within a lambda provided for
+         * the reverse computation function of a mutable computed
+         * cell.
+         *
+         * \param value The new value
+         *
+         * \return \a value
+         */
+        T operator=(const T &value) const {
+            this->value(value);
+            return value;
+        }
+
         /**
          * \brief Get the value of the cell.
          *
