@@ -133,6 +133,25 @@ namespace live_cells {
         return peek_cell<C>(cell);
     }
 
+    namespace ops {
+
+        /**
+         * \brief Operator for reading the value of a cell without
+         * reacting to changes.
+         *
+         * \see live_cells::peek
+         *
+         * \param cell The operand \p Cell
+         *
+         * \return A \p Cell that has the same value as \a cell but
+         * does not notify its observers when the value changes.
+         */
+        constexpr auto peek = [] (const Cell auto &cell) {
+            return live_cells::peek(cell);
+        };
+
+    }  // ops
+
 }  // live_cells
 
 #endif /* LIVE_CELLS_PEEK_CELL_HPP */
