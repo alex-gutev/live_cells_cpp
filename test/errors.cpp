@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE(on_error_catch_all) {
     });
 
     auto c = live_cells::variable(2);
-    auto result = live_cells::on_error(b, c);
+    auto result = b | live_cells::ops::on_error(c);
 
     auto observer = std::make_shared<value_observer<int>>(result);
     auto guard = with_observer(result, observer);
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_CASE(on_error_with_exception_type) {
     });
 
     auto c = live_cells::variable(2);
-    auto result = live_cells::on_error<std::invalid_argument>(b, c);
+    auto result = b | live_cells::ops::on_error<std::invalid_argument>(c);
 
     {
         auto observer = std::make_shared<value_observer<int>>(result);

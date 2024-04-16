@@ -242,7 +242,7 @@ BOOST_AUTO_TEST_CASE(consistent_state_when_setting_value_in_batch) {
     });
 
     auto d = live_cells::variable(50);
-    auto e = live_cells::store(c + d);
+    auto e = c + d | live_cells::ops::store;
 
     auto obs_a = std::make_shared<value_observer<double>>(a);
     auto obs_b = std::make_shared<value_observer<double>>(b);
@@ -279,7 +279,7 @@ BOOST_AUTO_TEST_CASE(observers_notified_correct_number_of_times_when_set_value_i
     });
 
     auto d = live_cells::variable(50);
-    auto e = live_cells::store(c + d);
+    auto e = c + d | live_cells::ops::store;
 
     auto obs_a = std::make_shared<simple_observer>();
     auto obs_b = std::make_shared<simple_observer>();
@@ -315,7 +315,7 @@ BOOST_AUTO_TEST_CASE(all_observers_notified_correct_number_of_times_when_set_val
         b.value(half);
     });
 
-    auto c = live_cells::store(a + sum);
+    auto c = a + sum | live_cells::ops::store;
     auto d = sum + live_cells::value(2);
 
     auto obs_c = std::make_shared<simple_observer>();
@@ -356,7 +356,7 @@ BOOST_AUTO_TEST_CASE(correct_values_produced_across_all_observers) {
         b.value(half);
     });
 
-    auto c = live_cells::store(a + sum);
+    auto c = a + sum | live_cells::ops::store;
     auto d = sum + live_cells::value(2);
 
     auto obs_c = std::make_shared<value_observer<int>>(c);

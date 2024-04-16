@@ -90,7 +90,7 @@ BOOST_AUTO_TEST_CASE(select_with_if_false) {
     auto b = live_cells::variable<std::string>("false");
 
     auto cond = live_cells::variable(true);
-    auto select = live_cells::select(cond, a, b);
+    auto select = cond | live_cells::ops::select(a, b);
 
     auto observer = std::make_shared<value_observer<std::string>>(select);
     auto guard = with_observer(select, observer);
@@ -109,7 +109,7 @@ BOOST_AUTO_TEST_CASE(select_without_if_false) {
     auto a = live_cells::variable<std::string>("true");
 
     auto cond = live_cells::variable(true);
-    auto select = live_cells::select(cond, a);
+    auto select = cond | live_cells::ops::select(a);
 
     auto guard = with_observer(select, std::make_shared<simple_observer>());
 

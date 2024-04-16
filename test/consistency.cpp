@@ -49,8 +49,8 @@ BOOST_AUTO_TEST_CASE(no_intermediate_value_with_multi_argument_cells) {
 BOOST_AUTO_TEST_CASE(no_intermediate_value_with_store_cells) {
     auto a = live_cells::variable(0);
 
-    auto sum = live_cells::store(a + live_cells::value(1));
-    auto prod = live_cells::store(a * live_cells::value(8));
+    auto sum = a + live_cells::value(1) | live_cells::ops::store;
+    auto prod = a * live_cells::value(8) | live_cells::ops::store;
     auto result = sum + prod;
 
     auto observer = std::make_shared<value_observer<int>>(result);
@@ -186,7 +186,7 @@ BOOST_AUTO_TEST_CASE(no_intermediate_values_with_batch_and_store_cells) {
     auto b = live_cells::variable(0);
     auto op = live_cells::variable<std::string>("");
 
-    auto sum = live_cells::store(a + b);
+    auto sum = a + b | live_cells::ops::store;
     auto msg = live_cells::computed(a, b, op, sum, [] (auto a, auto b, auto op, auto sum) {
         std::stringstream ss;
 
@@ -260,9 +260,9 @@ BOOST_AUTO_TEST_CASE(no_intermediate_values_with_batch_and_dynamic_compute_cell)
 BOOST_AUTO_TEST_CASE(all_store_cell_observers_called_correct_number_of_times) {
     auto a = live_cells::variable(1);
     auto b = live_cells::variable(2);
-    auto sum = live_cells::store(a + b);
+    auto sum = a + b | live_cells::ops::store;
 
-    auto c = live_cells::store(a + sum);
+    auto c = a + sum | live_cells::ops::store;
     auto d = sum + live_cells::value(2);
 
     auto observer_c = std::make_shared<simple_observer>();
@@ -293,9 +293,9 @@ BOOST_AUTO_TEST_CASE(all_store_cell_observers_called_correct_number_of_times) {
 BOOST_AUTO_TEST_CASE(correct_values_produced_across_all_store_cell_observers) {
     auto a = live_cells::variable(1);
     auto b = live_cells::variable(2);
-    auto sum = live_cells::store(a + b);
+    auto sum = a + b | live_cells::ops::store;
 
-    auto c = live_cells::store(a + sum);
+    auto c = a + sum | live_cells::ops::store;
     auto d = sum + live_cells::value(2);
 
     auto observer_c = std::make_shared<value_observer<int>>(c);

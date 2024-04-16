@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_SUITE(peek_cell)
 
 BOOST_AUTO_TEST_CASE(value_equals_argument_cell) {
     auto a = live_cells::variable(0);
-    auto p = live_cells::peek(a);
+    auto p = a | live_cells::ops::peek;
 
     BOOST_CHECK_EQUAL(p.value(), 0);
 
@@ -68,8 +68,8 @@ BOOST_AUTO_TEST_CASE(does_not_notify_observers) {
 BOOST_AUTO_TEST_CASE(compare_equal_if_same_argument_cell) {
     auto a = live_cells::variable(0);
 
-    live_cells::cell p1 = live_cells::peek(a);
-    live_cells::cell p2 = live_cells::peek(a);
+    live_cells::cell p1 = a | live_cells::ops::peek;
+    live_cells::cell p2 = a | live_cells::ops::peek;
 
     std::hash<live_cells::cell> hash;
 
@@ -82,8 +82,8 @@ BOOST_AUTO_TEST_CASE(compare_not_equal_if_different_argument_cells) {
     auto a = live_cells::variable(0);
     auto b = live_cells::variable(0);
 
-    live_cells::cell p1 = live_cells::peek(a);
-    live_cells::cell p2 = live_cells::peek(b);
+    live_cells::cell p1 = a | live_cells::ops::peek;
+    live_cells::cell p2 = b | live_cells::ops::peek;
 
     std::hash<live_cells::cell> hash;
 
@@ -98,7 +98,7 @@ BOOST_AUTO_TEST_CASE(manage_same_observers) {
         auto a = test_managed_cell<int>(counter, 1);
 
         auto f = [=] {
-            return live_cells::peek(a);
+            return a | live_cells::ops::peek;
         };
 
         BOOST_CHECK_EQUAL(counter->ctor_count, 1);
