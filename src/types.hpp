@@ -159,6 +159,40 @@ namespace live_cells {
     template <typename C, typename T>
     concept TypedMutableCell = TypedCell<C,T> && MutableCell<C>;
 
+    namespace ops {
+
+        /**
+         * \brief Concept defining an operator on a cell.
+         *
+         * Types satisfying this concept must provide an overload of
+         * the function call operator that accepts a single \p Cell as
+         * an argument and returns a new \p Cell.
+         *
+         * Operators may be chained using the pipe (\c |) operator.
+         */
+        template <typename Op, typename C>
+        concept Operator = requires(const Op &op) {
+            { op(std::declval<C>()) } -> Cell;
+        };
+
+        /**
+         * \brief Apply an \p Operator \a op on a \p Cell \a arg.
+         *
+         * \param arg Operand cell on which to apply the \p Operator
+         *   \a op
+         *
+         * \param op The \p Operator to apply on \a arg
+         *
+         * \return The \p Cell resulting from applying \a op on \a
+         *   arg
+         */
+        template <Cell C, Operator<C> O>
+        inline auto operator|(const C &arg, const O &op) {
+            return op(arg);
+        }
+
+    }  // ops
+
 }  // live_cells
 
 #endif /* LIVE_CELLS_TYPES_HPP */

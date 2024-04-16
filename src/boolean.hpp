@@ -108,6 +108,49 @@ namespace live_cells {
         );
     }
 
+    namespace ops {
+
+        /**
+         * \brief Create an \p Operator for conditionally selecting the
+         * value of another cell based on the value of the operand
+         * cell.
+         *
+         * \see live_cells::select
+         *
+         * \param if_true Cell selected when the value of the operand
+         * cell is \p true.
+         *
+         * \return The selection operator.
+         */
+        auto select(const Cell auto &if_true) {
+            return [&] (const Cell auto &cond) {
+                return live_cells::select(cond, if_true);
+            };
+        }
+
+        /**
+         * \brief Create an \p Operator for conditionally selecting the
+         * value of another cell based on the value of the operand
+         * cell.
+         *
+         * \see live_cells::select
+         *
+         * \param if_true Cell selected when the value of the operand
+         * cell is \p true.
+         *
+         * \param if_false Cell selected when the value of the operand
+         * cell is \p false.
+         *
+         * \return The selection operator.
+         */
+        auto select(const Cell auto &if_true, const Cell auto &if_false) {
+            return [&] (const Cell auto &cond) {
+                return live_cells::select(cond, if_true, if_false);
+            };
+        }
+
+    }  // ops
+
 }  // live_cells
 
 #endif /* LIVE_CELLS_BOOLEAN_HPP */
