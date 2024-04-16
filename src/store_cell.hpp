@@ -194,6 +194,24 @@ namespace live_cells {
         return store_cell<C>(arg);
     }
 
+    namespace ops {
+
+        /**
+         * \brief Operator for caching the value of another cell.
+         *
+         * \see live_cells::store
+         *
+         * \param cell The operand \p Cell
+         *
+         * \return A \p Cell that has the same value as \a cell but
+         *    caches it in memory until it changes.
+         */
+        constexpr auto store = [] (const Cell auto &cell) {
+            return live_cells::store(cell);
+        };
+
+    }  // ops
+
 }  // live_cells
 
 #endif /* LIVE_CELLS_STORE_CELL_HPP */
