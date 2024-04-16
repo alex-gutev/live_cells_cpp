@@ -83,7 +83,7 @@ namespace live_cells {
     }
 
     /**
-     * \brief reate a cell which evaluates to the value of another
+     * \brief Create a cell which evaluates to the value of another
      * cell only if a \a condition is \p true.
      *
      * If the value of the \a condition cell is \p true, the cell
