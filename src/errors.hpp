@@ -83,6 +83,45 @@ namespace live_cells {
         );
     }
 
+    namespace ops {
+
+        /**
+         * \brief Create an \p Operator for handling exceptions thrown by
+         * the operand \p Cell.
+         *
+         * \see live_cells::on_error
+         *
+         * \param error_value The cell holding the value to use when
+         *   an exception is thrown by the operand cell.
+         *
+         * \return The error handling \p Operator.
+         */
+        auto on_error(const Cell auto &error_value) {
+            return [&] (const Cell auto &cell) {
+                return live_cells::on_error(cell, error_value);
+            };
+        }
+
+        /**
+         * \brief Create an \p Operator for handling exceptions of
+         * type \a E thrown by the operand \p Cell.
+         *
+         * \see live_cells::on_error
+         *
+         * \param error_value The cell holding the value to use when
+         *   an exception is thrown by the operand cell.
+         *
+         * \return The error handling \p Operator.
+         */
+        template <typename E>
+        auto on_error(const Cell auto &error_value) {
+            return [&] (const Cell auto &cell) {
+                return live_cells::on_error<E>(cell, error_value);
+            };
+        }
+
+    }  // operators
+
 }  // live_cells
 
 #endif /* LIVE_CELLS_ERRORS_HPP */
