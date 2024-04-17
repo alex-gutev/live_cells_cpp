@@ -133,6 +133,47 @@ namespace live_cells {
         return constant_cell<T>(value);
     }
 
+    /**
+     * \brief Concept specifying that \a T is either a \p Cell or a
+     * value that can be converted to a \p constant_cell.
+     */
+    template <typename T>
+    concept CellOrValue = Cell<T> || std::constructible_from<constant_cell<T>, T>;
+
+    /**
+     * \brief Ensure that \a thing is a \p Cell.
+     *
+     * If \a thing is not a cell it is converted to a \p
+     * constant_cell.
+     *
+     * \note This overload simply returns \a thing.
+     *
+     * \param thing A \p Cell or value
+     *
+     * \return A \p Cell
+     */
+    auto ensure_cell(const Cell auto &thing) {
+        return thing;
+    }
+
+    /**
+     * \brief Ensure that \a thing is a \p Cell.
+     *
+     * If \a thing is not a cell it is converted to a \p
+     * constant_cell.
+     *
+     * \note This overload returns a \p constant_cell holding the
+     * value \a thing.
+     *
+     * \param thing A \p Cell or value
+     *
+     * \return A \p Cell
+     */
+    template <typename T>
+    auto ensure_cell(const T& thing) {
+        return constant_cell<T>(thing);
+    }
+
 }  // live_cells
 
 #endif /* LIVE_CELLS_CONSTANT_CELL_HPP */

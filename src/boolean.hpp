@@ -19,39 +19,62 @@
 #define LIVE_CELLS_BOOLEAN_HPP
 
 #include "observable.hpp"
+#include "constant_cell.hpp"
 #include "computed.hpp"
 #include "store_cell.hpp"
 
 namespace live_cells {
     /**
-     * Returns a cell which evaluates to the logical and of the values
-     * of cells `a` and `b`.
+     * \brief Creates a \p Cell that evaluates to the logical and of
+     * the values of cells \a a and \a b.
      *
-     * NOTE: This operator is short-circuiting which means that the
-     * value of cell `b` is only referenced if `a` is true.
+     * \note This operator is short-circuiting which means that the
+     * value of cell \a b is only referenced if \a a is \p true.
+     *
+     * \param a A \p Cell or value
+     * \param b A \p Cell or value
+     *
+     * \return A new \p Cell
      */
-    auto operator && (const Cell auto &a, const Cell auto &b) {
+    template <typename A, typename B>
+    auto operator && (const A &a, const B &b) requires (
+        (Cell<A> && CellOrValue<B>) ||
+        (CellOrValue<A> && Cell<B>)
+    ) {
         return make_compute_cell([=] () {
-            return a.value() && b.value();
-        }, a, b);
+            return ensure_cell(a).value() && ensure_cell(b).value();
+        }, ensure_cell(a), ensure_cell(b));
     }
 
     /**
-     * Returns a cell which evaluates to the logical or of the values
-     * of cells `a` and `b`.
+     * \brief Create a cell that evaluates to the logical or of the
+     * values of cells \a a and \a b.
      *
-     * NOTE: This operator is short-circuiting which means that the
-     * value of cell `b` is only referenced if `a` is false.
+     * \note This operator is short-circuiting which means that the
+     * value of cell \a b is only referenced if \a a is \p false.
+     *
+     * \param a A \p Cell or value
+     * \param b A \p Cell or value
+     *
+     * \return A new \p Cell
      */
-    auto operator || (const Cell auto &a, const Cell auto &b) {
+    template <typename A, typename B>
+    auto operator || (const A &a, const B &b) requires (
+        (Cell<A> && CellOrValue<B>) ||
+        (CellOrValue<A> && Cell<B>)
+    ) {
         return make_compute_cell([=] () {
             return a.value() || b.value();
-        }, a, b);
+        }, ensure_cell(a), ensure_cell(b));
     }
 
     /**
-     * Returns a cell which evaluates to the logical not of the value
-     * of a cell.
+     * \brief Create a cell that evaluates to the logical not of the
+     * value of a cell.
+     *
+     * \param cell The \p Cell
+     *
+     * \return A new \p Cell
      */
     auto operator ! (const Cell auto &cell) {
         return computed(cell, [] (auto value) {

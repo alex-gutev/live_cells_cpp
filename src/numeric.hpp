@@ -23,28 +23,50 @@
 
 namespace live_cells {
     /**
-     * Returns a computed cell that evaluates `a + b` on the values
-     * held in cells `a` and `b`.
+     * \brief Create a \p Cell that computes the sum (using the \c +
+     * operator) of cells \a and \b.
+     *
+     * \param a A \p Cell or value
+     * \param b A \p Cell or value
+     *
+     * \return A new \p Cell
      */
-    auto operator +(const Cell auto &a, const Cell auto &b) {
-        return computed(a, b, [] (auto a, auto b) {
+    template <typename A, typename B>
+    auto operator +(const A &a, const B &b) requires (
+        (Cell<A> && CellOrValue<B>) ||
+        (CellOrValue<A> && Cell<B>)
+    ) {
+        return computed(ensure_cell(a), ensure_cell(b), [] (auto a, auto b) {
             return a + b;
         });
     }
 
     /**
-     * Returns a computed cell that evaluates `a - b` on the values
-     * held in cells `a` and `b`.
+     * \brief Create a \p Cell that computes the difference (using the
+     * \c - operator) of cells \a and \b.
+     *
+     * \param a A \p Cell or value
+     * \param b A \p Cell or value
+     *
+     * \return A new \p Cell
      */
-    auto operator -(const Cell auto &a, const Cell auto &b) {
-        return computed(a, b, [] (auto a, auto b) {
+    template <typename A, typename B>
+    auto operator -(const A &a, const B &b) requires (
+        (Cell<A> && CellOrValue<B>) ||
+        (CellOrValue<A> && Cell<B>)
+    ) {
+        return computed(ensure_cell(a), ensure_cell(b), [] (auto a, auto b) {
             return a - b;
         });
     }
 
     /**
-     * Returns a computed cell that evaluates to `-cell`, on the value
-     * held in `cell`.
+     * \brief Create a \p Cell that negates the value of another cell
+     * using the unary \c - operator.
+     *
+     * \param cell The \p Cell to negate.
+     *
+     * \return A new \p Cell
      */
     auto operator -(const Cell auto &cell) {
         return computed(cell, [] (auto value) {
@@ -53,71 +75,136 @@ namespace live_cells {
     }
 
     /**
-     * Returns a computed cell that evaluates `a * b` on the values
-     * held in cells `a` and `b`.
+     * \brief Create a \p Cell that computes the product (using the \c
+     * * operator) of cells \a and \b.
+     *
+     * \param a A \p Cell or value
+     * \param b A \p Cell or value
+     *
+     * \return A new \p Cell
      */
-    auto operator *(const Cell auto &a, const Cell auto &b) {
-        return computed(a, b, [] (auto a, auto b) {
+    template <typename A, typename B>
+    auto operator *(const A &a, const B &b) requires (
+        (Cell<A> && CellOrValue<B>) ||
+        (CellOrValue<A> && Cell<B>)
+    ) {
+        return computed(ensure_cell(a), ensure_cell(b), [] (auto a, auto b) {
             return a * b;
         });
     }
 
     /**
-     * Returns a computed cell that evaluates `a / b` on the values
-     * held in cells `a` and `b`.
+     * \brief Create a \p Cell that computes the quotient (using the
+     * \c / operator) of cells \a and \b.
+     *
+     * \param a A \p Cell or value
+     * \param b A \p Cell or value
+     *
+     * \return A new \p Cell
      */
-    auto operator /(const Cell auto &a, const Cell auto &b) {
-        return computed(a, b, [] (auto a, auto b) {
+    template <typename A, typename B>
+    auto operator /(const A &a, const B &b) requires (
+        (Cell<A> && CellOrValue<B>) ||
+        (CellOrValue<A> && Cell<B>)
+    ) {
+        return computed(ensure_cell(a), ensure_cell(b), [] (auto a, auto b) {
             return a / b;
         });
     }
 
     /**
-     * Returns a computed cell that evaluates `a % b` on the values
-     * held in cells `a` and `b`.
+     * \brief Create a \p Cell that computes the remainder (using the
+     * \c % operator) of cell \a divided by \b.
+     *
+     * \param a A \p Cell or value
+     * \param b A \p Cell or value
+     *
+     * \return A new \p Cell
      */
-    auto operator %(const Cell auto &a, const Cell auto &b) {
-        return computed(a, b, [] (auto a, auto b) {
+    template <typename A, typename B>
+    auto operator %(const A &a, const B &b) requires (
+        (Cell<A> && CellOrValue<B>) ||
+        (CellOrValue<A> && Cell<B>)
+    ) {
+        return computed(ensure_cell(a), ensure_cell(b), [] (auto a, auto b) {
             return a % b;
         });
     }
 
     /**
-     * Returns a computed cell that evaluates `a < b` on the values
-     * held in cells `a` and `b`.
+     * \brief Create a \p Cell that is \p true if the value of cell \a
+     * is less than (by the \c < operator) the value of cell \b.
+     *
+     * \param a A \p Cell or value
+     * \param b A \p Cell or value
+     *
+     * \return A new \p Cell
      */
-    auto operator <(const Cell auto &a, const Cell auto &b) {
-        return computed(a, b, [] (auto a, auto b) {
+    template <typename A, typename B>
+    auto operator <(const A &a, const B &b) requires (
+        (Cell<A> && CellOrValue<B>) ||
+        (CellOrValue<A> && Cell<B>)
+    ) {
+        return computed(ensure_cell(a), ensure_cell(b), [] (auto a, auto b) {
             return a < b;
         });
     }
 
     /**
-     * Returns a computed cell that evaluates `a <= b` on the values
-     * held in cells `a` and `b`.
+     * \brief Create a \p Cell that is \p true if the value of cell \a
+     * is less than or equal to (by the \c <= operator) the value of
+     * cell \b.
+     *
+     * \param a A \p Cell or value
+     * \param b A \p Cell or value
+     *
+     * \return A new \p Cell
      */
-    auto operator <=(const Cell auto &a, const Cell auto &b) {
-        return computed(a, b, [] (auto a, auto b) {
+    template <typename A, typename B>
+    auto operator <=(const A &a, const B &b) requires (
+        (Cell<A> && CellOrValue<B>) ||
+        (CellOrValue<A> && Cell<B>)
+    ) {
+        return computed(ensure_cell(a), ensure_cell(b), [] (auto a, auto b) {
             return a <= b;
         });
     }
 
     /**
-     * Returns a computed cell that evaluates `a > b` on the values
-     * held in cells `a` and `b`.
+     * \brief Create a \p Cell that is \p true if the value of cell \a
+     * is greater than (by the \c > operator) the value of cell \b.
+     *
+     * \param a A \p Cell or value
+     * \param b A \p Cell or value
+     *
+     * \return A new \p Cell
      */
-    auto operator >(const Cell auto &a, const Cell auto &b) {
-        return computed(a, b, [] (auto a, auto b) {
+    template <typename A, typename B>
+    auto operator >(const A &a, const B &b) requires (
+        (Cell<A> && CellOrValue<B>) ||
+        (CellOrValue<A> && Cell<B>)
+    ) {
+        return computed(ensure_cell(a), ensure_cell(b), [] (auto a, auto b) {
             return a > b;
         });
     }
 
     /**
-     * Returns a computed cell that evaluates `a >= b` on the values
-     * held in cells `a` and `b`.
+     * \brief Create a \p Cell that is \p true if the value of cell \a
+     * is greater than or equal to (by the \c >= operator) the value
+     * of cell \b.
+     *
+     * \param a A \p Cell or value
+     * \param b A \p Cell or value
+     *
+     * \return A new \p Cell
      */
-    auto operator >=(const Cell auto &a, const Cell auto &b) {
-        return computed(a, b, [] (auto a, auto b) {
+    template <typename A, typename B>
+    auto operator >=(const A &a, const B &b) requires (
+        (Cell<A> && CellOrValue<B>) ||
+        (CellOrValue<A> && Cell<B>)
+    ) {
+        return computed(ensure_cell(a), ensure_cell(b), [] (auto a, auto b) {
             return a >= b;
         });
     }
