@@ -1,3 +1,52 @@
+# 0.2.0-beta - 2023-04-18
+
+New features:
+
+* The values of mutable cells can now be set directly with the
+  assignment operator:
+  
+  ```cpp
+  auto a = live_cells::variable(0);
+  
+  std::cout << a.value() << std::endl; // 0
+  
+  a = 10;
+  std::cout << a.value() << std::end; // 10
+  ```
+  
+  The values can also be changed using the `++`, `--`, `+=`, `-=`,
+  etc. operators.
+  
+* Reactive cell pipelines with the `|` operator:
+
+  The namespace `live_cells::ops` provides functions that can be
+  applied on cells using the `|` operator:
+  
+  The following:
+  
+  ```cpp
+  auto cell = live_cells::peek(
+      live_cells::on_error(
+          live_cells::select(cond, a, b),
+          c
+      )
+  )
+  ```
+  
+  Can now be written as the following:
+  
+  ```cpp
+  auto cell = cond
+      | live_cells::ops::select(a, b)
+      | live_cells::ops::on_error(c)
+      | live_cells::ops::peek;
+  ```
+  
+Bug fixes:
+
+* Fixed bug: `MutableCell` concept not being satisfied by any mutable
+  cell.
+
 # 0.1.4-beta - 2024-04-10
 
 * Add function call operator to `cell` and `typed_cell` containers.
@@ -10,7 +59,7 @@
   auto a2 = live_cells::typed_cell<int>(a1);
   
   auto f = live_cells::computed([=] {
-	  return a2() + 1
+      return a2() + 1
   });
   ```
 
