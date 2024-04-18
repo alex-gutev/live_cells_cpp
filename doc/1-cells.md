@@ -101,7 +101,7 @@ example:
 
 ```cpp
 auto watcher2 = live_cells::watch([=] {
-	std::cout << "A = " << a() << std::endl;
+    std::cout << "A = " << a() << std::endl;
 });
 
 // Prints: 20, 10
@@ -156,7 +156,7 @@ cell values change.\n\n
 // due to it not being stored anywhere,
 // and thus the watch function is also stopped immediately
 live_cells::watch([=] {
-	...
+    ...
 });
 ```
 

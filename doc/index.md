@@ -92,7 +92,7 @@ To begin using Live Cells:
    make install
    ```
    
-	This will install Live Cells at `/usr/local`. You can choose an
+    This will install Live Cells at `/usr/local`. You can choose an
     alternative prefix with:
    
    ```sh
