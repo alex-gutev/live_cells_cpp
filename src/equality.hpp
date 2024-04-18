@@ -20,6 +20,7 @@
 
 #include <typeinfo>
 
+#include "keys.hpp"
 #include "computed.hpp"
 #include "util.hpp"
 
@@ -28,83 +29,65 @@ namespace live_cells {
     namespace internal {
 
         /**
-         * Equality comparison cell key
+         * \brief Equality comparison cell key
          */
-        template <typename T, typename U>
-        struct eq_cell_key : key {
-            const T a;
-            const U b;
-
-            eq_cell_key(T a, U b) : a(a), b(b) {}
-
-            bool eq(const key &k) const noexcept override {
-                auto *ptr = dynamic_cast<const eq_cell_key*>(&k);
-
-                return ptr != nullptr &&
-                    a.key() == ptr->a.key() &&
-                    b.key() == ptr->b.key();
-            }
-
-            size_t hash() const noexcept override {
-                return hash_combine(0, typeid(*this).hash_code(), a.key(), b.key());
-            }
+        struct eq_cell_key : value_key<key_ref,key_ref> {
+            using value_key<key_ref,key_ref>::value_key;
         };
 
         /**
-         * Inequality comparison cell key
+         * \brief Inequality comparison cell key
          */
-        template <typename T, typename U>
-        struct neq_cell_key : key {
-            const T a;
-            const U b;
-
-            neq_cell_key(T a, U b) : a(a), b(b) {}
-
-            bool eq(const key &k) const noexcept override {
-                auto *ptr = dynamic_cast<const neq_cell_key*>(&k);
-
-                return ptr != nullptr &&
-                    a.key() == ptr->a.key() &&
-                    b.key() == ptr->b.key();
-            }
-
-            size_t hash() const noexcept override {
-                return hash_combine(0, typeid(*this).hash_code(), a.key(), b.key());
-            }
+        struct neq_cell_key : value_key<key_ref,key_ref> {
+            using value_key<key_ref,key_ref>::value_key;
         };
 
     }  // internal
 
     /**
-     * Create a cell which compares two cells for equality by ==.
+     * \brief Create a \p Cell that compares two cells for equality by
+     * \p ==.
      *
-     * @param a A cell
-     * @param b A cell
+     * \param a A \p Cell or value
+     * \param b A \p Cell or value
      *
-     * @return A computed cell which evaluates the expression a == b.
+     * \return A computed cell which evaluates the expression \a a == \a b.
      */
-    template <Cell T, Cell U>
-    auto operator ==(const T &a, const U &b) {
-        typedef internal::eq_cell_key<T,U> key;
+    template <typename T, typename U>
+    auto operator ==(const T &a, const U &b) requires (
+        (Cell<T> && CellOrValue<U>) ||
+        (CellOrValue<T> && Cell<U>)
+    ) {
+        typedef internal::eq_cell_key key;
 
-        return computed(key_ref::create<key>(a, b), a, b, [] (auto a, auto b) {
+        auto cell_a = ensure_cell(a);
+        auto cell_b = ensure_cell(b);
+
+        return computed(key_ref::create<key>(cell_a.key(), cell_b.key()), cell_a, cell_b, [] (auto a, auto b) {
             return a == b;
         });
     }
 
     /**
-     * Create a cell which compares two cells for inequality by !=.
+     * \brief Create a \p Cell that compares two cells for inequality
+     * by \p !=.
      *
-     * @param a A cell
-     * @param b A cell
+     * \param a A \p Cell or value
+     * \param b A \p Cell or value
      *
-     * @return A computed cell which evaluates the expression a != b.
+     * \return A computed cell that evaluates the expression \a a != \a b.
      */
-    template <Cell T, Cell U>
-    auto operator !=(const T &a, const U &b) {
-        typedef internal::neq_cell_key<T,U> key;
+    template <typename T, typename U>
+    auto operator !=(const T &a, const U &b) requires (
+        (Cell<T> && CellOrValue<U>) ||
+        (CellOrValue<T> && Cell<U>)
+    ) {
+        typedef internal::neq_cell_key key;
 
-        return computed(key_ref::create<key>(a, b), a, b, [] (auto a, auto b) {
+        auto cell_a = ensure_cell(a);
+        auto cell_b = ensure_cell(b);
+
+        return computed(key_ref::create<key>(cell_a.key(), cell_b.key()), cell_a, cell_b, [] (auto a, auto b) {
             return a != b;
         });
     }
