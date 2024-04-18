@@ -169,7 +169,7 @@ namespace live_cells {
         }
 
         bool eq(const key &other) const noexcept override {
-            auto *key = dynamic_cast<const value_key<T,Ts...> *>(other);
+            auto *key = dynamic_cast<const value_key<T,Ts...> *>(&other);
 
             // TODO: Compare runtime type as well
 
@@ -199,7 +199,7 @@ namespace live_cells {
          * \return The hash code.
          */
         std::size_t hash_values() const noexcept {
-            return internal::hash_combine(0, value, rest);
+            return internal::hash_combine(0, value, rest.hash_values());
         }
     };
 
@@ -245,6 +245,8 @@ namespace live_cells {
             return std::hash<T>{}(value);
         }
 
+        template <typename T1, typename... Ts>
+        friend class value_key;
     };
 
     inline bool operator ==(const key &k1, const key &k2) {
