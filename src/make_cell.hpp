@@ -212,7 +212,7 @@ namespace live_cells {
     };
 
     /**
-     * \brief Same as `make_cell` but also provides a value setter \p
+     * \brief Same as \p make_cell but also provides a value setter \p
      * value(Parent::value_type) so that the definition satisfies the
      * \p MutableCell concept.
      */
@@ -222,6 +222,20 @@ namespace live_cells {
 
     public:
         using Parent::value;
+
+        /**
+         * \brief Set the value of the cell to \a value.
+         *
+         * \note Implemented using \p C::value(value).
+         *
+         * \param value The new value of the cell
+         *
+         * \return \a value
+         */
+        Parent::value_type operator=(const Parent::value_type &value) {
+            this->value(value);
+            return value;
+        }
 
         /**
          * \brief Set the value of the cell to \a value.

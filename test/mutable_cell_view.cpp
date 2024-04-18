@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_CASE(value_computed_on_construction) {
     auto b = live_cells::cell_view(a, [] (auto a) {
         return a + 1;
     }, [=] (auto b) {
-        a.value(b - 1);
+        a = b - 1;
     });
 
     BOOST_CHECK_EQUAL(b.value(), 2);
@@ -53,12 +53,12 @@ BOOST_AUTO_TEST_CASE(value_recomputed_when_argument_cell_changes) {
     auto b = live_cells::cell_view(a, [] (auto a) {
         return a + 1;
     }, [=] (auto b) {
-        a.value(b - 1);
+        a = b - 1;
     });
 
     auto guard = with_observer(b, std::make_shared<simple_observer>());
 
-    a.value(5);
+    a = 5;
     BOOST_CHECK_EQUAL(b.value(), 6);
 }
 
@@ -71,13 +71,13 @@ BOOST_AUTO_TEST_CASE(value_recomputed_when_1st_argument_cell_changes) {
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
     auto guard = with_observer(c, std::make_shared<simple_observer>());
 
-    a.value(5);
+    a = 5;
     BOOST_CHECK_EQUAL(c.value(), 8);
 }
 
@@ -90,13 +90,13 @@ BOOST_AUTO_TEST_CASE(value_recomputed_when_2nd_argument_cell_changes) {
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
     auto guard = with_observer(c, std::make_shared<simple_observer>());
 
-    b.value(9);
+    b = 9;
     BOOST_CHECK_EQUAL(c.value(), 10);
 }
 
@@ -109,15 +109,15 @@ BOOST_AUTO_TEST_CASE(observers_notified_when_value_recomputed) {
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
     auto observer = std::make_shared<simple_observer>();
     auto guard = with_observer(c, observer);
 
-    b.value(9);
-    a.value(10);
+    b = 9;
+    a = 10;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 2);
 }
@@ -131,8 +131,8 @@ BOOST_AUTO_TEST_CASE(observer_not_called_after_removal) {
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
     auto observer1 = std::make_shared<simple_observer>();
@@ -142,10 +142,10 @@ BOOST_AUTO_TEST_CASE(observer_not_called_after_removal) {
 
     {
         auto guard2 = with_observer(c, observer2);
-        b.value(9);
+        b = 9;
     }
 
-    a.value(10);
+    a = 10;
 
     BOOST_CHECK_EQUAL(observer1->notify_count, 2);
     BOOST_CHECK_EQUAL(observer2->notify_count, 1);
@@ -160,11 +160,11 @@ BOOST_AUTO_TEST_CASE(set_value_updates_argument_cell_values) {
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
-    c.value(10);
+    c = 10;
 
     BOOST_CHECK_EQUAL(a.value(), 5);
     BOOST_CHECK_EQUAL(b.value(), 5);
@@ -181,8 +181,8 @@ BOOST_AUTO_TEST_CASE(consistent_state_when_setting_value_in_batch) {
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
     auto d = live_cells::variable(50);
@@ -199,8 +199,8 @@ BOOST_AUTO_TEST_CASE(consistent_state_when_setting_value_in_batch) {
     auto guard5 = with_observer(e, obs_e);
 
     live_cells::batch([&] {
-        c.value(10);
-        d.value(9);
+        c = 10;
+        d = 9;
     });
 
     obs_a->check_values({5});
@@ -219,8 +219,8 @@ BOOST_AUTO_TEST_CASE(correct_values_produced_across_all_observers) {
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
     auto c = a + sum | live_cells::ops::store;
@@ -233,18 +233,18 @@ BOOST_AUTO_TEST_CASE(correct_values_produced_across_all_observers) {
     auto guard2 = with_observer(d, obs_d);
 
     live_cells::batch([&] {
-        a.value(2);
-        b.value(3);
+        a = 2;
+        b = 3;
     });
 
     live_cells::batch([&] {
-        a.value(3);
-        b.value(2);
+        a = 3;
+        b = 2;
     });
 
     live_cells::batch([&] {
-        a.value(10);
-        b.value(20);
+        a = 10;
+        b = 20;
     });
 
     obs_c->check_values({7, 8, 40});
@@ -261,7 +261,7 @@ BOOST_AUTO_TEST_CASE(exception_in_init_handled) {
 
         return a;
     }, [=] (auto v) {
-        a.value(v);
+        a = v;
     });
 
     BOOST_CHECK_THROW(cell.value(), an_exception);
@@ -276,7 +276,7 @@ BOOST_AUTO_TEST_CASE(exception_in_init_reproduced_on_access_while_observed) {
 
         return a;
     }, [=] (auto v) {
-        a.value(v);
+        a = v;
     });
 
     auto guard = with_observer(cell, std::make_shared<simple_observer>());
@@ -294,13 +294,13 @@ BOOST_AUTO_TEST_CASE(compares_equal_if_same_key) {
     live_cells::cell c1 = live_cells::cell_view(key_ref::create<key_type>("the-key"), a, [] (auto a) {
         return a + 1;
     }, [=] (auto b) {
-        a.value(b - 1);
+        a = b - 1;
     });
 
     live_cells::cell c2 = live_cells::cell_view(key_ref::create<key_type>("the-key"), a, [] (auto a) {
         return a + 1;
     }, [=] (auto b) {
-        a.value(b - 1);
+        a = b - 1;
     });
 
     std::hash<live_cells::cell> hash;
@@ -320,13 +320,13 @@ BOOST_AUTO_TEST_CASE(compares_not_equal_if_different_same_key) {
     live_cells::cell c1 = live_cells::cell_view(key_ref::create<key_type>("the-key1"), a, [] (auto a) {
         return a + 1;
     }, [=] (auto b) {
-        a.value(b - 1);
+        a = b - 1;
     });
 
     live_cells::cell c2 = live_cells::cell_view(key_ref::create<key_type>("the-key2"), a, [] (auto a) {
         return a + 1;
     }, [=] (auto b) {
-        a.value(b - 1);
+        a = b - 1;
     });
 
     BOOST_CHECK(c1 != c2);
@@ -343,13 +343,13 @@ BOOST_AUTO_TEST_CASE(compares_not_equal_with_default_key) {
     live_cells::cell c1 = live_cells::cell_view(a, [] (auto a) {
         return a + 1;
     }, [=] (auto b) {
-        a.value(b - 1);
+        a = b - 1;
     });
 
     live_cells::cell c2 = live_cells::cell_view(a, [] (auto a) {
         return a + 1;
     }, [=] (auto b) {
-        a.value(b - 1);
+        a = b - 1;
     });
 
     BOOST_CHECK(c1 != c2);
