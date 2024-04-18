@@ -309,6 +309,230 @@ namespace live_cells {
         fn();
     }
 
+    /**
+     * \brief Add \a value to the value of \p Cell \a c.
+     *
+     * \note This is equivalent to `c = c.value() + value`
+     *
+     * \param c A \p Cell
+     * \param value The value to add to the value of \a c
+     *
+     * \return The new value of \a c.
+     */
+    template <typename T>
+    T operator+=(const MutableCell auto &c, const T &value) {
+        return c = c.value() + value;
+    }
+
+    /**
+     * \brief Subtract \a value from the value of \p Cell \a c.
+     *
+     * \note This is equivalent to `c = c.value() - value`
+     *
+     * \param c A \p Cell
+     * \param value The value to subtract from the value of \a c
+     *
+     * \return The new value of \a c.
+     */
+    template <typename T>
+    T operator-=(const MutableCell auto &c, const T &value) {
+        return c = c.value() - value;
+    }
+
+    /**
+     * \brief Multiply the value of \p Cell \a c by \a value.
+     *
+     * \note This is equivalent to `c = c.value() * value`
+     *
+     * \param c A \p Cell
+     * \param value The value by which to multiply the value of \a c
+     *
+     * \return The new value of \a c.
+     */
+    template <typename T>
+    T operator*=(const MutableCell auto &c, const T &value) {
+        return c = c.value() * value;
+    }
+
+    /**
+     * \brief Divide the value of \p Cell \a c by \a value.
+     *
+     * \note This is equivalent to `c = c.value() / value`
+     *
+     * \param c A \p Cell
+     * \param value The divisor by which to divide the value of \a c
+     *
+     * \return The new value of \a c.
+     */
+    template <typename T>
+    T operator/=(const MutableCell auto &c, const T &value) {
+        return c = c.value() / value;
+    }
+
+    /**
+     * \brief Compute the remainder of the value of \p Cell \a c
+     * divided by \a value, and assign it to \a c.
+     *
+     * \note This is equivalent to `c = c.value() % value`
+     *
+     * \param c A \p Cell
+     * \param value The divisor by which to divide the value of \a c
+     *
+     * \return The new value of \a c.
+     */
+    template <typename T>
+    T operator%=(const MutableCell auto &c, const T &value) {
+        return c = c.value() % value;
+    }
+
+    /**
+     * \brief Left shift the value of \p Cell \a c by \a value.
+     *
+     * \note This is equivalent to `c = c.value() << value`
+     *
+     * \param c A \p Cell
+     * \param value Number of times to left shift the value of \a c
+     *
+     * \return The new value of \a c.
+     */
+    template <typename T>
+    T operator<<=(const MutableCell auto &c, const T &value) {
+        return c = c.value() << value;
+    }
+
+    /**
+     * \brief Right shift the value of \p Cell \a c by \a value.
+     *
+     * \note This is equivalent to `c = c.value() >> value`
+     *
+     * \param c A \p Cell
+     * \param value Number of times to right shift the value of \a c
+     *
+     * \return The new value of \a c.
+     */
+    template <typename T>
+    T operator>>=(const MutableCell auto &c, const T &value) {
+        return c = c.value() >> value;
+    }
+
+    /**
+     * \brief Compute the bitwise and of the value of \p Cell \a c and
+     * \a value, and assign it to \a c.
+     *
+     * \note This is equivalent to `c = c.value() & value`
+     *
+     * \param c A \p Cell
+     * \param value A value
+     *
+     * \return The new value of \a c.
+     */
+    template <typename T>
+    T operator&=(const MutableCell auto &c, const T &value) {
+        return c = c.value() & value;
+    }
+
+    /**
+     * \brief Compute the bitwise exclusive or of the value of \p Cell
+     * \a c and \a value, and assign it to \a c.
+     *
+     * \note This is equivalent to `c = c.value() ^ value`
+     *
+     * \param c A \p Cell
+     * \param value A value
+     *
+     * \return The new value of \a c.
+     */
+    template <typename T>
+    T operator^=(const MutableCell auto &c, const T &value) {
+        c = c.value() ^ value;
+        return value;
+    }
+
+    /**
+     * \brief Compute the bitwise or of the value of \p Cell \a c and
+     * \a value, and assign it to \a c.
+     *
+     * \note This is equivalent to `c = c.value() | value`
+     *
+     * \param c A \p Cell
+     * \param value A value
+     *
+     * \return The new value of \a c.
+     */
+    template <typename T>
+    T operator|=(const MutableCell auto &c, const T &value) {
+        c = c.value() | value;
+        return value;
+    }
+
+    /**
+     * \brief Increment the value of \p Cell \a c.
+     *
+     * \note This is implemented in terms of the prefix ++ operator
+     * for the cell's value type.
+     *
+     * \param c A \p Cell
+     *
+     * \return The new value of \a c.
+     */
+    auto operator++(const MutableCell auto &c) {
+        auto value = c.value();
+        c = ++value;
+
+        return value;
+    }
+
+    /**
+     * \brief Increment the value of \p Cell \a c.
+     *
+     * \attention This is \b also implemented in terms of the prefix
+     * ++ operator for the cell's value type.
+     *
+     * \param c A \p Cell
+     *
+     * \return The value of \a c before it is incremented.
+     */
+    auto operator++(const MutableCell auto &c, int) {
+        auto old = c.value();
+
+        ++c;
+        return old;
+    }
+
+    /**
+     * \brief Decrement the value of \p Cell \a c.
+     *
+     * \note This is implemented in terms of the prefix -- operator
+     * for the cell's value type.
+     *
+     * \param c A \p Cell
+     *
+     * \return The new value of \a c.
+     */
+    auto operator--(const MutableCell auto &c) {
+        auto value = c.value();
+        c = --value;
+
+        return value;
+    }
+
+    /**
+     * \brief Decrement the value of \p Cell \a c.
+     *
+     * \attention This is \b also implemented in terms of the prefix
+     * -- operator for the cell's value type.
+     *
+     * \param c A \p Cell
+     *
+     * \return The value of \a c before it is decremented.
+     */
+    auto operator--(const MutableCell auto &c, int) {
+        auto old = c.value();
+
+        --c;
+        return old;
+    }
+
 }  // live_cells
 
 #endif /* LIVE_CELLS_MUTABLE_CELL_HPP */
