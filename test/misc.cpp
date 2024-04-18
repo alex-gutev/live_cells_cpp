@@ -40,4 +40,172 @@ BOOST_AUTO_TEST_CASE(pipeline) {
     BOOST_CHECK_EQUAL(cell.value(), 1);
 }
 
+BOOST_AUTO_TEST_CASE(plus_assignment) {
+    auto a = live_cells::variable(1);
+
+    BOOST_CHECK_EQUAL(a.value(), 1);
+
+    BOOST_CHECK_EQUAL(a += 1, 2);
+    BOOST_CHECK_EQUAL(a.value(), 2);
+
+    a += 10;
+    BOOST_CHECK_EQUAL(a.value(), 12);
+}
+
+BOOST_AUTO_TEST_CASE(minus_assignment) {
+    auto a = live_cells::variable(2);
+
+    BOOST_CHECK_EQUAL(a.value(), 2);
+
+    a -= 1;
+    BOOST_CHECK_EQUAL(a.value(), 1);
+
+    BOOST_CHECK_EQUAL(a -= 10, -9);
+    BOOST_CHECK_EQUAL(a.value(), -9);
+}
+
+BOOST_AUTO_TEST_CASE(times_assignment) {
+    auto a = live_cells::variable(2);
+
+    BOOST_CHECK_EQUAL(a.value(), 2);
+
+    BOOST_CHECK_EQUAL(a *= 2, 4);
+    BOOST_CHECK_EQUAL(a.value(), 4);
+
+    a *= 10;
+    BOOST_CHECK_EQUAL(a.value(), 40);
+}
+
+BOOST_AUTO_TEST_CASE(divide_assignment) {
+    auto a = live_cells::variable(40);
+
+    BOOST_CHECK_EQUAL(a.value(), 40);
+
+    BOOST_CHECK_EQUAL(a /= 2, 20);
+    BOOST_CHECK_EQUAL(a.value(), 20);
+
+    a /= 10;
+    BOOST_CHECK_EQUAL(a.value(), 2);
+}
+
+BOOST_AUTO_TEST_CASE(remainder_assignment) {
+    auto a = live_cells::variable(7);
+
+    BOOST_CHECK_EQUAL(a.value(), 7);
+
+    BOOST_CHECK_EQUAL(a %= 4, 3);
+    BOOST_CHECK_EQUAL(a.value(), 3);
+
+    a %= 2;
+    BOOST_CHECK_EQUAL(a.value(), 1);
+}
+
+BOOST_AUTO_TEST_CASE(left_shift_assignment) {
+    auto a = live_cells::variable(2);
+
+    BOOST_CHECK_EQUAL(a.value(), 2);
+
+    BOOST_CHECK_EQUAL(a <<= 1, 4);
+    BOOST_CHECK_EQUAL(a.value(), 4);
+
+    a <<= 2;
+    BOOST_CHECK_EQUAL(a.value(), 16);
+}
+
+BOOST_AUTO_TEST_CASE(right_shift_assignment) {
+    auto a = live_cells::variable(16);
+
+    BOOST_CHECK_EQUAL(a.value(), 16);
+
+    BOOST_CHECK_EQUAL(a >>= 1, 8);
+    BOOST_CHECK_EQUAL(a.value(), 8);
+
+    a >>= 2;
+    BOOST_CHECK_EQUAL(a.value(), 2);
+}
+
+BOOST_AUTO_TEST_CASE(and_assignment) {
+    auto a = live_cells::variable(0xFF);
+
+    BOOST_CHECK_EQUAL(a.value(), 0xFF);
+
+    a &= 0x05;
+    BOOST_CHECK_EQUAL(a.value(), 0x05);
+
+    BOOST_CHECK_EQUAL(a &= 0x06, 0x04);
+    BOOST_CHECK_EQUAL(a.value(), 0x04);
+}
+
+BOOST_AUTO_TEST_CASE(or_assignment) {
+    auto a = live_cells::variable(0);
+
+    BOOST_CHECK_EQUAL(a.value(), 0);
+
+    a |= 0x05;
+    BOOST_CHECK_EQUAL(a.value(), 0x05);
+
+    BOOST_CHECK_EQUAL(a |= 0x06, 0x07);
+    BOOST_CHECK_EQUAL(a.value(), 0x07);
+}
+
+BOOST_AUTO_TEST_CASE(xor_assignment) {
+    auto a = live_cells::variable(0);
+
+    BOOST_CHECK_EQUAL(a.value(), 0);
+
+    a ^= 0x05;
+    BOOST_CHECK_EQUAL(a.value(), 0x05);
+
+    BOOST_CHECK_EQUAL(a ^= 0x06, 0x03);
+    BOOST_CHECK_EQUAL(a.value(), 0x03);
+}
+
+BOOST_AUTO_TEST_CASE(plusplus_prefix) {
+    auto a = live_cells::variable(0);
+
+    BOOST_CHECK_EQUAL(a.value(), 0);
+
+    BOOST_CHECK_EQUAL(++a, 1);
+    BOOST_CHECK_EQUAL(a.value(), 1);
+
+    BOOST_CHECK_EQUAL(++a, 2);
+    BOOST_CHECK_EQUAL(a.value(), 2);
+}
+
+BOOST_AUTO_TEST_CASE(plusplus_postfix) {
+    auto a = live_cells::variable(0);
+
+    BOOST_CHECK_EQUAL(a.value(), 0);
+
+    BOOST_CHECK_EQUAL(a++, 0);
+    BOOST_CHECK_EQUAL(a.value(), 1);
+
+    BOOST_CHECK_EQUAL(a++, 1);
+    BOOST_CHECK_EQUAL(a.value(), 2);
+}
+
+BOOST_AUTO_TEST_CASE(minusminus_prefix) {
+    auto a = live_cells::variable(1);
+
+    BOOST_CHECK_EQUAL(a.value(), 1);
+
+    BOOST_CHECK_EQUAL(--a, 0);
+    BOOST_CHECK_EQUAL(a.value(), 0);
+
+    BOOST_CHECK_EQUAL(--a, -1);
+    BOOST_CHECK_EQUAL(a.value(), -1);
+}
+
+BOOST_AUTO_TEST_CASE(minusminus_postfix) {
+    auto a = live_cells::variable(1);
+
+    BOOST_CHECK_EQUAL(a.value(), 1);
+
+    BOOST_CHECK_EQUAL(a--, 1);
+    BOOST_CHECK_EQUAL(a.value(), 0);
+
+    BOOST_CHECK_EQUAL(a--, 0);
+    BOOST_CHECK_EQUAL(a.value(), -1);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
