@@ -444,8 +444,7 @@ namespace live_cells {
      */
     template <typename T>
     T operator^=(const MutableCell auto &c, const T &value) {
-        c = c.value() ^ value;
-        return value;
+        return c = c.value() ^ value;
     }
 
     /**
@@ -461,8 +460,7 @@ namespace live_cells {
      */
     template <typename T>
     T operator|=(const MutableCell auto &c, const T &value) {
-        c = c.value() | value;
-        return value;
+        return c = c.value() | value;
     }
 
     /**
