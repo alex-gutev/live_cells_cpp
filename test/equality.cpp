@@ -37,57 +37,72 @@ BOOST_AUTO_TEST_CASE(constant_cells_equal_if_equal_values) {
     auto a = live_cells::value(1);
     auto b = live_cells::value(1);
 
-    auto eq = a == b;
+    auto eq1 = a == b;
+    auto eq2 = a == 1;
+    auto eq3 = 1 == b;
 
-    BOOST_CHECK(eq.value());
+    BOOST_CHECK(eq1.value());
+    BOOST_CHECK(eq2.value());
+    BOOST_CHECK(eq3.value());
 }
 
 BOOST_AUTO_TEST_CASE(constant_cells_not_equal_if_unequal_values) {
     auto a = live_cells::value(1);
     auto b = live_cells::value(2);
 
-    auto eq = a == b;
+    auto eq1 = a == b;
+    auto eq2 = a == 2;
+    auto eq3 = 1 == b;
 
-    BOOST_CHECK(!eq.value());
+    BOOST_CHECK(!eq1.value());
+    BOOST_CHECK(!eq2.value());
+    BOOST_CHECK(!eq3.value());
 }
 
 BOOST_AUTO_TEST_CASE(constant_cells_unequal_if_unequal_values) {
     auto a = live_cells::value(3);
     auto b = live_cells::value(4);
 
-    auto neq = a != b;
+    auto neq1 = a != b;
+    auto neq2 = a != 4;
+    auto neq3 = 3 != b;
 
-    BOOST_CHECK(neq.value());
+    BOOST_CHECK(neq1.value());
+    BOOST_CHECK(neq2.value());
+    BOOST_CHECK(neq3.value());
 }
 
 BOOST_AUTO_TEST_CASE(constant_cells_not_unequal_if_equal_values) {
     auto a = live_cells::value(3);
     auto b = live_cells::value(3);
 
-    auto neq = a != b;
+    auto neq1 = a != b;
+    auto neq2 = a != 3;
+    auto neq3 = 3 != b;
 
-    BOOST_CHECK(!neq.value());
+    BOOST_CHECK(!neq1.value());
+    BOOST_CHECK(!neq2.value());
+    BOOST_CHECK(!neq3.value());
 }
 
 BOOST_AUTO_TEST_CASE(equality_cell_recomputed_when_1st_arg_changes) {
     auto a = live_cells::variable(3);
-    auto b = live_cells::variable(4);
+    auto eq = a == 4;
 
-    auto eq = a == b;
+    BOOST_CHECK(!eq.value());
 
     a = 4;
-
     BOOST_CHECK(eq.value());
 }
 
 BOOST_AUTO_TEST_CASE(equality_cell_recomputed_when_2nd_arg_changes) {
-    auto a = live_cells::variable(3);
     auto b = live_cells::variable(4);
 
-    auto eq = a == b;
+    auto eq = 3 == b;
+
+    BOOST_CHECK(!eq.value());
 
     b = 3;
-
     BOOST_CHECK(eq.value());
 }
 
@@ -123,10 +138,10 @@ BOOST_AUTO_TEST_CASE(inequality_cell_recomputed_when_1st_arg_changes) {
     auto a = live_cells::variable(3);
     auto b = live_cells::variable(4);
 
-    auto neq = a != b;
+    auto neq = a != 4;
+    BOOST_CHECK(neq.value());
 
     a = 4;
-
     BOOST_CHECK(!neq.value());
 }
 
@@ -134,10 +149,10 @@ BOOST_AUTO_TEST_CASE(inequality_cell_recomputed_when_2nd_arg_changes) {
     auto a = live_cells::variable(3);
     auto b = live_cells::variable(4);
 
-    auto neq = a != b;
+    auto neq = 3 != b;
+    BOOST_CHECK(neq.value());
 
     b = 3;
-
     BOOST_CHECK(!neq.value());
 }
 
@@ -183,6 +198,20 @@ BOOST_AUTO_TEST_CASE(equality_cells_compare_equal_if_same_arguments) {
     BOOST_CHECK(hash(eq1) == hash(eq2));
 }
 
+BOOST_AUTO_TEST_CASE(equality_cells_compare_equal_if_same_arguments_with_literal_values) {
+    auto a = live_cells::value(1);
+    auto b = live_cells::value(2);
+
+    live_cells::cell eq1(a == 2);
+    live_cells::cell eq2(1 == b);
+
+    std::hash<live_cells::cell> hash;
+
+    BOOST_CHECK(eq1 == eq2);
+    BOOST_CHECK(!(eq1 != eq2));
+    BOOST_CHECK(hash(eq1) == hash(eq2));
+}
+
 BOOST_AUTO_TEST_CASE(equality_cells_compare_not_equal_if_different_arguments) {
     auto a = live_cells::variable(1);
     auto b = live_cells::variable(2);
@@ -202,6 +231,20 @@ BOOST_AUTO_TEST_CASE(inequality_cells_compare_equal_if_same_arguments) {
 
     live_cells::cell neq1(a != b);
     live_cells::cell neq2(a != b);
+
+    std::hash<live_cells::cell> hash;
+
+    BOOST_CHECK(neq1 == neq2);
+    BOOST_CHECK(!(neq1 != neq2));
+    BOOST_CHECK(hash(neq1) == hash(neq2));
+}
+
+BOOST_AUTO_TEST_CASE(inequality_cells_compare_equal_if_same_arguments_with_literal_values) {
+    auto a = live_cells::value(1);
+    auto b = live_cells::value(2);
+
+    live_cells::cell neq1(a != 2);
+    live_cells::cell neq2(1 != b);
 
     std::hash<live_cells::cell> hash;
 
