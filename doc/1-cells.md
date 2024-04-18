@@ -52,7 +52,7 @@ a = 3;
 
 When the value of a cell changes, its observers are notified of the
 change. The simplest way to demonstrate this is to set up a *watch
-function* using [`live_cells::watch()`](@ref live_cells::watcher::watch()):
+function* using `live_cells::watch()`:
 
 ```cpp
 auto a = live_cells::variable(0);
@@ -69,21 +69,20 @@ a = 5;  // Prints: 5, 1
 b = 10; // Prints: 5, 10
 ```
 
-[`live_cells::watch()`](@ref live_cells::watcher::watch()) takes a
-watch function and registers it to be called when the values of the
-cells referenced within it change. In the example above, a watch
-function that prints the values of cells `a` and `b` to standard
-output, is defined. This function is called automatically when the
-value of either `a` or `b` changes.
+`live_cells::watch()` takes a watch function and registers it to be
+called when the values of the cells referenced within it change. In
+the example above, a watch function that prints the values of cells
+`a` and `b` to standard output, is defined. This function is called
+automatically when the value of either `a` or `b` changes.
 
 There are a couple of important points to keep in mind when using
-[`live_cells::watch()`](@ref live_cells::watcher::watch()):
+`live_cells::watch()`:
 
 * The watch function is called once immediately when
-  [`live_cells::watch()`](@ref live_cells::watcher::watch()) is
+  `live_cells::watch()` is
   called, to determine which cells are referenced by it.
   
-* [`live_cells::watch()`](@ref live_cells::watcher::watch())
+* `live_cells::watch()`
   automatically tracks which cells are referenced within it, and
   registers it to be called when their values change. This works even
   when the cells are referenced conditionally.
@@ -97,7 +96,7 @@ There are a couple of important points to keep in mind when using
 \attention Within a watch function, the value of a cell is referenced
 using the function call syntax rather than the `value()` method.
 
-Every call to [`live_cells::watch()`](@ref live_cells::watcher::watch()) adds a new watch function, for
+Every call to `live_cells::watch()` adds a new watch function, for
 example:
 
 ```cpp
@@ -120,16 +119,16 @@ watch function being called, since the second watch function does not
 reference `b` and hence is not observing it.
 
 \remark When you no longer need the watch function to be called, call [`stop()`](@ref live_cells::watcher::stop())
-on the "handle" returned by [`live_cells::watch()`](@ref live_cells::watcher::watch())\n
+on the "handle" returned by `live_cells::watch()`\n
 ```cpp
 watcher1->stop();
 ```
 
-[`live_cells::watch()`](@ref live_cells::watcher::watch()) returns a
-shared pointer (`std::shared_ptr`) holding a handle
-(`live_cells::watcher`) to the watch function. This handle provides
-the [`stop()`](@ref live_cells::watcher::stop()) method, which stops the watch function from being called
-for further changes in the cell values.
+`live_cells::watch()` returns a shared pointer (`std::shared_ptr`)
+holding a handle (`live_cells::watcher`) to the watch function. This
+handle provides the [`stop()`](@ref live_cells::watcher::stop())
+method, which stops the watch function from being called for further
+changes in the cell values.
 
 ```cpp
 // Prints: 2, 1
@@ -146,7 +145,7 @@ The watch function is also stopped automatically when the last
 
 \warning Due to the watch function being stopped automatically on
 destruction, you should always assign the handle returned by
-[`live_cells::watch()`](@ref live_cells::watcher::watch()) to a
+`live_cells::watch()` to a
 variable, even if you don't intend on using it directly. If you don't
 assign it to a variable or store it in a class member, the handle will
 be destroyed immediately and the watch will not be called when the
@@ -246,7 +245,7 @@ a = 15, b = 3
 
 1. `a = 0, b = 1` is printed when the watch function is first defined.
 2. `a = 15, b = 3` is printed when the function provided to
-   [`live_cells::watch()`](@ref live_cells::watcher::watch()) returns.
+   `live_cells::watch()` returns.
 
 
 \note A watch function is always called once immediately after it is
@@ -416,7 +415,7 @@ few points to keep in mind when using cells:
    ```
    
    That's why, as you've probably noticed, the lambda functions
-   provided to [`live_cells::watch()`](@ref live_cells::watcher::watch()) and `live_cells::computed()` capture
+   provided to `live_cells::watch()` and `live_cells::computed()` capture
    cells by value, not by reference.
    
    The cell state holds the cell's value and its observers.
@@ -424,11 +423,10 @@ few points to keep in mind when using cells:
 2. If a lambda function can escape its scope, capture cells by value
    not by reference. 
    
-   Both [`live_cells::watch()`](@ref live_cells::watcher::watch()) and
-   `live_cells::computed()` store a copy of the lambda which can
-   potentially outlive the scope in which the lambda function is
-   defined. If a cell is captured by reference in this case, it ends up
-   as a dangling reference.
+   Both `live_cells::watch()` and `live_cells::computed()` store a
+   copy of the lambda which can potentially outlive the scope in which
+   the lambda function is defined. If a cell is captured by reference
+   in this case, it ends up as a dangling reference.
    
    On the other hand, `live_cells::batch()` neither copies nor stores
    the function provided to it but only calls it immediately. Thus it

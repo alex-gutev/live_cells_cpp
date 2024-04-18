@@ -243,8 +243,7 @@ that holds the values `false`.
 
 What if you want to use the value of a cell in a computed cell but
 don't want changes to that cell's value triggering a recomputation?
-The [`live_cells::peek()`](@ref live_cells::peek_cell::peek) function
-allows you to do exactly that.
+The `live_cells::peek()` function allows you to do exactly that.
 
 ```cpp
 auto a = live_cells::variable(0);
@@ -269,11 +268,9 @@ triggers a recomputation of `c`, and hence triggers the watch function
 which prints to standard output, but changing the value of `b` doesn't
 trigger a recomputation of `c`.
 
-\note [`live_cells::peek()`](@ref live_cells::peek_cell::peek) returns
-a cell.
+\note `live_cells::peek()` returns a cell.
 
-You may be asking why do we need
-[live_cells::peek()](#live_cells::peek_cell::peek) here instead of
+You may be asking why do we need `live_cells::peek()` here instead of
 just accessing the value of `b` directly using `b.value()`. Something
 we've glossed over till this point is the lifecycle of cells. Cells
 are only active while they are actually observed, and are activated
@@ -284,12 +281,10 @@ observer is added, they are reactivated again. Essentially, this means
 that the value of a cell may no longer be current if it doesn't have
 at least one observer. For a computed cell this is not a problem,
 since when it is inactive it computes its value on demand, but it may
-cause issues with other cells. The
-[live_cells::peek()](#live_cells::peek_cell::peek) function takes care
-of adding an observer to the peeked cell, so that it remains active,
-but at the same time prevents the observers, added through
-[live_cells::peek()](#live_cells::peek_cell::peek), from being
-notified of changes in its value.
+cause issues with other cells. The `live_cells::peek()` function takes
+care of adding an observer to the peeked cell, so that it remains
+active, but at the same time prevents the observers, added through
+`live_cells::peek()`, from being notified of changes in its value.
 
 ## Pipe Operator
 
