@@ -18,6 +18,7 @@
 #ifndef LIVE_CELLS_KEYS_HPP
 #define LIVE_CELLS_KEYS_HPP
 
+#include <typeinfo>
 #include <functional>
 #include <memory>
 
@@ -171,9 +172,14 @@ namespace live_cells {
         bool eq(const key &other) const noexcept override {
             auto *key = dynamic_cast<const value_key<T,Ts...> *>(&other);
 
-            // TODO: Compare runtime type as well
+            if (key == nullptr) {
+                return false;
+            }
 
-            return key != nullptr && values_equal(*key);
+            const auto &t1 = typeid(*this);
+            const auto &t2 = typeid(other);
+
+            return t1 == t2 && values_equal(*key);
         }
 
         std::size_t hash() const noexcept override {
@@ -229,7 +235,14 @@ namespace live_cells {
         bool eq(const key &other) const noexcept override {
             auto *key = dynamic_cast<const value_key<T> *>(&other);
 
-            return key != nullptr && values_equal(*key);
+            if (key == nullptr) {
+                return false;
+            }
+
+            const auto &t1 = typeid(*this);
+            const auto &t2 = typeid(other);
+
+            return t1 == t2 && values_equal(*key);
         }
 
         std::size_t hash() const noexcept override {
