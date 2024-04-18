@@ -36,8 +36,8 @@ auto watcher = live_cells::watch([=] {
     }
 });
 
-a.value(20);
-b.value(90); // Prints: Sum exceeded 100!!!
+a = 20;
+b = 90; // Prints: Sum exceeded 100!!!
 ```
 
 ### Simple, powerful and maintainable

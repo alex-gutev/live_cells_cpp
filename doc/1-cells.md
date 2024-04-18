@@ -26,9 +26,9 @@ std::cout << c.value() << std::endl; // Prints the value of `someValue`
 
 ## Mutable Cells
 
-Mutable cells, created with `live_cells::variable()`, hold a value
-that can be set with the `value()` setter method, which takes the
-new value.
+Mutable cells, created with `live_cells::variable()`, which takes the
+initial value of the cell, hold a value that can be set with the
+`value()` setter method, which takes the new value.
 
 ```cpp
 auto a = live_cells::variable(0);
@@ -40,7 +40,13 @@ a.value(3);
 std::cout << a.value() << std::endl; // Prints: 3
 ```
 
-`live_cells::variable()` takes the initial value of the cell.
+The value of a mutable cell can also be set with the assignment `=`
+operator:
+
+```cpp
+// Set the value of a to 3
+a = 3;
+```
 
 ## Observing Cells
 
@@ -59,23 +65,23 @@ auto watcher = live_cells::watch([=] {
     std::cout << b();
 });
 
-a.value(5);  // Prints: 5, 1
-b.value(10); // Prints: 5, 10
+a = 5;  // Prints: 5, 1
+b = 10; // Prints: 5, 10
 ```
 
 [`live_cells::watch()`](@ref live_cells::watcher::watch()) takes a
 watch function and registers it to be called when the values of the
 cells referenced within it change. In the example above, a watch
-function that prints the values of cells `a` and `b` to the console,
-is defined. This function is called automatically when the value of
-either `a` or `b` changes.
+function that prints the values of cells `a` and `b` to standard
+output, is defined. This function is called automatically when the
+value of either `a` or `b` changes.
 
 There are a couple of important points to keep in mind when using
 [`live_cells::watch()`](@ref live_cells::watcher::watch()):
 
 * The watch function is called once immediately when
   [`live_cells::watch()`](@ref live_cells::watcher::watch()) is
-  called, to determine what cells are referenced by it.
+  called, to determine which cells are referenced by it.
   
 * [`live_cells::watch()`](@ref live_cells::watcher::watch())
   automatically tracks which cells are referenced within it, and
@@ -101,10 +107,10 @@ auto watcher2 = live_cells::watch([=] {
 
 // Prints: 20, 10
 // Also prints: A = 20
-a.value(20);
+a = 20;
 
 // Prints: 20, 1
-b.value(1);
+b = 1;
 ```
 
 The watch function defined above, `watcher2`, observes the value of
@@ -127,12 +133,12 @@ for further changes in the cell values.
 
 ```cpp
 // Prints: 2, 1
-b.value(2);
+b = 2;
 
 watcher1->stop();
 
 // Doesn't print anything
-b.value(3);
+b = 3;
 ```
 
 The watch function is also stopped automatically when the last
@@ -162,12 +168,13 @@ A *computed cell* is a cell with a value that is defined as a function
 of the values of one or more argument cells. Whenever the value of an
 argument cell changes, the value of the computed cell is recomputed.
 
-Compute cells are defined using `live_cells::computed()` which takes the
+Computed cells are defined using `live_cells::computed()` which takes the
 value computation function of the cell:
 
 ```cpp
 auto a = live_cells::variable(1);
-auto b = live_cells::variable(2)
+auto b = live_cells::variable(2);
+
 auto sum = live_cells::computed([=] {
     return a() + b()
 });
@@ -184,8 +191,8 @@ auto watcher = live_cells::watch([=] {
     std::cout << sum() << std::endl;
 });
 
-a.value(3); // Prints: The sum is 5
-b.value(4); // Prints: The sum is 7
+a = 3; // Prints: The sum is 5
+b = 4; // Prints: The sum is 7
 ```
 
 In this example:
@@ -194,16 +201,16 @@ In this example:
 2. The value of `a` is set to `3`, which:
    1. Causes the value of `sum` to be recomputed
    2. Calls the watch function defined in 1.
-3. The value of `b` is set to `4`, which likewise also results in the
-   sum being recomputed and the watch function being called.
+3. The value of `b` is set to `4`, which likewise also results in
+   `sum` being recomputed and the watch function being called.
 
 ## Batch Updates
 
 The values of multiple cells can be set simultaneously in a *batch
 update*. The effect of this is that while the values of the cells are
-changed as soon as the `value()` setter method is called, the
-observers of the cells are only notified after all the cell values
-have been set.
+changed as soon as the `value()` setter method, or assignment
+operator, is called, the observers of the cells are only notified
+after all the cell values have been set.
 
 Batch updates are performed with `live_cells::batch()`, which takes a
 function that is called to set the values of one or more cells:
@@ -220,15 +227,15 @@ auto watcher = live_cells::watch([=] {
 
 // This only prints: a = 15, b = 3
 live_cells::batch([&] {
-    a.value(15);
-    b.value(3);
+    a = 15;
+    b = 3;
 });
 ```
 
 In the example above, the values of `a` and `b` are set to `15` and
 `3` respectively, within `live_cells::batch()`. The watch function,
 which observes both `a` and `b`, is only called once after the values
-of both `a` and `b` are set within `live_cells::batch()`.
+of both `a` and `b` are set.
 
 As a result the following is printed to the console:
 
@@ -243,7 +250,7 @@ a = 15, b = 3
 
 
 \note A watch function is always called once immediately after it is
-set up. This is necessary to determine, which cells the watch function
+set up. This is necessary to determine which cells the watch function
 is observing.
 
 Alternatively a batch update can be performed by creating a
@@ -267,8 +274,8 @@ auto watcher = live_cells::watch([=] {
 {
     live_cells::batch_update b;
     
-    a.value(15);
-    b.value(3);
+    a = 15;
+    b = 3;
 } // Prints: a = 15, b = 3
 ```
 
@@ -292,10 +299,10 @@ specifies the mutable cell protocol. `MutableCell` is a superset of
 satisfies `Cell`.
 
 To define a function that takes a cell as an argument, define a
-function `template` with the `Cell` concept constrained on the
-template parameter type. For example here's a simple function `add`,
-which takes two cells and returns a computed cell that computes the
-sum of the two cells:
+function `template` with the template parameters constrained by the
+`Cell` concept. For example here's a simple function `add`, which
+takes two cells and returns a computed cell that computes the sum of
+the two cells:
 
 ```cpp
 template <live_cells::Cell A, live_cells::Cell B>
@@ -313,6 +320,8 @@ The definition of the `add` function can be simplified using C++20's template
 shorthand syntax:
 
 ```cpp
+using live_cells::Cell;
+
 auto add (const Cell auto &a, const Cell auto &b) {
     return live_cells::computed([=] {
         return a() + b();
@@ -362,7 +371,7 @@ exception is thrown.
 
 
 When the value type of the value held in the cell is known ahead of
-time, the `live_cells::typed_cell` wrapper can be used which is the
+time, the `live_cells::typed_cell` wrapper can be used, which is the
 same as `live_cells::cell` but takes the value type as a template
 parameter:
 
@@ -383,9 +392,9 @@ my_cells.push_back(ref_a);
 std::cout << ref_a.value() << std::endl;
 ```
 
-Notice there is no need to provided a value type template parameter to
+Notice there is no need to provide a value type template parameter to
 the `value()` method, because the value type (`int` in this case) is
-given in the `typed_cell` template parameter.
+already given in the `typed_cell` template parameter.
 
 ### Memory Management
 
@@ -400,7 +409,7 @@ few points to keep in mind when using cells:
    auto a = live_cells::variable(0);
    auto b = a;
    
-   a.value(10);
+   a = 10;
    
    // Prints: 10
    std::cout << b.value() << std::endl;
@@ -439,13 +448,13 @@ few points to keep in mind when using cells:
    
        // Set `ref` to `b`
        ref = live_cells::cell(b);
-   } // Th state of `c` is destroyed at this point
+   } // The state of `c` is destroyed at this point
    
    // The state of `b` is not destroyed because `ref`
    // is still holding a reference to it
    ```
 
-    In this regard cells function much like `std::shared_ptr`.
+    In this regard, cells function much like `std::shared_ptr`.
 
 4. Do not wrap a cell in `std::shared_ptr`. Whilst not wrong, its
    unnecessary because cells already have a shared pointer to their
@@ -460,7 +469,7 @@ few points to keep in mind when using cells:
    
    // The string "bye" is copied into the `std::string` held by
    // the cell.
-   a.value("bye");
+   a = "bye";
    ```
 
 ## Next

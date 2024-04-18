@@ -32,8 +32,8 @@ auto watcher = live_cells::watch([=] {
     std::cout << sum() << std::endl;
 });
 
-a.value(5); // Prints: 7
-b.value(4); // Prints: 9
+a = 5; // Prints: 7
+b = 4; // Prints: 9
 ```
 
 Expressions of cells can be arbitrarily complex:
@@ -43,8 +43,8 @@ auto x = a * b + c / d;
 auto y = x < e;
 ```
 
-\remark To include a constant in a cell expression wrap it in a cell using
-`live_cells::value()`.
+\remark Values appearing in a cell expression, e.g. `a + 1`, are
+converted to constant cells, as if by `live_cells::value()`.
 
 ## Equality
 
@@ -85,14 +85,14 @@ auto cond = a || b;
 // when cond() is true, cell() == c() else cell() == d()
 auto cell = live_cells::select(cond, c, d);
 
-a.value(true);
-c.value(1);
-d.value(2);
+a = true;
+c = 1;
+d = 2;
 
 std::cout << cell.value() << std::endl; // Prints: 1
 
-a.value(false);
-b.value(false);
+a = false;
+b = false;
 
 std::cout << cell.value() << std::endl; // Prints: 2
 ```
@@ -103,13 +103,13 @@ the cell's value will not be updated if the condition is false:
 ```cpp
 auto cell = live_cells::select(cond, c);
 
-cond.value(true);
-a.value(2);
+cond = true;
+a = 2;
 
 std::cout << cell.value() << std::endl; // Prints 2
 
-cond.value(false);
-a.value(4);
+cond = false;
+a = 4;
 
 std::cout << cell.value() << std::endl; // Prints 2
 ```
@@ -118,9 +118,9 @@ std::cout << cell.value() << std::endl; // Prints 2
 
 In the previous section we saw that `live_cells::select()` creates a
 cell which does not update its argument when the condition cell is
-`false` and its only given one argument. Under the hood, `select`
-doesn't create some special kind of cell but uses `live_cells::none()`
-to abort the computation.
+`false` and its only given an if true argument. Under the hood,
+`select` doesn't create some special kind of cell but uses
+`live_cells::none()` to abort the computation.
 
 When `live_cells::none()` is called inside a computed cell, the
 computation of the cell's value is aborted and its current value is
@@ -136,13 +136,13 @@ auto b = live_cells::computed([=] {
     return a();
 });
 
-a.value(6);
+a = 6;
 std::cout << b.value() << std::endl; // Prints 6
 
-a.value(15);
+a = 15;
 std::cout << b.value() << std::endl; // Prints 6
 
-a.value(8);
+a = 8;
 std::cout << b.value() << std::endl; // Prints 8
 ```
 
@@ -161,7 +161,7 @@ holding an invalid value.
 
 ## Exception Handling
 
-If an exception is thrown during the computation of a cell's value it
+If an exception is thrown during the computation of a cell's value, it
 is rethrown when the value is referenced. This allows exceptions to be
 handled using `try` and `catch` inside computed cells:
 
@@ -183,10 +183,10 @@ auto is_valid = live_cells::computed([=] {
 
 std::cout << is_valid.value() << std::endl; // Prints false
 
-str.value = "5";
+str = "5";
 std::cout << is_valid.value() << std::endl; // Prints true
 
-str.value = "not a number";
+str = "not a number";
 std::cout << is_valid.value() << std::endl; // Prints false
 ```
 
@@ -204,10 +204,10 @@ auto n = live_cells::computed([=] {
 // Equal to n(). If n() throws, equal to m();
 auto result = live_cells::on_error(n, m);
 
-str.value("3");
+str = "3";
 std::cout << result.value() << std::endl; // Prints 3
 
-str.value("not a number");
+str = "not a number";
 std::cout << result.value() << std::endl; // Prints 2
 ```
 
@@ -229,15 +229,14 @@ auto n = live_cells::computed([=] {
     return std::stoi(str());
 });
 
-auto isValid = on_error(
-    n > live_cells::value(0),
+auto is_valid = on_error(
+    n > 0,
     live_cells::value(false)
 );
 ```
 
-\note We used `live_cells::value(0)` and `live_cells::value(false)` to
-create constant cells that hold the values `0` and `false`,
-respectively.
+\note We used `live_cells::value(false)` to create a constant cell
+that holds the values `false`.
 
 
 ## Peeking Cells
@@ -259,9 +258,9 @@ auto watch = live_cells::watch([=] {
     std::cout << c() << std::endl;
 });
 
-a.value(3); // Prints: 4
-b.value(5); // Doesn't print anything
-a.value(7); // Prints: 13
+a = 3; // Prints: 4
+b = 5; // Doesn't print anything
+a = 7; // Prints: 13
 ```
 
 In the above example cell `c` is a computed cell referencing the value
