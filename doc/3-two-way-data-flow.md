@@ -43,7 +43,7 @@ cell `a` to a string. When the value of `str_a` is set:
 2. The value of `a` is set to the parsed `int` value.
 
 ```cpp
-str_a.value('100');
+str_a = '100';
 std::cout << (a.value() + 1) << std::endl; // Prints: 101
 ```
 
@@ -58,7 +58,7 @@ auto watcher = live_cells::watch([=] {
 });
 
 // Prints: 16
-str_a.value(15);
+str_a = '15';
 ```
 
 The value of this is that data can also flow from `a` to `str_a`:
@@ -69,7 +69,7 @@ auto watcher = live_cells::watch([=] {
 });
 
 // Prints: 7
-a.value(7);
+a = 7;
 ```
 
 ## Multiple Arguments
@@ -89,8 +89,8 @@ auto sum = live_cells::mutable_computed([=] {
 }, [=] (sum) {
     auto half = sum / 2;
 
-    a.value(half);
-    b.value(half);
+    a = half;
+    b = half;
 });
 ```
 
@@ -107,7 +107,7 @@ auto watcher = live_cells::watch([=] {
 });
 
 // Prints: 3 + 3 = 6
-sum.value(6);
+sum = 6;
 ```
 
 The value of `a` and `b` can still be set in which case, `sum`
@@ -115,8 +115,8 @@ computes the sum of the values that were set:
 
 ```cpp
 // Prints: 4 + 3 =7
-a.value(4);
+a = 4;
 
 // Prints: 4 + 10 = 14
-b.value(10);
+b = 10;
 ```
