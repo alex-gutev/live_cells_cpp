@@ -238,6 +238,25 @@ namespace live_cells {
         }
 
         /**
+         * \brief Set the value of the cell.
+         *
+         * This is equivalent to \prop value(value).
+         *
+         * \note This \c const version is provided to allow setting
+         * the value of a mutable cell within a lambda provided for
+         * the reverse computation function of a mutable computed
+         * cell.
+         *
+         * \param value The new value
+         *
+         * \return \a value
+         */
+        Parent::value_type operator=(const Parent::value_type &value) const {
+            this->value(value);
+            return value;
+        }
+
+        /**
          * \brief Set the value of the cell to \a value.
          *
          * \note Implemented using \p C::value(value).
