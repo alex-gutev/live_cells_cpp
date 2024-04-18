@@ -150,6 +150,45 @@ namespace live_cells {
             this->state->value(value);
         }
 
+        /**
+         * \brief Set the value of the cell to \a value.
+         *
+         * \note Implemented using \p C::value(value).
+         *
+         * This method triggers the reverse computation function of
+         * the cell.
+         *
+         * \param value The new value of the cell
+         *
+         * \return \a value
+         */
+        value_type operator=(const value_type &value) {
+            this->value(value);
+            return value;
+        }
+
+        /**
+         * \brief Set the value of the cell.
+         *
+         * This is equivalent to \prop value(value).
+         *
+         * This method triggers the reverse computation function of
+         * the cell.
+         *
+         * \note This \c const version is provided to allow setting
+         * the value of a mutable cell within a lambda provided for
+         * the reverse computation function of a mutable computed
+         * cell.
+         *
+         * \param value The new value
+         *
+         * \return \a value
+         */
+        value_type operator=(const value_type &value) const {
+            this->value(value);
+            return value;
+        }
+
         value_type operator()() const {
             argument_tracker::global().track_argument(*this);
             return value();
