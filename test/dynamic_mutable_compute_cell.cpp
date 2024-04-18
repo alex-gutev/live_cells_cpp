@@ -573,4 +573,32 @@ BOOST_AUTO_TEST_CASE(exception_in_init_reproduced_on_access_while_observed) {
     BOOST_CHECK_THROW(cell.value(), an_exception);
 }
 
+BOOST_AUTO_TEST_CASE(chained_mutable_compute_cells) {
+    auto a = live_cells::variable(0);
+
+    auto b = live_cells::mutable_computed([=] {
+        return a() + 1;
+    }, [=] (auto b) {
+        a = b - 1;
+    });
+
+    auto c = live_cells::mutable_computed([=] {
+        return b() + 1;
+    }, [=] (auto c) {
+        b = c - 1;
+    });
+
+    auto obs_a = std::make_shared<value_observer<int>>(a);
+    auto obs_b = std::make_shared<value_observer<int>>(b);
+
+    auto guard1 = with_observer(a, obs_a);
+    auto guard2 = with_observer(b, obs_b);
+
+    b = 3;
+    c = 10;
+
+    obs_a->check_values({2, 8});
+    obs_b->check_values({3, 9});
+}
+
 BOOST_AUTO_TEST_SUITE_END();

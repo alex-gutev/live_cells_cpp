@@ -356,4 +356,32 @@ BOOST_AUTO_TEST_CASE(compares_not_equal_with_default_key) {
     BOOST_CHECK(!(c1 == c2));
 }
 
+BOOST_AUTO_TEST_CASE(chained_mutable_compute_cells) {
+    auto a = live_cells::variable(0);
+
+    auto b = live_cells::cell_view(a, [] (auto a) {
+        return a + 1;
+    }, [=] (auto b) {
+        a = b - 1;
+    });
+
+    auto c = live_cells::cell_view(b, [] (auto b) {
+        return b + 1;
+    }, [=] (auto c) {
+        b = c - 1;
+    });
+
+    auto obs_a = std::make_shared<value_observer<int>>(a);
+    auto obs_b = std::make_shared<value_observer<int>>(b);
+
+    auto guard1 = with_observer(a, obs_a);
+    auto guard2 = with_observer(b, obs_b);
+
+    b = 3;
+    c = 10;
+
+    obs_a->check_values({2, 8});
+    obs_b->check_values({3, 9});
+}
+
 BOOST_AUTO_TEST_SUITE_END();
