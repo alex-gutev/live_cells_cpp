@@ -263,7 +263,7 @@ namespace live_cells {
          *
          * \param value The new value of the cell
          */
-        void value(Parent::value_type value) {
+        void value(const Parent::value_type &value) const {
             Parent::cell.value(value);
         }
     };

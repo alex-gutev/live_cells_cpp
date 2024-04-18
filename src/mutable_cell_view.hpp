@@ -78,7 +78,7 @@ namespace live_cells {
          *
          * \param value The new value
          */
-        void value(value_type value) {
+        void value(value_type value) const {
             batch([&] {
                 reverse(value);
             });
