@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_CASE(value_computed_on_construction) {
     auto b = live_cells::mutable_computed(a, [] (auto a) {
         return a + 1;
     }, [=] (auto b) {
-        a.value(b - 1);
+        a = b - 1;
     });
 
     BOOST_CHECK_EQUAL(b.value(), 2);
@@ -53,12 +53,12 @@ BOOST_AUTO_TEST_CASE(value_recomputed_when_argument_cell_changes) {
     auto b = live_cells::mutable_computed(a, [] (auto a) {
         return a + 1;
     }, [=] (auto b) {
-        a.value(b - 1);
+        a = b - 1;
     });
 
     auto guard = with_observer(b, std::make_shared<simple_observer>());
 
-    a.value(5);
+    a = 5;
     BOOST_CHECK_EQUAL(b.value(), 6);
 }
 
@@ -71,13 +71,13 @@ BOOST_AUTO_TEST_CASE(value_recomputed_when_1st_argument_cell_changes) {
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
     auto guard = with_observer(c, std::make_shared<simple_observer>());
 
-    a.value(5);
+    a = 5;
     BOOST_CHECK_EQUAL(c.value(), 8);
 }
 
@@ -90,13 +90,13 @@ BOOST_AUTO_TEST_CASE(value_recomputed_when_2nd_argument_cell_changes) {
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
     auto guard = with_observer(c, std::make_shared<simple_observer>());
 
-    b.value(9);
+    b = 9;
     BOOST_CHECK_EQUAL(c.value(), 10);
 }
 
@@ -109,15 +109,15 @@ BOOST_AUTO_TEST_CASE(observers_notified_when_value_recomputed) {
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
     auto observer = std::make_shared<simple_observer>();
     auto guard = with_observer(c, observer);
 
-    b.value(9);
-    a.value(10);
+    b = 9;
+    a = 10;
 
     BOOST_CHECK_EQUAL(observer->notify_count, 2);
 }
@@ -131,8 +131,8 @@ BOOST_AUTO_TEST_CASE(observer_not_called_after_removal) {
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
     auto observer1 = std::make_shared<simple_observer>();
@@ -142,10 +142,10 @@ BOOST_AUTO_TEST_CASE(observer_not_called_after_removal) {
 
     {
         auto guard2 = with_observer(c, observer2);
-        b.value(9);
+        b = 9;
     }
 
-    a.value(10);
+    a = 10;
 
     BOOST_CHECK_EQUAL(observer1->notify_count, 2);
     BOOST_CHECK_EQUAL(observer2->notify_count, 1);
@@ -160,11 +160,11 @@ BOOST_AUTO_TEST_CASE(set_value_updates_argument_cell_values) {
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
-    c.value(10);
+    c = 10;
 
     BOOST_CHECK_EQUAL(a.value(), 5);
     BOOST_CHECK_EQUAL(b.value(), 5);
@@ -180,8 +180,8 @@ BOOST_AUTO_TEST_CASE(set_value_notifies_observers) {
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
     auto obs_a = std::make_shared<simple_observer>();
@@ -192,7 +192,7 @@ BOOST_AUTO_TEST_CASE(set_value_notifies_observers) {
     auto guard2 = with_observer(b, obs_b);
     auto guard3 = with_observer(c, obs_c);
 
-    c.value(10);
+    c = 10;
 
     BOOST_CHECK_EQUAL(obs_a->notify_count, 1);
     BOOST_CHECK_EQUAL(obs_b->notify_count, 1);
@@ -208,8 +208,8 @@ BOOST_AUTO_TEST_CASE(every_set_value_notifies_observers) {
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
     auto obs_a = std::make_shared<simple_observer>();
@@ -220,8 +220,8 @@ BOOST_AUTO_TEST_CASE(every_set_value_notifies_observers) {
     auto guard2 = with_observer(b, obs_b);
     auto guard3 = with_observer(c, obs_c);
 
-    c.value(10);
-    c.value(12);
+    c = 10;
+    c = 12;
 
     BOOST_CHECK_EQUAL(obs_a->notify_count, 2);
     BOOST_CHECK_EQUAL(obs_b->notify_count, 2);
@@ -237,8 +237,8 @@ BOOST_AUTO_TEST_CASE(consistent_state_when_setting_value_in_batch) {
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
     auto d = live_cells::variable(50);
@@ -255,8 +255,8 @@ BOOST_AUTO_TEST_CASE(consistent_state_when_setting_value_in_batch) {
     auto guard5 = with_observer(e, obs_e);
 
     live_cells::batch([&] {
-        c.value(10);
-        d.value(9);
+        c = 10;
+        d = 9;
     });
 
     obs_a->check_values({5});
@@ -274,8 +274,8 @@ BOOST_AUTO_TEST_CASE(observers_notified_correct_number_of_times_when_set_value_i
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
     auto d = live_cells::variable(50);
@@ -292,8 +292,8 @@ BOOST_AUTO_TEST_CASE(observers_notified_correct_number_of_times_when_set_value_i
     auto guard5 = with_observer(e, obs_e);
 
     live_cells::batch([&] {
-        c.value(10);
-        d.value(9);
+        c = 10;
+        d = 9;
     });
 
     BOOST_CHECK_EQUAL(obs_a->notify_count, 1);
@@ -311,8 +311,8 @@ BOOST_AUTO_TEST_CASE(all_observers_notified_correct_number_of_times_when_set_val
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
     auto c = a + sum | live_cells::ops::store;
@@ -325,18 +325,18 @@ BOOST_AUTO_TEST_CASE(all_observers_notified_correct_number_of_times_when_set_val
     auto guard2 = with_observer(d, obs_d);
 
     live_cells::batch([&] {
-        a.value(2);
-        b.value(3);
+        a = 2;
+        b = 3;
     });
 
     live_cells::batch([&] {
-        a.value(3);
-        b.value(2);
+        a = 3;
+        b = 2;
     });
 
     live_cells::batch([&] {
-        a.value(10);
-        b.value(20);
+        a = 10;
+        b = 20;
     });
 
     BOOST_CHECK_EQUAL(obs_c->notify_count, 3);
@@ -352,8 +352,8 @@ BOOST_AUTO_TEST_CASE(correct_values_produced_across_all_observers) {
     }, [=] (auto c) {
         auto half = c / 2;
 
-        a.value(half);
-        b.value(half);
+        a = half;
+        b = half;
     });
 
     auto c = a + sum | live_cells::ops::store;
@@ -366,18 +366,18 @@ BOOST_AUTO_TEST_CASE(correct_values_produced_across_all_observers) {
     auto guard2 = with_observer(d, obs_d);
 
     live_cells::batch([&] {
-        a.value(2);
-        b.value(3);
+        a = 2;
+        b = 3;
     });
 
     live_cells::batch([&] {
-        a.value(3);
-        b.value(2);
+        a = 3;
+        b = 2;
     });
 
     live_cells::batch([&] {
-        a.value(10);
-        b.value(20);
+        a = 10;
+        b = 20;
     });
 
     obs_c->check_values({7, 8, 40});
@@ -394,17 +394,17 @@ BOOST_AUTO_TEST_CASE(previous_value_preserved_when_none_used) {
 
         return a;
     }, [=] (auto v) {
-        a.value(v);
+        a = v;
     });
 
     auto obs = std::make_shared<value_observer<int>>(evens);
     auto guard = with_observer(evens, obs);
 
-    a.value(1);
-    a.value(2);
-    a.value(3);
-    a.value(4);
-    a.value(5);
+    a = 1;
+    a = 2;
+    a = 3;
+    a = 4;
+    a = 5;
 
     obs->check_values({0, 2, 4});
 }
@@ -418,7 +418,7 @@ BOOST_AUTO_TEST_CASE(exception_in_init_handled) {
 
         return a;
     }, [=] (auto v) {
-        a.value(v);
+        a = v;
     });
 
     BOOST_CHECK_THROW(cell.value(), an_exception);
@@ -433,7 +433,7 @@ BOOST_AUTO_TEST_CASE(exception_in_init_reproduced_on_access_while_observed) {
 
         return a;
     }, [=] (auto v) {
-        a.value(v);
+        a = v;
     });
 
     auto guard = with_observer(cell, std::make_shared<simple_observer>());
