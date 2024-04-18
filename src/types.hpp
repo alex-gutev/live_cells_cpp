@@ -19,6 +19,7 @@
 #define LIVE_CELLS_TYPES_HPP
 
 #include <concepts>
+#include <utility>
 
 #include "keys.hpp"
 
@@ -149,7 +150,7 @@ namespace live_cells {
      */
     template <typename C>
     concept MutableCell = Cell<C> && requires(C c) {
-        { c.value(std::declval<C::value_type>()) };
+        { c.value(std::declval<typename C::value_type>()) };
     };
 
     /**
