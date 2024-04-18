@@ -41,4 +41,11 @@
  * cells library.
  */
 
+/**
+ * \namespace live_cells::ops
+ *
+ * Provides functions which can be applied on \p Cell's using the \c |
+ * operator.
+ */
+
 #endif /* LIVE_CELLS_HPP */

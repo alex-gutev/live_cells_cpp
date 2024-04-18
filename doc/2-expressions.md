@@ -291,6 +291,49 @@ but at the same time prevents the observers, added through
 [live_cells::peek()](#live_cells::peek_cell::peek), from being
 notified of changes in its value.
 
+## Pipe Operator
+
+The `live_cells::ops` namespace provides a collection of operators
+which can be applied on cells using the `|` operator.
+
+For example the [`select`](@ref live_cells::select) function,
+introduced earlier, can also be applied on the condition cell with the
+following:
+
+```cpp
+auto cell = cond | live_cells::ops::select(c, d);
+```
+
+which is equivalent to:
+
+```cpp
+auto cell = live_cells::select(cond, c, d);
+```
+
+The `live_cells::ops` package also provides a variant of
+[`on_error`](@ref live_cells::on_error) and
+[`peek`](@ref live_cells::peek) that can be used with the pipe
+operator. This allows for a reactive pipeline to be built without
+nested function calls.
+
+```cpp
+auto cell = cond 
+	| live_cells::ops::select(a, b) 
+	| live_cells::ops::on_error(c) 
+	| live_cells::ops::peek;
+```
+
+This is equivalent to:
+
+```cpp
+auto cell = live_cells::peek(
+	live_cells::on_error(
+		live_cells::select(cond, a, b),
+		c
+	)
+);
+```
+
 ## Next
 
 The next [section](3-two-way-data-flow.md) introduces two-way data
