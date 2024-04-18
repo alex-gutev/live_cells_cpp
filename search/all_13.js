@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['select_0',['select',['../namespacelive__cells.html#a70b163d68732a15a5f7c16b69d9ba357',1,'live_cells::select(Cell auto condition, Cell auto if_true, Cell auto if_false)'],['../namespacelive__cells.html#a02e217242d1c9d867c9e71f858f3cbae',1,'live_cells::select(Cell auto condition, Cell auto if_true)']]],
+  ['select_0',['select',['../namespacelive__cells.html#a70b163d68732a15a5f7c16b69d9ba357',1,'live_cells::select(Cell auto condition, Cell auto if_true, Cell auto if_false)'],['../namespacelive__cells.html#a02e217242d1c9d867c9e71f858f3cbae',1,'live_cells::select(Cell auto condition, Cell auto if_true)'],['../namespacelive__cells_1_1ops.html#aa25117cbccbcc2aba58d31ffe52f6014',1,'live_cells::ops::select(const Cell auto &amp;if_true)'],['../namespacelive__cells_1_1ops.html#ad9c0d9c991339d6bf1d1e8cc97a062a3',1,'live_cells::ops::select(const Cell auto &amp;if_true, const Cell auto &amp;if_false)']]],
   ['selection_1',['Logic and selection',['../md_doc_22-expressions.html#autotoc_md12',1,'']]],
   ['silent_5fset_2',['silent_set',['../classlive__cells_1_1mutable__cell__state.html#a8c17d016d8b5fd9c668e349dc1320d32',1,'live_cells::mutable_cell_state']]],
-  ['simple_20powerful_20and_20maintainable_3',['Simple, powerful and maintainable',['../index.html#autotoc_md24',1,'']]],
+  ['simple_20powerful_20and_20maintainable_3',['Simple, powerful and maintainable',['../index.html#autotoc_md25',1,'']]],
   ['stale_4',['stale',['../classlive__cells_1_1compute__cell__state.html#a65a70ebc16b52c2b64e36a612f8c3bd3',1,'live_cells::compute_cell_state::stale'],['../classlive__cells_1_1mutable__compute__cell__state.html#a9cb0a7e03e0ab2aa773cbb70cb8a1067',1,'live_cells::mutable_compute_cell_state::stale']]],
-  ['started_5',['Getting Started',['../index.html#autotoc_md26',1,'']]],
+  ['started_5',['Getting Started',['../index.html#autotoc_md27',1,'']]],
   ['state_6',['state',['../classlive__cells_1_1stateful__cell.html#a050957612d87b3c2b842d37ed6808912',1,'live_cells::stateful_cell']]],
   ['state_5fmanager_7',['state_manager',['../classlive__cells_1_1state__manager.html',1,'live_cells']]],
   ['stateful_5fcell_8',['stateful_cell',['../classlive__cells_1_1stateful__cell.html',1,'live_cells::stateful_cell&lt; S &gt;'],['../classlive__cells_1_1stateful__cell.html#a2f1e1419aadbe474c58d3c5c02e33edd',1,'live_cells::stateful_cell::stateful_cell()']]],
@@ -19,7 +19,7 @@ var searchData=
   ['static_5fmutable_5fcompute_5fcell_5fstate_16',['static_mutable_compute_cell_state',['../classlive__cells_1_1static__mutable__compute__cell__state.html',1,'live_cells::static_mutable_compute_cell_state&lt; F, R &gt;'],['../classlive__cells_1_1static__mutable__compute__cell__state.html#a9c7f8fbab470bdb779bba9b9a94f356d',1,'live_cells::static_mutable_compute_cell_state::static_mutable_compute_cell_state()']]],
   ['stop_17',['stop',['../classlive__cells_1_1watcher.html#a3b7a6c9470f758750be13a603d16584c',1,'live_cells::watcher']]],
   ['stop_5fcompute_5fexception_18',['stop_compute_exception',['../structlive__cells_1_1stop__compute__exception.html',1,'live_cells']]],
-  ['store_19',['store',['../classlive__cells_1_1store__cell.html#a6e993143a49895694f90c87d65b41bae',1,'live_cells::store_cell']]],
+  ['store_19',['store',['../namespacelive__cells_1_1ops.html#ae16be11777397241d312b84b47178d6d',1,'live_cells::ops::store'],['../namespacelive__cells.html#a38d368769d765c82f756df82d619070e',1,'live_cells::store(const C &amp;arg)']]],
   ['store_5fcell_20',['store_cell',['../classlive__cells_1_1store__cell.html',1,'live_cells::store_cell&lt; C &gt;'],['../classlive__cells_1_1store__cell.html#ae43b556ee807915e3f7f575105c190b8',1,'live_cells::store_cell::store_cell()']]],
   ['store_5fcell_5fcompute_5fstate_21',['store_cell_compute_state',['../classlive__cells_1_1store__cell__compute__state.html',1,'live_cells::store_cell_compute_state&lt; C &gt;'],['../classlive__cells_1_1store__cell__compute__state.html#a0766696b33b2d72c8cfe58fa35b3737b',1,'live_cells::store_cell_compute_state::store_cell_compute_state()']]],
   ['store_5fcell_5fkey_22',['store_cell_key',['../structlive__cells_1_1store__cell__key.html',1,'live_cells']]],

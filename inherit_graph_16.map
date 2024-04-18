@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$structlive__cells_1_1internal_1_1packer_3_01S_00_01false_00_01A_00_01As_8_8_8_01_4.html" title=" " alt="" coords="5,5,163,60"/>
+<area shape="rect" id="Node000000" href="$classlive__cells_1_1stateful__cell.html" title=" " alt="" coords="5,5,232,60"/>
+<area shape="rect" id="Node000001" href="$classlive__cells_1_1dynamic__mutable__compute__cell.html" title="A mutable computed cell with the argument cells determined dynamically." alt="" coords="280,5,457,60"/>
+<area shape="poly" id="edge14_Node000000_Node000001" title=" " alt="" coords="246,30,280,30,280,35,246,35"/>
 </map>

@@ -110,7 +110,7 @@ $(function(){initNavTree('md_doc_21-cells.html',''); initResizable(); });
 <div class="line">std::cout &lt;&lt; c.value() &lt;&lt; std::endl; <span class="comment">// Prints the value of `someValue`</span></div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md1"></a>
 Mutable Cells</h1>
-<p>Mutable cells, created with <code><a class="el" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3" title="Create a new mutable cell with an initial value.">live_cells::variable()</a></code>, hold a value that can be set with the <code>value()</code> setter method, which takes the new value.</p>
+<p>Mutable cells, created with <code><a class="el" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3" title="Create a new mutable cell with an initial value.">live_cells::variable()</a></code>, which takes the initial value of the cell, hold a value that can be set with the <code>value()</code> setter method, which takes the new value.</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(0);</div>
 <div class="line"> </div>
 <div class="line">std::cout &lt;&lt; a.value() &lt;&lt; std::endl; <span class="comment">// Prints: 0</span></div>
@@ -118,83 +118,87 @@ Mutable Cells</h1>
 <div class="line"><span class="comment">// Set the value of a to 3</span></div>
 <div class="line">a.value(3);</div>
 <div class="line">std::cout &lt;&lt; a.value() &lt;&lt; std::endl; <span class="comment">// Prints: 3</span></div>
-<div class="ttc" id="anamespacelive__cells_html_ab365650aeb27f61f31622a49d4fb79a3"><div class="ttname"><a href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a></div><div class="ttdeci">mutable_cell&lt; T &gt; variable(T value)</div><div class="ttdoc">Create a new mutable cell with an initial value.</div><div class="ttdef"><b>Definition</b> mutable_cell.hpp:242</div></div>
-</div><!-- fragment --><p><code><a class="el" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3" title="Create a new mutable cell with an initial value.">live_cells::variable()</a></code> takes the initial value of the cell.</p>
-<h1><a class="anchor" id="autotoc_md2"></a>
+<div class="ttc" id="anamespacelive__cells_html_ab365650aeb27f61f31622a49d4fb79a3"><div class="ttname"><a href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a></div><div class="ttdeci">mutable_cell&lt; T &gt; variable(T value)</div><div class="ttdoc">Create a new mutable cell with an initial value.</div><div class="ttdef"><b>Definition</b> mutable_cell.hpp:276</div></div>
+</div><!-- fragment --><p>The value of a mutable cell can also be set with the assignment <code>=</code> operator:</p>
+<div class="fragment"><div class="line"><span class="comment">// Set the value of a to 3</span></div>
+<div class="line">a = 3;</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md2"></a>
 Observing Cells</h1>
-<p>When the value of a cell changes, its observers are notified of the change. The simplest way to demonstrate this is to set up a <em>watch function</em> using <a class="el" href="classlive__cells_1_1watcher.html#afcda9dba5b8d31dc3cbf62d6c84ab66c"><code>live_cells::watch()</code></a>:</p>
+<p>When the value of a cell changes, its observers are notified of the change. The simplest way to demonstrate this is to set up a <em>watch function</em> using <code><a class="el" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87" title="Register a cell watch function.">live_cells::watch()</a></code>:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(0);</div>
 <div class="line"><span class="keyword">auto</span> b = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(1);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Set up a watch function observing cells `a` and `b`</span></div>
-<div class="line"><span class="keyword">auto</span> watcher = live_cells::watch([=] {</div>
+<div class="line"><span class="keyword">auto</span> watcher = <a class="code hl_function" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a>([=] {</div>
 <div class="line">    std::cout &lt;&lt; a();</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;</div>
 <div class="line">    std::cout &lt;&lt; b();</div>
 <div class="line">});</div>
 <div class="line"> </div>
-<div class="line">a.value(5);  <span class="comment">// Prints: 5, 1</span></div>
-<div class="line">b.value(10); <span class="comment">// Prints: 5, 10</span></div>
-</div><!-- fragment --><p><a class="el" href="classlive__cells_1_1watcher.html#afcda9dba5b8d31dc3cbf62d6c84ab66c"><code>live_cells::watch()</code></a> takes a watch function and registers it to be called when the values of the cells referenced within it change. In the example above, a watch function that prints the values of cells <code>a</code> and <code>b</code> to the console, is defined. This function is called automatically when the value of either <code>a</code> or <code>b</code> changes.</p>
-<p>There are a couple of important points to keep in mind when using <a class="el" href="classlive__cells_1_1watcher.html#afcda9dba5b8d31dc3cbf62d6c84ab66c"><code>live_cells::watch()</code></a>:</p>
+<div class="line">a = 5;  <span class="comment">// Prints: 5, 1</span></div>
+<div class="line">b = 10; <span class="comment">// Prints: 5, 10</span></div>
+<div class="ttc" id="anamespacelive__cells_html_aff827bee503738afea0d4de923ca0e87"><div class="ttname"><a href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a></div><div class="ttdeci">std::shared_ptr&lt; watcher &gt; watch(F fn)</div><div class="ttdoc">Register a cell watch function.</div><div class="ttdef"><b>Definition</b> watcher.hpp:193</div></div>
+</div><!-- fragment --><p><code><a class="el" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87" title="Register a cell watch function.">live_cells::watch()</a></code> takes a watch function and registers it to be called when the values of the cells referenced within it change. In the example above, a watch function that prints the values of cells <code>a</code> and <code>b</code> to standard output, is defined. This function is called automatically when the value of either <code>a</code> or <code>b</code> changes.</p>
+<p>There are a couple of important points to keep in mind when using <code><a class="el" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87" title="Register a cell watch function.">live_cells::watch()</a></code>:</p>
 <ul>
-<li>The watch function is called once immediately when <a class="el" href="classlive__cells_1_1watcher.html#afcda9dba5b8d31dc3cbf62d6c84ab66c"><code>live_cells::watch()</code></a> is called, to determine what cells are referenced by it.</li>
-<li><a class="el" href="classlive__cells_1_1watcher.html#afcda9dba5b8d31dc3cbf62d6c84ab66c"><code>live_cells::watch()</code></a> automatically tracks which cells are referenced within it, and registers it to be called when their values change. This works even when the cells are referenced conditionally.</li>
+<li>The watch function is called once immediately when <code><a class="el" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87" title="Register a cell watch function.">live_cells::watch()</a></code> is called, to determine which cells are referenced by it.</li>
+<li><code><a class="el" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87" title="Register a cell watch function.">live_cells::watch()</a></code> automatically tracks which cells are referenced within it, and registers it to be called when their values change. This works even when the cells are referenced conditionally.</li>
 <li>Within the watch function, the values of cells have to be referenced with the function call operator, rather than the <code>value()</code> method. The difference between the two is that <code>value()</code> only references the value, whereas the function call operator also tracks it as a referenced cell.</li>
 </ul>
 <dl class="section attention"><dt>Attention</dt><dd>Within a watch function, the value of a cell is referenced using the function call syntax rather than the <code>value()</code> method.</dd></dl>
-<p>Every call to <a class="el" href="classlive__cells_1_1watcher.html#afcda9dba5b8d31dc3cbf62d6c84ab66c"><code>live_cells::watch()</code></a> adds a new watch function, for example:</p>
-<div class="fragment"><div class="line"><span class="keyword">auto</span> watcher2 = live_cells::watch([=] {</div>
+<p>Every call to <code><a class="el" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87" title="Register a cell watch function.">live_cells::watch()</a></code> adds a new watch function, for example:</p>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> watcher2 = <a class="code hl_function" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a>([=] {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;A = &quot;</span> &lt;&lt; a() &lt;&lt; std::endl;</div>
 <div class="line">});</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Prints: 20, 10</span></div>
 <div class="line"><span class="comment">// Also prints: A = 20</span></div>
-<div class="line">a.value(20);</div>
+<div class="line">a = 20;</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Prints: 20, 1</span></div>
-<div class="line">b.value(1);</div>
+<div class="line">b = 1;</div>
 </div><!-- fragment --><p>The watch function defined above, <code>watcher2</code>, observes the value of <code>a</code> only. Changing the value of <code>a</code> results in both watch functions being called. Changing the value of <code>b</code> only results in the first watch function being called, since the second watch function does not reference <code>b</code> and hence is not observing it.</p>
-<dl class="section remark"><dt>Remarks</dt><dd>When you no longer need the watch function to be called, call <a class="el" href="classlive__cells_1_1watcher.html#a3b7a6c9470f758750be13a603d16584c"><code>stop()</code></a> on the "handle" returned by <a class="el" href="classlive__cells_1_1watcher.html#afcda9dba5b8d31dc3cbf62d6c84ab66c"><code>live_cells::watch()</code></a><br  />
+<dl class="section remark"><dt>Remarks</dt><dd>When you no longer need the watch function to be called, call <a class="el" href="classlive__cells_1_1watcher.html#a3b7a6c9470f758750be13a603d16584c"><code>stop()</code></a> on the "handle" returned by <code><a class="el" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87" title="Register a cell watch function.">live_cells::watch()</a></code><br  />
 <div class="fragment"><div class="line">watcher1-&gt;stop();</div>
 </div><!-- fragment --></dd></dl>
-<p><a class="el" href="classlive__cells_1_1watcher.html#afcda9dba5b8d31dc3cbf62d6c84ab66c"><code>live_cells::watch()</code></a> returns a shared pointer (<code>std::shared_ptr</code>) holding a handle (<code><a class="el" href="classlive__cells_1_1watcher.html" title="Handle for a cell watch function.">live_cells::watcher</a></code>) to the watch function. This handle provides the <a class="el" href="classlive__cells_1_1watcher.html#a3b7a6c9470f758750be13a603d16584c"><code>stop()</code></a> method, which stops the watch function from being called for further changes in the cell values.</p>
+<p><code><a class="el" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87" title="Register a cell watch function.">live_cells::watch()</a></code> returns a shared pointer (<code>std::shared_ptr</code>) holding a handle (<code><a class="el" href="classlive__cells_1_1watcher.html" title="Handle for a cell watch function.">live_cells::watcher</a></code>) to the watch function. This handle provides the <a class="el" href="classlive__cells_1_1watcher.html#a3b7a6c9470f758750be13a603d16584c"><code>stop()</code></a> method, which stops the watch function from being called for further changes in the cell values.</p>
 <div class="fragment"><div class="line"><span class="comment">// Prints: 2, 1</span></div>
-<div class="line">b.value(2);</div>
+<div class="line">b = 2;</div>
 <div class="line"> </div>
 <div class="line">watcher1-&gt;stop();</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Doesn&#39;t print anything</span></div>
-<div class="line">b.value(3);</div>
+<div class="line">b = 3;</div>
 </div><!-- fragment --><p>The watch function is also stopped automatically when the last <code>shared_ptr</code> point to the handle, is destroyed.</p>
-<dl class="section warning"><dt>Warning</dt><dd>Due to the watch function being stopped automatically on destruction, you should always assign the handle returned by <a class="el" href="classlive__cells_1_1watcher.html#afcda9dba5b8d31dc3cbf62d6c84ab66c"><code>live_cells::watch()</code></a> to a variable, even if you don't intend on using it directly. If you don't assign it to a variable or store it in a class member, the handle will be destroyed immediately and the watch will not be called when the cell values change.<br  />
+<dl class="section warning"><dt>Warning</dt><dd>Due to the watch function being stopped automatically on destruction, you should always assign the handle returned by <code><a class="el" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87" title="Register a cell watch function.">live_cells::watch()</a></code> to a variable, even if you don't intend on using it directly. If you don't assign it to a variable or store it in a class member, the handle will be destroyed immediately and the watch will not be called when the cell values change.<br  />
 <br  />
 <b>Don't do this</b>:<br  />
 <div class="fragment"><div class="line"><span class="comment">// BAD because the watch handle is destroyed immediately,</span></div>
 <div class="line"><span class="comment">// due to it not being stored anywhere,</span></div>
 <div class="line"><span class="comment">// and thus the watch function is also stopped immediately</span></div>
-<div class="line">live_cells::watch([=] {</div>
+<div class="line"><a class="code hl_function" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a>([=] {</div>
 <div class="line">    ...</div>
 <div class="line">});</div>
 </div><!-- fragment --></dd></dl>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Computed Cells</h1>
 <p>A <em>computed cell</em> is a cell with a value that is defined as a function of the values of one or more argument cells. Whenever the value of an argument cell changes, the value of the computed cell is recomputed.</p>
-<p>Compute cells are defined using <code><a class="el" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441" title="Create a cell with a value that is a function of one or more argument cells.">live_cells::computed()</a></code> which takes the value computation function of the cell:</p>
+<p>Computed cells are defined using <code><a class="el" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441" title="Create a cell with a value that is a function of one or more argument cells.">live_cells::computed()</a></code> which takes the value computation function of the cell:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(1);</div>
-<div class="line"><span class="keyword">auto</span> b = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(2)</div>
-<div class="line">auto sum = <a class="code hl_namespace" href="namespacelive__cells.html">live_cells</a>::computed([=] {</div>
+<div class="line"><span class="keyword">auto</span> b = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(2);</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">auto</span> sum = <a class="code hl_function" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a>([=] {</div>
 <div class="line">    <span class="keywordflow">return</span> a() + b()</div>
 <div class="line">});</div>
-<div class="ttc" id="anamespacelive__cells_html"><div class="ttname"><a href="namespacelive__cells.html">live_cells</a></div><div class="ttdef"><b>Definition</b> boolean.hpp:25</div></div>
+<div class="ttc" id="anamespacelive__cells_html_a38ef71dbf501d266974a7fae279a8441"><div class="ttname"><a href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a></div><div class="ttdeci">auto computed(F &amp;&amp;compute)</div><div class="ttdoc">Create a cell with a value that is a function of one or more argument cells.</div><div class="ttdef"><b>Definition</b> computed.hpp:45</div></div>
 </div><!-- fragment --><p>In the above example, <code>sum</code> is a computed cell with the value defined as the sum of cells <code>a</code> and <code>b</code>. The value of <code>sum</code> is recomputed whenever the values of either <code>a</code> or <code>b</code> change. This is demonstrated below:</p>
-<div class="fragment"><div class="line"><span class="keyword">auto</span> watcher = live_cells::watch([=] {</div>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> watcher = <a class="code hl_function" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a>([=] {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;The sum is &quot;</span>;</div>
 <div class="line">    std::cout &lt;&lt; sum() &lt;&lt; std::endl;</div>
 <div class="line">});</div>
 <div class="line"> </div>
-<div class="line">a.value(3); <span class="comment">// Prints: The sum is 5</span></div>
-<div class="line">b.value(4); <span class="comment">// Prints: The sum is 7</span></div>
+<div class="line">a = 3; <span class="comment">// Prints: The sum is 5</span></div>
+<div class="line">b = 4; <span class="comment">// Prints: The sum is 7</span></div>
 </div><!-- fragment --><p>In this example:</p>
 <ol type="1">
 <li>A watch function observing the <code>sum</code> cell is defined.</li>
@@ -203,16 +207,16 @@ Computed Cells</h1>
 <li>Calls the watch function defined in 1.</li>
 </ol>
 </li>
-<li>The value of <code>b</code> is set to <code>4</code>, which likewise also results in the sum being recomputed and the watch function being called.</li>
+<li>The value of <code>b</code> is set to <code>4</code>, which likewise also results in <code>sum</code> being recomputed and the watch function being called.</li>
 </ol>
 <h1><a class="anchor" id="autotoc_md4"></a>
 Batch Updates</h1>
-<p>The values of multiple cells can be set simultaneously in a <em>batch update</em>. The effect of this is that while the values of the cells are changed as soon as the <code>value()</code> setter method is called, the observers of the cells are only notified after all the cell values have been set.</p>
+<p>The values of multiple cells can be set simultaneously in a <em>batch update</em>. The effect of this is that while the values of the cells are changed as soon as the <code>value()</code> setter method, or assignment operator, is called, the observers of the cells are only notified after all the cell values have been set.</p>
 <p>Batch updates are performed with <code><a class="el" href="namespacelive__cells.html#a7b04ad09f594427e1650b75047540f80" title="Batch changes to the values of mutable cells.">live_cells::batch()</a></code>, which takes a function that is called to set the values of one or more cells:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(0);</div>
 <div class="line"><span class="keyword">auto</span> b = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(1);</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">auto</span> watcher = live_cells::watch([=] {</div>
+<div class="line"><span class="keyword">auto</span> watcher = <a class="code hl_function" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a>([=] {</div>
 <div class="line">    std::cout &lt;&lt; a();</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;</div>
 <div class="line">    std::cout &lt;&lt; b();</div>
@@ -220,25 +224,25 @@ Batch Updates</h1>
 <div class="line"> </div>
 <div class="line"><span class="comment">// This only prints: a = 15, b = 3</span></div>
 <div class="line"><a class="code hl_function" href="namespacelive__cells.html#a7b04ad09f594427e1650b75047540f80">live_cells::batch</a>([&amp;] {</div>
-<div class="line">    a.value(15);</div>
-<div class="line">    b.value(3);</div>
+<div class="line">    a = 15;</div>
+<div class="line">    b = 3;</div>
 <div class="line">});</div>
-<div class="ttc" id="anamespacelive__cells_html_a7b04ad09f594427e1650b75047540f80"><div class="ttname"><a href="namespacelive__cells.html#a7b04ad09f594427e1650b75047540f80">live_cells::batch</a></div><div class="ttdeci">void batch(F fn)</div><div class="ttdoc">Batch changes to the values of mutable cells.</div><div class="ttdef"><b>Definition</b> mutable_cell.hpp:273</div></div>
-</div><!-- fragment --><p>In the example above, the values of <code>a</code> and <code>b</code> are set to <code>15</code> and <code>3</code> respectively, within <code><a class="el" href="namespacelive__cells.html#a7b04ad09f594427e1650b75047540f80" title="Batch changes to the values of mutable cells.">live_cells::batch()</a></code>. The watch function, which observes both <code>a</code> and <code>b</code>, is only called once after the values of both <code>a</code> and <code>b</code> are set within <code><a class="el" href="namespacelive__cells.html#a7b04ad09f594427e1650b75047540f80" title="Batch changes to the values of mutable cells.">live_cells::batch()</a></code>.</p>
+<div class="ttc" id="anamespacelive__cells_html_a7b04ad09f594427e1650b75047540f80"><div class="ttname"><a href="namespacelive__cells.html#a7b04ad09f594427e1650b75047540f80">live_cells::batch</a></div><div class="ttdeci">void batch(F fn)</div><div class="ttdoc">Batch changes to the values of mutable cells.</div><div class="ttdef"><b>Definition</b> mutable_cell.hpp:307</div></div>
+</div><!-- fragment --><p>In the example above, the values of <code>a</code> and <code>b</code> are set to <code>15</code> and <code>3</code> respectively, within <code><a class="el" href="namespacelive__cells.html#a7b04ad09f594427e1650b75047540f80" title="Batch changes to the values of mutable cells.">live_cells::batch()</a></code>. The watch function, which observes both <code>a</code> and <code>b</code>, is only called once after the values of both <code>a</code> and <code>b</code> are set.</p>
 <p>As a result the following is printed to the console:</p>
 <div class="fragment"><div class="line">a = 0, b = 1</div>
 <div class="line">a = 15, b = 3</div>
 </div><!-- fragment --><ol type="1">
 <li><code>a = 0, b = 1</code> is printed when the watch function is first defined.</li>
-<li><code>a = 15, b = 3</code> is printed when the function provided to <a class="el" href="classlive__cells_1_1watcher.html#afcda9dba5b8d31dc3cbf62d6c84ab66c"><code>live_cells::watch()</code></a> returns.</li>
+<li><code>a = 15, b = 3</code> is printed when the function provided to <code><a class="el" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87" title="Register a cell watch function.">live_cells::watch()</a></code> returns.</li>
 </ol>
-<dl class="section note"><dt>Note</dt><dd>A watch function is always called once immediately after it is set up. This is necessary to determine, which cells the watch function is observing.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>A watch function is always called once immediately after it is set up. This is necessary to determine which cells the watch function is observing.</dd></dl>
 <p>Alternatively a batch update can be performed by creating a <code><a class="el" href="classlive__cells_1_1batch__update.html" title="Defer changes to the values of mutable cells.">live_cells::batch_update</a></code> in a given scope. The batching comes into effect when the <code>batch_update</code> is created and the cell values are updated when the <code>batch_update</code> is destroyed (on leaving the scope).</p>
 <p>The following is equivalent to the previous example using <code><a class="el" href="namespacelive__cells.html#a7b04ad09f594427e1650b75047540f80" title="Batch changes to the values of mutable cells.">live_cells::batch()</a></code>:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(0);</div>
 <div class="line"><span class="keyword">auto</span> b = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(1);</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">auto</span> watcher = live_cells::watch([=] {</div>
+<div class="line"><span class="keyword">auto</span> watcher = <a class="code hl_function" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a>([=] {</div>
 <div class="line">    std::cout &lt;&lt; a();</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;</div>
 <div class="line">    std::cout &lt;&lt; b();</div>
@@ -247,8 +251,8 @@ Batch Updates</h1>
 <div class="line">{</div>
 <div class="line">    <a class="code hl_class" href="classlive__cells_1_1batch__update.html">live_cells::batch_update</a> b;</div>
 <div class="line">    </div>
-<div class="line">    a.value(15);</div>
-<div class="line">    b.value(3);</div>
+<div class="line">    a = 15;</div>
+<div class="line">    b = 3;</div>
 <div class="line">} <span class="comment">// Prints: a = 15, b = 3</span></div>
 <div class="ttc" id="aclasslive__cells_1_1batch__update_html"><div class="ttname"><a href="classlive__cells_1_1batch__update.html">live_cells::batch_update</a></div><div class="ttdoc">Defer changes to the values of mutable cells.</div><div class="ttdef"><b>Definition</b> mutable_cell.hpp:44</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md5"></a>
@@ -256,21 +260,23 @@ Cell Types</h1>
 <p>In the examples till this point we've been using <code>auto</code> to declare the variables holding our cells. This is because the actual type varies depending on the type of cell (constant cell, mutable cell, computed cell, etc.) and also on the parameters used to create the cell. For example, the type of a computed cell depends on the value computation function.</p>
 <p>All cell types satisfy the <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">live_cells::Cell</a></code> concept, which specifies the cell protocol. We've already used two methods specified by the <code>Cell</code> concept, the <code>value()</code> getter method and the function call operator overload.</p>
 <dl class="section note"><dt>Note</dt><dd>Mutable cells satisfy the <code><a class="el" href="conceptlive__cells_1_1MutableCell.html" title="Concept defining a Cell that can have its value set.">live_cells::MutableCell</a></code> concept, which specifies the mutable cell protocol. <code>MutableCell</code> is a superset of <code>Cell</code>, which means that every type that satisfies <code>MutableCell</code> also satisfies <code>Cell</code>.</dd></dl>
-<p>To define a function that takes a cell as an argument, define a function <code>template</code> with the <code>Cell</code> concept constrained on the template parameter type. For example here's a simple function <code>add</code>, which takes two cells and returns a computed cell that computes the sum of the two cells:</p>
+<p>To define a function that takes a cell as an argument, define a function <code>template</code> with the template parameters constrained by the <code>Cell</code> concept. For example here's a simple function <code>add</code>, which takes two cells and returns a computed cell that computes the sum of the two cells:</p>
 <div class="fragment"><div class="line"><span class="keyword">template</span> &lt;live_cells::Cell A, live_cells::Cell B&gt;</div>
 <div class="line"><span class="keyword">auto</span> add(<span class="keyword">const</span> A &amp;a, <span class="keyword">const</span> B &amp;b) {</div>
 <div class="line">    <span class="keywordflow">return</span> <a class="code hl_function" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a>([=] {</div>
 <div class="line">        <span class="keywordflow">return</span> a() + b();</div>
 <div class="line">    });</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacelive__cells_html_a38ef71dbf501d266974a7fae279a8441"><div class="ttname"><a href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a></div><div class="ttdeci">auto computed(F &amp;&amp;compute)</div><div class="ttdoc">Create a cell with a value that is a function of one or more argument cells.</div><div class="ttdef"><b>Definition</b> computed.hpp:45</div></div>
 </div><!-- fragment --><p>This ensures that only an object that implements the cell protocol can be provided for <code>a</code> and <code>b</code>.</p>
 <p>The definition of the <code>add</code> function can be simplified using C++20's template shorthand syntax:</p>
-<div class="fragment"><div class="line"><span class="keyword">auto</span> add (<span class="keyword">const</span> Cell <span class="keyword">auto</span> &amp;a, <span class="keyword">const</span> Cell <span class="keyword">auto</span> &amp;b) {</div>
+<div class="fragment"><div class="line"><span class="keyword">using </span><a class="code hl_concept" href="conceptlive__cells_1_1Cell.html">live_cells::Cell</a>;</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">auto</span> add (<span class="keyword">const</span> Cell <span class="keyword">auto</span> &amp;a, <span class="keyword">const</span> Cell <span class="keyword">auto</span> &amp;b) {</div>
 <div class="line">    <span class="keywordflow">return</span> <a class="code hl_function" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a>([=] {</div>
 <div class="line">        <span class="keywordflow">return</span> a() + b();</div>
 <div class="line">    });</div>
 <div class="line">}</div>
+<div class="ttc" id="aconceptlive__cells_1_1Cell_html"><div class="ttname"><a href="conceptlive__cells_1_1Cell.html">live_cells::Cell</a></div><div class="ttdoc">Defines the cell protocol.</div><div class="ttdef"><b>Definition</b> types.hpp:125</div></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
 Dynamically Typed Cells</h2>
 <p>The <code>Cell</code> concept and <code>auto</code> limits you to cells for which the exact type is known at compile-time. This means you cannot use them to store cells of unrelated, and unknown, types in a container such as <code>std::vector</code>.</p>
@@ -294,7 +300,7 @@ Dynamically Typed Cells</h2>
 <div class="line">std::cout &lt;&lt; ref_a.value&lt;<span class="keywordtype">int</span>&gt;() &lt;&lt; std::endl;</div>
 <div class="ttc" id="aclasslive__cells_1_1cell_html"><div class="ttname"><a href="classlive__cells_1_1cell.html">live_cells::cell</a></div><div class="ttdoc">Dynamically typed Cell container.</div><div class="ttdef"><b>Definition</b> observable.hpp:130</div></div>
 </div><!-- fragment --><dl class="section attention"><dt>Attention</dt><dd>The template type parameter provided to <code>value</code> has to match the type of the value held in the cell exactly, otherwise an <code>std::bad_cast</code> exception is thrown.</dd></dl>
-<p>When the value type of the value held in the cell is known ahead of time, the <code><a class="el" href="classlive__cells_1_1typed__cell.html" title="Dynamically typed Cell container with a static value type.">live_cells::typed_cell</a></code> wrapper can be used which is the same as <code><a class="el" href="classlive__cells_1_1cell.html" title="Dynamically typed Cell container.">live_cells::cell</a></code> but takes the value type as a template parameter:</p>
+<p>When the value type of the value held in the cell is known ahead of time, the <code><a class="el" href="classlive__cells_1_1typed__cell.html" title="Dynamically typed Cell container with a static value type.">live_cells::typed_cell</a></code> wrapper can be used, which is the same as <code><a class="el" href="classlive__cells_1_1cell.html" title="Dynamically typed Cell container.">live_cells::cell</a></code> but takes the value type as a template parameter:</p>
 <div class="fragment"><div class="line"><span class="comment">// A vector that can hold cells of any type that hold an `int`</span></div>
 <div class="line">std::vector&lt;live_cells::typed_cell&lt;int&gt;&gt; my_cells;</div>
 <div class="line"> </div>
@@ -309,7 +315,7 @@ Dynamically Typed Cells</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Prints: 0</span></div>
 <div class="line">std::cout &lt;&lt; ref_a.value() &lt;&lt; std::endl;</div>
-</div><!-- fragment --><p>Notice there is no need to provided a value type template parameter to the <code>value()</code> method, because the value type (<code>int</code> in this case) is given in the <code>typed_cell</code> template parameter.</p>
+</div><!-- fragment --><p>Notice there is no need to provide a value type template parameter to the <code>value()</code> method, because the value type (<code>int</code> in this case) is already given in the <code>typed_cell</code> template parameter.</p>
 <h2><a class="anchor" id="autotoc_md7"></a>
 Memory Management</h2>
 <p>Cells mostly take care of their own memory management, but there are a few points to keep in mind when using cells:</p>
@@ -318,15 +324,15 @@ Memory Management</h2>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(0);</div>
 <div class="line"><span class="keyword">auto</span> b = a;</div>
 <div class="line"> </div>
-<div class="line">a.value(10);</div>
+<div class="line">a = 10;</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Prints: 10</span></div>
 <div class="line">std::cout &lt;&lt; b.value() &lt;&lt; std::endl;</div>
-</div><!-- fragment --><p class="startli">That's why, as you've probably noticed, the lambda functions provided to <a class="el" href="classlive__cells_1_1watcher.html#afcda9dba5b8d31dc3cbf62d6c84ab66c"><code>live_cells::watch()</code></a> and <code><a class="el" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441" title="Create a cell with a value that is a function of one or more argument cells.">live_cells::computed()</a></code> capture cells by value, not by reference.</p>
+</div><!-- fragment --><p class="startli">That's why, as you've probably noticed, the lambda functions provided to <code><a class="el" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87" title="Register a cell watch function.">live_cells::watch()</a></code> and <code><a class="el" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441" title="Create a cell with a value that is a function of one or more argument cells.">live_cells::computed()</a></code> capture cells by value, not by reference.</p>
 <p class="startli">The cell state holds the cell's value and its observers.</p>
 </li>
 <li><p class="startli">If a lambda function can escape its scope, capture cells by value not by reference.</p>
-<p class="startli">Both <a class="el" href="classlive__cells_1_1watcher.html#afcda9dba5b8d31dc3cbf62d6c84ab66c"><code>live_cells::watch()</code></a> and <code><a class="el" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441" title="Create a cell with a value that is a function of one or more argument cells.">live_cells::computed()</a></code> store a copy of the lambda which can potentially outlive the scope in which the lambda function is defined. If a cell is captured by reference in this case, it ends up as a dangling reference.</p>
+<p class="startli">Both <code><a class="el" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87" title="Register a cell watch function.">live_cells::watch()</a></code> and <code><a class="el" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441" title="Create a cell with a value that is a function of one or more argument cells.">live_cells::computed()</a></code> store a copy of the lambda which can potentially outlive the scope in which the lambda function is defined. If a cell is captured by reference in this case, it ends up as a dangling reference.</p>
 <p class="startli">On the other hand, <code><a class="el" href="namespacelive__cells.html#a7b04ad09f594427e1650b75047540f80" title="Batch changes to the values of mutable cells.">live_cells::batch()</a></code> neither copies nor stores the function provided to it but only calls it immediately. Thus it is safe to use capture by reference in this case. However, when in doubt capture by value.</p>
 </li>
 <li><p class="startli">The state of a cell is destroyed when the last cell referencing it is destroyed.</p>
@@ -339,11 +345,11 @@ Memory Management</h2>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Set `ref` to `b`</span></div>
 <div class="line">    ref = <a class="code hl_class" href="classlive__cells_1_1cell.html">live_cells::cell</a>(b);</div>
-<div class="line">} <span class="comment">// Th state of `c` is destroyed at this point</span></div>
+<div class="line">} <span class="comment">// The state of `c` is destroyed at this point</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// The state of `b` is not destroyed because `ref`</span></div>
 <div class="line"><span class="comment">// is still holding a reference to it</span></div>
-</div><!-- fragment --><p class="startli">In this regard cells function much like <code>std::shared_ptr</code>.</p>
+</div><!-- fragment --><p class="startli">In this regard, cells function much like <code>std::shared_ptr</code>.</p>
 </li>
 <li>Do not wrap a cell in <code>std::shared_ptr</code>. Whilst not wrong, its unnecessary because cells already have a shared pointer to their underlying state. Therefore, it's best to simply copy the cell, whether statically or dynamically typed.</li>
 <li><p class="startli">Mutable cell values are assigned by value, not by reference. This probably goes without saying but its best to state it explicitly</p>
@@ -351,7 +357,7 @@ Memory Management</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// The string &quot;bye&quot; is copied into the `std::string` held by</span></div>
 <div class="line"><span class="comment">// the cell.</span></div>
-<div class="line">a.value(<span class="stringliteral">&quot;bye&quot;</span>);</div>
+<div class="line">a = <span class="stringliteral">&quot;bye&quot;</span>;</div>
 </div><!-- fragment --></li>
 </ol>
 <h1><a class="anchor" id="autotoc_md8"></a>

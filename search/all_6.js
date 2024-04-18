@@ -1,7 +1,7 @@
 var searchData=
 [
   ['data_20flow_0',['3. Two-Way Data Flow',['../md_doc_23-two-way-data-flow.html',1,'']]],
-  ['declarative_1',['Declarative',['../index.html#autotoc_md22',1,'']]],
+  ['declarative_1',['Declarative',['../index.html#autotoc_md23',1,'']]],
   ['dependent_5fcell_2',['dependent_cell',['../classlive__cells_1_1dependent__cell.html',1,'live_cells::dependent_cell&lt; Ts &gt;'],['../classlive__cells_1_1dependent__cell.html#a303a5472014d6f1f2c1557af3a817072',1,'live_cells::dependent_cell::dependent_cell()']]],
   ['dependent_5fcell_3c_20ts_2e_2e_2e_20_3e_3',['dependent_cell&lt; Ts... &gt;',['../classlive__cells_1_1dependent__cell.html',1,'live_cells']]],
   ['dynamic_5fcompute_5fcell_4',['dynamic_compute_cell',['../classlive__cells_1_1dynamic__compute__cell.html',1,'live_cells::dynamic_compute_cell&lt; F &gt;'],['../classlive__cells_1_1dynamic__compute__cell.html#a02a193356bcb34a1662c222ffd8f4b28',1,'live_cells::dynamic_compute_cell::dynamic_compute_cell(F compute)'],['../classlive__cells_1_1dynamic__compute__cell.html#a960a8b5d5b5e68ae1071c3a877c045b3',1,'live_cells::dynamic_compute_cell::dynamic_compute_cell(key_ref key, F compute)']]],

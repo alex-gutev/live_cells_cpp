@@ -1,23 +1,6 @@
 var annotated_dup =
 [
     [ "live_cells", "namespacelive__cells.html", [
-      [ "internal", null, [
-        [ "count_args", "structlive__cells_1_1internal_1_1count__args.html", null ],
-        [ "count_args< T, Ts... >", "structlive__cells_1_1internal_1_1count__args_3_01T_00_01Ts_8_8_8_01_4.html", null ],
-        [ "count_args<>", "structlive__cells_1_1internal_1_1count__args_3_4.html", null ],
-        [ "eq_cell_key", "structlive__cells_1_1internal_1_1eq__cell__key.html", "structlive__cells_1_1internal_1_1eq__cell__key" ],
-        [ "is_at_least", "structlive__cells_1_1internal_1_1is__at__least.html", null ],
-        [ "is_size", "structlive__cells_1_1internal_1_1is__size.html", null ],
-        [ "mutable_cell_ref", "structlive__cells_1_1internal_1_1mutable__cell__ref.html", null ],
-        [ "neq_cell_key", "structlive__cells_1_1internal_1_1neq__cell__key.html", "structlive__cells_1_1internal_1_1neq__cell__key" ],
-        [ "packer", "structlive__cells_1_1internal_1_1packer.html", null ],
-        [ "packer< S, false, A, As... >", "structlive__cells_1_1internal_1_1packer_3_01S_00_01false_00_01A_00_01As_8_8_8_01_4.html", null ],
-        [ "packer< S, true, As... >", "structlive__cells_1_1internal_1_1packer_3_01S_00_01true_00_01As_8_8_8_01_4.html", null ],
-        [ "ref_base", "structlive__cells_1_1internal_1_1ref__base.html", null ],
-        [ "typed_ref", "structlive__cells_1_1internal_1_1typed__ref.html", null ],
-        [ "typed_ref< C >", "structlive__cells_1_1internal_1_1typed__ref_3_01C_01_4.html", null ],
-        [ "typed_ref_base", "structlive__cells_1_1internal_1_1typed__ref__base.html", null ]
-      ] ],
       [ "argument_tracker", "classlive__cells_1_1argument__tracker.html", "classlive__cells_1_1argument__tracker" ],
       [ "batch_update", "classlive__cells_1_1batch__update.html", null ],
       [ "cell", "classlive__cells_1_1cell.html", "classlive__cells_1_1cell" ],

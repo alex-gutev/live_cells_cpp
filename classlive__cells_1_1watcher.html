@@ -95,7 +95,6 @@ $(function(){initNavTree('classlive__cells_1_1watcher.html',''); initResizable()
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#related">Related Symbols</a> &#124;
 <a href="classlive__cells_1_1watcher-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">live_cells::watcher Class Reference</div></div>
 </div><!--header-->
@@ -145,15 +144,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3b7a6c9470f758750be13a603d16584c" id="r_a3b7a6c9470f758750be13a603d16584c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b7a6c9470f758750be13a603d16584c">stop</a> ()</td></tr>
 <tr class="memdesc:a3b7a6c9470f758750be13a603d16584c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the watch function.  <br /></td></tr>
 <tr class="separator:a3b7a6c9470f758750be13a603d16584c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="related" name="related"></a>
-Related Symbols</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p>(Note that these are not member symbols.) </p>
-</td></tr>
-<tr class="memitem:afcda9dba5b8d31dc3cbf62d6c84ab66c" id="r_afcda9dba5b8d31dc3cbf62d6c84ab66c"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> F &gt; </td></tr>
-<tr class="memitem:afcda9dba5b8d31dc3cbf62d6c84ab66c"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classlive__cells_1_1watcher.html">watcher</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#afcda9dba5b8d31dc3cbf62d6c84ab66c">watch</a> (F <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">fn</a>)</td></tr>
-<tr class="memdesc:afcda9dba5b8d31dc3cbf62d6c84ab66c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a cell watch function.  <br /></td></tr>
-<tr class="separator:afcda9dba5b8d31dc3cbf62d6c84ab66c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handle for a cell watch function. </p>
@@ -221,46 +211,6 @@ template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html"
 
 <p>Remove the watch function. </p>
 <p>The watch function will no longer be called after calling this method. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
-<a id="afcda9dba5b8d31dc3cbf62d6c84ab66c" name="afcda9dba5b8d31dc3cbf62d6c84ab66c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcda9dba5b8d31dc3cbf62d6c84ab66c">&#9670;&#160;</a></span>watch()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> F &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt; <a class="el" href="classlive__cells_1_1watcher.html">watcher</a> &gt; watch </td>
-          <td>(</td>
-          <td class="paramtype">F</td>          <td class="paramname"><span class="paramname"><em>fn</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">related</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Register a cell watch function. </p>
-<p>The function <em>fn</em> is called whenever the values of the cells referenced within it change.</p>
-<p><em>fn</em> is always called once immediately before this function returns, to determine which cells it references.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fn</td><td>A function of no arguments.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A shared pointer to a watch handle.<br  />
- The watch function is called for all changes to the values of the argument cells until the watch handle is destroyed, or its <code><a class="el" href="#a3b7a6c9470f758750be13a603d16584c" title="Remove the watch function.">watcher::stop()</a></code> method is called. </dd></dl>
 
 </div>
 </div>

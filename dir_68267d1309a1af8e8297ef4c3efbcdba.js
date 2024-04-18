@@ -17,7 +17,7 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "make_cell.hpp", "make__cell_8hpp_source.html", null ],
     [ "merged_observable.hpp", "merged__observable_8hpp_source.html", null ],
     [ "mutable_cell.hpp", "mutable__cell_8hpp_source.html", null ],
-    [ "mutable_cell_view.hpp", "mutable__cell__view_8hpp.html", "mutable__cell__view_8hpp" ],
+    [ "mutable_cell_view.hpp", "mutable__cell__view_8hpp_source.html", null ],
     [ "mutable_compute_cell_state.hpp", "mutable__compute__cell__state_8hpp_source.html", null ],
     [ "mutable_computed.hpp", "mutable__computed_8hpp_source.html", null ],
     [ "numeric.hpp", "numeric_8hpp_source.html", null ],
