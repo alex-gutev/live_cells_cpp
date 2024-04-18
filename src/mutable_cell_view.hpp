@@ -15,8 +15,6 @@
  * permissions and limitations under the License.
  */
 
-/** \file */
-
 #ifndef LIVE_CELLS_MUTABLE_CELL_VIEW_HPP
 #define LIVE_CELLS_MUTABLE_CELL_VIEW_HPP
 

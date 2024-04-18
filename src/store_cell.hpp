@@ -171,8 +171,6 @@ namespace live_cells {
     };
 
     /**
-     * \relates store_cell
-     *
      * \brief Create a \p Cell that caches the value of another \p
      * Cell.
      *

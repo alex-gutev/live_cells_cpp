@@ -174,8 +174,6 @@ namespace live_cells {
     };
 
     /**
-     * \relates watcher
-     *
      * \brief Register a cell watch function.
      *
      * The function \a fn is called whenever the values of the cells

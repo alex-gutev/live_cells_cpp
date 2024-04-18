@@ -218,8 +218,6 @@ namespace live_cells {
 
 
     /**
-     * \relates static_mutable_compute_cell
-     *
      * \brief Create a \p static_mutable_compute_cell with compute
      * function \a compute, reverse compute function \a reverse and
      * arguments \a args.

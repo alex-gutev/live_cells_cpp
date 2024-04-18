@@ -119,8 +119,6 @@ namespace live_cells {
     };
 
     /**
-     * \relates peek_cell
-     *
      * \brief Create a \p Cell that reads the value of \a cell but does
      * not notify its observers when the value has changes.
      *
