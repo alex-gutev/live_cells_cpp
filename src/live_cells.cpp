@@ -73,7 +73,9 @@ void live_cells::cell_state::remove_observer(observer::ref o) {
 }
 
 void live_cells::cell_state::notify_will_update() {
-    for (auto entry : observers) {
+    auto obs_set = observers;
+
+    for (auto entry : obs_set) {
         try {
             entry.first->will_update(key_);
         }
@@ -84,7 +86,9 @@ void live_cells::cell_state::notify_will_update() {
 }
 
 void live_cells::cell_state::notify_update() {
-    for (auto entry : observers) {
+    auto obs_set = observers;
+
+    for (auto entry : obs_set) {
         try {
             entry.first->update(key_);
         }
