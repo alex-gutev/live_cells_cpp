@@ -1,3 +1,8 @@
+# 0.2.1-beta - 2023-04-21
+
+* Fix potential bug caused by adding an observer to a cell while it is
+  notifying its observers.
+
 # 0.2.0-beta - 2023-04-18
 
 New features:
