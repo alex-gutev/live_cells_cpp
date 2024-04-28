@@ -137,17 +137,30 @@ namespace live_cells {
              */
             bool is_updating = false;
 
+            /**
+             * \brief Is this observer waiting for a call to \p
+             * update() with \c changed equal to \c false?
+             */
+            bool waiting_for_change = false;
+
 
             /* observer methods */
 
             void will_update(const key_ref &k) override {
-                is_updating = true;
+                if (!is_updating) {
+                    is_updating = true;
+                    waiting_for_change = false;
+                }
             }
 
-            void update(const key_ref &k) override {
-                if (is_updating) {
+            void update(const key_ref &k, bool changed) override {
+                if (is_updating || (changed && waiting_for_change)) {
                     is_updating = false;
-                    call_with_tracker();
+                    waiting_for_change = !changed;
+
+                    if (changed) {
+                        call_with_tracker();
+                    }
                 }
             }
 

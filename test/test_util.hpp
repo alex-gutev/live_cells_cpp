@@ -19,6 +19,7 @@
 #define TEST_LIVE_CELLS_TEST_UTIL_HPP
 
 #include <initializer_list>
+#include <cassert>
 
 #include "observable.hpp"
 
@@ -34,7 +35,7 @@ struct simple_observer : live_cells::observer {
 
     void will_update(const live_cells::key_ref &k) override {}
 
-    void update(const live_cells::key_ref &k) override {
+    void update(const live_cells::key_ref &k, bool changed) override {
         notify_count++;
     }
 };
@@ -63,13 +64,36 @@ struct value_observer : live_cells::observer {
     value_observer(const live_cells::cell &cell) :
         cell(cell) {}
 
-    void will_update(const live_cells::key_ref &k) override {}
+    void will_update(const live_cells::key_ref &k) override {
+        if (!updating) {
+            assert(notify_count == 0);
 
-    void update(const live_cells::key_ref &k) override {
-        auto value = cell.value<T>();
+            updating = true;
+            notify_count = 0;
+            has_changed = false;
+        }
 
-        if (values.empty() || values.back() != value) {
-            values.push_back(value);
+        notify_count++;
+    }
+
+    void update(const live_cells::key_ref &k, bool changed) override {
+        if (updating) {
+            assert(notify_count > 0);
+
+            has_changed = has_changed || changed;
+
+            if (--notify_count == 0) {
+                updating = false;
+
+                if (has_changed) {
+                    // TODO: Surround with try-catch
+                    auto value = cell.value<T>();
+
+                    if (values.empty() || values.back() != value) {
+                        values.push_back(value);
+                    }
+                }
+            }
         }
     }
 
@@ -90,6 +114,11 @@ struct value_observer : live_cells::observer {
             ++it;
         }
     }
+
+private:
+    bool updating = false;
+    int notify_count = 0;
+    bool has_changed = false;
 };
 
 /**

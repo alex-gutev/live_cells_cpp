@@ -21,10 +21,12 @@
 #include <memory>
 #include <utility>
 #include <concepts>
+#include <cassert>
 
 #include "observable.hpp"
 #include "cell_state.hpp"
 #include "exceptions.hpp"
+#include "observer_cell_state.hpp"
 
 namespace live_cells {
 
@@ -45,7 +47,7 @@ namespace live_cells {
      * The actual computation is defined by the \p Computable \a C.
      */
     template <Computable C>
-    class compute_cell_state : public cell_state, public observer {
+    class compute_cell_state : public cell_state, public observer, public observer_cell_state {
     public:
         /**
          * \brief Shorthand for computed value type
@@ -88,17 +90,6 @@ namespace live_cells {
 
     protected:
         /**
-         * \brief Does the value have to be recomputed?
-         */
-        bool stale = true;
-
-        /**
-         * \brief Are the argument cells in the process of updating their
-         * values?
-         */
-        bool updating = false;
-
-        /**
          * \brief Compute value function.
          */
         C compute;
@@ -112,29 +103,25 @@ namespace live_cells {
         }
 
         void will_update(const key_ref &k) override {
-            if (!updating) {
-                updating = true;
-
+            handle_will_update([this] {
                 notify_will_update();
-                stale = true;
-            }
+            });
         }
 
-        void update(const key_ref &k) override {
-            if (updating) {
-                notify_update();
-                updating = false;
-            }
+        void update(const key_ref &k, bool changed) override {
+            handle_update(changed, [this] (bool changed) {
+                notify_update(changed);
+            });
         }
 
         void init() override {
             cell_state::init();
-            stale = true;
+            init_observer_state();
         }
 
         void pause() override {
             cell_state::pause();
-            stale = true;
+            pause_observer_state();
         }
 
     private:

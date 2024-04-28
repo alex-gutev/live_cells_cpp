@@ -51,8 +51,11 @@ namespace live_cells {
          * identified by \a k has changed.
          *
          * \param k identifying observable
+         *
+         * \param did_change true if the value of the cell may have
+         *    changed, false if it is know that it hasn't changed.
          */
-        virtual void update(const key_ref &k) = 0;
+        virtual void update(const key_ref &k, bool did_change) = 0;
     };
 
     /**

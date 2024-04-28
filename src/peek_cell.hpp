@@ -50,7 +50,7 @@ namespace live_cells {
             cell(cell) {}
 
         void will_update(const key_ref &k) override {}
-        void update(const key_ref &k) override {}
+        void update(const key_ref &k, bool) override {}
 
     protected:
         void init() override {

@@ -108,8 +108,12 @@ namespace live_cells {
          * \brief Notify the observers that the cell's value has changed.
          *
          * This should be called after the value has been changed.
+         *
+         * \param did_change True if the value of the cell may have
+         *   changed, false if it is known that the value of the cell
+         *   has not changed.
          */
-        virtual void notify_update();
+        virtual void notify_update(bool did_change = true);
 
     protected:
         /**
@@ -132,6 +136,26 @@ namespace live_cells {
         bool is_active() const {
             return !observers.empty();
         }
+
+    private:
+
+#ifndef NDEBUG
+        /**
+         * \brief Number of times the observers were notified of
+         * changes to this cell, during the current update cycle.
+         *
+         * This is incremented when \p notify_will_update() is called
+         * and decremented when \p notify_update() is called. The
+         * purpose of this counter is to ensure that the number of
+         * times \p notify_will_update() is called matches the number
+         * of times \p notify_update() is called. Ideally that should
+         * only be once.
+         *
+         * \note This counter is only used for debugging when assert
+         * is enabled, i.e. when \p NDEBUG is not defined.
+         */
+        int notify_count = 0;
+#endif
     };
 
     /**
