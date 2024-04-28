@@ -24,4 +24,4 @@ test_live_cells_SOURCES = constant_cell.cpp \
 test_live_cells_CPPFLAGS = -I$(top_srcdir)/src $(BOOST_CPPFLAGS)
 test_live_cells_LDFLAGS = $(BOOST_LDFLAGS)
 test_live_cells_LDADD = $(BOOST_UNIT_TEST_FRAMEWORK_LIB) \
-	../src/liblivecells.a
+	../src/liblive_cells.a
