@@ -1,3 +1,7 @@
+# 0.2.2-beta - 2023-04-28
+
+* Fix link errors when building unit tests.
+
 # 0.2.1-beta - 2023-04-21
 
 * Fix potential bug caused by adding an observer to a cell while it is
