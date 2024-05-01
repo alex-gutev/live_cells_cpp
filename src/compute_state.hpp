@@ -47,7 +47,7 @@ namespace live_cells {
      * The actual computation is defined by the \p Computable \a C.
      */
     template <Computable C>
-    class compute_cell_state : public cell_state, public observer, public observer_cell_state {
+    class compute_cell_state : public cell_state, public observer, public observer_cell_state<> {
     public:
         /**
          * \brief Shorthand for computed value type

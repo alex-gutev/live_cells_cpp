@@ -7,6 +7,51 @@
 namespace live_cells {
 
     /**
+     * Concept specifying the base interface of the state of a cell
+     * that observes another cell.
+     *
+     * The following methods must be implemented:
+     *
+     * - \c did_change()
+     *
+     *   Should return \c true if the value of the cell may have
+     *   changed, or \c false if it is known that the value of the
+     *   cell has not changed.
+     *
+     * - \c pre_update()
+     *
+     *   Called when the cell is first notified that the value of one
+     *   of its dependencies will change.
+     *
+     * - \c post_update()
+     *
+     *   Called after the value of the cell has been updated. This
+     *   method is not called if the value of the cell has not
+     *   changed.
+     */
+    template <typename T>
+    concept ObserverCellStateBase = requires (T s) {
+        { s.did_change() } -> std::same_as<bool>;
+        { s.pre_update() };
+        { s.post_update() };
+    };
+
+    /**
+     * Default base of a cell that observes another cell.
+     *
+     * This provides default implementations of the \p did_change(),
+     * \p pre_update() and \p post_update() methods.
+     */
+    struct observer_cell_state_base {
+        bool did_change() {
+            return true;
+        }
+
+        void pre_update() {}
+        void post_update() {}
+    };
+
+    /**
      * \brief Provides functionality for observing a cell from a \p
      * cell_state.
      *
@@ -17,7 +62,14 @@ namespace live_cells {
      *
      * Subclasses should check the \p state member variable. If it is
      * true, the cell's value should be recomputed.
+     *
+     * \a Base is the base to use for this observer_cell_state, which
+     * defines the \p did_change(), \p pre_update() and \p
+     * post_update() methods.
+     *
+     * \note \a Base is not the base class of this class.
      */
+    template <ObserverCellStateBase Base = observer_cell_state_base>
     class observer_cell_state {
     protected:
         /**
@@ -67,6 +119,8 @@ namespace live_cells {
             if (!updating) {
                 assert(changed_dependencies == 0 && "Number of changed dependencies == 0 at start of update cycle.");
 
+                base.pre_update();
+
                 updating = true;
                 has_changed = false;
                 changed_dependencies = 0;
@@ -100,8 +154,12 @@ namespace live_cells {
                 if (--changed_dependencies == 0) {
                     stale = stale || has_changed;
 
-                    notify_update(has_changed);
+                    notify_update(has_changed && base.did_change());
                     updating = false;
+
+                    if (has_changed) {
+                        base.post_update();
+                    }
                 }
             }
         }
@@ -117,6 +175,12 @@ namespace live_cells {
          * \brief Have any of the dependency cells actually changed?
          */
         int has_changed = false;
+
+        /**
+         * Defines the \p did_change(), \p pre_update() and \p
+         * post_update methods.
+         */
+        Base base;
     };
 
 }  // live_cells

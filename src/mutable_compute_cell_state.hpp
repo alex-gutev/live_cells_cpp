@@ -36,7 +36,7 @@ namespace live_cells {
     class mutable_compute_cell_state :
         public mutable_cell_state<T>,
         public observer,
-        public observer_cell_state {
+        public observer_cell_state<> {
 
         /** \brief Shorthand for parent */
         typedef mutable_cell_state<T> parent;
