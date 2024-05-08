@@ -27,6 +27,7 @@
 #include "keys.hpp"
 #include "mutable_cell.hpp"
 #include "watcher.hpp"
+#include "computed.hpp"
 
 #include "test_util.hpp"
 #include "test_lifecyle.hpp"
@@ -202,6 +203,148 @@ BOOST_AUTO_TEST_CASE(watcher_stopped_in_destructor) {
     BOOST_CHECK_EQUAL(counter->ctor_count, 1);
     BOOST_CHECK_EQUAL(counter->init_count, 1);
     BOOST_CHECK_EQUAL(counter->dispose_count, 1);
+}
+
+BOOST_AUTO_TEST_SUITE_END();
+
+BOOST_AUTO_TEST_SUITE(cell_watcher_changes_only)
+
+BOOST_AUTO_TEST_CASE(not_called_when_value_unchanged) {
+    auto a = live_cells::variable(std::vector({1, 2, 3}));
+    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+        return a()[1];
+    });
+
+    std::vector<int> values;
+
+    auto watch = live_cells::watch([&] {
+        values.push_back(b());
+    });
+
+    a = {4, 2, 6};
+    a = {7, 8, 9};
+
+    BOOST_CHECK(values == std::vector({2, 8}));
+}
+
+BOOST_AUTO_TEST_CASE(not_called_when_value_unchanged_in_batch) {
+    auto a = live_cells::variable(std::vector({1, 2, 3}));
+    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+        return a()[1];
+    });
+
+    std::vector<int> values;
+
+    auto watch = live_cells::watch([&] {
+        values.push_back(b());
+    });
+
+    live_cells::batch([&] {
+        a = {4, 2, 6};
+    });
+
+    live_cells::batch([&] {
+        a = {7, 8, 9};
+    });
+
+    BOOST_CHECK(values == std::vector({2, 8}));
+}
+
+BOOST_AUTO_TEST_CASE(called_when_one_argument_changes) {
+    auto a = live_cells::variable(std::vector({1, 2, 3}));
+    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+        return a()[1];
+    });
+
+    auto c = live_cells::variable(3);
+
+    std::vector<int> values;
+
+    auto watch = live_cells::watch([&] {
+        values.push_back(b());
+        values.push_back(c());
+    });
+
+    live_cells::batch([&] {
+        a = {4, 2, 6};
+        c = 5;
+    });
+
+    BOOST_CHECK(values == std::vector({2, 3, 2, 5}));
+}
+
+BOOST_AUTO_TEST_CASE(computed_cell_not_recomputed_when_arguments_not_changed) {
+    auto a = live_cells::variable(std::vector({1, 2, 3}));
+    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+        return a()[1];
+    });
+
+    auto c = live_cells::computed([=] {
+        return b() * 10;
+    });
+
+    std::vector<int> values;
+
+    auto watch = live_cells::watch([&] {
+        values.push_back(c());
+    });
+
+    a = {4, 2, 6};
+    a = {7, 8, 9};
+
+    BOOST_CHECK(values == std::vector({20, 80}));
+}
+
+BOOST_AUTO_TEST_CASE(computed_cell_not_recomputed_when_arguments_not_changed_in_batch) {
+    auto a = live_cells::variable(std::vector({1, 2, 3}));
+    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+        return a()[1];
+    });
+
+    auto c = live_cells::computed([=] {
+        return b() * 10;
+    });
+
+    std::vector<int> values;
+
+    auto watch = live_cells::watch([&] {
+        values.push_back(c());
+    });
+
+    live_cells::batch([&] {
+        a = {4, 2, 6};
+    });
+
+    live_cells::batch([&] {
+        a = {7, 8, 9};
+    });
+
+    BOOST_CHECK(values == std::vector({20, 80}));
+}
+
+BOOST_AUTO_TEST_CASE(computed_cell_recomputed_when_one_argument_changes) {
+    auto a = live_cells::variable(std::vector({1, 2, 3}));
+    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+        return a()[1];
+    });
+
+    auto c = live_cells::variable(3);
+    auto d = live_cells::computed([=] {
+        return b() * c();
+    });
+
+    std::vector<int> values;
+
+    auto watch = live_cells::watch([&] {
+        values.push_back(d());
+    });
+
+    live_cells::batch([&] {
+        a = {4, 2, 6};
+        c = 5;
+    });
+
+    BOOST_CHECK(values == std::vector({6, 10}));
 }
 
 BOOST_AUTO_TEST_SUITE_END();
