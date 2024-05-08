@@ -1,6 +1,7 @@
 lib_LIBRARIES = liblive_cells.a
 pkginclude_HEADERS = boolean.hpp \
 	cell_state.hpp \
+	changes_only_state.hpp \
 	compute_cell.hpp \
 	computed.hpp \
 	compute_state.hpp \
@@ -20,6 +21,7 @@ pkginclude_HEADERS = boolean.hpp \
 	mutable_computed.hpp \
 	numeric.hpp \
 	observable.hpp \
+	observer_cell_state.hpp \
 	peek_cell.hpp \
 	stateful_cell.hpp \
 	static_mutable_compute_cell.hpp \

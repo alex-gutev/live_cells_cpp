@@ -26,6 +26,7 @@
 
 #include "compute_state.hpp"
 #include "stateful_cell.hpp"
+#include "changes_only_state.hpp"
 #include "tracker.hpp"
 
 namespace live_cells {
@@ -127,17 +128,33 @@ namespace live_cells {
     };
 
     /**
+     * \brief a \p dynamic_compute_cell_state that only notifies the
+     * observers of the cell if the new value of the cell is not equal
+     * to the previous value.
+     */
+    template <std::invocable F>
+    class dynamic_compute_changes_only_cell_state :
+        public changes_only_cell_state<dynamic_compute_cell_state<F>> {
+
+        typedef changes_only_cell_state<dynamic_compute_cell_state<F>> parent;
+
+    public:
+        using parent::parent;
+
+    };
+
+    /**
      * \brief A computed cell which determines its argument cells at runtime.
      *
      * This is a stateful cell that caches its value when computed and
      * maintains its own observer set.
      */
-    template <std::invocable F>
-    class dynamic_compute_cell : public stateful_cell<dynamic_compute_cell_state<F>> {
+    template <std::invocable F, typename State = dynamic_compute_cell_state<F>>
+    class dynamic_compute_cell : public stateful_cell<State> {
         /**
          * \brief Shorthand for parent class
          */
-        typedef stateful_cell<dynamic_compute_cell_state<F>> parent;
+        typedef stateful_cell<State> parent;
 
     public:
         /**
