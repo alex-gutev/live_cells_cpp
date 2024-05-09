@@ -179,14 +179,13 @@ Aborting a computation</h1>
 <div class="line">    <span class="keywordflow">return</span> a();</div>
 <div class="line">});</div>
 <div class="line"> </div>
-<div class="line">a = 6;</div>
-<div class="line">std::cout &lt;&lt; b.value() &lt;&lt; std::endl; <span class="comment">// Prints 6</span></div>
+<div class="line"><span class="keyword">auto</span> watcher = <a class="code hl_function" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a>([=] {</div>
+<div class="line">    std::cout &lt;&lt; b() &lt;&lt; std::endl;</div>
+<div class="line">});</div>
 <div class="line"> </div>
-<div class="line">a = 15;</div>
-<div class="line">std::cout &lt;&lt; b.value() &lt;&lt; std::endl; <span class="comment">// Prints 6</span></div>
-<div class="line"> </div>
-<div class="line">a = 8;</div>
-<div class="line">std::cout &lt;&lt; b.value() &lt;&lt; std::endl; <span class="comment">// Prints 8</span></div>
+<div class="line">a = 6;  <span class="comment">// Prints 6</span></div>
+<div class="line">a = 15; <span class="comment">// Prints 6</span></div>
+<div class="line">a = 8;  <span class="comment">// Prints 8</span></div>
 <div class="ttc" id="anamespacelive__cells_html_a38ef71dbf501d266974a7fae279a8441"><div class="ttname"><a href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a></div><div class="ttdeci">auto computed(F &amp;&amp;compute)</div><div class="ttdoc">Create a cell with a value that is a function of one or more argument cells.</div><div class="ttdef"><b>Definition</b> computed.hpp:45</div></div>
 <div class="ttc" id="anamespacelive__cells_html_aa16775c4657f30dc7d9e3df547ae1b8f"><div class="ttname"><a href="namespacelive__cells.html#aa16775c4657f30dc7d9e3df547ae1b8f">live_cells::none</a></div><div class="ttdeci">void none()</div><div class="ttdoc">Stop the computation of the current computed cell's value.</div><div class="ttdef"><b>Definition</b> computed.hpp:138</div></div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>The initial value of every computed cell is the default constructed value. Thus if <code><a class="el" href="namespacelive__cells.html#aa16775c4657f30dc7d9e3df547ae1b8f" title="Stop the computation of the current computed cell&#39;s value.">live_cells::none()</a></code> is called during the first call to the cell's computation function, the default value for the cell's value type is retained.</dd></dl>
