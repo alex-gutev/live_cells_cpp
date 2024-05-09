@@ -137,7 +137,7 @@ auto b = live_cells::computed([=] {
 });
 
 auto watcher = live_cells::watch([=] {
-	std::cout << b.value() << std::endl; // Prints 6
+	std::cout << b() << std::endl;
 });
 
 a = 6;  // Prints 6
