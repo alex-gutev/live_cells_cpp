@@ -1,3 +1,7 @@
+# 0.2.3-beta - 2023-05-09
+
+* Fix bug in `live_cells::none()` example in documentation.
+
 # 0.2.2-beta - 2023-04-28
 
 * Fix link errors when building unit tests.
