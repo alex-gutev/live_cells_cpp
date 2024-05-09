@@ -136,14 +136,13 @@ auto b = live_cells::computed([=] {
     return a();
 });
 
-a = 6;
-std::cout << b.value() << std::endl; // Prints 6
+auto watcher = live_cells::watch([=] {
+	std::cout << b.value() << std::endl; // Prints 6
+});
 
-a = 15;
-std::cout << b.value() << std::endl; // Prints 6
-
-a = 8;
-std::cout << b.value() << std::endl; // Prints 8
+a = 6;  // Prints 6
+a = 15; // Prints 6
+a = 8;  // Prints 8
 ```
 
 \note The initial value of every computed cell is the default
