@@ -128,7 +128,7 @@ namespace live_cells {
     };
 
     /**
-     * \brief a \p dynamic_compute_cell_state that only notifies the
+     * \brief A \p dynamic_compute_cell_state that only notifies the
      * observers of the cell if the new value of the cell is not equal
      * to the previous value.
      */
