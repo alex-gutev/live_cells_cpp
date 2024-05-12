@@ -110,6 +110,53 @@ namespace live_cells {
         }, fn_args);
     }
 
+    /**
+     * \brief Create a mutable computed cell that only notifies its
+     * observers when its value has actually changed.
+     *
+     * Ordinarily the value of the cell is the value computed by a
+     * function of the cells in \a args.
+     *
+     * The returned cell is also a mutable cell, which means its value
+     * can be set explicitly. When the value of the cell is set
+     * explicitly, the reverse computation function is called. The
+     * reverse computation function, should set the values of the
+     * cells in \a args such that the compute value function returns
+     * the same value as the value that was assigned to the cell.
+     *
+     * \note The difference between this and the other overloads, is
+     * that with this overload, the cell only notifies its observers
+     * when its new value is not equal to its previous value.
+     *
+     * \param arg1 First argument to compute value function.
+     *
+     * \param arg2, args Remaining compute value function arguments
+     *    followed by compute value and reverse compute functions.\n\n
+     *   The compute value function is passed the values of the
+     *   argument cells, in the same order as they are provided in the
+     *   argument list.\n\n
+     *   The reverse compute function (last in the argument list) is
+     *   passed the value that was assigned to the cell.
+     *
+     * \return The mutable computed cell.
+     */
+    template <typename A1, typename A2, typename... As>
+    auto mutable_computed(changes_only, A1 arg1, A2 arg2, As... args) {
+        auto packed = internal::pack<2>(arg1, arg2, args...);
+
+        auto fn_args = std::get<0>(packed);
+        auto compute = std::get<1>(packed);
+        auto reverse = std::get<2>(packed);
+
+        return std::apply([&] (auto... args) {
+            auto fn = [=] {
+                return compute(args.value()...);
+            };
+
+            return make_mutable_compute_cell(changes_only(), fn, reverse, args...);
+        }, fn_args);
+    }
+
 }  // live_cells
 
 #endif /* LIVE_CELLS_MUTABLE_COMPUTED_HPP */
