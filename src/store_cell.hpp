@@ -21,6 +21,7 @@
 #include "keys.hpp"
 #include "compute_state.hpp"
 #include "stateful_cell.hpp"
+#include "changes_only_state.hpp"
 #include "tracker.hpp"
 
 namespace live_cells {
@@ -74,9 +75,6 @@ namespace live_cells {
      */
     template <Cell C>
     class store_cell_state : public compute_cell_state<store_cell_compute_state<C>> {
-        /** Shorthand for the value type of C */
-        typedef C::value_type value_type;
-
         /** Shorthand for parent class */
         typedef compute_cell_state<store_cell_compute_state<C>> parent;
 
@@ -91,6 +89,8 @@ namespace live_cells {
             parent(k, arg) {}
 
     protected:
+        /** Shorthand for the value type of C */
+        typedef C::value_type value_type;
 
         void init() override {
             parent::init();
@@ -113,6 +113,21 @@ namespace live_cells {
     };
 
     /**
+     * \brief A \p store_cell_state that only notifies the observers
+     * of the cell if the new value of the cell is not equal to its
+     * previous value.
+     */
+    template <Cell C>
+    class store_changes_only_cell_state :
+        public changes_only_cell_state<store_cell_state<C>> {
+        typedef changes_only_cell_state<store_cell_state<C>> parent;
+
+    public:
+        using parent::parent;
+
+    };
+
+    /**
      * \brief A \p Cell that caches the value of another \p Cell.
      *
      * This cell reads the value of another cell and caches it until
@@ -122,12 +137,12 @@ namespace live_cells {
      * computed cell, which would otherwise be recomputed every time
      * it is accessed.
      */
-    template <Cell C>
-    class store_cell : public stateful_cell<store_cell_state<C>> {
+    template <Cell C, typename State = store_cell_state<C>>
+    class store_cell : public stateful_cell<State> {
         /**
          * Shorthand for parent class
          */
-        typedef stateful_cell<store_cell_state<C>> parent;
+        typedef stateful_cell<State> parent;
 
         /**
          * Cell key type
@@ -192,6 +207,35 @@ namespace live_cells {
         return store_cell<C>(arg);
     }
 
+    /**
+     * \brief Create a \p Cell that caches the value of another \p
+     * Cell and only notifies its observers when its value has
+     * actually changed.
+     *
+     * The returned cell reads the value of \a arg and caches it until
+     * it changes.
+     *
+     * This cell guarantes that the value of \a arg is only recomputed
+     * when it when its dependencies change instead of being computed
+     * every time it is accessed, provided its value is only accessed
+     * through the returned cell.
+     *
+     * \note The difference between this and the other overloads, is
+     * that with this overload, the cell only notifies its observers
+     * when its new value is not equal to its previous value.
+     *
+     * \param changes_only Dummy argument used to select this overload.
+     *
+     * \param arg The argument cell
+     *
+     * \return A cell which has the same value as \a arg, but caches
+     *    it in memory until it changes.
+     */
+    template <Cell C>
+    auto store(changes_only, const C &arg) {
+        return store_cell<C, store_changes_only_cell_state<C>>(arg);
+    }
+
     namespace ops {
 
         /**
@@ -206,6 +250,22 @@ namespace live_cells {
          */
         constexpr auto store = [] (const Cell auto &cell) {
             return live_cells::store(cell);
+        };
+
+        /**
+         * \brief Operator for creating a cell that caches the value
+         * of another cell and only notifies its observers when its
+         * value has actually changed.
+         *
+         * \see live_cells::store
+         *
+         * \param cell The operand \p Cell
+         *
+         * \return A \p Cell that has the same value as \a cell but
+         *    caches it in memory until it changes.
+         */
+        constexpr auto cache = [] (const Cell auto & cell) {
+            return live_cells::store(changes_only(), cell);
         };
 
     }  // ops

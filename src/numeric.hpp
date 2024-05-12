@@ -18,6 +18,7 @@
 #ifndef LIVE_CELLS_NUMERIC_HPP
 #define LIVE_CELLS_NUMERIC_HPP
 
+#include "constant_cell.hpp"
 #include "observable.hpp"
 #include "computed.hpp"
 

@@ -28,6 +28,8 @@
 #include "mutable_cell.hpp"
 #include "watcher.hpp"
 #include "computed.hpp"
+#include "numeric.hpp"
+#include "store_cell.hpp"
 
 #include "test_util.hpp"
 #include "test_lifecyle.hpp"
@@ -345,6 +347,93 @@ BOOST_AUTO_TEST_CASE(computed_cell_recomputed_when_one_argument_changes) {
     });
 
     BOOST_CHECK(values == std::vector({6, 10}));
+}
+
+BOOST_AUTO_TEST_CASE(store_cell_not_recomputed_when_argument_value_unchanged) {
+    auto a = live_cells::variable(std::vector({1, 2, 3}));
+    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+        return a()[1];
+    });
+
+    auto c = (b * 10) | live_cells::ops::store;
+
+    std::vector<int> values;
+
+    auto watch = live_cells::watch([&] {
+        values.push_back(c());
+    });
+
+    a = {4, 2, 6};
+    a = {7, 8, 9};
+
+    BOOST_CHECK(values == std::vector({20, 80}));
+}
+
+BOOST_AUTO_TEST_CASE(store_cell_not_recomputed_when_argument_value_unchanged_in_batch) {
+    auto a = live_cells::variable(std::vector({1, 2, 3}));
+    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+        return a()[1];
+    });
+
+    auto c = (b * 10) | live_cells::ops::store;
+
+    std::vector<int> values;
+
+    auto watch = live_cells::watch([&] {
+        values.push_back(c());
+    });
+
+    live_cells::batch([&] {
+        a = {4, 2, 6};
+    });
+
+    live_cells::batch([&] {
+        a = {7, 8, 9};
+    });
+
+    BOOST_CHECK(values == std::vector({20, 80}));
+}
+
+BOOST_AUTO_TEST_CASE(store_cell_recomputed_when_one_argument_changed) {
+    auto a = live_cells::variable(std::vector({1, 2, 3}));
+    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+        return a()[1];
+    });
+
+    auto c = live_cells::variable(3);
+    auto d = (b * c) | live_cells::ops::store;
+
+    std::vector<int> values;
+
+    auto watch = live_cells::watch([&] {
+        values.push_back(d());
+    });
+
+    live_cells::batch([&] {
+        a = {4, 2, 6};
+        c = 5;
+    });
+
+    BOOST_CHECK(values == std::vector({6, 10}));
+}
+
+BOOST_AUTO_TEST_CASE(store_cell_not_recomputed_when_value_unchanged) {
+    auto a = live_cells::variable(std::vector({1, 2, 3}));
+    auto b = live_cells::computed(a, [] (auto a) {
+        return a[1];
+    }) | live_cells::ops::cache;
+
+    std::vector<int> values;
+
+    auto watch = live_cells::watch([&] {
+        values.push_back(b());
+    });
+
+    a = {4, 2, 6};
+    a = {7, 2, 8};
+    a = {9, 10, 11};
+
+    BOOST_CHECK(values == std::vector({2, 10}));
 }
 
 BOOST_AUTO_TEST_SUITE_END();
