@@ -138,39 +138,43 @@ Logic and selection</h1>
 <dd>Creates a cell which selects between the values of two cells based on a condition </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>The <code>&amp;&amp;</code> and <code>||</code> operators overloads preserve the short-circuiting behaviour of the operators. This means the value of a cell is not referenced if the result of the expression is already known without it.</dd></dl>
-<div class="fragment"><div class="line"><span class="comment">// cond() is true when a() || b() is true</span></div>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(<span class="keyword">false</span>);</div>
+<div class="line"><span class="keyword">auto</span> b = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(<span class="keyword">false</span>);</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">auto</span> c = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(1);</div>
+<div class="line"><span class="keyword">auto</span> d = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(2);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// cond() is true when a() || b() is true</span></div>
 <div class="line"><span class="keyword">auto</span> cond = a || b;</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// when cond() is true, cell() == c() else cell() == d()</span></div>
 <div class="line"><span class="keyword">auto</span> cell = <a class="code hl_function" href="namespacelive__cells.html#a70b163d68732a15a5f7c16b69d9ba357">live_cells::select</a>(cond, c, d);</div>
 <div class="line"> </div>
-<div class="line">a = <span class="keyword">true</span>;</div>
-<div class="line">c = 1;</div>
-<div class="line">d = 2;</div>
+<div class="line"><span class="keyword">auto</span> watcher = <a class="code hl_function" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a>([=] {</div>
+<div class="line">    std::cout &lt;&lt; cell() &lt;&lt; std::endl;</div>
+<div class="line">});</div>
 <div class="line"> </div>
-<div class="line">std::cout &lt;&lt; cell.value() &lt;&lt; std::endl; <span class="comment">// Prints: 1</span></div>
-<div class="line"> </div>
-<div class="line">a = <span class="keyword">false</span>;</div>
-<div class="line">b = <span class="keyword">false</span>;</div>
-<div class="line"> </div>
-<div class="line">std::cout &lt;&lt; cell.value() &lt;&lt; std::endl; <span class="comment">// Prints: 2</span></div>
+<div class="line">a = <span class="keyword">true</span>;  <span class="comment">// Prints: 1</span></div>
+<div class="line">a = <span class="keyword">false</span>; <span class="comment">// Prints: 2</span></div>
 <div class="ttc" id="anamespacelive__cells_html_a70b163d68732a15a5f7c16b69d9ba357"><div class="ttname"><a href="namespacelive__cells.html#a70b163d68732a15a5f7c16b69d9ba357">live_cells::select</a></div><div class="ttdeci">auto select(Cell auto condition, Cell auto if_true, Cell auto if_false)</div><div class="ttdoc">Create a cell which selects between the values of two cells based on the value of a condition cell.</div><div class="ttdef"><b>Definition</b> boolean.hpp:102</div></div>
 </div><!-- fragment --><p>The third argument (if false) of <code><a class="el" href="namespacelive__cells.html#a70b163d68732a15a5f7c16b69d9ba357" title="Create a cell which selects between the values of two cells based on the value of a condition cell.">live_cells::select()</a></code> can be omitted, in which case the cell's value will not be updated if the condition is false:</p>
-<div class="fragment"><div class="line"><span class="keyword">auto</span> cell = <a class="code hl_function" href="namespacelive__cells.html#a70b163d68732a15a5f7c16b69d9ba357">live_cells::select</a>(cond, c);</div>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> cond = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(<span class="keyword">false</span>);</div>
+<div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(1);</div>
 <div class="line"> </div>
-<div class="line">cond = <span class="keyword">true</span>;</div>
-<div class="line">a = 2;</div>
+<div class="line"><span class="keyword">auto</span> cell = <a class="code hl_function" href="namespacelive__cells.html#a70b163d68732a15a5f7c16b69d9ba357">live_cells::select</a>(cond, a);</div>
 <div class="line"> </div>
-<div class="line">std::cout &lt;&lt; cell.value() &lt;&lt; std::endl; <span class="comment">// Prints 2</span></div>
+<div class="line"><span class="keyword">auto</span> watcher = <a class="code hl_function" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a>([=] {</div>
+<div class="line">    std::cout &lt;&lt; cell() &lt;&lt; std::endl;</div>
+<div class="line">});</div>
 <div class="line"> </div>
-<div class="line">cond = <span class="keyword">false</span>;</div>
-<div class="line">a = 4;</div>
+<div class="line">cond = <span class="keyword">true</span>;  <span class="comment">// Prints: 1</span></div>
+<div class="line">a = 2;        <span class="comment">// Prints: 2</span></div>
 <div class="line"> </div>
-<div class="line">std::cout &lt;&lt; cell.value() &lt;&lt; std::endl; <span class="comment">// Prints 2</span></div>
+<div class="line">cond = <span class="keyword">false</span>; <span class="comment">// Prints: 2</span></div>
+<div class="line">a = 4;        <span class="comment">// Prints: 2</span></div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md13"></a>
 Aborting a computation</h1>
-<p>In the previous section we saw that <code><a class="el" href="namespacelive__cells.html#a70b163d68732a15a5f7c16b69d9ba357" title="Create a cell which selects between the values of two cells based on the value of a condition cell.">live_cells::select()</a></code> creates a cell which does not update its argument when the condition cell is <code>false</code> and its only given an if true argument. Under the hood, <code>select</code> doesn't create some special kind of cell but uses <code><a class="el" href="namespacelive__cells.html#aa16775c4657f30dc7d9e3df547ae1b8f" title="Stop the computation of the current computed cell&#39;s value.">live_cells::none()</a></code> to abort the computation.</p>
-<p>When <code><a class="el" href="namespacelive__cells.html#aa16775c4657f30dc7d9e3df547ae1b8f" title="Stop the computation of the current computed cell&#39;s value.">live_cells::none()</a></code> is called inside a computed cell, the computation of the cell's value is aborted and its current value is preserved. This can be used to prevent a cell's value from being recomputed when a condition is not met:</p>
+<p>The computation of a computed cell's value can be aborted using <code><a class="el" href="namespacelive__cells.html#aa16775c4657f30dc7d9e3df547ae1b8f" title="Stop the computation of the current computed cell&#39;s value.">live_cells::none()</a></code>. When <code><a class="el" href="namespacelive__cells.html#aa16775c4657f30dc7d9e3df547ae1b8f" title="Stop the computation of the current computed cell&#39;s value.">live_cells::none()</a></code> is called inside a computed cell, the value computation function is exited and the cell's current value is preserved. This can be used to prevent a cell's value from being recomputed when a condition is not met:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(4);</div>
 <div class="line"><span class="keyword">auto</span> b = <a class="code hl_function" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a>([=] {</div>
 <div class="line">    <span class="keywordflow">if</span> (a() &gt;= 10)</div>
