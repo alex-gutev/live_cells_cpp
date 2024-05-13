@@ -1,3 +1,7 @@
+# 0.2.4-beta - 2023-05-13
+
+* Fix bugs in examples of `live_cells::select()` in documentation.
+
 # 0.2.3-beta - 2023-05-09
 
 * Fix bug in `live_cells::none()` example in documentation.
