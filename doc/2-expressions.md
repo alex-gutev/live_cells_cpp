@@ -79,53 +79,53 @@ cell is not referenced if the result of the expression is already
 known without it.
 
 ```cpp
+auto a = live_cells::variable(false);
+auto b = live_cells::variable(false);
+
+auto c = live_cells::variable(1);
+auto d = live_cells::variable(2);
+
 // cond() is true when a() || b() is true
 auto cond = a || b;
 
 // when cond() is true, cell() == c() else cell() == d()
 auto cell = live_cells::select(cond, c, d);
 
-a = true;
-c = 1;
-d = 2;
+auto watcher = live_cells::watch([=] {
+	std::cout << cell() << std::endl;
+});
 
-std::cout << cell.value() << std::endl; // Prints: 1
-
-a = false;
-b = false;
-
-std::cout << cell.value() << std::endl; // Prints: 2
+a = true;  // Prints: 1
+a = false; // Prints: 2
 ```
 
 The third argument (if false) of `live_cells::select()` can be omitted, in which case
 the cell's value will not be updated if the condition is false:
 
 ```cpp
-auto cell = live_cells::select(cond, c);
+auto cond = live_cells::variable(false);
+auto a = live_cells::variable(1);
 
-cond = true;
-a = 2;
+auto cell = live_cells::select(cond, a);
 
-std::cout << cell.value() << std::endl; // Prints 2
+auto watcher = live_cells::watch([=] {
+	std::cout << cell() << std::endl;
+});
 
-cond = false;
-a = 4;
+cond = true;  // Prints: 1
+a = 2;        // Prints: 2
 
-std::cout << cell.value() << std::endl; // Prints 2
+cond = false; // Prints: 2
+a = 4;        // Prints: 2
 ```
 
 ## Aborting a computation
 
-In the previous section we saw that `live_cells::select()` creates a
-cell which does not update its argument when the condition cell is
-`false` and its only given an if true argument. Under the hood,
-`select` doesn't create some special kind of cell but uses
-`live_cells::none()` to abort the computation.
-
-When `live_cells::none()` is called inside a computed cell, the
-computation of the cell's value is aborted and its current value is
-preserved. This can be used to prevent a cell's value from being
-recomputed when a condition is not met:
+The computation of a computed cell's value can be aborted using
+`live_cells::none()`. When `live_cells::none()` is called inside a
+computed cell, the value computation function is exited and the cell's
+current value is preserved. This can be used to prevent a cell's value
+from being recomputed when a condition is not met:
 
 ```cpp
 auto a = live_cells::variable(4);
