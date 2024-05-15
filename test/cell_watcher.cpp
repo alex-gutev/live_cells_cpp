@@ -535,4 +535,103 @@ BOOST_AUTO_TEST_CASE(static_mutable_compute_cell_not_recomputed_when_value_uncha
     BOOST_CHECK(values == std::vector({2, 10}));
 }
 
+BOOST_AUTO_TEST_CASE(dynamic_mutable_compute_cell_not_recomputed_when_arguments_unchanged) {
+    auto a = live_cells::variable(std::vector({1, 2, 3}));
+    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+        return a()[1];
+    });
+
+    auto c = live_cells::mutable_computed([=] {
+        return b() + 10;
+    }, [] (auto) {});
+
+    std::vector<int> values;
+
+    auto watch = live_cells::watch([&] {
+        values.push_back(c());
+    });
+
+    a = {4, 2, 6};
+    a = {7, 8, 9};
+
+    BOOST_CHECK(values == std::vector({12, 18}));
+}
+
+BOOST_AUTO_TEST_CASE(dynamic_mutable_compute_cell_not_recomputed_when_arguments_unchanged_in_batch) {
+    auto a = live_cells::variable(std::vector({1, 2, 3}));
+    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+        return a()[1];
+    });
+
+    auto c = live_cells::mutable_computed([=] {
+        return b() + 10;
+    }, [] (auto) {});
+
+    std::vector<int> values;
+
+    auto watch = live_cells::watch([&] {
+        values.push_back(c());
+    });
+
+    live_cells::batch([&] {
+        a = {4, 2, 6};
+    });
+
+    live_cells::batch([&] {
+        a = {7, 8, 9};
+    });
+
+    BOOST_CHECK(values == std::vector({12, 18}));
+}
+
+BOOST_AUTO_TEST_CASE(dynamic_mutable_compute_cell_recomputed_when_one_argument_changed) {
+    auto a = live_cells::variable(std::vector({1, 2, 3}));
+    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+        return a()[1];
+    });
+
+    auto c = live_cells::variable(3);
+
+    auto d = live_cells::mutable_computed([=] {
+        return b() * c();
+    }, [] (auto) {});
+
+    std::vector<int> values;
+
+    auto watch = live_cells::watch([&] {
+        values.push_back(d());
+    });
+
+    live_cells::batch([&] {
+        a = {4, 2, 6};
+        c = 5;
+    });
+
+    live_cells::batch([&] {
+        a = {7, 8, 9};
+    });
+
+    BOOST_CHECK(values == std::vector({6, 10, 40}));
+}
+
+BOOST_AUTO_TEST_CASE(dynamic_mutable_compute_cell_not_recomputed_when_value_unchanged) {
+    auto a = live_cells::variable(std::vector({1, 2, 3}));
+    auto b = live_cells::mutable_computed(live_cells::changes_only(), [=] {
+        return a()[1];
+    }, [] (auto) {});
+
+    std::vector<int> values;
+
+    auto watch = live_cells::watch([&] {
+        values.push_back(b());
+    });
+
+    a = {4, 2, 6};
+    a = {7, 2, 8};
+    a = {9, 10, 11};
+
+    BOOST_CHECK(values == std::vector({2, 10}));
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();
