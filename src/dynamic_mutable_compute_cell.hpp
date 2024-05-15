@@ -25,6 +25,7 @@
 
 #include "keys.hpp"
 #include "mutable_compute_cell_state.hpp"
+#include "changes_only_state.hpp"
 
 namespace live_cells {
 
@@ -32,11 +33,13 @@ namespace live_cells {
      * \brief Maintains the state of a \p
      * dynamic_mutable_compute_cell.
      */
-    template<std::invocable F, typename R, typename value_type = std::invoke_result_t<F>>
-    class dynamic_mutable_compute_cell_state : public mutable_compute_cell_state<value_type> {
+    template<std::invocable F, typename R, typename ValueType = std::invoke_result_t<F>>
+    class dynamic_mutable_compute_cell_state : public mutable_compute_cell_state<ValueType> {
+    protected:
+        typedef ValueType value_type;
 
         /** \brief Shorthand for parent class */
-        typedef mutable_compute_cell_state<value_type> parent;
+        typedef mutable_compute_cell_state<ValueType> parent;
 
     public:
 
@@ -54,7 +57,7 @@ namespace live_cells {
             reverse_fn(std::forward<U>(reverse)) {}
 
     protected:
-        value_type compute() override {
+        ValueType compute() override {
             auto t = argument_tracker::global().with_tracker([this] (auto cell) {
                 if (!this->arguments.count(cell)) {
                     this->arguments.emplace(cell);
@@ -66,7 +69,7 @@ namespace live_cells {
             return compute_fn();
         }
 
-        void reverse_compute(value_type value) override {
+        void reverse_compute(ValueType value) override {
             reverse_fn(value);
         }
 
@@ -80,15 +83,29 @@ namespace live_cells {
     };
 
     /**
+     * \brief A \p dynamic_mutable_compute_cell_state that only
+     * notifies the observers of the cell if its value has actually
+     * changed.
+     */
+    template <std::invocable F, typename R>
+    class dynamic_mutable_compute_changes_only_cell_state :
+        public changes_only_cell_state<dynamic_mutable_compute_cell_state<F,R>> {
+
+        typedef changes_only_cell_state<dynamic_mutable_compute_cell_state<F,R>> parent;
+
+    public:
+        using parent::parent;
+    };
+
+    /**
      * \brief A mutable computed cell with the argument cells
      * determined dynamically
      */
-    template <std::invocable F, typename R>
-    class dynamic_mutable_compute_cell :
-        public stateful_cell<dynamic_mutable_compute_cell_state<F,R>> {
+    template <std::invocable F, typename R, typename State = dynamic_mutable_compute_cell_state<F,R>>
+    class dynamic_mutable_compute_cell : public stateful_cell<State> {
 
         /** \brief Shorthand for parent class */
-        typedef stateful_cell<dynamic_mutable_compute_cell_state<F,R>> parent;
+        typedef stateful_cell<State> parent;
 
     public:
 
