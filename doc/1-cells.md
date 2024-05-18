@@ -202,6 +202,64 @@ In this example:
    2. Calls the watch function defined in 1.
 3. The value of `b` is set to `4`, which likewise also results in
    `sum` being recomputed and the watch function being called.
+   
+By default, computed cells notify their observers whenever their value
+is recomputed, which happens when the value of at least one of the
+referenced argument cells changes. This means that even if the new
+value of the computed cell is equal to its previous value, the
+observers of the cell are still notified that the cell's value has
+changed. 
+
+By providing `live_cells::changes_only` to `live_cells::computed`, the
+computed cell will not notify it's observers if it's new value is
+equal, by `==`, to its previous value. This is demonstrated with the
+following example:
+
+```cpp
+auto a = live_cells::variable(0);
+auto b = live_cells::computed(live_cells::changes_only, [=] {
+	return a() % 2;
+});
+
+auto watcher = live_cells::watch([=] {
+	std::cout << b() << std::endl;
+});
+
+a = 1
+a = 3
+a = 5
+a = 6
+a = 8
+```
+
+This results in the following being printed to standard output:
+
+```sh
+0
+1
+0
+```
+
+Notice that only three lines are printed to standard output, even
+though the value of the computed cell argument `a` was changed five
+times.
+
+If `live_cells::changes_only` is removed from the definition of `b`,
+the following is printed to standard output:
+
+```
+0
+1
+1
+1
+0
+0
+```
+
+Notice that a new line is printed to standard output, whenever the
+value of `a`, which is an argument of `b`, is changed. This is because
+`b` notifies its observers whenever the value of its argument `a` has
+changed, even if `b`'s new value is equal to its previous value.
 
 ## Batch Updates
 
