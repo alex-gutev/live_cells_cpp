@@ -2,6 +2,7 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
 [
     [ "boolean.hpp", "boolean_8hpp_source.html", null ],
     [ "cell_state.hpp", "cell__state_8hpp_source.html", null ],
+    [ "changes_only_state.hpp", "changes__only__state_8hpp_source.html", null ],
     [ "compute_cell.hpp", "compute__cell_8hpp_source.html", null ],
     [ "compute_state.hpp", "compute__state_8hpp_source.html", null ],
     [ "computed.hpp", "computed_8hpp_source.html", null ],
@@ -22,6 +23,7 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "mutable_computed.hpp", "mutable__computed_8hpp_source.html", null ],
     [ "numeric.hpp", "numeric_8hpp_source.html", null ],
     [ "observable.hpp", "observable_8hpp_source.html", null ],
+    [ "observer_cell_state.hpp", "observer__cell__state_8hpp_source.html", null ],
     [ "peek_cell.hpp", "peek__cell_8hpp_source.html", null ],
     [ "stateful_cell.hpp", "stateful__cell_8hpp_source.html", null ],
     [ "static_mutable_compute_cell.hpp", "static__mutable__compute__cell_8hpp_source.html", null ],

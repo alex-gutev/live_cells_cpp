@@ -125,7 +125,7 @@ Mutable Computed Cells</h1>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Prints: 16</span></div>
 <div class="line">str_a = <span class="stringliteral">&#39;15&#39;</span>;</div>
-<div class="ttc" id="anamespacelive__cells_html_aff827bee503738afea0d4de923ca0e87"><div class="ttname"><a href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a></div><div class="ttdeci">std::shared_ptr&lt; watcher &gt; watch(F fn)</div><div class="ttdoc">Register a cell watch function.</div><div class="ttdef"><b>Definition</b> watcher.hpp:193</div></div>
+<div class="ttc" id="anamespacelive__cells_html_aff827bee503738afea0d4de923ca0e87"><div class="ttname"><a href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a></div><div class="ttdeci">std::shared_ptr&lt; watcher &gt; watch(F fn)</div><div class="ttdoc">Register a cell watch function.</div><div class="ttdef"><b>Definition</b> watcher.hpp:206</div></div>
 </div><!-- fragment --><p>The value of this is that data can also flow from <code>a</code> to <code>str_a</code>:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> watcher = <a class="code hl_function" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a>([=] {</div>
 <div class="line">    std::cout &lt;&lt; str_a.value() &lt;&lt; std::endl;</div>

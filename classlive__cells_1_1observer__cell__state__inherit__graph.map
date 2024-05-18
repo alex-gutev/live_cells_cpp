@@ -1,0 +1,37 @@
+<map id="live_cells::observer_cell_state" name="live_cells::observer_cell_state">
+<area shape="rect" id="Node000001" title="Provides functionality for observing a cell from a cell_state." alt="" coords="5,178,153,218"/>
+<area shape="rect" id="Node000002" href="$classlive__cells_1_1compute__cell__state.html" title=" " alt="" coords="209,5,388,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,165,144,117,200,69,219,58,222,62,203,74,148,120,106,169"/>
+<area shape="rect" id="Node000006" href="$classlive__cells_1_1compute__cell__state.html" title=" " alt="" coords="209,84,389,139"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="143,170,228,136,230,141,145,175"/>
+<area shape="rect" id="Node000010" href="$classlive__cells_1_1mutable__compute__cell__state.html" title=" " alt="" coords="221,163,377,233"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="167,195,220,195,220,201,167,201"/>
+<area shape="rect" id="Node000014" href="$classlive__cells_1_1compute__cell__state.html" title="Cell state for a cell which computes a value as a function of one or more argument cells." alt="" coords="225,257,373,297"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="144,220,202,242,237,254,235,259,200,247,143,225"/>
+<area shape="rect" id="Node000015" href="$classlive__cells_1_1mutable__compute__cell__state.html" title="Maintains the state of a mutable computed cell." alt="" coords="201,321,396,361"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="109,226,151,268,203,306,227,318,224,323,200,311,147,272,105,230"/>
+<area shape="rect" id="Node000003" href="$classlive__cells_1_1dynamic__compute__cell__state.html" title="Maintains the state of a dynamic_compute_cell." alt="" coords="444,13,639,53"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="401,30,444,30,444,35,401,35"/>
+<area shape="rect" id="Node000004" href="$classlive__cells_1_1changes__only__cell__state.html" title=" " alt="" coords="691,5,900,60"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="652,30,690,30,690,35,652,35"/>
+<area shape="rect" id="Node000005" href="$classlive__cells_1_1dynamic__compute__changes__only__cell__state.html" title="A dynamic_compute_cell_state that only notifies the observers of the cell if the new value of the cel..." alt="" coords="965,5,1147,60"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="914,30,964,30,964,35,914,35"/>
+<area shape="rect" id="Node000007" href="$classlive__cells_1_1store__cell__state.html" title="Maintains the state of a store_cell." alt="" coords="464,91,619,131"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="402,109,464,109,464,114,402,114"/>
+<area shape="rect" id="Node000008" href="$classlive__cells_1_1changes__only__cell__state.html" title=" " alt="" coords="708,84,883,139"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="632,109,708,109,708,114,632,114"/>
+<area shape="rect" id="Node000009" href="$classlive__cells_1_1store__changes__only__cell__state.html" title="A store_cell_state that only notifies the observers of the cell if the new value of the cell is not e..." alt="" coords="963,91,1149,131"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="896,109,963,109,963,114,896,114"/>
+<area shape="rect" id="Node000011" href="$classlive__cells_1_1static__mutable__compute__cell__state.html" title="Maintains the state for a static_mutable_compute_cell." alt="" coords="453,171,630,225"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="391,195,452,195,452,201,391,201"/>
+<area shape="rect" id="Node000012" href="$classlive__cells_1_1changes__only__cell__state.html" title=" " alt="" coords="687,163,904,233"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="644,195,686,195,686,201,644,201"/>
+<area shape="rect" id="Node000013" href="$classlive__cells_1_1static__mutable__compute__changes__only__cell__state.html" title="A static_mutable_compute_cell_state that only notifies the observers of the cell when the cell&#39;s valu..." alt="" coords="952,171,1160,225"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="918,195,952,195,952,201,918,201"/>
+<area shape="rect" id="Node000016" href="$classlive__cells_1_1dynamic__mutable__compute__cell__state.html" title="Maintains the state of a dynamic_mutable_compute_cell." alt="" coords="446,313,637,368"/>
+<area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="410,338,446,338,446,343,410,343"/>
+<area shape="rect" id="Node000017" href="$classlive__cells_1_1changes__only__cell__state.html" title=" " alt="" coords="687,306,904,375"/>
+<area shape="poly" id="edge16_Node000016_Node000017" title=" " alt="" coords="650,338,686,338,686,343,650,343"/>
+<area shape="rect" id="Node000018" href="$classlive__cells_1_1dynamic__mutable__compute__changes__only__cell__state.html" title="A dynamic_mutable_compute_cell_state that only notifies the observers of the cell if its value has ac..." alt="" coords="952,313,1160,368"/>
+<area shape="poly" id="edge17_Node000017_Node000018" title=" " alt="" coords="918,338,952,338,952,343,918,343"/>
+</map>

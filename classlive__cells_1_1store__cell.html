@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Live Cells C++: live_cells::store_cell&lt; C &gt; Class Template Reference</title>
+<title>Live Cells C++: live_cells::store_cell&lt; C, State &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -97,7 +97,7 @@ $(function(){initNavTree('classlive__cells_1_1store__cell.html',''); initResizab
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classlive__cells_1_1store__cell-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">live_cells::store_cell&lt; C &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">live_cells::store_cell&lt; C, State &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -106,48 +106,49 @@ $(function(){initNavTree('classlive__cells_1_1store__cell.html',''); initResizab
 
 <p><code>#include &lt;<a class="el" href="store__cell_8hpp_source.html">store_cell.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for live_cells::store_cell&lt; C &gt;:</div>
+Inheritance diagram for live_cells::store_cell&lt; C, State &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classlive__cells_1_1store__cell__inherit__graph.png" border="0" usemap="#alive__cells_1_1store__cell_3_01C_01_4_inherit__map" alt="Inheritance graph"/></div>
-<map name="alive__cells_1_1store__cell_3_01C_01_4_inherit__map" id="alive__cells_1_1store__cell_3_01C_01_4_inherit__map">
-<area shape="rect" title="A Cell that caches the value of another Cell." alt="" coords="5,108,199,133"/>
-<area shape="rect" href="classlive__cells_1_1stateful__cell.html" title=" " alt="" coords="17,5,187,60"/>
-<area shape="poly" title=" " alt="" coords="105,74,105,108,99,108,99,74"/>
+<div class="center"><img src="classlive__cells_1_1store__cell__inherit__graph.png" border="0" usemap="#alive__cells_1_1store__cell_3_01C_00_01State_01_4_inherit__map" alt="Inheritance graph"/></div>
+<map name="alive__cells_1_1store__cell_3_01C_00_01State_01_4_inherit__map" id="alive__cells_1_1store__cell_3_01C_00_01State_01_4_inherit__map">
+<area shape="rect" title="A Cell that caches the value of another Cell." alt="" coords="5,93,160,133"/>
+<area shape="rect" href="classlive__cells_1_1stateful__cell.html" title="Base class for a cell with a state." alt="" coords="12,5,153,45"/>
+<area shape="poly" title=" " alt="" coords="85,59,85,93,80,93,80,59"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
-Collaboration diagram for live_cells::store_cell&lt; C &gt;:</div>
+Collaboration diagram for live_cells::store_cell&lt; C, State &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classlive__cells_1_1store__cell__coll__graph.png" border="0" usemap="#alive__cells_1_1store__cell_3_01C_01_4_coll__map" alt="Collaboration graph"/></div>
-<map name="alive__cells_1_1store__cell_3_01C_01_4_coll__map" id="alive__cells_1_1store__cell_3_01C_01_4_coll__map">
-<area shape="rect" title="A Cell that caches the value of another Cell." alt="" coords="5,197,199,223"/>
-<area shape="rect" href="classlive__cells_1_1stateful__cell.html" title=" " alt="" coords="17,93,187,148"/>
-<area shape="poly" title=" " alt="" coords="105,162,105,197,99,197,99,162"/>
-<area shape="rect" href="classlive__cells_1_1key__ref.html" title="Dynamically type key container." alt="" coords="33,5,171,31"/>
-<area shape="poly" title=" " alt="" coords="105,45,105,93,99,93,99,45"/>
+<div class="center"><img src="classlive__cells_1_1store__cell__coll__graph.png" border="0" usemap="#alive__cells_1_1store__cell_3_01C_00_01State_01_4_coll__map" alt="Collaboration graph"/></div>
+<map name="alive__cells_1_1store__cell_3_01C_00_01State_01_4_coll__map" id="alive__cells_1_1store__cell_3_01C_00_01State_01_4_coll__map">
+<area shape="rect" title="A Cell that caches the value of another Cell." alt="" coords="5,183,160,223"/>
+<area shape="rect" href="classlive__cells_1_1stateful__cell.html" title="Base class for a cell with a state." alt="" coords="12,93,153,133"/>
+<area shape="poly" title=" " alt="" coords="85,147,85,183,80,183,80,147"/>
+<area shape="rect" href="classlive__cells_1_1key__ref.html" title="Dynamically type key container." alt="" coords="13,5,152,31"/>
+<area shape="poly" title=" " alt="" coords="85,44,85,93,80,93,80,44"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a4c54dd8412938db0e797e1dcf4cc289e" id="r_a4c54dd8412938db0e797e1dcf4cc289e"><td class="memItemLeft" align="right" valign="top"><a id="a4c54dd8412938db0e797e1dcf4cc289e" name="a4c54dd8412938db0e797e1dcf4cc289e"></a>
+<tr class="memitem:aabcd8126321f9e3ae74656fe6a5be592" id="r_aabcd8126321f9e3ae74656fe6a5be592"><td class="memItemLeft" align="right" valign="top"><a id="aabcd8126321f9e3ae74656fe6a5be592" name="aabcd8126321f9e3ae74656fe6a5be592"></a>
 <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typedef</a> C::value_type&#160;</td><td class="memItemRight" valign="bottom"><b>value_type</b></td></tr>
-<tr class="memdesc:a4c54dd8412938db0e797e1dcf4cc289e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of value held by this cell. <br /></td></tr>
-<tr class="separator:a4c54dd8412938db0e797e1dcf4cc289e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:aabcd8126321f9e3ae74656fe6a5be592"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of value held by this cell. <br /></td></tr>
+<tr class="separator:aabcd8126321f9e3ae74656fe6a5be592"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae43b556ee807915e3f7f575105c190b8" id="r_ae43b556ee807915e3f7f575105c190b8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae43b556ee807915e3f7f575105c190b8">store_cell</a> (C <a class="el" href="classlive__cells_1_1cell.html">cell</a>)</td></tr>
-<tr class="memdesc:ae43b556ee807915e3f7f575105c190b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a store cell that caches the value of <em>cell</em>.  <br /></td></tr>
-<tr class="separator:ae43b556ee807915e3f7f575105c190b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bc104079f2d8d77d77ecf7f919e43ed" id="r_a2bc104079f2d8d77d77ecf7f919e43ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a4c54dd8412938db0e797e1dcf4cc289e">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2bc104079f2d8d77d77ecf7f919e43ed">value</a> () <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a></td></tr>
-<tr class="memdesc:a2bc104079f2d8d77d77ecf7f919e43ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value of the cell.  <br /></td></tr>
-<tr class="separator:a2bc104079f2d8d77d77ecf7f919e43ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe649fc130e9d721a4ba65383efdb13a" id="r_afe649fc130e9d721a4ba65383efdb13a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a4c54dd8412938db0e797e1dcf4cc289e">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe649fc130e9d721a4ba65383efdb13a">operator()</a> () <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a></td></tr>
-<tr class="memdesc:afe649fc130e9d721a4ba65383efdb13a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value of the cell and track it as a dependency.  <br /></td></tr>
-<tr class="separator:afe649fc130e9d721a4ba65383efdb13a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_classlive__cells_1_1stateful__cell"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classlive__cells_1_1stateful__cell')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classlive__cells_1_1stateful__cell.html">live_cells::stateful_cell&lt; store_cell_state&lt; C &gt; &gt;</a></td></tr>
-<tr class="memitem:a2f1e1419aadbe474c58d3c5c02e33edd inherit pub_methods_classlive__cells_1_1stateful__cell" id="r_a2f1e1419aadbe474c58d3c5c02e33edd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlive__cells_1_1stateful__cell.html#a2f1e1419aadbe474c58d3c5c02e33edd">stateful_cell</a> (<a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">k</a>, Args... <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">args</a>)</td></tr>
+<tr class="memitem:a67c43f15b87755f75701618992c3f0cf" id="r_a67c43f15b87755f75701618992c3f0cf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a67c43f15b87755f75701618992c3f0cf">store_cell</a> (C <a class="el" href="classlive__cells_1_1cell.html">cell</a>)</td></tr>
+<tr class="memdesc:a67c43f15b87755f75701618992c3f0cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a store cell that caches the value of <em>cell</em>.  <br /></td></tr>
+<tr class="separator:a67c43f15b87755f75701618992c3f0cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c429070c610c04c210c5e3873c359eb" id="r_a3c429070c610c04c210c5e3873c359eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aabcd8126321f9e3ae74656fe6a5be592">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3c429070c610c04c210c5e3873c359eb">value</a> () <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a></td></tr>
+<tr class="memdesc:a3c429070c610c04c210c5e3873c359eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value of the cell.  <br /></td></tr>
+<tr class="separator:a3c429070c610c04c210c5e3873c359eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a683802f6e43b1d735eb093d89831d144" id="r_a683802f6e43b1d735eb093d89831d144"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aabcd8126321f9e3ae74656fe6a5be592">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a683802f6e43b1d735eb093d89831d144">operator()</a> () <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a></td></tr>
+<tr class="memdesc:a683802f6e43b1d735eb093d89831d144"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value of the cell and track it as a dependency.  <br /></td></tr>
+<tr class="separator:a683802f6e43b1d735eb093d89831d144"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classlive__cells_1_1stateful__cell"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classlive__cells_1_1stateful__cell')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classlive__cells_1_1stateful__cell.html">live_cells::stateful_cell&lt; S &gt;</a></td></tr>
+<tr class="memitem:a2f1e1419aadbe474c58d3c5c02e33edd inherit pub_methods_classlive__cells_1_1stateful__cell" id="r_a2f1e1419aadbe474c58d3c5c02e33edd"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:a2f1e1419aadbe474c58d3c5c02e33edd inherit pub_methods_classlive__cells_1_1stateful__cell"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classlive__cells_1_1stateful__cell.html#a2f1e1419aadbe474c58d3c5c02e33edd">stateful_cell</a> (<a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">k</a>, Args... <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">args</a>)</td></tr>
 <tr class="memdesc:a2f1e1419aadbe474c58d3c5c02e33edd inherit pub_methods_classlive__cells_1_1stateful__cell"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a stateful cell and associate it with a state.  <br /></td></tr>
 <tr class="separator:a2f1e1419aadbe474c58d3c5c02e33edd inherit pub_methods_classlive__cells_1_1stateful__cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c9082975220d6789b0721035a2b25fa inherit pub_methods_classlive__cells_1_1stateful__cell" id="r_a2c9082975220d6789b0721035a2b25fa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlive__cells_1_1stateful__cell.html#a2c9082975220d6789b0721035a2b25fa">key</a> () <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a></td></tr>
@@ -162,35 +163,35 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_attribs_classlive__cells_1_1stateful__cell"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classlive__cells_1_1stateful__cell')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classlive__cells_1_1stateful__cell.html">live_cells::stateful_cell&lt; store_cell_state&lt; C &gt; &gt;</a></td></tr>
+<tr class="inherit_header pro_attribs_classlive__cells_1_1stateful__cell"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classlive__cells_1_1stateful__cell')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classlive__cells_1_1stateful__cell.html">live_cells::stateful_cell&lt; S &gt;</a></td></tr>
 <tr class="memitem:aa7095d04fd53ff1b18edc4cc933d71ca inherit pro_attribs_classlive__cells_1_1stateful__cell" id="r_aa7095d04fd53ff1b18edc4cc933d71ca"><td class="memItemLeft" align="right" valign="top">
 <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a>&#160;</td><td class="memItemRight" valign="bottom"><b>key_</b></td></tr>
 <tr class="memdesc:aa7095d04fd53ff1b18edc4cc933d71ca inherit pro_attribs_classlive__cells_1_1stateful__cell"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key identifying the cell. <br /></td></tr>
 <tr class="separator:aa7095d04fd53ff1b18edc4cc933d71ca inherit pro_attribs_classlive__cells_1_1stateful__cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a050957612d87b3c2b842d37ed6808912 inherit pro_attribs_classlive__cells_1_1stateful__cell" id="r_a050957612d87b3c2b842d37ed6808912"><td class="memItemLeft" align="right" valign="top">
-std::shared_ptr&lt; <a class="el" href="classlive__cells_1_1store__cell__state.html">store_cell_state</a>&lt; C &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>state</b></td></tr>
+std::shared_ptr&lt; <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">S</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>state</b></td></tr>
 <tr class="memdesc:a050957612d87b3c2b842d37ed6808912 inherit pro_attribs_classlive__cells_1_1stateful__cell"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the cell's state. <br /></td></tr>
 <tr class="separator:a050957612d87b3c2b842d37ed6808912 inherit pro_attribs_classlive__cells_1_1stateful__cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;Cell C&gt;<br />
-class live_cells::store_cell&lt; C &gt;</div><p>A <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code> that caches the value of another <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code>. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;Cell C, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a> = store_cell_state&lt;C&gt;&gt;<br />
+class live_cells::store_cell&lt; C, State &gt;</div><p>A <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code> that caches the value of another <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code>. </p>
 <p>This cell reads the value of another cell and caches it until it changes.</p>
 <p>This is useful to cache the computed value of a lightweight computed cell, which would otherwise be recomputed every time it is accessed. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae43b556ee807915e3f7f575105c190b8" name="ae43b556ee807915e3f7f575105c190b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae43b556ee807915e3f7f575105c190b8">&#9670;&#160;</a></span>store_cell()</h2>
+<a id="a67c43f15b87755f75701618992c3f0cf" name="a67c43f15b87755f75701618992c3f0cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67c43f15b87755f75701618992c3f0cf">&#9670;&#160;</a></span>store_cell()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;Cell C&gt; </div>
+template&lt;Cell C, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a>  = store_cell_state&lt;C&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classlive__cells_1_1store__cell.html">live_cells::store_cell</a>&lt; C &gt;::store_cell </td>
+          <td class="memname"><a class="el" href="classlive__cells_1_1store__cell.html">live_cells::store_cell</a>&lt; C, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a> &gt;::store_cell </td>
           <td>(</td>
           <td class="paramtype">C</td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
           <td></td>
@@ -214,19 +215,19 @@ template&lt;Cell C&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="afe649fc130e9d721a4ba65383efdb13a" name="afe649fc130e9d721a4ba65383efdb13a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe649fc130e9d721a4ba65383efdb13a">&#9670;&#160;</a></span>operator()()</h2>
+<a id="a683802f6e43b1d735eb093d89831d144" name="a683802f6e43b1d735eb093d89831d144"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a683802f6e43b1d735eb093d89831d144">&#9670;&#160;</a></span>operator()()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;Cell C&gt; </div>
+template&lt;Cell C, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a>  = store_cell_state&lt;C&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#a4c54dd8412938db0e797e1dcf4cc289e">value_type</a> <a class="el" href="classlive__cells_1_1store__cell.html">live_cells::store_cell</a>&lt; C &gt;::operator() </td>
+          <td class="memname"><a class="el" href="#aabcd8126321f9e3ae74656fe6a5be592">value_type</a> <a class="el" href="classlive__cells_1_1store__cell.html">live_cells::store_cell</a>&lt; C, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a> &gt;::operator() </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td> const</td>
@@ -244,19 +245,19 @@ template&lt;Cell C&gt; </div>
 
 </div>
 </div>
-<a id="a2bc104079f2d8d77d77ecf7f919e43ed" name="a2bc104079f2d8d77d77ecf7f919e43ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bc104079f2d8d77d77ecf7f919e43ed">&#9670;&#160;</a></span>value()</h2>
+<a id="a3c429070c610c04c210c5e3873c359eb" name="a3c429070c610c04c210c5e3873c359eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c429070c610c04c210c5e3873c359eb">&#9670;&#160;</a></span>value()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;Cell C&gt; </div>
+template&lt;Cell C, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a>  = store_cell_state&lt;C&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#a4c54dd8412938db0e797e1dcf4cc289e">value_type</a> <a class="el" href="classlive__cells_1_1store__cell.html">live_cells::store_cell</a>&lt; C &gt;::value </td>
+          <td class="memname"><a class="el" href="#aabcd8126321f9e3ae74656fe6a5be592">value_type</a> <a class="el" href="classlive__cells_1_1store__cell.html">live_cells::store_cell</a>&lt; C, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a> &gt;::value </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td> const</td>

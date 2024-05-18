@@ -1,5 +1,5 @@
-<map id="live_cells::dynamic_mutable_compute_cell&lt; F, R &gt;" name="live_cells::dynamic_mutable_compute_cell&lt; F, R &gt;">
-<area shape="rect" id="Node000001" title="A mutable computed cell with the argument cells determined dynamically." alt="" coords="30,108,207,163"/>
-<area shape="rect" id="Node000002" href="$classlive__cells_1_1stateful__cell.html" title=" " alt="" coords="5,5,232,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,74,121,108,116,108,116,74"/>
+<map id="live_cells::dynamic_mutable_compute_cell&lt; F, R, State &gt;" name="live_cells::dynamic_mutable_compute_cell&lt; F, R, State &gt;">
+<area shape="rect" id="Node000001" title="A mutable computed cell with the argument cells determined dynamically." alt="" coords="5,93,183,148"/>
+<area shape="rect" id="Node000002" href="$classlive__cells_1_1stateful__cell.html" title="Base class for a cell with a state." alt="" coords="23,5,165,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,59,97,93,91,93,91,59"/>
 </map>

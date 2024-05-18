@@ -6,6 +6,7 @@ var namespacelive__cells_1_1ops =
     [ "operator|", "namespacelive__cells_1_1ops.html#aa91a55f14e60432aeafdb39436bed37c", null ],
     [ "select", "namespacelive__cells_1_1ops.html#aa25117cbccbcc2aba58d31ffe52f6014", null ],
     [ "select", "namespacelive__cells_1_1ops.html#ad9c0d9c991339d6bf1d1e8cc97a062a3", null ],
+    [ "cache", "namespacelive__cells_1_1ops.html#ae5f16459029244814d3375373cbfa5e1", null ],
     [ "peek", "namespacelive__cells_1_1ops.html#ac3c694eb320f49f96fd11a5601417fec", null ],
     [ "store", "namespacelive__cells_1_1ops.html#ae16be11777397241d312b84b47178d6d", null ]
 ];

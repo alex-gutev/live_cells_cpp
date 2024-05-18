@@ -101,7 +101,7 @@ $(function(){initNavTree('md_doc_21-cells.html',''); initResizable(); });
 <div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#a163ced4b8bef0f870be26c0a1e8c4c59">live_cells::value</a>(1);</div>
 <div class="line"><span class="keyword">auto</span> b = <a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">live_cells::value&lt;std::string&gt;</a>(<span class="stringliteral">&quot;hello world&quot;</span>);</div>
 <div class="line"><span class="keyword">auto</span> c = <a class="code hl_function" href="namespacelive__cells.html#a163ced4b8bef0f870be26c0a1e8c4c59">live_cells::value</a>(some_value);</div>
-<div class="ttc" id="aclasslive__cells_1_1dynamic__compute__cell_html"><div class="ttname"><a href="classlive__cells_1_1dynamic__compute__cell.html">live_cells::dynamic_compute_cell</a></div><div class="ttdoc">A computed cell which determines its argument cells at runtime.</div><div class="ttdef"><b>Definition</b> dynamic_compute_cell.hpp:136</div></div>
+<div class="ttc" id="aclasslive__cells_1_1dynamic__compute__cell_html"><div class="ttname"><a href="classlive__cells_1_1dynamic__compute__cell.html">live_cells::dynamic_compute_cell</a></div><div class="ttdoc">A computed cell which determines its argument cells at runtime.</div><div class="ttdef"><b>Definition</b> dynamic_compute_cell.hpp:153</div></div>
 <div class="ttc" id="anamespacelive__cells_html_a163ced4b8bef0f870be26c0a1e8c4c59"><div class="ttname"><a href="namespacelive__cells.html#a163ced4b8bef0f870be26c0a1e8c4c59">live_cells::value</a></div><div class="ttdeci">constant_cell&lt; T &gt; value(const T &amp;value)</div><div class="ttdef"><b>Definition</b> constant_cell.hpp:132</div></div>
 </div><!-- fragment --><p><code><a class="el" href="namespacelive__cells.html#a163ced4b8bef0f870be26c0a1e8c4c59">live_cells::value()</a></code> takes the constant value and wraps it in a constant cell. The values of constant cells never change.</p>
 <p>The value of a cell is accessed using the <a class="el" href="classlive__cells_1_1constant__cell.html#a76c1cd346565bd3eeebfa19db6c06457"><code>value()</code></a> accessor method.</p>
@@ -137,7 +137,7 @@ Observing Cells</h1>
 <div class="line"> </div>
 <div class="line">a = 5;  <span class="comment">// Prints: 5, 1</span></div>
 <div class="line">b = 10; <span class="comment">// Prints: 5, 10</span></div>
-<div class="ttc" id="anamespacelive__cells_html_aff827bee503738afea0d4de923ca0e87"><div class="ttname"><a href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a></div><div class="ttdeci">std::shared_ptr&lt; watcher &gt; watch(F fn)</div><div class="ttdoc">Register a cell watch function.</div><div class="ttdef"><b>Definition</b> watcher.hpp:193</div></div>
+<div class="ttc" id="anamespacelive__cells_html_aff827bee503738afea0d4de923ca0e87"><div class="ttname"><a href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a></div><div class="ttdeci">std::shared_ptr&lt; watcher &gt; watch(F fn)</div><div class="ttdoc">Register a cell watch function.</div><div class="ttdef"><b>Definition</b> watcher.hpp:206</div></div>
 </div><!-- fragment --><p><code><a class="el" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87" title="Register a cell watch function.">live_cells::watch()</a></code> takes a watch function and registers it to be called when the values of the cells referenced within it change. In the example above, a watch function that prints the values of cells <code>a</code> and <code>b</code> to standard output, is defined. This function is called automatically when the value of either <code>a</code> or <code>b</code> changes.</p>
 <p>There are a couple of important points to keep in mind when using <code><a class="el" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87" title="Register a cell watch function.">live_cells::watch()</a></code>:</p>
 <ul>
@@ -209,6 +209,35 @@ Computed Cells</h1>
 </li>
 <li>The value of <code>b</code> is set to <code>4</code>, which likewise also results in <code>sum</code> being recomputed and the watch function being called.</li>
 </ol>
+<p>By default, computed cells notify their observers whenever their value is recomputed, which happens when the value of at least one of the referenced argument cells changes. This means that even if the new value of the computed cell is equal to its previous value, the observers of the cell are still notified that the cell's value has changed.</p>
+<p>By providing <code>live_cells::changes_only</code> to <code><a class="el" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441" title="Create a cell with a value that is a function of one or more argument cells.">live_cells::computed</a></code>, the computed cell will not notify it's observers if it's new value is equal, by <code>==</code>, to its previous value. This is demonstrated with the following example:</p>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(0);</div>
+<div class="line"><span class="keyword">auto</span> b = <a class="code hl_function" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a>(live_cells::changes_only, [=] {</div>
+<div class="line">    <span class="keywordflow">return</span> a() % 2;</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">auto</span> watcher = <a class="code hl_function" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a>([=] {</div>
+<div class="line">    std::cout &lt;&lt; b() &lt;&lt; std::endl;</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line">a = 1</div>
+<div class="line">a = 3</div>
+<div class="line">a = 5</div>
+<div class="line">a = 6</div>
+<div class="line">a = 8</div>
+</div><!-- fragment --><p>This results in the following being printed to standard output:</p>
+<div class="fragment"><div class="line">0</div>
+<div class="line">1</div>
+<div class="line">0</div>
+</div><!-- fragment --><p>Notice that only three lines are printed to standard output, even though the value of the computed cell argument <code>a</code> was changed five times.</p>
+<p>If <code>live_cells::changes_only</code> is removed from the definition of <code>b</code>, the following is printed to standard output:</p>
+<div class="fragment"><div class="line">0</div>
+<div class="line">1</div>
+<div class="line">1</div>
+<div class="line">1</div>
+<div class="line">0</div>
+<div class="line">0</div>
+</div><!-- fragment --><p>Notice that a new line is printed to standard output, whenever the value of <code>a</code>, which is an argument of <code>b</code>, is changed. This is because <code>b</code> notifies its observers whenever the value of its argument <code>a</code> has changed, even if <code>b</code>'s new value is equal to its previous value.</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
 Batch Updates</h1>
 <p>The values of multiple cells can be set simultaneously in a <em>batch update</em>. The effect of this is that while the values of the cells are changed as soon as the <code>value()</code> setter method, or assignment operator, is called, the observers of the cells are only notified after all the cell values have been set.</p>
@@ -276,7 +305,7 @@ Cell Types</h1>
 <div class="line">        <span class="keywordflow">return</span> a() + b();</div>
 <div class="line">    });</div>
 <div class="line">}</div>
-<div class="ttc" id="aconceptlive__cells_1_1Cell_html"><div class="ttname"><a href="conceptlive__cells_1_1Cell.html">live_cells::Cell</a></div><div class="ttdoc">Defines the cell protocol.</div><div class="ttdef"><b>Definition</b> types.hpp:125</div></div>
+<div class="ttc" id="aconceptlive__cells_1_1Cell_html"><div class="ttname"><a href="conceptlive__cells_1_1Cell.html">live_cells::Cell</a></div><div class="ttdoc">Defines the cell protocol.</div><div class="ttdef"><b>Definition</b> types.hpp:128</div></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
 Dynamically Typed Cells</h2>
 <p>The <code>Cell</code> concept and <code>auto</code> limits you to cells for which the exact type is known at compile-time. This means you cannot use them to store cells of unrelated, and unknown, types in a container such as <code>std::vector</code>.</p>

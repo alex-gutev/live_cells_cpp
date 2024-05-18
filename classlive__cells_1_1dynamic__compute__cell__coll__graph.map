@@ -1,7 +1,7 @@
-<map id="live_cells::dynamic_compute_cell&lt; F &gt;" name="live_cells::dynamic_compute_cell&lt; F &gt;">
-<area shape="rect" id="Node000001" title="A computed cell which determines its argument cells at runtime." alt="" coords="21,197,176,237"/>
-<area shape="rect" id="Node000002" href="$classlive__cells_1_1stateful__cell.html" title=" " alt="" coords="5,93,192,148"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,162,101,197,96,197,96,162"/>
-<area shape="rect" id="Node000003" href="$classlive__cells_1_1key__ref.html" title="Dynamically type key container." alt="" coords="29,5,168,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,45,101,93,96,93,96,45"/>
+<map id="live_cells::dynamic_compute_cell&lt; F, State &gt;" name="live_cells::dynamic_compute_cell&lt; F, State &gt;">
+<area shape="rect" id="Node000001" title="A computed cell which determines its argument cells at runtime." alt="" coords="5,183,201,223"/>
+<area shape="rect" id="Node000002" href="$classlive__cells_1_1stateful__cell.html" title="Base class for a cell with a state." alt="" coords="33,93,174,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,147,106,183,101,183,101,147"/>
+<area shape="rect" id="Node000003" href="$classlive__cells_1_1key__ref.html" title="Dynamically type key container." alt="" coords="34,5,173,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="106,44,106,93,101,93,101,44"/>
 </map>

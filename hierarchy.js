@@ -1,8 +1,12 @@
 var hierarchy =
 [
     [ "live_cells::argument_tracker", "classlive__cells_1_1argument__tracker.html", null ],
+    [ "Base", null, [
+      [ "live_cells::changes_only_cell_state< Base >", "classlive__cells_1_1changes__only__cell__state.html", null ]
+    ] ],
     [ "live_cells::batch_update", "classlive__cells_1_1batch__update.html", null ],
     [ "live_cells::cell", "classlive__cells_1_1cell.html", null ],
+    [ "live_cells::changes_only_option", "structlive__cells_1_1changes__only__option.html", null ],
     [ "live_cells::constant_cell< T >", "classlive__cells_1_1constant__cell.html", null ],
     [ "live_cells::dependent_cell< Ts >", "classlive__cells_1_1dependent__cell.html", null ],
     [ "live_cells::dependent_cell< Ts... >", "classlive__cells_1_1dependent__cell.html", [
@@ -15,19 +19,35 @@ var hierarchy =
     [ "std::enable_shared_from_this", null, [
       [ "live_cells::cell_state", "classlive__cells_1_1cell__state.html", [
         [ "live_cells::compute_cell_state< dynamic_compute_state< F > >", "classlive__cells_1_1compute__cell__state.html", [
-          [ "live_cells::dynamic_compute_cell_state< F >", "classlive__cells_1_1dynamic__compute__cell__state.html", null ]
+          [ "live_cells::dynamic_compute_cell_state< F >", "classlive__cells_1_1dynamic__compute__cell__state.html", [
+            [ "live_cells::changes_only_cell_state< dynamic_compute_cell_state< F > >", "classlive__cells_1_1changes__only__cell__state.html", [
+              [ "live_cells::dynamic_compute_changes_only_cell_state< F >", "classlive__cells_1_1dynamic__compute__changes__only__cell__state.html", null ]
+            ] ]
+          ] ]
         ] ],
         [ "live_cells::compute_cell_state< store_cell_compute_state< C > >", "classlive__cells_1_1compute__cell__state.html", [
-          [ "live_cells::store_cell_state< C >", "classlive__cells_1_1store__cell__state.html", null ]
+          [ "live_cells::store_cell_state< C >", "classlive__cells_1_1store__cell__state.html", [
+            [ "live_cells::changes_only_cell_state< store_cell_state< C > >", "classlive__cells_1_1changes__only__cell__state.html", [
+              [ "live_cells::store_changes_only_cell_state< C >", "classlive__cells_1_1store__changes__only__cell__state.html", null ]
+            ] ]
+          ] ]
         ] ],
         [ "live_cells::mutable_cell_state< std::invoke_result_t< F > >", "classlive__cells_1_1mutable__cell__state.html", null ],
         [ "live_cells::compute_cell_state< C >", "classlive__cells_1_1compute__cell__state.html", null ],
         [ "live_cells::mutable_cell_state< T >", "classlive__cells_1_1mutable__cell__state.html", [
           [ "live_cells::mutable_compute_cell_state< std::invoke_result_t< F > >", "classlive__cells_1_1mutable__compute__cell__state.html", [
-            [ "live_cells::static_mutable_compute_cell_state< F, R >", "classlive__cells_1_1static__mutable__compute__cell__state.html", null ]
+            [ "live_cells::static_mutable_compute_cell_state< F, R >", "classlive__cells_1_1static__mutable__compute__cell__state.html", [
+              [ "live_cells::changes_only_cell_state< static_mutable_compute_cell_state< F, R > >", "classlive__cells_1_1changes__only__cell__state.html", [
+                [ "live_cells::static_mutable_compute_changes_only_cell_state< F, R >", "classlive__cells_1_1static__mutable__compute__changes__only__cell__state.html", null ]
+              ] ]
+            ] ]
           ] ],
           [ "live_cells::mutable_compute_cell_state< T >", "classlive__cells_1_1mutable__compute__cell__state.html", [
-            [ "live_cells::dynamic_mutable_compute_cell_state< F, R, value_type >", "classlive__cells_1_1dynamic__mutable__compute__cell__state.html", null ]
+            [ "live_cells::dynamic_mutable_compute_cell_state< F, R, ValueType >", "classlive__cells_1_1dynamic__mutable__compute__cell__state.html", [
+              [ "live_cells::changes_only_cell_state< dynamic_mutable_compute_cell_state< F, R > >", "classlive__cells_1_1changes__only__cell__state.html", [
+                [ "live_cells::dynamic_mutable_compute_changes_only_cell_state< F, R >", "classlive__cells_1_1dynamic__mutable__compute__changes__only__cell__state.html", null ]
+              ] ]
+            ] ]
           ] ]
         ] ],
         [ "live_cells::peek_cell_state< C >", "classlive__cells_1_1peek__cell__state.html", null ]
@@ -68,26 +88,30 @@ var hierarchy =
       [ "live_cells::mutable_compute_cell_state< T >", "classlive__cells_1_1mutable__compute__cell__state.html", null ],
       [ "live_cells::peek_cell_state< C >", "classlive__cells_1_1peek__cell__state.html", null ]
     ] ],
+    [ "live_cells::observer_cell_state", "classlive__cells_1_1observer__cell__state.html", [
+      [ "live_cells::compute_cell_state< dynamic_compute_state< F > >", "classlive__cells_1_1compute__cell__state.html", null ],
+      [ "live_cells::compute_cell_state< store_cell_compute_state< C > >", "classlive__cells_1_1compute__cell__state.html", null ],
+      [ "live_cells::mutable_compute_cell_state< std::invoke_result_t< F > >", "classlive__cells_1_1mutable__compute__cell__state.html", null ],
+      [ "live_cells::compute_cell_state< C >", "classlive__cells_1_1compute__cell__state.html", null ],
+      [ "live_cells::mutable_compute_cell_state< T >", "classlive__cells_1_1mutable__compute__cell__state.html", null ]
+    ] ],
     [ "live_cells::state_manager", "classlive__cells_1_1state__manager.html", null ],
-    [ "live_cells::stateful_cell< S >", "classlive__cells_1_1stateful__cell.html", null ],
-    [ "live_cells::stateful_cell< dynamic_compute_cell_state< F > >", "classlive__cells_1_1stateful__cell.html", [
-      [ "live_cells::dynamic_compute_cell< F >", "classlive__cells_1_1dynamic__compute__cell.html", null ]
+    [ "live_cells::stateful_cell< S >", "classlive__cells_1_1stateful__cell.html", [
+      [ "live_cells::dynamic_compute_cell< F, State >", "classlive__cells_1_1dynamic__compute__cell.html", null ],
+      [ "live_cells::dynamic_mutable_compute_cell< F, R, State >", "classlive__cells_1_1dynamic__mutable__compute__cell.html", null ],
+      [ "live_cells::static_mutable_compute_cell< F, R, State >", "classlive__cells_1_1static__mutable__compute__cell.html", null ],
+      [ "live_cells::store_cell< C, State >", "classlive__cells_1_1store__cell.html", null ]
     ] ],
-    [ "live_cells::stateful_cell< dynamic_mutable_compute_cell_state< F, R > >", "classlive__cells_1_1stateful__cell.html", [
-      [ "live_cells::dynamic_mutable_compute_cell< F, R >", "classlive__cells_1_1dynamic__mutable__compute__cell.html", null ]
-    ] ],
+    [ "live_cells::stateful_cell< dynamic_compute_cell_state< F > >", "classlive__cells_1_1stateful__cell.html", null ],
+    [ "live_cells::stateful_cell< dynamic_mutable_compute_cell_state< F, R > >", "classlive__cells_1_1stateful__cell.html", null ],
     [ "live_cells::stateful_cell< mutable_cell_state< T > >", "classlive__cells_1_1stateful__cell.html", [
       [ "live_cells::mutable_cell< T >", "classlive__cells_1_1mutable__cell.html", null ]
     ] ],
     [ "live_cells::stateful_cell< peek_cell_state< C > >", "classlive__cells_1_1stateful__cell.html", [
       [ "live_cells::peek_cell< C >", "classlive__cells_1_1peek__cell.html", null ]
     ] ],
-    [ "live_cells::stateful_cell< static_mutable_compute_cell_state< F, R > >", "classlive__cells_1_1stateful__cell.html", [
-      [ "live_cells::static_mutable_compute_cell< F, R >", "classlive__cells_1_1static__mutable__compute__cell.html", null ]
-    ] ],
-    [ "live_cells::stateful_cell< store_cell_state< C > >", "classlive__cells_1_1stateful__cell.html", [
-      [ "live_cells::store_cell< C >", "classlive__cells_1_1store__cell.html", null ]
-    ] ],
+    [ "live_cells::stateful_cell< static_mutable_compute_cell_state< F, R > >", "classlive__cells_1_1stateful__cell.html", null ],
+    [ "live_cells::stateful_cell< store_cell_state< C > >", "classlive__cells_1_1stateful__cell.html", null ],
     [ "live_cells::store_cell_compute_state< C >", "classlive__cells_1_1store__cell__compute__state.html", null ],
     [ "live_cells::argument_tracker::tracker< T >", "classlive__cells_1_1argument__tracker_1_1tracker.html", null ],
     [ "live_cells::typed_cell< T >", "classlive__cells_1_1typed__cell.html", null ]

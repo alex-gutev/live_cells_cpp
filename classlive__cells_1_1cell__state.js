@@ -5,7 +5,7 @@ var classlive__cells_1_1cell__state =
     [ "add_observer", "classlive__cells_1_1cell__state.html#af119ce0460698ee290044270012fbb5d", null ],
     [ "init", "classlive__cells_1_1cell__state.html#a5ea8a52b931e9558ca1c20656436b35d", null ],
     [ "is_active", "classlive__cells_1_1cell__state.html#abebd0e17d4c9d0b8879d15476eb71d68", null ],
-    [ "notify_update", "classlive__cells_1_1cell__state.html#ab2f83b83d7edc35c16267b9957515331", null ],
+    [ "notify_update", "classlive__cells_1_1cell__state.html#a555d6e8252b4fcb07435f523d504078f", null ],
     [ "notify_will_update", "classlive__cells_1_1cell__state.html#a51cb92e1f19c466719fc4ae73991f2d6", null ],
     [ "pause", "classlive__cells_1_1cell__state.html#abb84882de8772b8ad986439f64c503c9", null ],
     [ "remove_observer", "classlive__cells_1_1cell__state.html#a1213745f76679945021398d5f6f95861", null ],

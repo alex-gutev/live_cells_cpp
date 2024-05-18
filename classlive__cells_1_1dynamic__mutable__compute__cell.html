@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Live Cells C++: live_cells::dynamic_mutable_compute_cell&lt; F, R &gt; Class Template Reference</title>
+<title>Live Cells C++: live_cells::dynamic_mutable_compute_cell&lt; F, R, State &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -97,7 +97,7 @@ $(function(){initNavTree('classlive__cells_1_1dynamic__mutable__compute__cell.ht
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classlive__cells_1_1dynamic__mutable__compute__cell-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">live_cells::dynamic_mutable_compute_cell&lt; F, R &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">live_cells::dynamic_mutable_compute_cell&lt; F, R, State &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -106,62 +106,63 @@ $(function(){initNavTree('classlive__cells_1_1dynamic__mutable__compute__cell.ht
 
 <p><code>#include &lt;<a class="el" href="dynamic__mutable__compute__cell_8hpp_source.html">dynamic_mutable_compute_cell.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for live_cells::dynamic_mutable_compute_cell&lt; F, R &gt;:</div>
+Inheritance diagram for live_cells::dynamic_mutable_compute_cell&lt; F, R, State &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classlive__cells_1_1dynamic__mutable__compute__cell__inherit__graph.png" border="0" usemap="#alive__cells_1_1dynamic__mutable__compute__cell_3_01F_00_01R_01_4_inherit__map" alt="Inheritance graph"/></div>
-<map name="alive__cells_1_1dynamic__mutable__compute__cell_3_01F_00_01R_01_4_inherit__map" id="alive__cells_1_1dynamic__mutable__compute__cell_3_01F_00_01R_01_4_inherit__map">
-<area shape="rect" title="A mutable computed cell with the argument cells determined dynamically." alt="" coords="30,108,207,163"/>
-<area shape="rect" href="classlive__cells_1_1stateful__cell.html" title=" " alt="" coords="5,5,232,60"/>
-<area shape="poly" title=" " alt="" coords="121,74,121,108,116,108,116,74"/>
+<div class="center"><img src="classlive__cells_1_1dynamic__mutable__compute__cell__inherit__graph.png" border="0" usemap="#alive__cells_1_1dynamic__mutable__compute__cell_3_01F_00_01R_00_01State_01_4_inherit__map" alt="Inheritance graph"/></div>
+<map name="alive__cells_1_1dynamic__mutable__compute__cell_3_01F_00_01R_00_01State_01_4_inherit__map" id="alive__cells_1_1dynamic__mutable__compute__cell_3_01F_00_01R_00_01State_01_4_inherit__map">
+<area shape="rect" title="A mutable computed cell with the argument cells determined dynamically." alt="" coords="5,93,183,148"/>
+<area shape="rect" href="classlive__cells_1_1stateful__cell.html" title="Base class for a cell with a state." alt="" coords="23,5,165,45"/>
+<area shape="poly" title=" " alt="" coords="97,59,97,93,91,93,91,59"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
-Collaboration diagram for live_cells::dynamic_mutable_compute_cell&lt; F, R &gt;:</div>
+Collaboration diagram for live_cells::dynamic_mutable_compute_cell&lt; F, R, State &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classlive__cells_1_1dynamic__mutable__compute__cell__coll__graph.png" border="0" usemap="#alive__cells_1_1dynamic__mutable__compute__cell_3_01F_00_01R_01_4_coll__map" alt="Collaboration graph"/></div>
-<map name="alive__cells_1_1dynamic__mutable__compute__cell_3_01F_00_01R_01_4_coll__map" id="alive__cells_1_1dynamic__mutable__compute__cell_3_01F_00_01R_01_4_coll__map">
-<area shape="rect" title="A mutable computed cell with the argument cells determined dynamically." alt="" coords="30,197,207,252"/>
-<area shape="rect" href="classlive__cells_1_1stateful__cell.html" title=" " alt="" coords="5,93,232,148"/>
-<area shape="poly" title=" " alt="" coords="121,162,121,197,116,197,116,162"/>
-<area shape="rect" href="classlive__cells_1_1key__ref.html" title="Dynamically type key container." alt="" coords="49,5,188,31"/>
-<area shape="poly" title=" " alt="" coords="121,45,121,93,116,93,116,45"/>
+<div class="center"><img src="classlive__cells_1_1dynamic__mutable__compute__cell__coll__graph.png" border="0" usemap="#alive__cells_1_1dynamic__mutable__compute__cell_3_01F_00_01R_00_01State_01_4_coll__map" alt="Collaboration graph"/></div>
+<map name="alive__cells_1_1dynamic__mutable__compute__cell_3_01F_00_01R_00_01State_01_4_coll__map" id="alive__cells_1_1dynamic__mutable__compute__cell_3_01F_00_01R_00_01State_01_4_coll__map">
+<area shape="rect" title="A mutable computed cell with the argument cells determined dynamically." alt="" coords="5,183,183,237"/>
+<area shape="rect" href="classlive__cells_1_1stateful__cell.html" title="Base class for a cell with a state." alt="" coords="23,93,165,133"/>
+<area shape="poly" title=" " alt="" coords="97,147,97,183,91,183,91,147"/>
+<area shape="rect" href="classlive__cells_1_1key__ref.html" title="Dynamically type key container." alt="" coords="25,5,163,31"/>
+<area shape="poly" title=" " alt="" coords="97,44,97,93,91,93,91,44"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a96b2db8774decd8a5fb5a1a43fca46e2" id="r_a96b2db8774decd8a5fb5a1a43fca46e2"><td class="memItemLeft" align="right" valign="top"><a id="a96b2db8774decd8a5fb5a1a43fca46e2" name="a96b2db8774decd8a5fb5a1a43fca46e2"></a>
+<tr class="memitem:abd1c20e2d6678cff3ed1fbff769a9351" id="r_abd1c20e2d6678cff3ed1fbff769a9351"><td class="memItemLeft" align="right" valign="top"><a id="abd1c20e2d6678cff3ed1fbff769a9351" name="abd1c20e2d6678cff3ed1fbff769a9351"></a>
 <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typedef</a> std::invoke_result_t&lt; F &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>value_type</b></td></tr>
-<tr class="memdesc:a96b2db8774decd8a5fb5a1a43fca46e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shorthand for the type of value held by this cell. <br /></td></tr>
-<tr class="separator:a96b2db8774decd8a5fb5a1a43fca46e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:abd1c20e2d6678cff3ed1fbff769a9351"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shorthand for the type of value held by this cell. <br /></td></tr>
+<tr class="separator:abd1c20e2d6678cff3ed1fbff769a9351"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8875def1ab5e1d73f494ce913f42bc92" id="r_a8875def1ab5e1d73f494ce913f42bc92"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> T , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">U</a> &gt; </td></tr>
-<tr class="memitem:a8875def1ab5e1d73f494ce913f42bc92"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a8875def1ab5e1d73f494ce913f42bc92">dynamic_mutable_compute_cell</a> (<a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">k</a>, T &amp;&amp;compute, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">U</a> &amp;&amp;reverse)</td></tr>
-<tr class="memdesc:a8875def1ab5e1d73f494ce913f42bc92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a dynamic mutable computed cell.  <br /></td></tr>
-<tr class="separator:a8875def1ab5e1d73f494ce913f42bc92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8b298db2424d2e86e0e12b87bae3a46" id="r_aa8b298db2424d2e86e0e12b87bae3a46"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> T , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">U</a> &gt; </td></tr>
-<tr class="memitem:aa8b298db2424d2e86e0e12b87bae3a46"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aa8b298db2424d2e86e0e12b87bae3a46">dynamic_mutable_compute_cell</a> (T &amp;&amp;compute, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">U</a> &amp;&amp;reverse)</td></tr>
-<tr class="memdesc:aa8b298db2424d2e86e0e12b87bae3a46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a dynamic mutable computed cell.  <br /></td></tr>
-<tr class="separator:aa8b298db2424d2e86e0e12b87bae3a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c86c39600599a39b39c94741466a71f" id="r_a8c86c39600599a39b39c94741466a71f"><td class="memItemLeft" align="right" valign="top"><a id="a8c86c39600599a39b39c94741466a71f" name="a8c86c39600599a39b39c94741466a71f"></a>
-<a class="el" href="#a96b2db8774decd8a5fb5a1a43fca46e2">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><b>value</b> () <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a></td></tr>
-<tr class="separator:a8c86c39600599a39b39c94741466a71f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a085bdb510238044c99343341c8f6f9e7" id="r_a085bdb510238044c99343341c8f6f9e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a085bdb510238044c99343341c8f6f9e7">value</a> (<a class="el" href="#a96b2db8774decd8a5fb5a1a43fca46e2">value_type</a> value) <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a></td></tr>
-<tr class="memdesc:a085bdb510238044c99343341c8f6f9e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value of the cell.  <br /></td></tr>
-<tr class="separator:a085bdb510238044c99343341c8f6f9e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f738e43d07306612189cb6c28b7b195" id="r_a0f738e43d07306612189cb6c28b7b195"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a96b2db8774decd8a5fb5a1a43fca46e2">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f738e43d07306612189cb6c28b7b195">operator=</a> (<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="#a96b2db8774decd8a5fb5a1a43fca46e2">value_type</a> &amp;value)</td></tr>
-<tr class="memdesc:a0f738e43d07306612189cb6c28b7b195"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value of the cell to <em>value</em>.  <br /></td></tr>
-<tr class="separator:a0f738e43d07306612189cb6c28b7b195"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9513e9a625bfc2148dc8a5c082b552e8" id="r_a9513e9a625bfc2148dc8a5c082b552e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a96b2db8774decd8a5fb5a1a43fca46e2">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9513e9a625bfc2148dc8a5c082b552e8">operator=</a> (<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="#a96b2db8774decd8a5fb5a1a43fca46e2">value_type</a> &amp;value) <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a></td></tr>
-<tr class="memdesc:a9513e9a625bfc2148dc8a5c082b552e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value of the cell.  <br /></td></tr>
-<tr class="separator:a9513e9a625bfc2148dc8a5c082b552e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a595eb314e0008b66f7a0fc928f7109e0" id="r_a595eb314e0008b66f7a0fc928f7109e0"><td class="memItemLeft" align="right" valign="top"><a id="a595eb314e0008b66f7a0fc928f7109e0" name="a595eb314e0008b66f7a0fc928f7109e0"></a>
-<a class="el" href="#a96b2db8774decd8a5fb5a1a43fca46e2">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator()</b> () <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a></td></tr>
-<tr class="separator:a595eb314e0008b66f7a0fc928f7109e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_classlive__cells_1_1stateful__cell"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classlive__cells_1_1stateful__cell')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classlive__cells_1_1stateful__cell.html">live_cells::stateful_cell&lt; dynamic_mutable_compute_cell_state&lt; F, R &gt; &gt;</a></td></tr>
-<tr class="memitem:a2f1e1419aadbe474c58d3c5c02e33edd inherit pub_methods_classlive__cells_1_1stateful__cell" id="r_a2f1e1419aadbe474c58d3c5c02e33edd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlive__cells_1_1stateful__cell.html#a2f1e1419aadbe474c58d3c5c02e33edd">stateful_cell</a> (<a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">k</a>, Args... <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">args</a>)</td></tr>
+<tr class="memitem:acea2780d6682d405c5c4c13c83ba229c" id="r_acea2780d6682d405c5c4c13c83ba229c"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> T , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">U</a> &gt; </td></tr>
+<tr class="memitem:acea2780d6682d405c5c4c13c83ba229c"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#acea2780d6682d405c5c4c13c83ba229c">dynamic_mutable_compute_cell</a> (<a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">k</a>, T &amp;&amp;compute, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">U</a> &amp;&amp;reverse)</td></tr>
+<tr class="memdesc:acea2780d6682d405c5c4c13c83ba229c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a dynamic mutable computed cell.  <br /></td></tr>
+<tr class="separator:acea2780d6682d405c5c4c13c83ba229c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab319f02db336b8b18138f6db6d8104a6" id="r_ab319f02db336b8b18138f6db6d8104a6"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> T , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">U</a> &gt; </td></tr>
+<tr class="memitem:ab319f02db336b8b18138f6db6d8104a6"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ab319f02db336b8b18138f6db6d8104a6">dynamic_mutable_compute_cell</a> (T &amp;&amp;compute, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">U</a> &amp;&amp;reverse)</td></tr>
+<tr class="memdesc:ab319f02db336b8b18138f6db6d8104a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a dynamic mutable computed cell.  <br /></td></tr>
+<tr class="separator:ab319f02db336b8b18138f6db6d8104a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad62f2556a2557ede9bdfffcb369c17c8" id="r_ad62f2556a2557ede9bdfffcb369c17c8"><td class="memItemLeft" align="right" valign="top"><a id="ad62f2556a2557ede9bdfffcb369c17c8" name="ad62f2556a2557ede9bdfffcb369c17c8"></a>
+<a class="el" href="#abd1c20e2d6678cff3ed1fbff769a9351">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><b>value</b> () <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a></td></tr>
+<tr class="separator:ad62f2556a2557ede9bdfffcb369c17c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1f13121dc8f9bf1d09d6bd0abb08068" id="r_ae1f13121dc8f9bf1d09d6bd0abb08068"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae1f13121dc8f9bf1d09d6bd0abb08068">value</a> (<a class="el" href="#abd1c20e2d6678cff3ed1fbff769a9351">value_type</a> value) <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a></td></tr>
+<tr class="memdesc:ae1f13121dc8f9bf1d09d6bd0abb08068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value of the cell.  <br /></td></tr>
+<tr class="separator:ae1f13121dc8f9bf1d09d6bd0abb08068"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac144141ea90058b8e06c8f80d2aa20d5" id="r_ac144141ea90058b8e06c8f80d2aa20d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#abd1c20e2d6678cff3ed1fbff769a9351">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac144141ea90058b8e06c8f80d2aa20d5">operator=</a> (<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="#abd1c20e2d6678cff3ed1fbff769a9351">value_type</a> &amp;value)</td></tr>
+<tr class="memdesc:ac144141ea90058b8e06c8f80d2aa20d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value of the cell to <em>value</em>.  <br /></td></tr>
+<tr class="separator:ac144141ea90058b8e06c8f80d2aa20d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d29a95315bcf05d9aee7b921d293032" id="r_a5d29a95315bcf05d9aee7b921d293032"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#abd1c20e2d6678cff3ed1fbff769a9351">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d29a95315bcf05d9aee7b921d293032">operator=</a> (<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="#abd1c20e2d6678cff3ed1fbff769a9351">value_type</a> &amp;value) <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a></td></tr>
+<tr class="memdesc:a5d29a95315bcf05d9aee7b921d293032"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value of the cell.  <br /></td></tr>
+<tr class="separator:a5d29a95315bcf05d9aee7b921d293032"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a634e92e0d3a6c8dcb0b9efac451f70bf" id="r_a634e92e0d3a6c8dcb0b9efac451f70bf"><td class="memItemLeft" align="right" valign="top"><a id="a634e92e0d3a6c8dcb0b9efac451f70bf" name="a634e92e0d3a6c8dcb0b9efac451f70bf"></a>
+<a class="el" href="#abd1c20e2d6678cff3ed1fbff769a9351">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator()</b> () <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a></td></tr>
+<tr class="separator:a634e92e0d3a6c8dcb0b9efac451f70bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classlive__cells_1_1stateful__cell"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classlive__cells_1_1stateful__cell')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classlive__cells_1_1stateful__cell.html">live_cells::stateful_cell&lt; S &gt;</a></td></tr>
+<tr class="memitem:a2f1e1419aadbe474c58d3c5c02e33edd inherit pub_methods_classlive__cells_1_1stateful__cell" id="r_a2f1e1419aadbe474c58d3c5c02e33edd"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:a2f1e1419aadbe474c58d3c5c02e33edd inherit pub_methods_classlive__cells_1_1stateful__cell"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classlive__cells_1_1stateful__cell.html#a2f1e1419aadbe474c58d3c5c02e33edd">stateful_cell</a> (<a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">k</a>, Args... <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">args</a>)</td></tr>
 <tr class="memdesc:a2f1e1419aadbe474c58d3c5c02e33edd inherit pub_methods_classlive__cells_1_1stateful__cell"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a stateful cell and associate it with a state.  <br /></td></tr>
 <tr class="separator:a2f1e1419aadbe474c58d3c5c02e33edd inherit pub_methods_classlive__cells_1_1stateful__cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c9082975220d6789b0721035a2b25fa inherit pub_methods_classlive__cells_1_1stateful__cell" id="r_a2c9082975220d6789b0721035a2b25fa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlive__cells_1_1stateful__cell.html#a2c9082975220d6789b0721035a2b25fa">key</a> () <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a></td></tr>
@@ -176,27 +177,27 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_attribs_classlive__cells_1_1stateful__cell"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classlive__cells_1_1stateful__cell')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classlive__cells_1_1stateful__cell.html">live_cells::stateful_cell&lt; dynamic_mutable_compute_cell_state&lt; F, R &gt; &gt;</a></td></tr>
+<tr class="inherit_header pro_attribs_classlive__cells_1_1stateful__cell"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classlive__cells_1_1stateful__cell')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classlive__cells_1_1stateful__cell.html">live_cells::stateful_cell&lt; S &gt;</a></td></tr>
 <tr class="memitem:aa7095d04fd53ff1b18edc4cc933d71ca inherit pro_attribs_classlive__cells_1_1stateful__cell" id="r_aa7095d04fd53ff1b18edc4cc933d71ca"><td class="memItemLeft" align="right" valign="top">
 <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a>&#160;</td><td class="memItemRight" valign="bottom"><b>key_</b></td></tr>
 <tr class="memdesc:aa7095d04fd53ff1b18edc4cc933d71ca inherit pro_attribs_classlive__cells_1_1stateful__cell"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key identifying the cell. <br /></td></tr>
 <tr class="separator:aa7095d04fd53ff1b18edc4cc933d71ca inherit pro_attribs_classlive__cells_1_1stateful__cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a050957612d87b3c2b842d37ed6808912 inherit pro_attribs_classlive__cells_1_1stateful__cell" id="r_a050957612d87b3c2b842d37ed6808912"><td class="memItemLeft" align="right" valign="top">
-std::shared_ptr&lt; <a class="el" href="classlive__cells_1_1dynamic__mutable__compute__cell__state.html">dynamic_mutable_compute_cell_state</a>&lt; F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>state</b></td></tr>
+std::shared_ptr&lt; <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">S</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>state</b></td></tr>
 <tr class="memdesc:a050957612d87b3c2b842d37ed6808912 inherit pro_attribs_classlive__cells_1_1stateful__cell"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the cell's state. <br /></td></tr>
 <tr class="separator:a050957612d87b3c2b842d37ed6808912 inherit pro_attribs_classlive__cells_1_1stateful__cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a>&gt;<br />
-class live_cells::dynamic_mutable_compute_cell&lt; F, R &gt;</div><p>A mutable computed cell with the argument cells determined dynamically. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a> = dynamic_mutable_compute_cell_state&lt;F,R&gt;&gt;<br />
+class live_cells::dynamic_mutable_compute_cell&lt; F, R, State &gt;</div><p>A mutable computed cell with the argument cells determined dynamically. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8875def1ab5e1d73f494ce913f42bc92" name="a8875def1ab5e1d73f494ce913f42bc92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8875def1ab5e1d73f494ce913f42bc92">&#9670;&#160;</a></span>dynamic_mutable_compute_cell() <span class="overload">[1/2]</span></h2>
+<a id="acea2780d6682d405c5c4c13c83ba229c" name="acea2780d6682d405c5c4c13c83ba229c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acea2780d6682d405c5c4c13c83ba229c">&#9670;&#160;</a></span>dynamic_mutable_compute_cell() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &gt; </div>
+template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a>  = dynamic_mutable_compute_cell_state&lt;F,R&gt;&gt; </div>
 <div class="memtemplate">
 template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> T , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">U</a> &gt; </div>
 <table class="mlabels">
@@ -204,7 +205,7 @@ template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html"
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__mutable__compute__cell.html">live_cells::dynamic_mutable_compute_cell</a>&lt; F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &gt;::dynamic_mutable_compute_cell </td>
+          <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__mutable__compute__cell.html">live_cells::dynamic_mutable_compute_cell</a>&lt; F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a> &gt;::dynamic_mutable_compute_cell </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a></td>          <td class="paramname"><span class="paramname"><em>k</em>, </span></td>
         </tr>
@@ -240,13 +241,13 @@ template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html"
 
 </div>
 </div>
-<a id="aa8b298db2424d2e86e0e12b87bae3a46" name="aa8b298db2424d2e86e0e12b87bae3a46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8b298db2424d2e86e0e12b87bae3a46">&#9670;&#160;</a></span>dynamic_mutable_compute_cell() <span class="overload">[2/2]</span></h2>
+<a id="ab319f02db336b8b18138f6db6d8104a6" name="ab319f02db336b8b18138f6db6d8104a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab319f02db336b8b18138f6db6d8104a6">&#9670;&#160;</a></span>dynamic_mutable_compute_cell() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &gt; </div>
+template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a>  = dynamic_mutable_compute_cell_state&lt;F,R&gt;&gt; </div>
 <div class="memtemplate">
 template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> T , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">U</a> &gt; </div>
 <table class="mlabels">
@@ -254,7 +255,7 @@ template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html"
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__mutable__compute__cell.html">live_cells::dynamic_mutable_compute_cell</a>&lt; F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &gt;::dynamic_mutable_compute_cell </td>
+          <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__mutable__compute__cell.html">live_cells::dynamic_mutable_compute_cell</a>&lt; F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a> &gt;::dynamic_mutable_compute_cell </td>
           <td>(</td>
           <td class="paramtype">T &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>compute</em>, </span></td>
         </tr>
@@ -285,21 +286,21 @@ template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html"
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0f738e43d07306612189cb6c28b7b195" name="a0f738e43d07306612189cb6c28b7b195"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f738e43d07306612189cb6c28b7b195">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+<a id="ac144141ea90058b8e06c8f80d2aa20d5" name="ac144141ea90058b8e06c8f80d2aa20d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac144141ea90058b8e06c8f80d2aa20d5">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &gt; </div>
+template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a>  = dynamic_mutable_compute_cell_state&lt;F,R&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#a96b2db8774decd8a5fb5a1a43fca46e2">value_type</a> <a class="el" href="classlive__cells_1_1dynamic__mutable__compute__cell.html">live_cells::dynamic_mutable_compute_cell</a>&lt; F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &gt;::operator= </td>
+          <td class="memname"><a class="el" href="#abd1c20e2d6678cff3ed1fbff769a9351">value_type</a> <a class="el" href="classlive__cells_1_1dynamic__mutable__compute__cell.html">live_cells::dynamic_mutable_compute_cell</a>&lt; F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a> &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="#a96b2db8774decd8a5fb5a1a43fca46e2">value_type</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="#abd1c20e2d6678cff3ed1fbff769a9351">value_type</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -323,21 +324,21 @@ template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__c
 
 </div>
 </div>
-<a id="a9513e9a625bfc2148dc8a5c082b552e8" name="a9513e9a625bfc2148dc8a5c082b552e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9513e9a625bfc2148dc8a5c082b552e8">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+<a id="a5d29a95315bcf05d9aee7b921d293032" name="a5d29a95315bcf05d9aee7b921d293032"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d29a95315bcf05d9aee7b921d293032">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &gt; </div>
+template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a>  = dynamic_mutable_compute_cell_state&lt;F,R&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#a96b2db8774decd8a5fb5a1a43fca46e2">value_type</a> <a class="el" href="classlive__cells_1_1dynamic__mutable__compute__cell.html">live_cells::dynamic_mutable_compute_cell</a>&lt; F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &gt;::operator= </td>
+          <td class="memname"><a class="el" href="#abd1c20e2d6678cff3ed1fbff769a9351">value_type</a> <a class="el" href="classlive__cells_1_1dynamic__mutable__compute__cell.html">live_cells::dynamic_mutable_compute_cell</a>&lt; F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a> &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="#a96b2db8774decd8a5fb5a1a43fca46e2">value_type</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="#abd1c20e2d6678cff3ed1fbff769a9351">value_type</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -362,21 +363,21 @@ template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__c
 
 </div>
 </div>
-<a id="a085bdb510238044c99343341c8f6f9e7" name="a085bdb510238044c99343341c8f6f9e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a085bdb510238044c99343341c8f6f9e7">&#9670;&#160;</a></span>value()</h2>
+<a id="ae1f13121dc8f9bf1d09d6bd0abb08068" name="ae1f13121dc8f9bf1d09d6bd0abb08068"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1f13121dc8f9bf1d09d6bd0abb08068">&#9670;&#160;</a></span>value()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &gt; </div>
+template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a>  = dynamic_mutable_compute_cell_state&lt;F,R&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">void</a> <a class="el" href="classlive__cells_1_1dynamic__mutable__compute__cell.html">live_cells::dynamic_mutable_compute_cell</a>&lt; F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &gt;::value </td>
+          <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">void</a> <a class="el" href="classlive__cells_1_1dynamic__mutable__compute__cell.html">live_cells::dynamic_mutable_compute_cell</a>&lt; F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">State</a> &gt;::value </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a96b2db8774decd8a5fb5a1a43fca46e2">value_type</a></td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="#abd1c20e2d6678cff3ed1fbff769a9351">value_type</a></td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>

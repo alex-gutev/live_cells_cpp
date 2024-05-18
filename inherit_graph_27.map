@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$structstd_1_1hash_3_01live__cells_1_1key_01_4.html" title=" " alt="" coords="5,5,163,45"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,13,120,38"/>
+<area shape="rect" id="Node000001" href="$structlive__cells_1_1stop__compute__exception.html" title="Exception indicating that the value of a cell should not be computed." alt="" coords="168,5,351,45"/>
+<area shape="poly" id="edge53_Node000000_Node000001" title=" " alt="" coords="134,23,168,23,168,28,134,28"/>
 </map>

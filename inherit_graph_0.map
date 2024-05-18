@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classlive__cells_1_1argument__tracker.html" title=" " alt="" coords="5,5,160,45"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,13,60,38"/>
+<area shape="rect" id="Node000001" href="$classlive__cells_1_1changes__only__cell__state.html" title="Mixin that modifies a compute_cell_state subclass to only notify its observers if the new value of th..." alt="" coords="108,5,297,45"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="74,23,108,23,108,28,74,28"/>
 </map>

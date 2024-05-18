@@ -135,6 +135,9 @@ Variables</h2></td></tr>
 <tr class="memitem:ae16be11777397241d312b84b47178d6d" id="r_ae16be11777397241d312b84b47178d6d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">constexpr</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae16be11777397241d312b84b47178d6d">store</a></td></tr>
 <tr class="memdesc:ae16be11777397241d312b84b47178d6d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptlive__cells_1_1ops_1_1Operator.html" title="Concept defining an operator on a cell.">Operator</a> for caching the value of another cell.  <br /></td></tr>
 <tr class="separator:ae16be11777397241d312b84b47178d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5f16459029244814d3375373cbfa5e1" id="r_ae5f16459029244814d3375373cbfa5e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">constexpr</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5f16459029244814d3375373cbfa5e1">cache</a></td></tr>
+<tr class="memdesc:ae5f16459029244814d3375373cbfa5e1"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptlive__cells_1_1ops_1_1Operator.html" title="Concept defining an operator on a cell.">Operator</a> for creating a cell that caches the value of another cell and only notifies its observers when its value has actually changed.  <br /></td></tr>
+<tr class="separator:ae5f16459029244814d3375373cbfa5e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Provides functions which can be applied on <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a>'s</code> using the <code></code>| operator. </p>
@@ -296,6 +299,43 @@ template&lt;Cell C, Operator&lt; C &gt; O&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="ae5f16459029244814d3375373cbfa5e1" name="ae5f16459029244814d3375373cbfa5e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5f16459029244814d3375373cbfa5e1">&#9670;&#160;</a></span>cache</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">constexpr</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a> live_cells::ops::cache</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= [] (<span class="keyword">const</span> <a class="code hl_concept" href="conceptlive__cells_1_1Cell.html">Cell</a> <span class="keyword">auto</span> &amp; cell) {</div>
+<div class="line">            <span class="keywordflow">return</span> <a class="code hl_function" href="namespacelive__cells.html#a38d368769d765c82f756df82d619070e">live_cells::store</a>(changes_only, cell);</div>
+<div class="line">        }</div>
+<div class="ttc" id="aconceptlive__cells_1_1Cell_html"><div class="ttname"><a href="conceptlive__cells_1_1Cell.html">live_cells::Cell</a></div><div class="ttdoc">Defines the cell protocol.</div><div class="ttdef"><b>Definition</b> types.hpp:128</div></div>
+<div class="ttc" id="anamespacelive__cells_html_a38d368769d765c82f756df82d619070e"><div class="ttname"><a href="namespacelive__cells.html#a38d368769d765c82f756df82d619070e">live_cells::store</a></div><div class="ttdeci">auto store(const C &amp;arg)</div><div class="ttdoc">Create a Cell that caches the value of another Cell.</div><div class="ttdef"><b>Definition</b> store_cell.hpp:206</div></div>
+</div><!-- fragment -->
+<p><a class="el" href="conceptlive__cells_1_1ops_1_1Operator.html" title="Concept defining an operator on a cell.">Operator</a> for creating a cell that caches the value of another cell and only notifies its observers when its value has actually changed. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacelive__cells.html#a38d368769d765c82f756df82d619070e" title="Create a Cell that caches the value of another Cell.">live_cells::store</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cell</td><td>The operand <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code> that has the same value as <em>cell</em> but caches it in memory until it changes. </dd></dl>
+
+</div>
+</div>
 <a id="ac3c694eb320f49f96fd11a5601417fec" name="ac3c694eb320f49f96fd11a5601417fec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac3c694eb320f49f96fd11a5601417fec">&#9670;&#160;</a></span>peek</h2>
 
@@ -318,7 +358,6 @@ template&lt;Cell C, Operator&lt; C &gt; O&gt; </div>
 <b>Initial value:</b><div class="fragment"><div class="line">= [] (<span class="keyword">const</span> <a class="code hl_concept" href="conceptlive__cells_1_1Cell.html">Cell</a> <span class="keyword">auto</span> &amp;cell) {</div>
 <div class="line">            <span class="keywordflow">return</span> <a class="code hl_function" href="namespacelive__cells.html#a7fc8173d64b8688a70ff408450e8b91e">live_cells::peek</a>(cell);</div>
 <div class="line">        }</div>
-<div class="ttc" id="aconceptlive__cells_1_1Cell_html"><div class="ttname"><a href="conceptlive__cells_1_1Cell.html">live_cells::Cell</a></div><div class="ttdoc">Defines the cell protocol.</div><div class="ttdef"><b>Definition</b> types.hpp:125</div></div>
 <div class="ttc" id="anamespacelive__cells_html_a7fc8173d64b8688a70ff408450e8b91e"><div class="ttname"><a href="namespacelive__cells.html#a7fc8173d64b8688a70ff408450e8b91e">live_cells::peek</a></div><div class="ttdeci">auto peek(const C &amp;cell)</div><div class="ttdoc">Create a Cell that reads the value of cell but does not notify its observers when the value has chang...</div><div class="ttdef"><b>Definition</b> peek_cell.hpp:130</div></div>
 </div><!-- fragment -->
 <p><a class="el" href="conceptlive__cells_1_1ops_1_1Operator.html" title="Concept defining an operator on a cell.">Operator</a> for reading the value of a cell without reacting to changes. </p>
@@ -355,7 +394,6 @@ template&lt;Cell C, Operator&lt; C &gt; O&gt; </div>
 <b>Initial value:</b><div class="fragment"><div class="line">= [] (<span class="keyword">const</span> <a class="code hl_concept" href="conceptlive__cells_1_1Cell.html">Cell</a> <span class="keyword">auto</span> &amp;cell) {</div>
 <div class="line">            <span class="keywordflow">return</span> <a class="code hl_function" href="namespacelive__cells.html#a38d368769d765c82f756df82d619070e">live_cells::store</a>(cell);</div>
 <div class="line">        }</div>
-<div class="ttc" id="anamespacelive__cells_html_a38d368769d765c82f756df82d619070e"><div class="ttname"><a href="namespacelive__cells.html#a38d368769d765c82f756df82d619070e">live_cells::store</a></div><div class="ttdeci">auto store(const C &amp;arg)</div><div class="ttdoc">Create a Cell that caches the value of another Cell.</div><div class="ttdef"><b>Definition</b> store_cell.hpp:191</div></div>
 </div><!-- fragment -->
 <p><a class="el" href="conceptlive__cells_1_1ops_1_1Operator.html" title="Concept defining an operator on a cell.">Operator</a> for caching the value of another cell. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacelive__cells.html#a38d368769d765c82f756df82d619070e" title="Create a Cell that caches the value of another Cell.">live_cells::store</a></dd></dl>

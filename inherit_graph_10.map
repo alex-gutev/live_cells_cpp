@@ -1,5 +1,19 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$structlive__cells_1_1make__cell.html" title="Defines a cell class using C such that the constraints defined by the concept Cell are satisifed." alt="" coords="5,13,201,38"/>
-<area shape="rect" id="Node000001" href="$classlive__cells_1_1make__mutable__cell.html" title="Same as make_cell but also provides a value setter value(Parent::value_type) so that the definition s..." alt="" coords="249,5,437,45"/>
-<area shape="poly" id="edge12_Node000000_Node000001" title=" " alt="" coords="215,23,249,23,249,28,215,28"/>
+<area shape="rect" id="Node000000" href="$classlive__cells_1_1key.html" title="Defines the interface for a key which uniquely identifies a cell." alt="" coords="5,170,120,195"/>
+<area shape="rect" id="Node000001" href="$classlive__cells_1_1value__key.html" title=" " alt="" coords="187,5,344,45"/>
+<area shape="poly" id="edge5_Node000000_Node000001" title=" " alt="" coords="76,156,113,106,138,78,167,55,188,43,191,48,169,60,142,82,117,109,81,160"/>
+<area shape="rect" id="Node000002" href="$classlive__cells_1_1value__key.html" title=" " alt="" coords="187,69,344,109"/>
+<area shape="poly" id="edge6_Node000000_Node000002" title=" " alt="" coords="93,160,167,119,197,107,199,112,169,124,96,165"/>
+<area shape="rect" id="Node000004" href="$structlive__cells_1_1constant__key.html" title="Key identifying a constant_cell." alt="" coords="192,133,339,173"/>
+<area shape="poly" id="edge8_Node000000_Node000004" title=" " alt="" coords="133,170,191,161,192,167,134,175"/>
+<area shape="rect" id="Node000005" href="$classlive__cells_1_1unique__key.html" title="A key of uniquely identified by a single instance." alt="" coords="183,198,348,223"/>
+<area shape="poly" id="edge9_Node000000_Node000005" title=" " alt="" coords="134,190,183,197,182,202,133,195"/>
+<area shape="rect" id="Node000006" href="$classlive__cells_1_1value__key.html" title="Base class for a key distinguished from other keys by one or more values." alt="" coords="187,248,344,288"/>
+<area shape="poly" id="edge10_Node000000_Node000006" title=" " alt="" coords="101,200,169,232,203,245,201,250,167,237,99,204"/>
+<area shape="rect" id="Node000007" href="$classlive__cells_1_1value__key_3_01T_01_4.html" title="Base class for a key distinguished from other keys by one value." alt="" coords="168,313,363,338"/>
+<area shape="poly" id="edge11_Node000000_Node000007" title=" " alt="" coords="81,205,118,253,142,277,169,298,196,310,194,315,167,302,139,281,114,256,77,209"/>
+<area shape="rect" id="Node000003" href="$structlive__cells_1_1peek__cell__key.html" title="Key identifying a peek_cell." alt="" coords="411,77,593,102"/>
+<area shape="poly" id="edge7_Node000002_Node000003" title=" " alt="" coords="358,87,411,87,411,92,358,92"/>
+<area shape="rect" id="Node000008" href="$structlive__cells_1_1store__cell__key.html" title="Key identifying a store_cell." alt="" coords="425,305,579,345"/>
+<area shape="poly" id="edge12_Node000007_Node000008" title=" " alt="" coords="376,323,425,323,425,328,376,328"/>
 </map>

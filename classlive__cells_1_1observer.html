@@ -123,14 +123,30 @@ Inheritance diagram for live_cells::observer:</div>
 <area shape="poly" title=" " alt="" coords="112,256,154,281,202,306,232,318,230,323,200,311,152,286,110,260"/>
 <area shape="rect" href="classlive__cells_1_1peek__cell__state.html" title="Maintains the state of a peek_cell." alt="" coords="222,385,375,425"/>
 <area shape="poly" title=" " alt="" coords="99,261,142,316,171,345,203,370,225,382,222,387,200,375,167,349,138,319,94,264"/>
-<area shape="rect" href="classlive__cells_1_1dynamic__compute__cell__state.html" title="Maintains the state of a dynamic_compute_cell." alt="" coords="445,13,640,53"/>
-<area shape="poly" title=" " alt="" coords="402,30,445,30,445,35,402,35"/>
-<area shape="rect" href="classlive__cells_1_1store__cell__state.html" title="Maintains the state of a store_cell." alt="" coords="465,91,620,131"/>
-<area shape="poly" title=" " alt="" coords="402,109,465,109,465,114,402,114"/>
-<area shape="rect" href="classlive__cells_1_1static__mutable__compute__cell__state.html" title="Maintains the state for a static_mutable_compute_cell." alt="" coords="454,171,631,225"/>
-<area shape="poly" title=" " alt="" coords="390,195,454,195,454,201,390,201"/>
-<area shape="rect" href="classlive__cells_1_1dynamic__mutable__compute__cell__state.html" title="Maintains the state of a dynamic_mutable_compute_cell." alt="" coords="444,313,641,368"/>
-<area shape="poly" title=" " alt="" coords="410,338,444,338,444,343,410,343"/>
+<area shape="rect" href="classlive__cells_1_1dynamic__compute__cell__state.html" title="Maintains the state of a dynamic_compute_cell." alt="" coords="444,13,639,53"/>
+<area shape="poly" title=" " alt="" coords="401,30,444,30,444,35,401,35"/>
+<area shape="rect" href="classlive__cells_1_1changes__only__cell__state.html" title=" " alt="" coords="691,5,900,60"/>
+<area shape="poly" title=" " alt="" coords="652,30,690,30,690,35,652,35"/>
+<area shape="rect" href="classlive__cells_1_1dynamic__compute__changes__only__cell__state.html" title="A dynamic_compute_cell_state that only notifies the observers of the cell if the new value of the cel..." alt="" coords="965,5,1147,60"/>
+<area shape="poly" title=" " alt="" coords="914,30,964,30,964,35,914,35"/>
+<area shape="rect" href="classlive__cells_1_1store__cell__state.html" title="Maintains the state of a store_cell." alt="" coords="464,91,619,131"/>
+<area shape="poly" title=" " alt="" coords="402,109,464,109,464,114,402,114"/>
+<area shape="rect" href="classlive__cells_1_1changes__only__cell__state.html" title=" " alt="" coords="708,84,883,139"/>
+<area shape="poly" title=" " alt="" coords="632,109,708,109,708,114,632,114"/>
+<area shape="rect" href="classlive__cells_1_1store__changes__only__cell__state.html" title="A store_cell_state that only notifies the observers of the cell if the new value of the cell is not e..." alt="" coords="963,91,1149,131"/>
+<area shape="poly" title=" " alt="" coords="896,109,963,109,963,114,896,114"/>
+<area shape="rect" href="classlive__cells_1_1static__mutable__compute__cell__state.html" title="Maintains the state for a static_mutable_compute_cell." alt="" coords="453,171,630,225"/>
+<area shape="poly" title=" " alt="" coords="391,195,452,195,452,201,391,201"/>
+<area shape="rect" href="classlive__cells_1_1changes__only__cell__state.html" title=" " alt="" coords="687,163,904,233"/>
+<area shape="poly" title=" " alt="" coords="644,195,686,195,686,201,644,201"/>
+<area shape="rect" href="classlive__cells_1_1static__mutable__compute__changes__only__cell__state.html" title="A static_mutable_compute_cell_state that only notifies the observers of the cell when the cell&#39;s valu..." alt="" coords="952,171,1160,225"/>
+<area shape="poly" title=" " alt="" coords="918,195,952,195,952,201,918,201"/>
+<area shape="rect" href="classlive__cells_1_1dynamic__mutable__compute__cell__state.html" title="Maintains the state of a dynamic_mutable_compute_cell." alt="" coords="446,313,637,368"/>
+<area shape="poly" title=" " alt="" coords="410,338,446,338,446,343,410,343"/>
+<area shape="rect" href="classlive__cells_1_1changes__only__cell__state.html" title=" " alt="" coords="687,306,904,375"/>
+<area shape="poly" title=" " alt="" coords="650,338,686,338,686,343,650,343"/>
+<area shape="rect" href="classlive__cells_1_1dynamic__mutable__compute__changes__only__cell__state.html" title="A dynamic_mutable_compute_cell_state that only notifies the observers of the cell if its value has ac..." alt="" coords="952,313,1160,368"/>
+<area shape="poly" title=" " alt="" coords="918,338,952,338,952,343,918,343"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -146,15 +162,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a433621c32d8a5bb86546fb55539943dd" id="r_a433621c32d8a5bb86546fb55539943dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">virtual</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a433621c32d8a5bb86546fb55539943dd">will_update</a> (<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a> &amp;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">k</a>)=0</td></tr>
 <tr class="memdesc:a433621c32d8a5bb86546fb55539943dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notifies this observer that the value of the <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code> identified by <em>k</em> is going to change.  <br /></td></tr>
 <tr class="separator:a433621c32d8a5bb86546fb55539943dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad4d371faa59b5be6679879febde7ac4" id="r_aad4d371faa59b5be6679879febde7ac4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">virtual</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad4d371faa59b5be6679879febde7ac4">update</a> (<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a> &amp;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">k</a>)=0</td></tr>
-<tr class="memdesc:aad4d371faa59b5be6679879febde7ac4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notifies this observer that the value of the <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code> identified by <em>k</em> has changed.  <br /></td></tr>
-<tr class="separator:aad4d371faa59b5be6679879febde7ac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae22b6cbe03a840b586cce8fc44bcf922" id="r_ae22b6cbe03a840b586cce8fc44bcf922"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">virtual</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae22b6cbe03a840b586cce8fc44bcf922">update</a> (<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a> &amp;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">k</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">bool</a> did_change)=0</td></tr>
+<tr class="memdesc:ae22b6cbe03a840b586cce8fc44bcf922"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notifies this observer that the value of the <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code> identified by <em>k</em> has changed.  <br /></td></tr>
+<tr class="separator:ae22b6cbe03a840b586cce8fc44bcf922"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Defines the interface for observing changes to the value of a <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code>. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aad4d371faa59b5be6679879febde7ac4" name="aad4d371faa59b5be6679879febde7ac4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad4d371faa59b5be6679879febde7ac4">&#9670;&#160;</a></span>update()</h2>
+<a id="ae22b6cbe03a840b586cce8fc44bcf922" name="ae22b6cbe03a840b586cce8fc44bcf922"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae22b6cbe03a840b586cce8fc44bcf922">&#9670;&#160;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -165,8 +181,12 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">virtual</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">void</a> live_cells::observer::update </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>k</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>k</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">bool</a></td>          <td class="paramname"><span class="paramname"><em>did_change</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -179,12 +199,13 @@ Public Member Functions</h2></td></tr>
 <p>Notifies this observer that the value of the <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code> identified by <em>k</em> has changed. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">k</td><td>identifying observable </td></tr>
+    <tr><td class="paramname">k</td><td>identifying observable</td></tr>
+    <tr><td class="paramname">did_change</td><td>true if the value of the cell may have changed, false if it is know that it hasn't changed. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classlive__cells_1_1compute__cell__state.html#a46bdc54a57f8516d897fb7872a2456e1">live_cells::compute_cell_state&lt; C &gt;</a>, <a class="el" href="classlive__cells_1_1compute__cell__state.html#a46bdc54a57f8516d897fb7872a2456e1">live_cells::compute_cell_state&lt; dynamic_compute_state&lt; F &gt; &gt;</a>, <a class="el" href="classlive__cells_1_1compute__cell__state.html#a46bdc54a57f8516d897fb7872a2456e1">live_cells::compute_cell_state&lt; store_cell_compute_state&lt; C &gt; &gt;</a>, <a class="el" href="classlive__cells_1_1mutable__compute__cell__state.html#afb5eea5c68c84e897fc755126697fc3c">live_cells::mutable_compute_cell_state&lt; T &gt;</a>, <a class="el" href="classlive__cells_1_1mutable__compute__cell__state.html#afb5eea5c68c84e897fc755126697fc3c">live_cells::mutable_compute_cell_state&lt; std::invoke_result_t&lt; F &gt; &gt;</a>, and <a class="el" href="classlive__cells_1_1peek__cell__state.html#ae7727f95f8a36741605e3be481d83104">live_cells::peek_cell_state&lt; C &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classlive__cells_1_1compute__cell__state.html#aaa0dbd7cb456f6d9f34b8f376b3f26ee">live_cells::compute_cell_state&lt; C &gt;</a>, <a class="el" href="classlive__cells_1_1compute__cell__state.html#aaa0dbd7cb456f6d9f34b8f376b3f26ee">live_cells::compute_cell_state&lt; dynamic_compute_state&lt; F &gt; &gt;</a>, <a class="el" href="classlive__cells_1_1compute__cell__state.html#aaa0dbd7cb456f6d9f34b8f376b3f26ee">live_cells::compute_cell_state&lt; store_cell_compute_state&lt; C &gt; &gt;</a>, <a class="el" href="classlive__cells_1_1mutable__compute__cell__state.html#acba502ff9d19fd95986d785c92952ce7">live_cells::mutable_compute_cell_state&lt; T &gt;</a>, <a class="el" href="classlive__cells_1_1mutable__compute__cell__state.html#acba502ff9d19fd95986d785c92952ce7">live_cells::mutable_compute_cell_state&lt; std::invoke_result_t&lt; F &gt; &gt;</a>, and <a class="el" href="classlive__cells_1_1peek__cell__state.html#a258c10c17587021db7bde193a6406a8c">live_cells::peek_cell_state&lt; C &gt;</a>.</p>
 
 </div>
 </div>

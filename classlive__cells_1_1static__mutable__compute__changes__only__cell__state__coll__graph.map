@@ -1,0 +1,21 @@
+<map id="live_cells::static_mutable_compute_changes_only_cell_state&lt; F, R &gt;" name="live_cells::static_mutable_compute_changes_only_cell_state&lt; F, R &gt;">
+<area shape="rect" id="Node000001" title="A static_mutable_compute_cell_state that only notifies the observers of the cell when the cell&#39;s valu..." alt="" coords="1372,85,1580,139"/>
+<area shape="rect" id="Node000002" href="$classlive__cells_1_1changes__only__cell__state.html" title=" " alt="" coords="1105,77,1323,147"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1336,109,1372,109,1372,115,1336,115"/>
+<area shape="rect" id="Node000003" href="$classlive__cells_1_1static__mutable__compute__cell__state.html" title="Maintains the state for a static_mutable_compute_cell." alt="" coords="879,85,1056,139"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1070,109,1105,109,1105,115,1070,115"/>
+<area shape="rect" id="Node000004" href="$classlive__cells_1_1mutable__compute__cell__state.html" title=" " alt="" coords="673,77,829,147"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="843,109,879,109,879,115,843,115"/>
+<area shape="rect" id="Node000005" href="$classlive__cells_1_1mutable__cell__state.html" title="Maintains the state of a mutable_cell." alt="" coords="477,35,623,75"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="634,76,674,87,672,92,633,81"/>
+<area shape="rect" id="Node000006" href="$classlive__cells_1_1cell__state.html" title="Maintains the state of a stateful cell." alt="" coords="272,42,427,67"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="441,52,477,52,477,57,441,57"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="5,5,189,45"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="203,35,272,43,271,48,203,40"/>
+<area shape="rect" id="Node000008" href="$classlive__cells_1_1key__ref.html" title="Dynamically type key container." alt="" coords="28,70,167,95"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="180,71,271,61,272,66,181,76"/>
+<area shape="rect" id="Node000009" href="$classlive__cells_1_1observer.html" title="Defines the interface for observing changes to the value of a Cell." alt="" coords="476,99,624,125"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="638,109,673,109,673,115,638,115"/>
+<area shape="rect" id="Node000010" href="$classlive__cells_1_1observer__cell__state.html" title="Provides functionality for observing a cell from a cell_state." alt="" coords="476,149,624,189"/>
+<area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="633,143,672,132,674,137,634,148"/>
+</map>
