@@ -16,6 +16,7 @@
  */
 
 #include <vector>
+#include <cassert>
 
 #include "keys.hpp"
 #include "cell_state.hpp"
@@ -73,6 +74,8 @@ void live_cells::cell_state::remove_observer(observer::ref o) {
 }
 
 void live_cells::cell_state::notify_will_update() {
+    assert((++notify_count > 0 && "Notify count is less than zero at the start of the update cycle"));
+
     auto obs_set = observers;
 
     for (auto entry : obs_set) {
@@ -85,12 +88,14 @@ void live_cells::cell_state::notify_will_update() {
     }
 }
 
-void live_cells::cell_state::notify_update() {
+void live_cells::cell_state::notify_update(bool did_change) {
     auto obs_set = observers;
+
+    assert((--notify_count >= 0 && "Notify count is greater than zero when cell_state::notify_update() is called."));
 
     for (auto entry : obs_set) {
         try {
-            entry.first->update(key_);
+            entry.first->update(key_, did_change);
         }
         catch (...) {
             // Prevent exception from being propagated to caller

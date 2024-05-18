@@ -25,6 +25,7 @@
 #include "observable.hpp"
 #include "mutable_cell.hpp"
 #include "exceptions.hpp"
+#include "observer_cell_state.hpp"
 
 namespace live_cells {
 
@@ -34,7 +35,8 @@ namespace live_cells {
     template <typename T>
     class mutable_compute_cell_state :
         public mutable_cell_state<T>,
-        public observer {
+        public observer,
+        public observer_cell_state {
 
         /** \brief Shorthand for parent */
         typedef mutable_cell_state<T> parent;
@@ -110,19 +112,17 @@ namespace live_cells {
         }
 
         void will_update(const key_ref &k) override {
-            if (!reverse && !updating) {
-                updating = true;
-
-                this->notify_will_update();
-                stale = true;
+            if (!reverse) {
+                handle_will_update([this] {
+                    this->notify_will_update();
+                });
             }
         }
 
-        void update(const key_ref &k) override {
-            if (updating) {
-                this->notify_update();
-                updating = false;
-            }
+        void update(const key_ref &k, bool changed) override {
+            handle_update(changed, [this] (bool changed) {
+                this->notify_update(changed);
+            });
         }
 
         /**
@@ -131,6 +131,7 @@ namespace live_cells {
          */
         void init() override {
             cell_state::init();
+            init_observer_state();
 
             try {
                 this->silent_set(this->value());
@@ -150,7 +151,7 @@ namespace live_cells {
          */
         void pause() override {
             cell_state::pause();
-            stale = true;
+            pause_observer_state();
 
             for (auto arg : arguments) {
                 arg.remove_observer(observer_ptr());
@@ -163,17 +164,6 @@ namespace live_cells {
          * computation function.
          */
         std::unordered_set<cell> arguments;
-
-        /**
-         * \brief Does the cached value have to be recomputed?
-         */
-        bool stale = true;
-
-        /**
-         * \brief Are the argument cells in the process of updating their
-         * values?
-         */
-        bool updating = false;
 
         /**
          * \brief Is the value of the cell being set, and hence a

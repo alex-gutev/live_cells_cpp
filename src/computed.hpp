@@ -47,6 +47,33 @@ namespace live_cells {
     }
 
     /**
+     * \brief Create a cell with a value that is a function of one or
+     * more argument cells and only notifies its observers when its
+     * value has actually changed.
+     *
+     * The argument cells, referenced within \a compute, are
+     * determined dynamically. For this to work, the values of the
+     * argument cells must be referenced using the function call
+     * operator and not the \p Cell::value() getter method.
+     *
+     * \note The difference between this and the other overloads, is
+     * that with this overload, the cell only notifies its observers
+     * when its new value is not equal to its previous value.
+     *
+     * \param option Changes only cell option
+     *
+     * \param compute Compute value function
+     *
+     * \return A computed cell
+     */
+    template <std::invocable F>
+    auto computed(changes_only_option option, F&& compute) {
+        return dynamic_compute_cell<F, dynamic_compute_changes_only_cell_state<F>>(
+            std::forward<F>(compute)
+        );
+    }
+
+    /**
      * \brief Create a cell with a value that is a function of one or more
      * argument cells.
      *
@@ -63,6 +90,35 @@ namespace live_cells {
     template <std::invocable F>
     auto computed(key_ref key, F&& compute) {
         return dynamic_compute_cell<F>(key, std::forward<F>(compute));
+    }
+
+    /**
+     * \brief Create a cell with a value that is a function of one or more
+     * argument cells and only notifies its observers when its
+     * value has actually changed.
+     *
+     * The argument cells, referenced within \a compute, are
+     * determined dynamically. For this to work, the values of the
+     * argument cells must be referenced using the function call
+     * operator and not the \p Cell::value() getter method.
+     *
+     * \note The difference between this and the other overloads, is
+     * that with this overload, the cell only notifies its observers
+     * when its new value is not equal to its previous value.
+     *
+     * \param option Changes only cell option
+     *
+     * \param key     Key identifying the cell
+     * \param compute Compute value function
+     *
+     * \return A computed cell
+     */
+    template <std::invocable F>
+    auto computed(changes_only_option option, key_ref key, F&& compute) {
+        return dynamic_compute_cell<F, dynamic_compute_changes_only_cell_state<F>>(
+            key,
+            std::forward<F>(compute)
+        );
     }
 
     /**
