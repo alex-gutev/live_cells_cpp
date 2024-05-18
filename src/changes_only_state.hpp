@@ -87,7 +87,9 @@ namespace live_cells {
     };
 
     /**
-     * \brief Changes only cell modifier type.
+     * \brief Cell option specifying that the cell, to which it is
+     * applied, should only notify its observers when its new value is
+     * not equal (by \c ==) to its previous value.
      */
     struct changes_only_option {};
 
