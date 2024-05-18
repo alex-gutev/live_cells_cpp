@@ -1,3 +1,13 @@
+# 0.3.0-beta - 2023-05-18
+
+New features:
+
+* `live_cells::changes_only`
+  
+  When this is provided to `live_cells::computed()`, the computed cell
+  only notifies its observers when its new value is not equal to its
+  previous value.
+
 # 0.2.4-beta - 2023-05-13
 
 * Fix bugs in examples of `live_cells::select()` in documentation.
