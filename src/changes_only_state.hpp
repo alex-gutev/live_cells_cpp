@@ -87,11 +87,16 @@ namespace live_cells {
     };
 
     /**
-     * \brief A modifier that specifies that a cell, should notify its
-     * observers only when its new value is not equal to its previous
-     * value.
+     * \brief Changes only cell modifier type.
      */
-    struct changes_only {};
+    struct changes_only_option {};
+
+    /**
+     * \brief Cell option specifying that the cell, to which it is
+     * applied, should only notify its observers when its new value is
+     * not equal (by \c ==) to its previous value.
+     */
+    static constexpr changes_only_option changes_only{};
 
 }  // live_cells
 

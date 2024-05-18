@@ -60,14 +60,14 @@ namespace live_cells {
      * that with this overload, the cell only notifies its observers
      * when its new value is not equal to its previous value.
      *
-     * \param changes_only Dummy argument used to select this overload.
+     * \param option Changes only cell option
      *
      * \param compute Compute value function
      *
      * \return A computed cell
      */
     template <std::invocable F>
-    auto computed(changes_only, F&& compute) {
+    auto computed(changes_only_option option, F&& compute) {
         return dynamic_compute_cell<F, dynamic_compute_changes_only_cell_state<F>>(
             std::forward<F>(compute)
         );
@@ -106,7 +106,7 @@ namespace live_cells {
      * that with this overload, the cell only notifies its observers
      * when its new value is not equal to its previous value.
      *
-     * \param changes_only Dummy argument used to select this overload.
+     * \param option Changes only cell option
      *
      * \param key     Key identifying the cell
      * \param compute Compute value function
@@ -114,7 +114,7 @@ namespace live_cells {
      * \return A computed cell
      */
     template <std::invocable F>
-    auto computed(changes_only, key_ref key, F&& compute) {
+    auto computed(changes_only_option option, key_ref key, F&& compute) {
         return dynamic_compute_cell<F, dynamic_compute_changes_only_cell_state<F>>(
             key,
             std::forward<F>(compute)

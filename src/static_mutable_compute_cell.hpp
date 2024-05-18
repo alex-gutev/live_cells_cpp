@@ -259,6 +259,7 @@ namespace live_cells {
      * that with this overload, the cell only notifies its observers
      * when its new value is not equal to its previous value.
      *
+     * \param option Changes only cell option
      * \param compute Compute value function.
      * \param reverse Reverse compute function.
      * \param args    Argument cells
@@ -266,7 +267,7 @@ namespace live_cells {
      * \return The cell
      */
     template <std::invocable C, typename R, Cell... As>
-    auto make_mutable_compute_cell(changes_only, C compute, R reverse, As... args) {
+    auto make_mutable_compute_cell(changes_only_option option, C compute, R reverse, As... args) {
         typedef static_mutable_compute_changes_only_cell_state<C,R> Base;
 
         return static_mutable_compute_cell<C,R,Base>(compute, reverse, args...);

@@ -94,6 +94,8 @@ namespace live_cells {
      * \note With this overload, the cell only notifies its observers
      * when its new value is not equal to its previous value.
      *
+     * \param option Changes only cell option
+     *
      * \param fn Compute value function.\n
      *   This function is called with no arguments.
      *
@@ -104,7 +106,7 @@ namespace live_cells {
      * \return The mutable computed cell
      */
     template <std::invocable F, typename R>
-    auto mutable_computed(changes_only, F&& fn, R&& reverse) {
+    auto mutable_computed(changes_only_option option, F&& fn, R&& reverse) {
         return dynamic_mutable_compute_cell<F,R, dynamic_mutable_compute_changes_only_cell_state<F,R>>(
             std::forward<F>(fn),
             std::forward<R>(reverse)
@@ -171,6 +173,8 @@ namespace live_cells {
      * that with this overload, the cell only notifies its observers
      * when its new value is not equal to its previous value.
      *
+     * \param option Changes only cell option
+     *
      * \param arg1 First argument to compute value function.
      *
      * \param arg2, args Remaining compute value function arguments
@@ -184,7 +188,7 @@ namespace live_cells {
      * \return The mutable computed cell.
      */
     template <typename A1, typename A2, typename... As>
-    auto mutable_computed(changes_only, A1 arg1, A2 arg2, As... args) {
+    auto mutable_computed(changes_only_option option, A1 arg1, A2 arg2, As... args) {
         auto packed = internal::pack<2>(arg1, arg2, args...);
 
         auto fn_args = std::get<0>(packed);
@@ -196,7 +200,7 @@ namespace live_cells {
                 return compute(args.value()...);
             };
 
-            return make_mutable_compute_cell(changes_only(), fn, reverse, args...);
+            return make_mutable_compute_cell(changes_only, fn, reverse, args...);
         }, fn_args);
     }
 

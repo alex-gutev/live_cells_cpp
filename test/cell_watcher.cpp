@@ -214,7 +214,7 @@ BOOST_AUTO_TEST_SUITE(cell_watcher_changes_only)
 
 BOOST_AUTO_TEST_CASE(not_called_when_value_unchanged) {
     auto a = live_cells::variable(std::vector({1, 2, 3}));
-    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+    auto b = live_cells::computed(live_cells::changes_only, [=] {
         return a()[1];
     });
 
@@ -232,7 +232,7 @@ BOOST_AUTO_TEST_CASE(not_called_when_value_unchanged) {
 
 BOOST_AUTO_TEST_CASE(not_called_when_value_unchanged_in_batch) {
     auto a = live_cells::variable(std::vector({1, 2, 3}));
-    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+    auto b = live_cells::computed(live_cells::changes_only, [=] {
         return a()[1];
     });
 
@@ -255,7 +255,7 @@ BOOST_AUTO_TEST_CASE(not_called_when_value_unchanged_in_batch) {
 
 BOOST_AUTO_TEST_CASE(called_when_one_argument_changes) {
     auto a = live_cells::variable(std::vector({1, 2, 3}));
-    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+    auto b = live_cells::computed(live_cells::changes_only, [=] {
         return a()[1];
     });
 
@@ -278,7 +278,7 @@ BOOST_AUTO_TEST_CASE(called_when_one_argument_changes) {
 
 BOOST_AUTO_TEST_CASE(computed_cell_not_recomputed_when_arguments_not_changed) {
     auto a = live_cells::variable(std::vector({1, 2, 3}));
-    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+    auto b = live_cells::computed(live_cells::changes_only, [=] {
         return a()[1];
     });
 
@@ -300,7 +300,7 @@ BOOST_AUTO_TEST_CASE(computed_cell_not_recomputed_when_arguments_not_changed) {
 
 BOOST_AUTO_TEST_CASE(computed_cell_not_recomputed_when_arguments_not_changed_in_batch) {
     auto a = live_cells::variable(std::vector({1, 2, 3}));
-    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+    auto b = live_cells::computed(live_cells::changes_only, [=] {
         return a()[1];
     });
 
@@ -327,7 +327,7 @@ BOOST_AUTO_TEST_CASE(computed_cell_not_recomputed_when_arguments_not_changed_in_
 
 BOOST_AUTO_TEST_CASE(computed_cell_recomputed_when_one_argument_changes) {
     auto a = live_cells::variable(std::vector({1, 2, 3}));
-    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+    auto b = live_cells::computed(live_cells::changes_only, [=] {
         return a()[1];
     });
 
@@ -352,7 +352,7 @@ BOOST_AUTO_TEST_CASE(computed_cell_recomputed_when_one_argument_changes) {
 
 BOOST_AUTO_TEST_CASE(store_cell_not_recomputed_when_argument_value_unchanged) {
     auto a = live_cells::variable(std::vector({1, 2, 3}));
-    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+    auto b = live_cells::computed(live_cells::changes_only, [=] {
         return a()[1];
     });
 
@@ -372,7 +372,7 @@ BOOST_AUTO_TEST_CASE(store_cell_not_recomputed_when_argument_value_unchanged) {
 
 BOOST_AUTO_TEST_CASE(store_cell_not_recomputed_when_argument_value_unchanged_in_batch) {
     auto a = live_cells::variable(std::vector({1, 2, 3}));
-    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+    auto b = live_cells::computed(live_cells::changes_only, [=] {
         return a()[1];
     });
 
@@ -397,7 +397,7 @@ BOOST_AUTO_TEST_CASE(store_cell_not_recomputed_when_argument_value_unchanged_in_
 
 BOOST_AUTO_TEST_CASE(store_cell_recomputed_when_one_argument_changed) {
     auto a = live_cells::variable(std::vector({1, 2, 3}));
-    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+    auto b = live_cells::computed(live_cells::changes_only, [=] {
         return a()[1];
     });
 
@@ -439,7 +439,7 @@ BOOST_AUTO_TEST_CASE(store_cell_not_recomputed_when_value_unchanged) {
 
 BOOST_AUTO_TEST_CASE(static_mutable_compute_cell_not_recomputed_when_arguments_unchanged) {
     auto a = live_cells::variable(std::vector({1, 2, 3}));
-    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+    auto b = live_cells::computed(live_cells::changes_only, [=] {
         return a()[1];
     });
 
@@ -461,7 +461,7 @@ BOOST_AUTO_TEST_CASE(static_mutable_compute_cell_not_recomputed_when_arguments_u
 
 BOOST_AUTO_TEST_CASE(static_mutable_compute_cell_not_recomputed_when_arguments_unchanged_in_batch) {
     auto a = live_cells::variable(std::vector({1, 2, 3}));
-    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+    auto b = live_cells::computed(live_cells::changes_only, [=] {
         return a()[1];
     });
 
@@ -488,7 +488,7 @@ BOOST_AUTO_TEST_CASE(static_mutable_compute_cell_not_recomputed_when_arguments_u
 
 BOOST_AUTO_TEST_CASE(static_mutable_compute_cell_recomputed_when_one_argument_changed) {
     auto a = live_cells::variable(std::vector({1, 2, 3}));
-    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+    auto b = live_cells::computed(live_cells::changes_only, [=] {
         return a()[1];
     });
 
@@ -518,7 +518,7 @@ BOOST_AUTO_TEST_CASE(static_mutable_compute_cell_recomputed_when_one_argument_ch
 
 BOOST_AUTO_TEST_CASE(static_mutable_compute_cell_not_recomputed_when_value_unchanged) {
     auto a = live_cells::variable(std::vector({1, 2, 3}));
-    auto b = live_cells::mutable_computed(live_cells::changes_only(), a, [] (auto a) {
+    auto b = live_cells::mutable_computed(live_cells::changes_only, a, [] (auto a) {
         return a[1];
     }, [] (auto) {});
 
@@ -537,7 +537,7 @@ BOOST_AUTO_TEST_CASE(static_mutable_compute_cell_not_recomputed_when_value_uncha
 
 BOOST_AUTO_TEST_CASE(dynamic_mutable_compute_cell_not_recomputed_when_arguments_unchanged) {
     auto a = live_cells::variable(std::vector({1, 2, 3}));
-    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+    auto b = live_cells::computed(live_cells::changes_only, [=] {
         return a()[1];
     });
 
@@ -559,7 +559,7 @@ BOOST_AUTO_TEST_CASE(dynamic_mutable_compute_cell_not_recomputed_when_arguments_
 
 BOOST_AUTO_TEST_CASE(dynamic_mutable_compute_cell_not_recomputed_when_arguments_unchanged_in_batch) {
     auto a = live_cells::variable(std::vector({1, 2, 3}));
-    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+    auto b = live_cells::computed(live_cells::changes_only, [=] {
         return a()[1];
     });
 
@@ -586,7 +586,7 @@ BOOST_AUTO_TEST_CASE(dynamic_mutable_compute_cell_not_recomputed_when_arguments_
 
 BOOST_AUTO_TEST_CASE(dynamic_mutable_compute_cell_recomputed_when_one_argument_changed) {
     auto a = live_cells::variable(std::vector({1, 2, 3}));
-    auto b = live_cells::computed(live_cells::changes_only(), [=] {
+    auto b = live_cells::computed(live_cells::changes_only, [=] {
         return a()[1];
     });
 
@@ -616,7 +616,7 @@ BOOST_AUTO_TEST_CASE(dynamic_mutable_compute_cell_recomputed_when_one_argument_c
 
 BOOST_AUTO_TEST_CASE(dynamic_mutable_compute_cell_not_recomputed_when_value_unchanged) {
     auto a = live_cells::variable(std::vector({1, 2, 3}));
-    auto b = live_cells::mutable_computed(live_cells::changes_only(), [=] {
+    auto b = live_cells::mutable_computed(live_cells::changes_only, [=] {
         return a()[1];
     }, [] (auto) {});
 

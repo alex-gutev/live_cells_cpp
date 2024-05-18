@@ -224,7 +224,7 @@ namespace live_cells {
      * that with this overload, the cell only notifies its observers
      * when its new value is not equal to its previous value.
      *
-     * \param changes_only Dummy argument used to select this overload.
+     * \param option Changes only cell option
      *
      * \param arg The argument cell
      *
@@ -232,7 +232,7 @@ namespace live_cells {
      *    it in memory until it changes.
      */
     template <Cell C>
-    auto store(changes_only, const C &arg) {
+    auto store(changes_only_option option, const C &arg) {
         return store_cell<C, store_changes_only_cell_state<C>>(arg);
     }
 
@@ -265,7 +265,7 @@ namespace live_cells {
          *    caches it in memory until it changes.
          */
         constexpr auto cache = [] (const Cell auto & cell) {
-            return live_cells::store(changes_only(), cell);
+            return live_cells::store(changes_only, cell);
         };
 
     }  // ops
