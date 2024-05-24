@@ -1,3 +1,7 @@
+# 0.3.1 2023-05-24
+
+* Fix bug with uncaught exceptions in watch functions.
+
 # 0.3.0-beta - 2023-05-18
 
 New features:
