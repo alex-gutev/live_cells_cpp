@@ -1,4 +1,4 @@
-# 0.3.1 2023-05-24
+# 0.3.1 - 2023-05-24
 
 * Fix bug with uncaught exceptions in watch functions.
 
