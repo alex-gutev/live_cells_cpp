@@ -36,6 +36,16 @@ namespace live_cells {
         }
     };
 
+    /**
+     * \brief Exception indicating that the value of a cell was
+     * referenced before its initial value was computed.
+     */
+    struct uninitialized_cell_error : std::exception {
+        const char *what() const noexcept override {
+            return "The value of a cell was referenced before it was initialized.";
+        }
+    };
+
 }  // live_cells
 
 #endif /* LIVE_CELLS_EXCEPTIONS_HPP */

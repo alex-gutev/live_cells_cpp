@@ -13,6 +13,7 @@ test_live_cells_SOURCES = constant_cell.cpp \
 	errors.cpp \
 	consistency.cpp \
 	peek_cell.cpp \
+	previous_value_cell.cpp \
 	init_and_cleanup.cpp \
 	mutable_compute_cell.cpp \
 	dynamic_mutable_compute_cell.cpp \
