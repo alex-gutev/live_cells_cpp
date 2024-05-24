@@ -83,6 +83,7 @@ void live_cells::cell_state::notify_will_update() {
             entry.first->will_update(key_);
         }
         catch (...) {
+            // TODO: Log exception to stderr in debug mode
             // Prevent exception from being propagated to caller
         }
     }
@@ -98,6 +99,7 @@ void live_cells::cell_state::notify_update(bool did_change) {
             entry.first->update(key_, did_change);
         }
         catch (...) {
+            // TODO: Log exception to stderr in debug mode
             // Prevent exception from being propagated to caller
         }
     }

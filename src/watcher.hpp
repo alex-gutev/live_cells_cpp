@@ -178,7 +178,13 @@ namespace live_cells {
                     }
                 });
 
-                callback();
+                try {
+                    callback();
+                }
+                catch (...) {
+                    // TODO: Log exception to stderr in debug mode
+                    // Prevent exception from being propagated to caller
+                }
             }
         };
 
