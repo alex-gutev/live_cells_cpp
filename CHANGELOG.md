@@ -1,3 +1,19 @@
+# 0.4.0 - 2023-05-24
+
+New features:
+
+* `live_cells::previous`
+
+  Creates a cell that evaluates to the previous value of another cell.
+  
+* Constructors for casting a `live_cells::cell` to a
+  `live_cells::typed_cell` and vice versa.
+  
+Bug fixes:
+
+* Fix issue with cell value not being set when set through a
+  `live_cells::cell` / `live_cells::typed_cell` container.
+
 # 0.3.1 - 2023-05-24
 
 * Fix bug with uncaught exceptions in watch functions.
