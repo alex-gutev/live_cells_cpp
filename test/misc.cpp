@@ -208,4 +208,34 @@ BOOST_AUTO_TEST_CASE(minusminus_postfix) {
     BOOST_CHECK_EQUAL(a.value(), -1);
 }
 
+BOOST_AUTO_TEST_CASE(cast_cell_to_typed_cell) {
+    live_cells::cell a = live_cells::variable(1);
+    live_cells::typed_cell<int> b = a;
+
+    BOOST_CHECK_EQUAL(a.value<int>(), 1);
+    BOOST_CHECK_EQUAL(b.value(), 1);
+
+    a.value<int>(4);
+    BOOST_CHECK_EQUAL(a.value<int>(), 4);
+    BOOST_CHECK_EQUAL(b.value(), 4);
+}
+
+BOOST_AUTO_TEST_CASE(bad_cast_cell_to_typed_cell) {
+    live_cells::cell a = live_cells::variable(1);
+
+    BOOST_CHECK_THROW((live_cells::typed_cell<std::string>(a)), live_cells::bad_typed_cell_cast);
+}
+
+BOOST_AUTO_TEST_CASE(cast_typed_cell_to_cell) {
+    live_cells::typed_cell<int> a = live_cells::variable(1);
+    live_cells::cell b = a;
+
+    BOOST_CHECK_EQUAL(a.value(), 1);
+    BOOST_CHECK_EQUAL(b.value<int>(), 1);
+
+    a.value(4);
+    BOOST_CHECK_EQUAL(a.value(), 4);
+    BOOST_CHECK_EQUAL(b.value<int>(), 4);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
