@@ -158,7 +158,7 @@ if the cell's value is only referenced conditionally. A good rule of
 thumb is to use `live_cells::none()` only to prevent a cell from
 holding an invalid value.
 
-## Exception Handling
+## Exception handling
 
 If an exception is thrown during the computation of a cell's value, it
 is rethrown when the value is referenced. This allows exceptions to be
@@ -238,7 +238,52 @@ auto is_valid = on_error(
 that holds the values `false`.
 
 
-## Peeking Cells
+## Previous values
+
+The previous value of a cell can be accessed using `live_cells::previous`:
+
+```cpp
+auto a = live_cells::variable(1);
+auto prev = live_cells::previous(a);
+
+auto sum = a + prev;
+
+auto watch = live_cells::watcher([=] {
+	int prev_value = prev();
+	
+	std::cout << "\n";
+	std::cout << "A = " << a() << std::endl;
+	std::cout << "Prev = " << prev_value << std::endl;
+	std::cout << "Sum = " << sum() << std::endl;
+});
+
+a = 2;
+a = 5;
+```
+
+This results in the following being printed to standard output:
+
+```text
+A = 2
+Prev = 1
+Sum = 3
+
+A = 5
+Prev = 2
+Sum = 7
+```
+
+`live_cells::previous` returns a cell that can be used like any other
+cell. When `previous` is called multiple times on the same argument
+cell, the same cell is returned.
+
+\attention\n
+* On creation `prev` does not hold a value. Accessing it will throw a
+  `live_cells::uninitialized_cell_error` exception.
+* `prev` must have at least one observer in order for it to keep track
+  of the previous value of `a`.
+
+## Peeking cells
 
 What if you want to use the value of a cell in a computed cell but
 don't want changes to that cell's value triggering a recomputation?
@@ -285,7 +330,7 @@ care of adding an observer to the peeked cell, so that it remains
 active, but at the same time prevents the observers, added through
 `live_cells::peek()`, from being notified of changes in its value.
 
-## Pipe Operator
+## Pipe operator
 
 The `live_cells::ops` namespace provides a collection of operators
 which can be applied on cells using the `|` operator.
