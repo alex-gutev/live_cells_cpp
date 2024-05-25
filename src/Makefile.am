@@ -14,6 +14,7 @@ pkginclude_HEADERS = boolean.hpp \
 	exceptions.hpp \
 	keys.hpp \
 	make_cell.hpp \
+	maybe.hpp \
 	merged_observable.hpp \
 	mutable_cell.hpp \
 	mutable_cell_view.hpp \
@@ -23,6 +24,7 @@ pkginclude_HEADERS = boolean.hpp \
 	observable.hpp \
 	observer_cell_state.hpp \
 	peek_cell.hpp \
+	previous_value_cell.hpp \
 	stateful_cell.hpp \
 	static_mutable_compute_cell.hpp \
 	store_cell.hpp \
