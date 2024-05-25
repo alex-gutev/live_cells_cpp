@@ -1,6 +1,7 @@
 var classlive__cells_1_1cell =
 [
     [ "cell", "classlive__cells_1_1cell.html#a26a29cdfc3edba06c990125f55af03d5", null ],
+    [ "cell", "classlive__cells_1_1cell.html#aae2b43a90f63a768ef6f70f22e8d98c6", null ],
     [ "add_observer", "classlive__cells_1_1cell.html#a8a6f99983918f1de4d2bd191b80384be", null ],
     [ "key", "classlive__cells_1_1cell.html#af28553d7d1e2b966728aa858402bc112", null ],
     [ "operator()", "classlive__cells_1_1cell.html#aa40a603bb5711a580102fa415396aa0e", null ],

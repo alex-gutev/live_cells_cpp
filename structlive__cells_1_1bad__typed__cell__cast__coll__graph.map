@@ -1,0 +1,5 @@
+<map id="live_cells::bad_typed_cell_cast" name="live_cells::bad_typed_cell_cast">
+<area shape="rect" id="Node000001" title="Exception thrown when attempting to cast a cell to a typed_cell with a value type that is incompatibl..." alt="" coords="5,79,164,119"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="27,5,142,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,44,87,79,82,79,82,44"/>
+</map>

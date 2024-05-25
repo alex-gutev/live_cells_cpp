@@ -132,6 +132,9 @@ Variables</h2></td></tr>
 <tr class="memitem:ac3c694eb320f49f96fd11a5601417fec" id="r_ac3c694eb320f49f96fd11a5601417fec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">constexpr</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac3c694eb320f49f96fd11a5601417fec">peek</a></td></tr>
 <tr class="memdesc:ac3c694eb320f49f96fd11a5601417fec"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptlive__cells_1_1ops_1_1Operator.html" title="Concept defining an operator on a cell.">Operator</a> for reading the value of a cell without reacting to changes.  <br /></td></tr>
 <tr class="separator:ac3c694eb320f49f96fd11a5601417fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03748019b60a83927ae68617a0eebd0d" id="r_a03748019b60a83927ae68617a0eebd0d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">constexpr</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a03748019b60a83927ae68617a0eebd0d">previous</a></td></tr>
+<tr class="memdesc:a03748019b60a83927ae68617a0eebd0d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptlive__cells_1_1ops_1_1Operator.html" title="Concept defining an operator on a cell.">Operator</a> for creating a cell that evaluates to the previous value of another cell.  <br /></td></tr>
+<tr class="separator:a03748019b60a83927ae68617a0eebd0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae16be11777397241d312b84b47178d6d" id="r_ae16be11777397241d312b84b47178d6d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">constexpr</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae16be11777397241d312b84b47178d6d">store</a></td></tr>
 <tr class="memdesc:ae16be11777397241d312b84b47178d6d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptlive__cells_1_1ops_1_1Operator.html" title="Concept defining an operator on a cell.">Operator</a> for caching the value of another cell.  <br /></td></tr>
 <tr class="separator:ae16be11777397241d312b84b47178d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -369,6 +372,42 @@ template&lt;Cell C, Operator&lt; C &gt; O&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code> that has the same value as <em>cell</em> but does not notify its observers when the value changes. </dd></dl>
+
+</div>
+</div>
+<a id="a03748019b60a83927ae68617a0eebd0d" name="a03748019b60a83927ae68617a0eebd0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03748019b60a83927ae68617a0eebd0d">&#9670;&#160;</a></span>previous</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">constexpr</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a> live_cells::ops::previous</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= [] (<span class="keyword">const</span> <a class="code hl_concept" href="conceptlive__cells_1_1Cell.html">Cell</a> <span class="keyword">auto</span> &amp;cell) {</div>
+<div class="line">            <span class="keywordflow">return</span> <a class="code hl_function" href="namespacelive__cells.html#a5e7bb7e5831fdc9543bf3b4f96af168e">live_cells::previous</a>(cell);</div>
+<div class="line">        }</div>
+<div class="ttc" id="anamespacelive__cells_html_a5e7bb7e5831fdc9543bf3b4f96af168e"><div class="ttname"><a href="namespacelive__cells.html#a5e7bb7e5831fdc9543bf3b4f96af168e">live_cells::previous</a></div><div class="ttdeci">auto previous(const C &amp;cell)</div><div class="ttdoc">Create a Cell that evaluates to the previous value of cell.</div><div class="ttdef"><b>Definition</b> previous_value_cell.hpp:232</div></div>
+</div><!-- fragment -->
+<p><a class="el" href="conceptlive__cells_1_1ops_1_1Operator.html" title="Concept defining an operator on a cell.">Operator</a> for creating a cell that evaluates to the previous value of another cell. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacelive__cells.html#a5e7bb7e5831fdc9543bf3b4f96af168e" title="Create a Cell that evaluates to the previous value of cell.">live_cells::previous</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cell</td><td>cell The argument cell.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A cell that evaluates to the previous value of <em>cell</em>. </dd></dl>
 
 </div>
 </div>

@@ -25,19 +25,19 @@
 var NAVTREE =
 [
   [ "Live Cells C++", "index.html", [
-    [ "Features", "index.html#autotoc_md22", [
-      [ "Declarative", "index.html#autotoc_md23", null ],
-      [ "Reactive", "index.html#autotoc_md24", null ],
-      [ "Simple, powerful and maintainable", "index.html#autotoc_md25", null ]
+    [ "Features", "index.html#autotoc_md23", [
+      [ "Declarative", "index.html#autotoc_md24", null ],
+      [ "Reactive", "index.html#autotoc_md25", null ],
+      [ "Simple, powerful and maintainable", "index.html#autotoc_md26", null ]
     ] ],
-    [ "Getting Started", "index.html#autotoc_md27", [
-      [ "Prerequisites", "index.html#autotoc_md28", null ],
-      [ "Installation", "index.html#autotoc_md29", null ],
-      [ "Configuring your project", "index.html#autotoc_md30", [
-        [ "Autotools", "index.html#autotoc_md31", null ],
-        [ "CMake", "index.html#autotoc_md32", null ]
+    [ "Getting Started", "index.html#autotoc_md28", [
+      [ "Prerequisites", "index.html#autotoc_md29", null ],
+      [ "Installation", "index.html#autotoc_md30", null ],
+      [ "Configuring your project", "index.html#autotoc_md31", [
+        [ "Autotools", "index.html#autotoc_md32", null ],
+        [ "CMake", "index.html#autotoc_md33", null ]
       ] ],
-      [ "Using Live Cells", "index.html#autotoc_md33", null ]
+      [ "Using Live Cells", "index.html#autotoc_md34", null ]
     ] ],
     [ "1. Cells", "md_doc_21-cells.html", [
       [ "Mutable Cells", "md_doc_21-cells.html#autotoc_md1", null ],
@@ -55,14 +55,15 @@ var NAVTREE =
       [ "Equality", "md_doc_22-expressions.html#autotoc_md11", null ],
       [ "Logic and selection", "md_doc_22-expressions.html#autotoc_md12", null ],
       [ "Aborting a computation", "md_doc_22-expressions.html#autotoc_md13", null ],
-      [ "Exception Handling", "md_doc_22-expressions.html#autotoc_md14", null ],
-      [ "Peeking Cells", "md_doc_22-expressions.html#autotoc_md15", null ],
-      [ "Pipe Operator", "md_doc_22-expressions.html#autotoc_md16", null ],
-      [ "Next", "md_doc_22-expressions.html#autotoc_md17", null ]
+      [ "Exception handling", "md_doc_22-expressions.html#autotoc_md14", null ],
+      [ "Previous values", "md_doc_22-expressions.html#autotoc_md15", null ],
+      [ "Peeking cells", "md_doc_22-expressions.html#autotoc_md16", null ],
+      [ "Pipe operator", "md_doc_22-expressions.html#autotoc_md17", null ],
+      [ "Next", "md_doc_22-expressions.html#autotoc_md18", null ]
     ] ],
     [ "3. Two-Way Data Flow", "md_doc_23-two-way-data-flow.html", [
-      [ "Mutable Computed Cells", "md_doc_23-two-way-data-flow.html#autotoc_md19", null ],
-      [ "Multiple Arguments", "md_doc_23-two-way-data-flow.html#autotoc_md20", null ]
+      [ "Mutable Computed Cells", "md_doc_23-two-way-data-flow.html#autotoc_md20", null ],
+      [ "Multiple Arguments", "md_doc_23-two-way-data-flow.html#autotoc_md21", null ]
     ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -79,7 +80,7 @@ var NAVTREE =
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
+        [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", null ],
         [ "Variables", "functions_vars.html", null ],
         [ "Typedefs", "functions_type.html", null ]
@@ -94,8 +95,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classlive__cells_1_1mutable__compute__cell__state.html#abb5181c80c47080820daf711d566a58a",
-"md_doc_22-expressions.html#autotoc_md12"
+"classlive__cells_1_1mutable__compute__cell__state.html#a02550a78350c93b6b55b8fe199acbad7",
+"concepts.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

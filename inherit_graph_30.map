@@ -1,3 +1,9 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$structstd_1_1hash_3_01live__cells_1_1key__ref_01_4.html" title=" " alt="" coords="5,5,163,45"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,77,120,102"/>
+<area shape="rect" id="Node000001" href="$structlive__cells_1_1bad__typed__cell__cast.html" title="Exception thrown when attempting to cast a cell to a typed_cell with a value type that is incompatibl..." alt="" coords="180,5,339,45"/>
+<area shape="poly" id="edge58_Node000000_Node000001" title=" " alt="" coords="115,70,196,43,198,48,117,75"/>
+<area shape="rect" id="Node000002" href="$structlive__cells_1_1stop__compute__exception.html" title="Exception indicating that the value of a cell should not be computed." alt="" coords="168,69,351,109"/>
+<area shape="poly" id="edge59_Node000000_Node000002" title=" " alt="" coords="134,87,168,87,168,92,134,92"/>
+<area shape="rect" id="Node000003" href="$structlive__cells_1_1uninitialized__cell__error.html" title="Exception indicating that the value of a cell was referenced before its initial value was computed." alt="" coords="174,133,345,173"/>
+<area shape="poly" id="edge60_Node000000_Node000003" title=" " alt="" coords="117,104,198,131,196,136,115,109"/>
 </map>

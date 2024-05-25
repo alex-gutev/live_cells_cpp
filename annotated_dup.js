@@ -2,6 +2,7 @@ var annotated_dup =
 [
     [ "live_cells", "namespacelive__cells.html", [
       [ "argument_tracker", "classlive__cells_1_1argument__tracker.html", "classlive__cells_1_1argument__tracker" ],
+      [ "bad_typed_cell_cast", "structlive__cells_1_1bad__typed__cell__cast.html", null ],
       [ "batch_update", "classlive__cells_1_1batch__update.html", null ],
       [ "cell", "classlive__cells_1_1cell.html", "classlive__cells_1_1cell" ],
       [ "cell_state", "classlive__cells_1_1cell__state.html", "classlive__cells_1_1cell__state" ],
@@ -23,6 +24,7 @@ var annotated_dup =
       [ "key_ref", "classlive__cells_1_1key__ref.html", "classlive__cells_1_1key__ref" ],
       [ "make_cell", "structlive__cells_1_1make__cell.html", "structlive__cells_1_1make__cell" ],
       [ "make_mutable_cell", "classlive__cells_1_1make__mutable__cell.html", "classlive__cells_1_1make__mutable__cell" ],
+      [ "maybe", "classlive__cells_1_1maybe.html", "classlive__cells_1_1maybe" ],
       [ "merged_observable", "classlive__cells_1_1merged__observable.html", "classlive__cells_1_1merged__observable" ],
       [ "merged_observable< T >", "classlive__cells_1_1merged__observable_3_01T_01_4.html", null ],
       [ "mutable_cell", "classlive__cells_1_1mutable__cell.html", "classlive__cells_1_1mutable__cell" ],
@@ -34,6 +36,9 @@ var annotated_dup =
       [ "peek_cell", "classlive__cells_1_1peek__cell.html", "classlive__cells_1_1peek__cell" ],
       [ "peek_cell_key", "structlive__cells_1_1peek__cell__key.html", null ],
       [ "peek_cell_state", "classlive__cells_1_1peek__cell__state.html", "classlive__cells_1_1peek__cell__state" ],
+      [ "previous_value_cell", "classlive__cells_1_1previous__value__cell.html", "classlive__cells_1_1previous__value__cell" ],
+      [ "previous_value_cell_key", "structlive__cells_1_1previous__value__cell__key.html", null ],
+      [ "previous_value_cell_state", "classlive__cells_1_1previous__value__cell__state.html", "classlive__cells_1_1previous__value__cell__state" ],
       [ "state_manager", "classlive__cells_1_1state__manager.html", "classlive__cells_1_1state__manager" ],
       [ "stateful_cell", "classlive__cells_1_1stateful__cell.html", "classlive__cells_1_1stateful__cell" ],
       [ "static_mutable_compute_cell", "classlive__cells_1_1static__mutable__compute__cell.html", "classlive__cells_1_1static__mutable__compute__cell" ],
@@ -46,6 +51,7 @@ var annotated_dup =
       [ "store_cell_state", "classlive__cells_1_1store__cell__state.html", "classlive__cells_1_1store__cell__state" ],
       [ "store_changes_only_cell_state", "classlive__cells_1_1store__changes__only__cell__state.html", null ],
       [ "typed_cell", "classlive__cells_1_1typed__cell.html", "classlive__cells_1_1typed__cell" ],
+      [ "uninitialized_cell_error", "structlive__cells_1_1uninitialized__cell__error.html", null ],
       [ "unique_key", "classlive__cells_1_1unique__key.html", "classlive__cells_1_1unique__key" ],
       [ "value_key", "classlive__cells_1_1value__key.html", "classlive__cells_1_1value__key" ],
       [ "value_key< T >", "classlive__cells_1_1value__key_3_01T_01_4.html", "classlive__cells_1_1value__key_3_01T_01_4" ],
@@ -55,6 +61,7 @@ var annotated_dup =
       [ "hash< live_cells::cell >", "structstd_1_1hash_3_01live__cells_1_1cell_01_4.html", null ],
       [ "hash< live_cells::key >", "structstd_1_1hash_3_01live__cells_1_1key_01_4.html", null ],
       [ "hash< live_cells::key_ref >", "structstd_1_1hash_3_01live__cells_1_1key__ref_01_4.html", null ],
+      [ "hash< live_cells::maybe< T > >", "structstd_1_1hash_3_01live__cells_1_1maybe_3_01T_01_4_01_4.html", null ],
       [ "hash< live_cells::typed_cell< T > >", "structstd_1_1hash_3_01live__cells_1_1typed__cell_3_01T_01_4_01_4.html", null ]
     ] ]
 ];

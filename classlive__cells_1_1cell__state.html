@@ -112,21 +112,23 @@ Inheritance diagram for live_cells::cell_state:</div>
 <div class="dyncontent">
 <div class="center"><img src="classlive__cells_1_1cell__state__inherit__graph.png" border="0" usemap="#alive__cells_1_1cell__state_inherit__map" alt="Inheritance graph"/></div>
 <map name="alive__cells_1_1cell__state_inherit__map" id="alive__cells_1_1cell__state_inherit__map">
-<area shape="rect" title="Maintains the state of a stateful cell." alt="" coords="237,213,392,239"/>
+<area shape="rect" title="Maintains the state of a stateful cell." alt="" coords="237,249,392,275"/>
 <area shape="rect" href="classlive__cells_1_1compute__cell__state.html" title=" " alt="" coords="441,5,619,60"/>
-<area shape="poly" title=" " alt="" coords="328,200,373,136,404,101,438,69,456,58,459,62,442,73,407,104,377,139,333,203"/>
+<area shape="poly" title=" " alt="" coords="324,235,367,155,399,110,438,69,454,58,457,62,442,73,403,113,372,158,329,238"/>
 <area shape="rect" href="classlive__cells_1_1compute__cell__state.html" title=" " alt="" coords="440,84,620,139"/>
-<area shape="poly" title=" " alt="" coords="345,203,439,148,462,136,464,141,441,152,348,208"/>
+<area shape="poly" title=" " alt="" coords="335,237,381,193,439,148,458,136,461,141,441,152,384,197,339,241"/>
 <area shape="rect" href="classlive__cells_1_1mutable__cell__state.html" title=" " alt="" coords="441,163,619,217"/>
-<area shape="poly" title=" " alt="" coords="404,208,440,202,441,208,405,214"/>
+<area shape="poly" title=" " alt="" coords="366,242,447,215,449,220,367,247"/>
 <area shape="rect" href="classlive__cells_1_1compute__cell__state.html" title="Cell state for a cell which computes a value as a function of one or more argument cells." alt="" coords="456,242,604,282"/>
-<area shape="poly" title=" " alt="" coords="405,238,456,247,455,252,404,244"/>
+<area shape="poly" title=" " alt="" coords="406,259,456,259,456,265,406,265"/>
 <area shape="rect" href="classlive__cells_1_1mutable__cell__state.html" title="Maintains the state of a mutable_cell." alt="" coords="457,306,603,346"/>
-<area shape="poly" title=" " alt="" coords="350,243,441,292,470,303,468,308,439,296,347,248"/>
+<area shape="poly" title=" " alt="" coords="372,276,463,303,461,308,371,281"/>
 <area shape="rect" href="classlive__cells_1_1peek__cell__state.html" title="Maintains the state of a peek_cell." alt="" coords="453,370,607,410"/>
-<area shape="poly" title=" " alt="" coords="335,248,379,302,409,331,441,356,463,368,461,372,439,360,405,335,375,305,331,251"/>
-<area shape="rect" title=" " alt="" coords="5,206,189,246"/>
-<area shape="poly" title=" " alt="" coords="203,223,237,223,237,229,203,229"/>
+<area shape="poly" title=" " alt="" coords="342,282,386,319,441,356,466,367,464,372,439,360,383,323,338,286"/>
+<area shape="rect" href="classlive__cells_1_1previous__value__cell__state.html" title="Maintains the state of a previous_value_cell." alt="" coords="443,434,617,474"/>
+<area shape="poly" title=" " alt="" coords="331,285,375,352,406,388,442,420,462,432,459,436,438,424,402,392,371,355,327,288"/>
+<area shape="rect" title=" " alt="" coords="5,242,189,282"/>
+<area shape="poly" title=" " alt="" coords="203,259,237,259,237,265,203,265"/>
 <area shape="rect" href="classlive__cells_1_1dynamic__compute__cell__state.html" title="Maintains the state of a dynamic_compute_cell." alt="" coords="668,13,863,53"/>
 <area shape="poly" title=" " alt="" coords="633,30,668,30,668,35,633,35"/>
 <area shape="rect" href="classlive__cells_1_1changes__only__cell__state.html" title=" " alt="" coords="911,5,1120,60"/>
@@ -321,7 +323,7 @@ std::unordered_map&lt; <a class="el" href="classlive__cells_1_1observer.html#a75
 <p>Subclasses should override this method to include initialization logic specific to this cell state.</p>
 <dl class="section note"><dt>Note</dt><dd>If the state needs to set up observers to other cells, it should be done in this method. </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classlive__cells_1_1compute__cell__state.html#ad90ec98b417bc9080ad9dbc01acc1362">live_cells::compute_cell_state&lt; C &gt;</a>, <a class="el" href="classlive__cells_1_1compute__cell__state.html#ad90ec98b417bc9080ad9dbc01acc1362">live_cells::compute_cell_state&lt; dynamic_compute_state&lt; F &gt; &gt;</a>, <a class="el" href="classlive__cells_1_1compute__cell__state.html#ad90ec98b417bc9080ad9dbc01acc1362">live_cells::compute_cell_state&lt; store_cell_compute_state&lt; C &gt; &gt;</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell__state.html#a0a0a950aee7dd600f6f9f1e66a88505c">live_cells::dynamic_compute_cell_state&lt; F &gt;</a>, <a class="el" href="classlive__cells_1_1mutable__compute__cell__state.html#a4480d8746ae880e1e07872192464fe95">live_cells::mutable_compute_cell_state&lt; T &gt;</a>, <a class="el" href="classlive__cells_1_1mutable__compute__cell__state.html#a4480d8746ae880e1e07872192464fe95">live_cells::mutable_compute_cell_state&lt; std::invoke_result_t&lt; F &gt; &gt;</a>, <a class="el" href="classlive__cells_1_1peek__cell__state.html#a55dbfb43fc0f37c7876fd6d943e3242b">live_cells::peek_cell_state&lt; C &gt;</a>, and <a class="el" href="classlive__cells_1_1store__cell__state.html#af7c7e6ce681d6815e162677b2d566cee">live_cells::store_cell_state&lt; C &gt;</a>.</p>
+<p>Reimplemented in <a class="el" href="classlive__cells_1_1compute__cell__state.html#ad90ec98b417bc9080ad9dbc01acc1362">live_cells::compute_cell_state&lt; C &gt;</a>, <a class="el" href="classlive__cells_1_1compute__cell__state.html#ad90ec98b417bc9080ad9dbc01acc1362">live_cells::compute_cell_state&lt; dynamic_compute_state&lt; F &gt; &gt;</a>, <a class="el" href="classlive__cells_1_1compute__cell__state.html#ad90ec98b417bc9080ad9dbc01acc1362">live_cells::compute_cell_state&lt; store_cell_compute_state&lt; C &gt; &gt;</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell__state.html#a0a0a950aee7dd600f6f9f1e66a88505c">live_cells::dynamic_compute_cell_state&lt; F &gt;</a>, <a class="el" href="classlive__cells_1_1mutable__compute__cell__state.html#a4480d8746ae880e1e07872192464fe95">live_cells::mutable_compute_cell_state&lt; T &gt;</a>, <a class="el" href="classlive__cells_1_1mutable__compute__cell__state.html#a4480d8746ae880e1e07872192464fe95">live_cells::mutable_compute_cell_state&lt; std::invoke_result_t&lt; F &gt; &gt;</a>, <a class="el" href="classlive__cells_1_1peek__cell__state.html#a55dbfb43fc0f37c7876fd6d943e3242b">live_cells::peek_cell_state&lt; C &gt;</a>, <a class="el" href="classlive__cells_1_1previous__value__cell__state.html#a91242234fb014ce55e3601e7a8c74b30">live_cells::previous_value_cell_state&lt; C &gt;</a>, and <a class="el" href="classlive__cells_1_1store__cell__state.html#af7c7e6ce681d6815e162677b2d566cee">live_cells::store_cell_state&lt; C &gt;</a>.</p>
 
 </div>
 </div>
@@ -442,7 +444,7 @@ std::unordered_map&lt; <a class="el" href="classlive__cells_1_1observer.html#a75
 <p>Subclasses should override this method to include cleanup logic specific to this cell state.</p>
 <dl class="section note"><dt>Note</dt><dd>Observers added in <code><a class="el" href="#a5ea8a52b931e9558ca1c20656436b35d" title="Called before the first observer is added.">init()</a></code> should be removed in this method. </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classlive__cells_1_1compute__cell__state.html#a08800bb936a3d2097b75573f0e40c39e">live_cells::compute_cell_state&lt; C &gt;</a>, <a class="el" href="classlive__cells_1_1compute__cell__state.html#a08800bb936a3d2097b75573f0e40c39e">live_cells::compute_cell_state&lt; dynamic_compute_state&lt; F &gt; &gt;</a>, <a class="el" href="classlive__cells_1_1compute__cell__state.html#a08800bb936a3d2097b75573f0e40c39e">live_cells::compute_cell_state&lt; store_cell_compute_state&lt; C &gt; &gt;</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell__state.html#a1996a5422fa1505a10c243a95a7a77d0">live_cells::dynamic_compute_cell_state&lt; F &gt;</a>, <a class="el" href="classlive__cells_1_1mutable__compute__cell__state.html#af1712313ab2f25de729edb448c20942e">live_cells::mutable_compute_cell_state&lt; T &gt;</a>, <a class="el" href="classlive__cells_1_1mutable__compute__cell__state.html#af1712313ab2f25de729edb448c20942e">live_cells::mutable_compute_cell_state&lt; std::invoke_result_t&lt; F &gt; &gt;</a>, <a class="el" href="classlive__cells_1_1peek__cell__state.html#affe647b0abdcace3cdc31be91d44265c">live_cells::peek_cell_state&lt; C &gt;</a>, and <a class="el" href="classlive__cells_1_1store__cell__state.html#a3321697ad4cdcd8ba5dc53ca11008d18">live_cells::store_cell_state&lt; C &gt;</a>.</p>
+<p>Reimplemented in <a class="el" href="classlive__cells_1_1compute__cell__state.html#a08800bb936a3d2097b75573f0e40c39e">live_cells::compute_cell_state&lt; C &gt;</a>, <a class="el" href="classlive__cells_1_1compute__cell__state.html#a08800bb936a3d2097b75573f0e40c39e">live_cells::compute_cell_state&lt; dynamic_compute_state&lt; F &gt; &gt;</a>, <a class="el" href="classlive__cells_1_1compute__cell__state.html#a08800bb936a3d2097b75573f0e40c39e">live_cells::compute_cell_state&lt; store_cell_compute_state&lt; C &gt; &gt;</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell__state.html#a1996a5422fa1505a10c243a95a7a77d0">live_cells::dynamic_compute_cell_state&lt; F &gt;</a>, <a class="el" href="classlive__cells_1_1mutable__compute__cell__state.html#af1712313ab2f25de729edb448c20942e">live_cells::mutable_compute_cell_state&lt; T &gt;</a>, <a class="el" href="classlive__cells_1_1mutable__compute__cell__state.html#af1712313ab2f25de729edb448c20942e">live_cells::mutable_compute_cell_state&lt; std::invoke_result_t&lt; F &gt; &gt;</a>, <a class="el" href="classlive__cells_1_1peek__cell__state.html#affe647b0abdcace3cdc31be91d44265c">live_cells::peek_cell_state&lt; C &gt;</a>, <a class="el" href="classlive__cells_1_1previous__value__cell__state.html#a1f46020e505645c202f7f8ec9f2aaa1d">live_cells::previous_value_cell_state&lt; C &gt;</a>, and <a class="el" href="classlive__cells_1_1store__cell__state.html#a3321697ad4cdcd8ba5dc53ca11008d18">live_cells::store_cell_state&lt; C &gt;</a>.</p>
 
 </div>
 </div>

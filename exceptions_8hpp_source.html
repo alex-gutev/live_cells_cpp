@@ -133,11 +133,20 @@ $(function(){initNavTree('exceptions_8hpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    };</div>
 </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}  <span class="comment">// live_cells</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#endif </span><span class="comment">/* LIVE_CELLS_EXCEPTIONS_HPP */</span><span class="preprocessor"></span></div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="};">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structlive__cells_1_1uninitialized__cell__error.html">   43</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structlive__cells_1_1uninitialized__cell__error.html">uninitialized_cell_error</a> : std::exception {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keyword">const</span> <span class="keywordtype">char</span> *what() <span class="keyword">const</span> <span class="keyword">noexcept</span> <span class="keyword">override</span> {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;The value of a cell was referenced before it was initialized.&quot;</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    };</div>
+</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}  <span class="comment">// live_cells</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#endif </span><span class="comment">/* LIVE_CELLS_EXCEPTIONS_HPP */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="anamespacelive__cells_html"><div class="ttname"><a href="namespacelive__cells.html">live_cells</a></div><div class="ttdef"><b>Definition</b> boolean.hpp:26</div></div>
 <div class="ttc" id="astructlive__cells_1_1stop__compute__exception_html"><div class="ttname"><a href="structlive__cells_1_1stop__compute__exception.html">live_cells::stop_compute_exception</a></div><div class="ttdoc">Exception indicating that the value of a cell should not be computed.</div><div class="ttdef"><b>Definition</b> exceptions.hpp:33</div></div>
+<div class="ttc" id="astructlive__cells_1_1uninitialized__cell__error_html"><div class="ttname"><a href="structlive__cells_1_1uninitialized__cell__error.html">live_cells::uninitialized_cell_error</a></div><div class="ttdoc">Exception indicating that the value of a cell was referenced before its initial value was computed.</div><div class="ttdef"><b>Definition</b> exceptions.hpp:43</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

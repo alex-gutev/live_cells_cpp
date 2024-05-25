@@ -18,6 +18,8 @@
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="358,84,431,85,431,91,358,90"/>
 <area shape="rect" id="Node000006" href="$structlive__cells_1_1peek__cell__key.html" title="Key identifying a peek_cell." alt="" coords="411,137,593,162"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="358,147,411,147,411,152,358,152"/>
-<area shape="rect" id="Node000011" href="$structlive__cells_1_1store__cell__key.html" title="Key identifying a store_cell." alt="" coords="425,365,579,405"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="376,383,425,383,425,388,376,388"/>
+<area shape="rect" id="Node000011" href="$structlive__cells_1_1previous__value__cell__key.html" title="Key identifying a previous_value_cell." alt="" coords="421,333,583,373"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="372,368,420,362,421,367,373,373"/>
+<area shape="rect" id="Node000012" href="$structlive__cells_1_1store__cell__key.html" title="Key identifying a store_cell." alt="" coords="425,397,579,437"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="373,397,425,404,424,410,372,402"/>
 </map>

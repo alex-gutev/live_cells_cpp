@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['cell_0',['cell',['../classlive__cells_1_1cell.html#a26a29cdfc3edba06c990125f55af03d5',1,'live_cells::cell']]],
+  ['cell_0',['cell',['../classlive__cells_1_1cell.html#a26a29cdfc3edba06c990125f55af03d5',1,'live_cells::cell::cell(O o)'],['../classlive__cells_1_1cell.html#aae2b43a90f63a768ef6f70f22e8d98c6',1,'live_cells::cell::cell(typed_cell&lt; T &gt; c)']]],
   ['cell_5fstate_1',['cell_state',['../classlive__cells_1_1cell__state.html#a9a18557a3ecf30aa8c24997b3f4aa4f4',1,'live_cells::cell_state::cell_state()'],['../classlive__cells_1_1mutable__cell__state.html#a9a18557a3ecf30aa8c24997b3f4aa4f4',1,'live_cells::mutable_cell_state::cell_state()']]],
   ['cell_5fview_2',['cell_view',['../namespacelive__cells.html#a3d839704f925c5ce5851678f195eb5a1',1,'live_cells']]],
   ['compute_3',['compute',['../classlive__cells_1_1dynamic__mutable__compute__cell__state.html#ab376ec403f7e802e2a8e4113059927ff',1,'live_cells::dynamic_mutable_compute_cell_state::compute()'],['../classlive__cells_1_1mutable__compute__cell__state.html#a4b6b416c1b2518612ee4602078ad3427',1,'live_cells::mutable_compute_cell_state::compute()'],['../classlive__cells_1_1static__mutable__compute__cell__state.html#ad86673f51e8a1687fd6fe0ed9787516f',1,'live_cells::static_mutable_compute_cell_state::compute()']]],

@@ -1,7 +1,9 @@
 <map id="live_cells::value_key&lt; T &gt;" name="live_cells::value_key&lt; T &gt;">
-<area shape="rect" id="Node000001" title="Base class for a key distinguished from other keys by one value." alt="" coords="5,79,200,104"/>
-<area shape="rect" id="Node000003" href="$structlive__cells_1_1store__cell__key.html" title="Key identifying a store_cell." alt="" coords="25,152,180,192"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="105,118,105,152,100,152,100,118"/>
-<area shape="rect" id="Node000002" href="$classlive__cells_1_1key.html" title="Defines the interface for a key which uniquely identifies a cell." alt="" coords="45,5,160,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,44,105,79,100,79,100,44"/>
+<area shape="rect" id="Node000001" title="Base class for a key distinguished from other keys by one value." alt="" coords="80,79,275,104"/>
+<area shape="rect" id="Node000003" href="$structlive__cells_1_1previous__value__cell__key.html" title="Key identifying a previous_value_cell." alt="" coords="5,152,168,192"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="155,115,110,154,107,150,152,111"/>
+<area shape="rect" id="Node000004" href="$structlive__cells_1_1store__cell__key.html" title="Key identifying a store_cell." alt="" coords="192,152,347,192"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="203,111,249,150,245,154,200,115"/>
+<area shape="rect" id="Node000002" href="$classlive__cells_1_1key.html" title="Defines the interface for a key which uniquely identifies a cell." alt="" coords="120,5,235,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,44,180,79,175,79,175,44"/>
 </map>

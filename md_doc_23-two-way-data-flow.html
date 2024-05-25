@@ -96,8 +96,8 @@ $(function(){initNavTree('md_doc_23-two-way-data-flow.html',''); initResizable()
   <div class="headertitle"><div class="title">3. Two-Way Data Flow</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md18"></a> In all the examples we've seen till this point, data always flows in a single direction. Now we'll introduce two-way data flow which allows data to flow in both directions between a pair of cells.</p>
-<h1><a class="anchor" id="autotoc_md19"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md19"></a> In all the examples we've seen till this point, data always flows in a single direction. Now we'll introduce two-way data flow which allows data to flow in both directions between a pair of cells.</p>
+<h1><a class="anchor" id="autotoc_md20"></a>
 Mutable Computed Cells</h1>
 <p>A <em>mutable computed cell</em> is a cell which ordinarily functions like a normal computed cell, created with <code><a class="el" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441" title="Create a cell with a value that is a function of one or more argument cells.">live_cells::computed()</a></code>, but can also have its value set directly as though it is a mutable cell. When the value of a mutable computed cell is set, it <em>reverses</em> the computation by setting the argument cells to a value such that when the mutable computed cell is recomputed, the same value will be produced as the value that was set. This allows data to flow in two directions, whereas <code><a class="el" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441" title="Create a cell with a value that is a function of one or more argument cells.">live_cells::computed()</a></code> only allows data to flow in a single direction.</p>
 <p>Mutable computed cells are created using <code><a class="el" href="namespacelive__cells.html#a69ebc62a1450860b4aeeac16af2c0d9e" title="Create a mutable computed cell with dynamically determined argument cells.">live_cells::mutable_computed()</a></code>, which takes the computation function and reverse computation function. The computation function computes the cell's value as a function of argument cells, like <code><a class="el" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441" title="Create a cell with a value that is a function of one or more argument cells.">live_cells::computed()</a></code>. The reverse computation function <em>reverses</em> the computation by assigning a value to the argument cells. It is given the value that was assigned to the cell.</p>
@@ -125,7 +125,7 @@ Mutable Computed Cells</h1>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Prints: 16</span></div>
 <div class="line">str_a = <span class="stringliteral">&#39;15&#39;</span>;</div>
-<div class="ttc" id="anamespacelive__cells_html_aff827bee503738afea0d4de923ca0e87"><div class="ttname"><a href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a></div><div class="ttdeci">std::shared_ptr&lt; watcher &gt; watch(F fn)</div><div class="ttdoc">Register a cell watch function.</div><div class="ttdef"><b>Definition</b> watcher.hpp:206</div></div>
+<div class="ttc" id="anamespacelive__cells_html_aff827bee503738afea0d4de923ca0e87"><div class="ttname"><a href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a></div><div class="ttdeci">std::shared_ptr&lt; watcher &gt; watch(F fn)</div><div class="ttdoc">Register a cell watch function.</div><div class="ttdef"><b>Definition</b> watcher.hpp:212</div></div>
 </div><!-- fragment --><p>The value of this is that data can also flow from <code>a</code> to <code>str_a</code>:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> watcher = <a class="code hl_function" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a>([=] {</div>
 <div class="line">    std::cout &lt;&lt; str_a.value() &lt;&lt; std::endl;</div>
@@ -133,7 +133,7 @@ Mutable Computed Cells</h1>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Prints: 7</span></div>
 <div class="line">a = 7;</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md20"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md21"></a>
 Multiple Arguments</h1>
 <p>Mutable computed cells can be defined as a function of more than one argument cell. For example we can define a <code>sum</code> cell, that ordinarily computes the sum of two numbers held in cells <code>a</code> and <code>b</code>. When <code>sum</code> is assigned a value, <code>a</code> and <code>b</code> are set to one half of the sum that was assigned.</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(0.0);</div>
