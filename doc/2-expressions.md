@@ -367,9 +367,11 @@ This is equivalent to:
 
 ```cpp
 auto cell = live_cells::peek(
-    live_cells::on_error(
-        live_cells::select(cond, a, b),
-        c
+    live_cells::previous(
+        live_cells::on_error(
+            live_cells::select(cond, a, b),
+            c
+        )
     )
 );
 ```
