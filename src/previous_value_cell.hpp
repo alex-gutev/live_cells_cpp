@@ -39,8 +39,6 @@ namespace live_cells {
             cell_state(k),
             cell(cell),
 
-            prev_value(maybe<value_type>::error(uninitialized_cell_error())),
-
             current_value(maybe<value_type>::wrap([cell] {
                 return cell.value();
             })) {
@@ -75,6 +73,9 @@ namespace live_cells {
 
         void pause() override {
             cell.remove_observer(observer_ptr());
+
+            prev_value = maybe<value_type>();
+            current_value = maybe<value_type>();
 
             cell_state::pause();
             pause_observer_state();
