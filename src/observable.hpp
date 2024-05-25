@@ -232,6 +232,21 @@ namespace live_cells {
          * cell.
          */
         std::shared_ptr<internal::ref_base> obs_ref;
+
+        template <typename T>
+        friend class typed_cell;
+    };
+
+    /**
+     * \brief Exception thrown when attempting to cast a \p cell to a
+     * \p typed_cell with a value type that is incompatible with the
+     * cell's value type.
+     */
+    struct bad_typed_cell_cast : std::exception {
+        const char *what() const noexcept override {
+            return "Attempt to cast a `cell` to a `typed_cell<>` with a value type"
+                " that is incompatible with the cell's value type.";
+        }
     };
 
     /**
@@ -255,6 +270,23 @@ namespace live_cells {
         template <TypedCell<T> C>
         typed_cell(C cell) :
             ref(std::static_pointer_cast<internal::typed_ref_base<T>>(std::make_shared<internal::typed_ref<C>>(cell))) {
+        }
+
+        /**
+         * \brief Create a container holding the \p Cell held in \a c.
+         *
+         * \param c A typeless \p cell container.
+         *
+         * \throws bad_typed_cell_cast When the value type of the \p
+         *    Cell held in \a c is not compatible with the value type
+         *    \p T of this container.
+         */
+        typed_cell(cell c) :
+            ref(std::dynamic_pointer_cast<internal::typed_ref_base<T>>(c.obs_ref)) {
+
+            if (!ref) {
+                throw bad_typed_cell_cast();
+            }
         }
 
         /**
