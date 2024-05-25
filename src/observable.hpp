@@ -110,7 +110,7 @@ namespace live_cells {
             }
 
             void value(typename C::value_type value) override {
-                observable.value();
+                observable.value(value);
             }
 
             typename C::value_type operator()() const override {
@@ -119,6 +119,9 @@ namespace live_cells {
         };
 
     }  // internal
+
+    template <typename T>
+    class typed_cell;
 
     /**
      * \brief Dynamically typed \p Cell container.
@@ -137,6 +140,16 @@ namespace live_cells {
         template <Cell O>
         cell(O o) :
             obs_ref(std::static_pointer_cast<internal::ref_base>(std::make_shared<internal::typed_ref<O>>(o))) {}
+
+        /**
+         * \brief Create a container holding the \p Cell held in \a c.
+         *
+         * \param c A \p typed_cell container.
+         */
+        template <typename T>
+        cell(typed_cell<T> c) :
+            obs_ref(std::static_pointer_cast<internal::ref_base>(c.ref)) {
+        }
 
         /**
          * \brief Add an observer to the underlying \p Cell.
@@ -361,6 +374,8 @@ namespace live_cells {
          * cell.
          */
         std::shared_ptr<internal::typed_ref_base<T>> ref;
+
+        friend class cell;
     };
 
     /**
