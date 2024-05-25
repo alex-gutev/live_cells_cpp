@@ -6,6 +6,7 @@
 #include <optional>
 
 #include "util.hpp"
+#include "exceptions.hpp"
 
 namespace live_cells {
     /**
@@ -16,10 +17,17 @@ namespace live_cells {
     class maybe {
     public:
         /**
-         * \brief Create a container holding neither a value nor an
-         * exception.
+         * \brief Create a container holding an \p
+         * uninitialized_cell_error exception.
          */
-        maybe() {}
+        maybe() {
+            try {
+                throw uninitialized_cell_error();
+            }
+            catch (...) {
+                error_ = std::current_exception();
+            }
+        }
 
         /**
          * \brief Create a container holding a value.
