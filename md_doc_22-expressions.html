@@ -328,9 +328,11 @@ Pipe operator</h1>
 <div class="ttc" id="anamespacelive__cells_1_1ops_html_ac3c694eb320f49f96fd11a5601417fec"><div class="ttname"><a href="namespacelive__cells_1_1ops.html#ac3c694eb320f49f96fd11a5601417fec">live_cells::ops::peek</a></div><div class="ttdeci">constexpr auto peek</div><div class="ttdoc">Operator for reading the value of a cell without reacting to changes.</div><div class="ttdef"><b>Definition</b> peek_cell.hpp:147</div></div>
 </div><!-- fragment --><p>This is equivalent to:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> cell = <a class="code hl_function" href="namespacelive__cells.html#a7fc8173d64b8688a70ff408450e8b91e">live_cells::peek</a>(</div>
-<div class="line">    <a class="code hl_function" href="namespacelive__cells.html#a62bdb9a836d990bfdfc53919a790ad17">live_cells::on_error</a>(</div>
-<div class="line">        <a class="code hl_function" href="namespacelive__cells.html#a70b163d68732a15a5f7c16b69d9ba357">live_cells::select</a>(cond, a, b),</div>
-<div class="line">        c</div>
+<div class="line">    <a class="code hl_function" href="namespacelive__cells.html#a5e7bb7e5831fdc9543bf3b4f96af168e">live_cells::previous</a>(</div>
+<div class="line">        <a class="code hl_function" href="namespacelive__cells.html#a62bdb9a836d990bfdfc53919a790ad17">live_cells::on_error</a>(</div>
+<div class="line">            <a class="code hl_function" href="namespacelive__cells.html#a70b163d68732a15a5f7c16b69d9ba357">live_cells::select</a>(cond, a, b),</div>
+<div class="line">            c</div>
+<div class="line">        )</div>
 <div class="line">    )</div>
 <div class="line">);</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md18"></a>
