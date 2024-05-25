@@ -92,7 +92,7 @@ auto cond = a || b;
 auto cell = live_cells::select(cond, c, d);
 
 auto watcher = live_cells::watch([=] {
-	std::cout << cell() << std::endl;
+    std::cout << cell() << std::endl;
 });
 
 a = true;  // Prints: 1
@@ -109,7 +109,7 @@ auto a = live_cells::variable(1);
 auto cell = live_cells::select(cond, a);
 
 auto watcher = live_cells::watch([=] {
-	std::cout << cell() << std::endl;
+    std::cout << cell() << std::endl;
 });
 
 cond = true;  // Prints: 1
@@ -137,7 +137,7 @@ auto b = live_cells::computed([=] {
 });
 
 auto watcher = live_cells::watch([=] {
-	std::cout << b() << std::endl;
+    std::cout << b() << std::endl;
 });
 
 a = 6;  // Prints 6
@@ -249,12 +249,12 @@ auto prev = live_cells::previous(a);
 auto sum = a + prev;
 
 auto watch = live_cells::watcher([=] {
-	int prev_value = prev();
-	
-	std::cout << "\n";
-	std::cout << "A = " << a() << std::endl;
-	std::cout << "Prev = " << prev_value << std::endl;
-	std::cout << "Sum = " << sum() << std::endl;
+    int prev_value = prev();
+    
+    std::cout << "\n";
+    std::cout << "A = " << a() << std::endl;
+    std::cout << "Prev = " << prev_value << std::endl;
+    std::cout << "Sum = " << sum() << std::endl;
 });
 
 a = 2;
@@ -350,15 +350,16 @@ auto cell = live_cells::select(cond, c, d);
 ```
 
 The `live_cells::ops` package also provides a variant of
-[`on_error`](@ref live_cells::on_error) and
-[`peek`](@ref live_cells::peek) that can be used with the pipe
-operator. This allows for a reactive pipeline to be built without
-nested function calls.
+[`on_error`](@ref live_cells::on_error), 
+[`peek`](@ref live_cells::peek) and [`previous`](@ref live_cells::previous) that can
+be used with the pipe operator. This allows for a reactive pipeline to
+be built without nested function calls.
 
 ```cpp
 auto cell = cond 
     | live_cells::ops::select(a, b) 
     | live_cells::ops::on_error(c) 
+    | live_cells::ops::previous
     | live_cells::ops::peek;
 ```
 
