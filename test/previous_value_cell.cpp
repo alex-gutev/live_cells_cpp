@@ -217,4 +217,27 @@ BOOST_AUTO_TEST_CASE(does_not_notify_observers_when_value_unchanged) {
     BOOST_CHECK(values == std::vector({0, 2, 8}));
 }
 
+BOOST_AUTO_TEST_CASE(throws_exception_when_unobserved) {
+    auto a = live_cells::variable(0);
+    auto prev = a | live_cells::ops::previous;
+
+    auto observer = std::make_shared<value_observer<int>>(prev);
+
+    {
+        auto guard = observer_guard(prev, observer);
+
+        a = 4;
+        a = 9;
+        a = 30;
+    }
+
+    BOOST_CHECK_THROW(prev.value(), live_cells::uninitialized_cell_error);
+
+    a = 7;
+
+    BOOST_CHECK_THROW(prev.value(), live_cells::uninitialized_cell_error);
+
+    observer->check_values({0, 4, 9});
+}
+
 BOOST_AUTO_TEST_SUITE_END()
