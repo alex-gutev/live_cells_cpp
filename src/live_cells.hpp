@@ -35,6 +35,8 @@
 #include "boolean.hpp"
 #include "errors.hpp"
 
+#include "maybe_cell.hpp"
+
 /**
  * \namespace live_cells
  *
