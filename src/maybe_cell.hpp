@@ -57,6 +57,33 @@ namespace live_cells {
         });
     }
 
+    namespace ops {
+        /**
+         * \brief Cell operator that creates a maybe cell as if by \p
+         * live_cells::maybe_cell.
+         *
+         * Usage:
+         *
+         * \code{.cpp}
+         * auto b = a | maybe();
+         * \endcode
+         *
+         * This is equivalent to:
+         *
+         * \code{.cpp}
+         * auto b = live_cells::maybe_cell(a);
+         * \endcode
+         */
+        struct maybe {};
+
+        inline auto operator|(const Cell auto &cell, struct maybe) {
+            return maybe_cell(cell);
+        }
+
+        inline auto operator|(const MutableCell auto &cell, struct maybe) {
+            return maybe_cell(cell);
+        }
+    }
 }  // live_cells
 
 #endif /* LIVE_CELLS_MAYBE_CELL_HPP */
