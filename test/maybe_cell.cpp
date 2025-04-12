@@ -125,4 +125,28 @@ BOOST_AUTO_TEST_CASE(mutable_maybe_cell) {
     BOOST_CHECK(m.value().unwrap() == 5);
 }
 
+BOOST_AUTO_TEST_CASE(compare_equal_if_same_argument_cell) {
+    auto a = live_cells::variable(1);
+
+    auto m1 = a | live_cells::ops::maybe();
+    auto m2 = a | live_cells::ops::maybe();
+
+    std::hash<live_cells::cell> hash;
+
+    BOOST_CHECK(m1 == m2);
+    BOOST_CHECK(!(m1 != m2));
+    BOOST_CHECK(hash(m1) == hash(m2));
+}
+
+BOOST_AUTO_TEST_CASE(compare_not_equal_if_different_argument_cell) {
+    auto a = live_cells::variable(1);
+    auto b = live_cells::variable(1);
+
+    auto m1 = a | live_cells::ops::maybe();
+    auto m2 = b | live_cells::ops::maybe();
+
+    BOOST_CHECK(m1 != m2);
+    BOOST_CHECK(!(m1 == m2));
+}
+
 BOOST_AUTO_TEST_SUITE_END()
