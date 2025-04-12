@@ -114,6 +114,98 @@ namespace live_cells {
     }
 
     /**
+     * \brief Create a mutable computed cell with dynamically
+     * determined argument cells.
+     *
+     * Ordinarily the value of the cell is the value computed by \a
+     * fn as a function of other cells.
+     *
+     * The returned cell is also a mutable cell, which means its value
+     * can be set explicitly. When the value of the cell is set
+     * explicitly, the reverse computation function \a reverse is
+     * called. \a reverse should set the values of the cells
+     * referenced in \a fn such that \a fn returns the same value as
+     * the value that was assigned to the cell.
+     *
+     * \attention The values of Cell's should be referenced in \a fn
+     * using the function call operator, so that they are tracked as
+     * dependencies of the mutable computed cell, and not using the \p
+     * Cell::value() getter method.
+     *
+     * \note This differs from the other overload in that the argument cells
+     * are not specified explicitly, but are determined
+     * dynamically.
+     *
+     * \param key     Key identifying the cell
+     *
+     * \param fn Compute value function.\n
+     *   This function is called with no arguments.
+     *
+     * \param reverse Reverse computation function.\n
+     *   This function is passed the value that was assigned to the
+     *   cell.
+     *
+     * \return The mutable computed cell
+     */
+    template <std::invocable F, typename R>
+    auto mutable_computed(key_ref key, F&& fn, R&& reverse) {
+        return dynamic_mutable_compute_cell<F,R>(
+            key,
+            std::forward<F>(fn),
+            std::forward<R>(reverse)
+        );
+    }
+
+    /**
+     * \brief Create a mutable computed cell with dynamically
+     * determined argument cells that only notifies its observers when
+     * its value has actually changed.
+     *
+     * Ordinarily the value of the cell is the value computed by \a
+     * fn as a function of other cells.
+     *
+     * The returned cell is also a mutable cell, which means its value
+     * can be set explicitly. When the value of the cell is set
+     * explicitly, the reverse computation function \a reverse is
+     * called. \a reverse should set the values of the cells
+     * referenced in \a fn such that \a fn returns the same value as
+     * the value that was assigned to the cell.
+     *
+     * \attention The values of Cell's should be referenced in \a fn
+     * using the function call operator, so that they are tracked as
+     * dependencies of the mutable computed cell, and not using the \p
+     * Cell::value() getter method.
+     *
+     * \note This differs from the other overload in that the argument cells
+     * are not specified explicitly, but are determined
+     * dynamically.
+     *
+     * \note With this overload, the cell only notifies its observers
+     * when its new value is not equal to its previous value.
+     *
+     * \param option Changes only cell option
+     *
+     * \param key     Key identifying the cell
+     *
+     * \param fn Compute value function.\n
+     *   This function is called with no arguments.
+     *
+     * \param reverse Reverse computation function.\n
+     *   This function is passed the value that was assigned to the
+     *   cell.
+     *
+     * \return The mutable computed cell
+     */
+    template <std::invocable F, typename R>
+    auto mutable_computed(changes_only_option option, key_ref key, F&& fn, R&& reverse) {
+        return dynamic_mutable_compute_cell<F,R, dynamic_mutable_compute_changes_only_cell_state<F,R>>(
+            key,
+            std::forward<F>(fn),
+            std::forward<R>(reverse)
+        );
+    }
+
+    /**
      * \brief Create a mutable computed cell.
      *
      * Ordinarily the value of the cell is the value computed by a
