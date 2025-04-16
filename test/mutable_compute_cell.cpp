@@ -469,4 +469,79 @@ BOOST_AUTO_TEST_CASE(chained_mutable_compute_cells) {
     obs_b->check_values({3, 9});
 }
 
+BOOST_AUTO_TEST_CASE(compares_equal_if_same_key) {
+    using live_cells::key_ref;
+    using live_cells::mutable_computed;
+
+    typedef value_key<std::string> key_type;
+
+    auto a = live_cells::variable(0);
+
+    live_cells::cell c1 = mutable_computed(key_ref::create<key_type>("the-key"), a, [] (auto a) {
+        return a + 1;
+    }, [=] (auto b) {
+        a = b - 1;
+    });
+
+    live_cells::cell c2 = mutable_computed(key_ref::create<key_type>("the-key"), a, [] (auto a) {
+        return a + 1;
+    }, [=] (auto b) {
+        a = b - 1;
+    });
+
+    std::hash<live_cells::cell> hash;
+
+    BOOST_CHECK(c1 == c2);
+    BOOST_CHECK(!(c1 != c2));
+    BOOST_CHECK(hash(c1) == hash(c2));
+}
+
+BOOST_AUTO_TEST_CASE(compares_not_equal_if_different_key) {
+    using live_cells::key_ref;
+    using live_cells::mutable_computed;
+
+    typedef value_key<std::string> key_type;
+
+    auto a = live_cells::variable(0);
+
+    live_cells::cell c1 = mutable_computed(key_ref::create<key_type>("the-key1"), a, [] (auto a) {
+        return a + 1;
+    }, [=] (auto b) {
+        a = b - 1;
+    });
+
+    live_cells::cell c2 = mutable_computed(key_ref::create<key_type>("the-key2"), a, [] (auto a) {
+        return a + 1;
+    }, [=] (auto b) {
+        a = b - 1;
+    });
+
+    BOOST_CHECK(c1 != c2);
+    BOOST_CHECK(!(c1 == c2));
+}
+
+BOOST_AUTO_TEST_CASE(compares_not_equal_with_default_key) {
+    using live_cells::key_ref;
+    using live_cells::mutable_computed;
+
+    typedef value_key<std::string> key_type;
+
+    auto a = live_cells::variable(0);
+
+    live_cells::cell c1 = mutable_computed(a, [] (auto a) {
+        return a + 1;
+    }, [=] (auto b) {
+        a = b - 1;
+    });
+
+    live_cells::cell c2 = mutable_computed(a, [] (auto a) {
+        return a + 1;
+    }, [=] (auto b) {
+        a = b - 1;
+    });
+
+    BOOST_CHECK(c1 != c2);
+    BOOST_CHECK(!(c1 == c2));
+}
+
 BOOST_AUTO_TEST_SUITE_END();
