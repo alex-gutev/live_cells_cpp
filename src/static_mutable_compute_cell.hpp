@@ -137,7 +137,10 @@ namespace live_cells {
          */
         template <typename T, typename U, typename... Args>
         static_mutable_compute_cell(key_ref k, T&& compute, U&& reverse, Args&&... args) :
-            parent(k, std::forward<T>(compute), std::forward<U>(reverse), {std::forward<Args>(args)...}) {}
+            parent(k,
+                   std::forward<T>(compute),
+                   std::forward<U>(reverse),
+                   std::unordered_set<cell>({cell(args)...})) {}
 
         /**
          * \brief Create a static mutable computed cell.
