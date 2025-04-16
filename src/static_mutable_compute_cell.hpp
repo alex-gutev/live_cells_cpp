@@ -273,6 +273,48 @@ namespace live_cells {
         return static_mutable_compute_cell<C,R,Base>(compute, reverse, args...);
     }
 
+    /**
+     * \brief Create a \p static_mutable_compute_cell with compute
+     * function \a compute, reverse compute function \a reverse and
+     * arguments \a args.
+     *
+     * \param key     Key identifying the cell
+     * \param compute Compute value function.
+     * \param reverse Reverse compute function.
+     * \param args    Argument cells
+     *
+     * \return The cell
+     */
+    template <std::invocable C, typename R, Cell... As>
+    auto make_mutable_compute_cell(key_ref key, C compute, R reverse, As... args) {
+        return static_mutable_compute_cell<C,R>(key, compute, reverse, args...);
+    }
+
+    /**
+     * \brief Create a \p static_mutable_compute_cell with compute
+     * function \a compute, reverse compute function \a reverse and
+     * arguments \a args, that only notifies its observers when its
+     * value has actually changed.
+     *
+     * \note The difference between this and the other overloads, is
+     * that with this overload, the cell only notifies its observers
+     * when its new value is not equal to its previous value.
+     *
+     * \param option  Changes only cell option
+     * \param key     Key identifying the cell
+     * \param compute Compute value function.
+     * \param reverse Reverse compute function.
+     * \param args    Argument cells
+     *
+     * \return The cell
+     */
+    template <std::invocable C, typename R, Cell... As>
+    auto make_mutable_compute_cell(changes_only_option option, key_ref key, C compute, R reverse, As... args) {
+        typedef static_mutable_compute_changes_only_cell_state<C,R> Base;
+
+        return static_mutable_compute_cell<C,R,Base>(key, compute, reverse, args...);
+    }
+
 }  // live_cells
 
 #endif /* LIVE_CELLS_STATIC_MUTABLE_COMPUTE_CELL_HPP */
