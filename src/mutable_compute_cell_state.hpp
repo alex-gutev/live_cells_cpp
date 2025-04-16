@@ -139,10 +139,6 @@ namespace live_cells {
             catch (...) {
                 // Prevent exception from being propagated to caller
             }
-
-            for (auto arg : arguments) {
-                arg.add_observer(observer_ptr());
-            }
         }
 
         /**

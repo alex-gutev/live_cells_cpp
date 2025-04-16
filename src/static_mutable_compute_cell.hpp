@@ -77,6 +77,14 @@ namespace live_cells {
             reverse_fn(value);
         }
 
+        void init() override {
+            parent::init();
+
+            for (auto arg : this->arguments) {
+                arg.add_observer(this->observer_ptr());
+            }
+        }
+
     private:
         /** \brief Value computation function */
         const F compute_fn;
