@@ -544,4 +544,74 @@ BOOST_AUTO_TEST_CASE(compares_not_equal_with_default_key) {
     BOOST_CHECK(!(c1 == c2));
 }
 
+BOOST_AUTO_TEST_CASE(keyed_cells_manage_same_observers) {
+    auto counter = std::make_shared<state_counter>();
+
+    {
+        auto key = live_cells::key_ref::create<value_key<std::string>>("key");
+
+        auto a = test_managed_cell<int>(counter, 0);
+
+        auto f = [=] {
+            return live_cells::mutable_computed(key, a, [] (auto a) {
+                return a + 1;
+            }, [=] (auto b) {});
+        };
+
+        BOOST_CHECK_EQUAL(counter->ctor_count, 1);
+        BOOST_CHECK_EQUAL(counter->init_count, 0);
+        BOOST_CHECK_EQUAL(counter->dispose_count, 0);
+
+        auto observer = std::make_shared<simple_observer>();
+
+        f().add_observer(observer);
+        BOOST_CHECK_EQUAL(counter->ctor_count, 1);
+        BOOST_CHECK_EQUAL(counter->init_count, 1);
+
+        f().remove_observer(observer);
+        BOOST_CHECK_EQUAL(counter->dispose_count, 1);
+    }
+
+    BOOST_CHECK_EQUAL(counter->dtor_count, 1);
+}
+
+BOOST_AUTO_TEST_CASE(keyed_cell_state_reinitialized_on_add_observer_post_dispose) {
+    auto counter = std::make_shared<state_counter>();
+    auto key = live_cells::key_ref::create<value_key<std::string>>("key");
+
+    auto a = test_managed_cell<int>(counter, 0);
+
+    auto f = [=] {
+        return live_cells::mutable_computed(key, a, [] (auto a) {
+            return a + 1;
+        }, [=] (auto b) {});
+    };
+
+    BOOST_CHECK_EQUAL(counter->ctor_count, 1);
+    BOOST_CHECK_EQUAL(counter->init_count, 0);
+    BOOST_CHECK_EQUAL(counter->dispose_count, 0);
+
+    auto observer = std::make_shared<simple_observer>();
+
+    {
+        auto cell = f();
+        auto guard = with_observer(cell, observer);
+
+        BOOST_CHECK_EQUAL(counter->ctor_count, 1);
+        BOOST_CHECK_EQUAL(counter->init_count, 1);
+    }
+
+    BOOST_CHECK_EQUAL(counter->dispose_count, 1);
+
+    {
+        auto cell = f();
+        auto guard = with_observer(cell, observer);
+
+        BOOST_CHECK_EQUAL(counter->ctor_count, 1);
+        BOOST_CHECK_EQUAL(counter->init_count, 2);
+    }
+
+    BOOST_CHECK_EQUAL(counter->dispose_count, 2);
+}
+
 BOOST_AUTO_TEST_SUITE_END();
