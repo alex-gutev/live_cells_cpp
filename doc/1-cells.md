@@ -141,7 +141,7 @@ b = 3;
 ```
 
 The watch function is also stopped automatically when the last
-`shared_ptr` point to the handle, is destroyed.
+`shared_ptr` pointing to the handle, is destroyed.
 
 \warning Due to the watch function being stopped automatically on
 destruction, you should always assign the handle returned by
@@ -218,11 +218,11 @@ following example:
 ```cpp
 auto a = live_cells::variable(0);
 auto b = live_cells::computed(live_cells::changes_only, [=] {
-	return a() % 2;
+    return a() % 2;
 });
 
 auto watcher = live_cells::watch([=] {
-	std::cout << b() << std::endl;
+    std::cout << b() << std::endl;
 });
 
 a = 1
@@ -260,6 +260,129 @@ Notice that a new line is printed to standard output, whenever the
 value of `a`, which is an argument of `b`, is changed. This is because
 `b` notifies its observers whenever the value of its argument `a` has
 changed, even if `b`'s new value is equal to its previous value.
+
+## Lightweight Computed Cells
+
+Another way to create computed cells is to list the argument cells
+explicitly. The `sum` cell from the previous example can also be
+defined as:
+
+```cpp
+auto a = live_cells::variable(0);
+auto b = live_cells::variable(1);
+
+auto sum = live_cells::computed(a, b, [] (auto a, auto b) {
+    return a + b;
+});
+```
+
+This definition is functionally equivalent to the previous
+definition. It computes the same value, which is recomputed whenever
+the value of either `a` or `b` changes. However this definition is
+different in that:
+
+* The argument cells, `a` and `b`, are passed explicitly to
+  `live_cells::computed` before the value computation function.
+  
+* The argument cells of the function are known at compile-time rather
+  than determined at run time. Thus this definition has less run time
+  overhead.
+  
+* The value of the `sum` cell is not cached. Instead it is recomputed
+  whenever the value of the cell is accessed.
+
+\attention The values of the argument cells, `a`, and `b`, are passed
+to the value computation function.
+
+This definition is more lightweight than the previous definition of
+`sum`, since it doesn't have the overhead of determining the cell
+arguments at run time or the overhead of caching the cell
+value. However it is less convenient since the argument cells have to
+be listed beforehand, whereas with the previous definition, the
+arguments are determined automatically.
+
+For cells consisting of a simple computation, such as the `sum` cell,
+there is no need to cache the value since the overhead of the caching
+logic will likely increase the computational time. However, for more
+expensive value computation functions it may be beneficial to only run
+the computation function once and cache the result until the values of
+the argument cells change. The `live_cells::store` function creates a
+cell that adds caching to another cell.
+
+Caching can be added to this definition of the `sum` cell as follows:
+
+```cpp
+auto sum = live_cells::computed(a, b, [] (auto a, auto b) {
+    return a + b;
+});
+
+auto cached_sum = live_cells::store(sum);
+```
+
+The cell `cached_sum` evaluates to the same value as the `sum` cell,
+but caches it until it changes. The best way to demonstrate the
+difference is to change the definition of sum to the following:
+
+```cpp
+auto sum = live_cells::computed(a, b, [] (auto a, auto b) {
+    std::cout << "Computing sum\n";
+    return a + b;
+});
+```
+
+The following watch function:
+
+```cpp
+auto w = live_cells::watch([=] {
+    std::cout << "a + b = " << sum() << std::endl;
+    std::cout << "The sum is " << sum() << std::endl;
+});
+```
+
+Results in the following being printed to standard output:
+
+```
+Computing sum
+a + b = 1
+Computing sum
+The sum is 1
+```
+
+Notice that the computation function of `sum` is called whenever the
+value of the cell is referenced.
+
+The following watch function references the value of `cached_sum`,
+which caches the value of `sum` using `live_cells::store`:
+
+```cpp
+auto w = live_cells::watch([=] {
+    std::cout << "a + b = " << cached_sum() << std::endl;
+    std::cout << "The sum is " << cached_sum() << std::endl;
+});
+```
+
+This results in the following being printed to standard output:
+
+```
+Computing sum
+a + b = 1
+The sum is 1
+```
+
+Notice that the computation function of `sum` is now called only the
+first time the value of `cached_sum` is referenced.
+
+`live_cells::store` can also be supplied the
+`live_cells::changes_only` option. Much like `live_cells::computed`,
+when `live_cells::store` is given `live_cells::changes_only`, it only
+notifies its observers when the new value of the argument cell is not
+equal to its previous value.
+
+Example:
+
+```cpp
+auto cached_sum = live_cells::store(live_cells::changes_only, sum);
+```
 
 ## Batch Updates
 
@@ -379,7 +502,7 @@ shorthand syntax:
 ```cpp
 using live_cells::Cell;
 
-auto add (const Cell auto &a, const Cell auto &b) {
+auto add(const Cell auto &a, const Cell auto &b) {
     return live_cells::computed([=] {
         return a() + b();
     });
@@ -530,6 +653,6 @@ few points to keep in mind when using cells:
 
 ## Next
 
-Now that we've covered the basic you can proceed to the next
+Now that we've covered the basics you can proceed to the next
 [section](2-expressions.md), which introduces utilities for
 creating cells directly from expressions.
