@@ -261,6 +261,7 @@ value of `a`, which is an argument of `b`, is changed. This is because
 `b` notifies its observers whenever the value of its argument `a` has
 changed, even if `b`'s new value is equal to its previous value.
 
+\anchor lightweight-computed-cells
 ## Lightweight Computed Cells
 
 Another way to create computed cells is to list the argument cells

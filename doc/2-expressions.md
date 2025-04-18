@@ -22,7 +22,14 @@ auto sum = a + b;
 
 \note This definition of the sum cell is not only simpler than the
 definition using `live_cells::computed()` but is also more efficient
-since the argument cells are determined at compile-time.
+since the argument cells are determined at compile-time. In-fact it is
+equivalent to the definition seen in \ref lightweight-computed-cells
+"Lightweight Computed Cells":\n
+```cpp
+auto sum = live_cells::computed(a, b, [] (auto a, auto b) {
+    return a + b;
+});
+```
 
 The `sum` cell is a cell like any other. It can be observed by a watch
 function or can appear as an argument in a computed cell.
@@ -150,13 +157,18 @@ constructed value. Thus if `live_cells::none()` is called during the
 first call to the cell's computation function, the default value for
 the cell's value type is retained.
 
-
 \attention The value of a computed cell is only computed if it is
 actually referenced. `live_cells::none()` only preserves the current
 value of the cell, but this might not be the latest value of the cell
 if the cell's value is only referenced conditionally. A good rule of
 thumb is to use `live_cells::none()` only to prevent a cell from
 holding an invalid value.
+
+\warning Do no use `live_cells::none()` inside a lightweight computed
+cell, unless the cell is immediately wrapped with
+`live_cells::store`. This is because `live_cells::none()` requires
+caching of the cell's previous value and lightweight computed cells do
+not cache their values.
 
 ## Exception handling
 
@@ -277,7 +289,7 @@ Sum = 7
 cell. When `previous` is called multiple times on the same argument
 cell, the same cell is returned.
 
-\attention\n
+\attention
 * On creation `prev` does not hold a value. Accessing it will throw a
   `live_cells::uninitialized_cell_error` exception.
 * `prev` must have at least one observer in order for it to keep track
@@ -306,11 +318,12 @@ b = 5; // Doesn't print anything
 a = 7; // Prints: 13
 ```
 
-In the above example cell `c` is a computed cell referencing the value
-of `a` and *peeks* the value of `b`. Changing the value of `a`
+In the above example cell `c` is a computed cell that references the
+value of `a` and *peeks* the value of `b`. Changing the value of `a`
 triggers a recomputation of `c`, and hence triggers the watch function
-which prints to standard output, but changing the value of `b` doesn't
-trigger a recomputation of `c`.
+which prints to standard output. However, changing the value of `b`
+doesn't trigger a recomputation of `c`, and hence the watch function
+is not called.
 
 \note `live_cells::peek()` returns a cell.
 
@@ -374,6 +387,33 @@ auto cell = live_cells::peek(
         )
     )
 );
+```
+
+The `live_cells::ops::store` can be used to wrap a cell using
+`live_cells::store` (introduced in \ref lightweight-computed-cells
+"Lightweight Computed Cells"):
+
+```cpp
+auto cached_sum = sum | live_cells::ops::store;
+```
+
+This is equivalent to:
+
+```cpp
+auto cached_sum = live_cells::store(sum)
+```
+
+`live_cells::ops::cache` is like `live_cells::ops::store` however it
+also passes the `live_cells::changes_only` argument:
+
+```cpp
+auto cached_sum = sum | live_cells::ops::cache;
+```
+
+This is equivalent to:
+
+```cpp
+auto cached_sum = live_cells::store(live_cells::changes_only, sum)
 ```
 
 ## Next
