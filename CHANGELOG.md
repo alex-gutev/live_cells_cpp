@@ -1,3 +1,23 @@
+# 0.5.0 - 2025-04-19
+
+New features:
+
+* `live_cells::maybe_cell`
+
+   Creates a cell that wraps the value of an argument cell in a `maybe`.
+   
+* Add key arguments to mutable computed cell creation.
+
+Documentation improvements:
+
+* Add documentation of lightweight computed cells.
+* Add documentation of `live_cells::maybe` container.
+
+Bug fixes:
+
+* Fix bug with mutable computed cells not removing their observers
+  on state destruction.
+
 # 0.4.0 - 2024-05-24
 
 New features:
