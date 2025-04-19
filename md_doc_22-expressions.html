@@ -96,8 +96,8 @@ $(function(){initNavTree('md_doc_22-expressions.html',''); initResizable(); });
   <div class="headertitle"><div class="title">2. Cell Expressions</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md9"></a> This library provides a number of tools for building expressions of cells without requiring a computed cell to be created explicitly using <code><a class="el" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441" title="Create a cell with a value that is a function of one or more argument cells.">live_cells::computed()</a></code>.</p>
-<h1><a class="anchor" id="autotoc_md10"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md10"></a> This library provides a number of tools for building expressions of cells without requiring a computed cell to be created explicitly using <code><a class="el" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441" title="Create a cell with a value that is a function of one or more argument cells.">live_cells::computed()</a></code>.</p>
+<h1><a class="anchor" id="autotoc_md11"></a>
 Arithmetic</h1>
 <p>The arithmetic and relational (<code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>) operators, when applied to cells holding numeric values, return cells which compute the result of the expression.</p>
 <p>This allows a computation to be defined directly as an expression of cells. For example the following cell computes the sum of two cells:</p>
@@ -106,7 +106,12 @@ Arithmetic</h1>
 <div class="line"> </div>
 <div class="line"><span class="keyword">auto</span> sum = a + b;</div>
 <div class="ttc" id="anamespacelive__cells_html_ab365650aeb27f61f31622a49d4fb79a3"><div class="ttname"><a href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a></div><div class="ttdeci">mutable_cell&lt; T &gt; variable(T value)</div><div class="ttdoc">Create a new mutable cell with an initial value.</div><div class="ttdef"><b>Definition</b> mutable_cell.hpp:276</div></div>
-</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>This definition of the sum cell is not only simpler than the definition using <code><a class="el" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441" title="Create a cell with a value that is a function of one or more argument cells.">live_cells::computed()</a></code> but is also more efficient since the argument cells are determined at compile-time.</dd></dl>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>This definition of the sum cell is not only simpler than the definition using <code><a class="el" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441" title="Create a cell with a value that is a function of one or more argument cells.">live_cells::computed()</a></code> but is also more efficient since the argument cells are determined at compile-time. In-fact it is equivalent to the definition seen in <a class="el" href="md_doc_21-cells.html#lightweight-computed-cells">Lightweight Computed Cells</a>:<br  />
+<div class="fragment"><div class="line"><span class="keyword">auto</span> sum = <a class="code hl_function" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a>(a, b, [] (<span class="keyword">auto</span> a, <span class="keyword">auto</span> b) {</div>
+<div class="line">    <span class="keywordflow">return</span> a + b;</div>
+<div class="line">});</div>
+<div class="ttc" id="anamespacelive__cells_html_a38ef71dbf501d266974a7fae279a8441"><div class="ttname"><a href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a></div><div class="ttdeci">auto computed(F &amp;&amp;compute)</div><div class="ttdoc">Create a cell with a value that is a function of one or more argument cells.</div><div class="ttdef"><b>Definition</b> computed.hpp:45</div></div>
+</div><!-- fragment --></dd></dl>
 <p>The <code>sum</code> cell is a cell like any other. It can be observed by a watch function or can appear as an argument in a computed cell.</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> watcher = <a class="code hl_function" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a>([=] {</div>
 <div class="line">    std::cout &lt;&lt; sum() &lt;&lt; std::endl;</div>
@@ -119,14 +124,14 @@ Arithmetic</h1>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> x = a * b + c / d;</div>
 <div class="line"><span class="keyword">auto</span> y = x &lt; e;</div>
 </div><!-- fragment --><dl class="section remark"><dt>Remarks</dt><dd>Values appearing in a cell expression, e.g. <code>a + 1</code>, are converted to constant cells, as if by <code><a class="el" href="namespacelive__cells.html#a163ced4b8bef0f870be26c0a1e8c4c59">live_cells::value()</a></code>.</dd></dl>
-<h1><a class="anchor" id="autotoc_md11"></a>
+<h1><a class="anchor" id="autotoc_md12"></a>
 Equality</h1>
 <p>Every cell overloads the <code>==</code> and <code>!=</code> operators, which return cells that compare whether the values of the cells are equal or not equal, respectively.</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> eq = a == b;  <span class="comment">// eq() == true when a() == b()</span></div>
 <div class="line"><span class="keyword">auto</span> neq = a != b; <span class="comment">// neq() == true when a() != b()</span></div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md12"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md13"></a>
 Logic and selection</h1>
-<p>The following operator overloads and functions are provided for cells holding boolean-like value:</p>
+<p>The following operator overloads and functions are provided for cells holding boolean-like values:</p>
 <dl>
 <dt><code>&amp;&amp;</code> </dt>
 <dd>Creates a cell with a value that is the logical and of two cells </dd>
@@ -137,7 +142,7 @@ Logic and selection</h1>
 <dt><a class="el" href="namespacelive__cells.html#a70b163d68732a15a5f7c16b69d9ba357"><code>select</code></a> </dt>
 <dd>Creates a cell which selects between the values of two cells based on a condition </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>The <code>&amp;&amp;</code> and <code>||</code> operators overloads preserve the short-circuiting behaviour of the operators. This means the value of a cell is not referenced if the result of the expression is already known without it.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The <code>&amp;&amp;</code> and <code>||</code> operator overloads preserve the short-circuiting behaviour of the operators. This means the value of a cell is not referenced if the result of the expression is already known without it.</dd></dl>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(<span class="keyword">false</span>);</div>
 <div class="line"><span class="keyword">auto</span> b = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(<span class="keyword">false</span>);</div>
 <div class="line"> </div>
@@ -172,7 +177,7 @@ Logic and selection</h1>
 <div class="line"> </div>
 <div class="line">cond = <span class="keyword">false</span>; <span class="comment">// Prints: 2</span></div>
 <div class="line">a = 4;        <span class="comment">// Prints: 2</span></div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md13"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md14"></a>
 Aborting a computation</h1>
 <p>The computation of a computed cell's value can be aborted using <code><a class="el" href="namespacelive__cells.html#aa16775c4657f30dc7d9e3df547ae1b8f" title="Stop the computation of the current computed cell&#39;s value.">live_cells::none()</a></code>. When <code><a class="el" href="namespacelive__cells.html#aa16775c4657f30dc7d9e3df547ae1b8f" title="Stop the computation of the current computed cell&#39;s value.">live_cells::none()</a></code> is called inside a computed cell, the value computation function is exited and the cell's current value is preserved. This can be used to prevent a cell's value from being recomputed when a condition is not met:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(4);</div>
@@ -190,11 +195,11 @@ Aborting a computation</h1>
 <div class="line">a = 6;  <span class="comment">// Prints 6</span></div>
 <div class="line">a = 15; <span class="comment">// Prints 6</span></div>
 <div class="line">a = 8;  <span class="comment">// Prints 8</span></div>
-<div class="ttc" id="anamespacelive__cells_html_a38ef71dbf501d266974a7fae279a8441"><div class="ttname"><a href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a></div><div class="ttdeci">auto computed(F &amp;&amp;compute)</div><div class="ttdoc">Create a cell with a value that is a function of one or more argument cells.</div><div class="ttdef"><b>Definition</b> computed.hpp:45</div></div>
 <div class="ttc" id="anamespacelive__cells_html_aa16775c4657f30dc7d9e3df547ae1b8f"><div class="ttname"><a href="namespacelive__cells.html#aa16775c4657f30dc7d9e3df547ae1b8f">live_cells::none</a></div><div class="ttdeci">void none()</div><div class="ttdoc">Stop the computation of the current computed cell's value.</div><div class="ttdef"><b>Definition</b> computed.hpp:194</div></div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>The initial value of every computed cell is the default constructed value. Thus if <code><a class="el" href="namespacelive__cells.html#aa16775c4657f30dc7d9e3df547ae1b8f" title="Stop the computation of the current computed cell&#39;s value.">live_cells::none()</a></code> is called during the first call to the cell's computation function, the default value for the cell's value type is retained.</dd></dl>
 <dl class="section attention"><dt>Attention</dt><dd>The value of a computed cell is only computed if it is actually referenced. <code><a class="el" href="namespacelive__cells.html#aa16775c4657f30dc7d9e3df547ae1b8f" title="Stop the computation of the current computed cell&#39;s value.">live_cells::none()</a></code> only preserves the current value of the cell, but this might not be the latest value of the cell if the cell's value is only referenced conditionally. A good rule of thumb is to use <code><a class="el" href="namespacelive__cells.html#aa16775c4657f30dc7d9e3df547ae1b8f" title="Stop the computation of the current computed cell&#39;s value.">live_cells::none()</a></code> only to prevent a cell from holding an invalid value.</dd></dl>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<dl class="section warning"><dt>Warning</dt><dd>Do no use <code><a class="el" href="namespacelive__cells.html#aa16775c4657f30dc7d9e3df547ae1b8f" title="Stop the computation of the current computed cell&#39;s value.">live_cells::none()</a></code> inside a lightweight computed cell, unless the cell is immediately wrapped with <code><a class="el" href="namespacelive__cells.html#a38d368769d765c82f756df82d619070e" title="Create a Cell that caches the value of another Cell.">live_cells::store</a></code>. This is because <code><a class="el" href="namespacelive__cells.html#aa16775c4657f30dc7d9e3df547ae1b8f" title="Stop the computation of the current computed cell&#39;s value.">live_cells::none()</a></code> requires caching of the cell's previous value and lightweight computed cells do not cache their values.</dd></dl>
+<h1><a class="anchor" id="autotoc_md15"></a>
 Exception handling</h1>
 <p>If an exception is thrown during the computation of a cell's value, it is rethrown when the value is referenced. This allows exceptions to be handled using <code>try</code> and <code>catch</code> inside computed cells:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> str = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(std::string(<span class="stringliteral">&quot;0&quot;</span>));</div>
@@ -251,8 +256,8 @@ Exception handling</h1>
 <div class="line">    <a class="code hl_function" href="namespacelive__cells.html#a163ced4b8bef0f870be26c0a1e8c4c59">live_cells::value</a>(<span class="keyword">false</span>)</div>
 <div class="line">);</div>
 <div class="ttc" id="anamespacelive__cells_html_a163ced4b8bef0f870be26c0a1e8c4c59"><div class="ttname"><a href="namespacelive__cells.html#a163ced4b8bef0f870be26c0a1e8c4c59">live_cells::value</a></div><div class="ttdeci">constant_cell&lt; T &gt; value(const T &amp;value)</div><div class="ttdef"><b>Definition</b> constant_cell.hpp:132</div></div>
-</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>We used <code>live_cells::value(false)</code> to create a constant cell that holds the values <code>false</code>.</dd></dl>
-<h1><a class="anchor" id="autotoc_md15"></a>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>We used <code>live_cells::value(false)</code> to create a constant cell that holds the value <code>false</code>.</dd></dl>
+<h1><a class="anchor" id="autotoc_md16"></a>
 Previous values</h1>
 <p>The previous value of a cell can be accessed using <code><a class="el" href="namespacelive__cells.html#a5e7bb7e5831fdc9543bf3b4f96af168e" title="Create a Cell that evaluates to the previous value of cell.">live_cells::previous</a></code>:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(1);</div>
@@ -282,13 +287,12 @@ Previous values</h1>
 <div class="line">Prev = 2</div>
 <div class="line">Sum = 7</div>
 </div><!-- fragment --><p><code><a class="el" href="namespacelive__cells.html#a5e7bb7e5831fdc9543bf3b4f96af168e" title="Create a Cell that evaluates to the previous value of cell.">live_cells::previous</a></code> returns a cell that can be used like any other cell. When <code>previous</code> is called multiple times on the same argument cell, the same cell is returned.</p>
-<dl class="section attention"><dt>Attention</dt><dd><br  />
-<ul>
+<dl class="section attention"><dt>Attention</dt><dd><ul>
 <li>On creation <code>prev</code> does not hold a value. Accessing it will throw a <code><a class="el" href="structlive__cells_1_1uninitialized__cell__error.html" title="Exception indicating that the value of a cell was referenced before its initial value was computed.">live_cells::uninitialized_cell_error</a></code> exception.</li>
 <li><code>prev</code> must have at least one observer in order for it to keep track of the previous value of <code>a</code>.</li>
 </ul>
 </dd></dl>
-<h1><a class="anchor" id="autotoc_md16"></a>
+<h1><a class="anchor" id="autotoc_md17"></a>
 Peeking cells</h1>
 <p>What if you want to use the value of a cell in a computed cell but don't want changes to that cell's value triggering a recomputation? The <code><a class="el" href="namespacelive__cells.html#a7fc8173d64b8688a70ff408450e8b91e" title="Create a Cell that reads the value of cell but does not notify its observers when the value has chang...">live_cells::peek()</a></code> function allows you to do exactly that.</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(0);</div>
@@ -306,10 +310,10 @@ Peeking cells</h1>
 <div class="line">b = 5; <span class="comment">// Doesn&#39;t print anything</span></div>
 <div class="line">a = 7; <span class="comment">// Prints: 13</span></div>
 <div class="ttc" id="anamespacelive__cells_html_a7fc8173d64b8688a70ff408450e8b91e"><div class="ttname"><a href="namespacelive__cells.html#a7fc8173d64b8688a70ff408450e8b91e">live_cells::peek</a></div><div class="ttdeci">auto peek(const C &amp;cell)</div><div class="ttdoc">Create a Cell that reads the value of cell but does not notify its observers when the value has chang...</div><div class="ttdef"><b>Definition</b> peek_cell.hpp:130</div></div>
-</div><!-- fragment --><p>In the above example cell <code>c</code> is a computed cell referencing the value of <code>a</code> and <em>peeks</em> the value of <code>b</code>. Changing the value of <code>a</code> triggers a recomputation of <code>c</code>, and hence triggers the watch function which prints to standard output, but changing the value of <code>b</code> doesn't trigger a recomputation of <code>c</code>.</p>
+</div><!-- fragment --><p>In the above example cell <code>c</code> is a computed cell that references the value of <code>a</code> and <em>peeks</em> the value of <code>b</code>. Changing the value of <code>a</code> triggers a recomputation of <code>c</code>, and hence triggers the watch function which prints to standard output. However, changing the value of <code>b</code> doesn't trigger a recomputation of <code>c</code>, and hence the watch function is not called.</p>
 <dl class="section note"><dt>Note</dt><dd><code><a class="el" href="namespacelive__cells.html#a7fc8173d64b8688a70ff408450e8b91e" title="Create a Cell that reads the value of cell but does not notify its observers when the value has chang...">live_cells::peek()</a></code> returns a cell.</dd></dl>
 <p>You may be asking why do we need <code><a class="el" href="namespacelive__cells.html#a7fc8173d64b8688a70ff408450e8b91e" title="Create a Cell that reads the value of cell but does not notify its observers when the value has chang...">live_cells::peek()</a></code> here instead of just accessing the value of <code>b</code> directly using <code>b.value()</code>. Something we've glossed over till this point is the lifecycle of cells. Cells are only active while they are actually observed, and are activated when the first observer is added. While active, cells react to changes in their argument cells. When the last observer is removed, cells are deactivated and stop observing their argument cells. When a new observer is added, they are reactivated again. Essentially, this means that the value of a cell may no longer be current if it doesn't have at least one observer. For a computed cell this is not a problem, since when it is inactive it computes its value on demand, but it may cause issues with other cells. The <code><a class="el" href="namespacelive__cells.html#a7fc8173d64b8688a70ff408450e8b91e" title="Create a Cell that reads the value of cell but does not notify its observers when the value has chang...">live_cells::peek()</a></code> function takes care of adding an observer to the peeked cell, so that it remains active, but at the same time prevents the observers, added through <code><a class="el" href="namespacelive__cells.html#a7fc8173d64b8688a70ff408450e8b91e" title="Create a Cell that reads the value of cell but does not notify its observers when the value has chang...">live_cells::peek()</a></code>, from being notified of changes in its value.</p>
-<h1><a class="anchor" id="autotoc_md17"></a>
+<h1><a class="anchor" id="autotoc_md18"></a>
 Pipe operator</h1>
 <p>The <code><a class="el" href="namespacelive__cells_1_1ops.html">live_cells::ops</a></code> namespace provides a collection of operators which can be applied on cells using the <code>|</code> operator.</p>
 <p>For example the <a class="el" href="namespacelive__cells.html#a70b163d68732a15a5f7c16b69d9ba357"><code>select</code></a> function, introduced earlier, can also be applied on the condition cell with the following:</p>
@@ -335,7 +339,19 @@ Pipe operator</h1>
 <div class="line">        )</div>
 <div class="line">    )</div>
 <div class="line">);</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md18"></a>
+</div><!-- fragment --><p>The <code><a class="el" href="namespacelive__cells_1_1ops.html#ae16be11777397241d312b84b47178d6d" title="Operator for caching the value of another cell.">live_cells::ops::store</a></code> can be used to wrap a cell using <code><a class="el" href="namespacelive__cells.html#a38d368769d765c82f756df82d619070e" title="Create a Cell that caches the value of another Cell.">live_cells::store</a></code> (introduced in <a class="el" href="md_doc_21-cells.html#lightweight-computed-cells">Lightweight Computed Cells</a>):</p>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> cached_sum = sum | <a class="code hl_variable" href="namespacelive__cells_1_1ops.html#ae16be11777397241d312b84b47178d6d">live_cells::ops::store</a>;</div>
+<div class="ttc" id="anamespacelive__cells_1_1ops_html_ae16be11777397241d312b84b47178d6d"><div class="ttname"><a href="namespacelive__cells_1_1ops.html#ae16be11777397241d312b84b47178d6d">live_cells::ops::store</a></div><div class="ttdeci">constexpr auto store</div><div class="ttdoc">Operator for caching the value of another cell.</div><div class="ttdef"><b>Definition</b> store_cell.hpp:251</div></div>
+</div><!-- fragment --><p>This is equivalent to:</p>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> cached_sum = <a class="code hl_function" href="namespacelive__cells.html#a38d368769d765c82f756df82d619070e">live_cells::store</a>(sum)</div>
+<div class="ttc" id="anamespacelive__cells_html_a38d368769d765c82f756df82d619070e"><div class="ttname"><a href="namespacelive__cells.html#a38d368769d765c82f756df82d619070e">live_cells::store</a></div><div class="ttdeci">auto store(const C &amp;arg)</div><div class="ttdoc">Create a Cell that caches the value of another Cell.</div><div class="ttdef"><b>Definition</b> store_cell.hpp:206</div></div>
+</div><!-- fragment --><p><code><a class="el" href="namespacelive__cells_1_1ops.html#ae5f16459029244814d3375373cbfa5e1" title="Operator for creating a cell that caches the value of another cell and only notifies its observers wh...">live_cells::ops::cache</a></code> is like <code><a class="el" href="namespacelive__cells_1_1ops.html#ae16be11777397241d312b84b47178d6d" title="Operator for caching the value of another cell.">live_cells::ops::store</a></code> however it also passes the <code><a class="el" href="namespacelive__cells.html#a9416a447b193999d17a20961e9da02ad" title="Cell option specifying that the cell, to which it is applied, should only notify its observers when i...">live_cells::changes_only</a></code> argument:</p>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> cached_sum = sum | <a class="code hl_variable" href="namespacelive__cells_1_1ops.html#ae5f16459029244814d3375373cbfa5e1">live_cells::ops::cache</a>;</div>
+<div class="ttc" id="anamespacelive__cells_1_1ops_html_ae5f16459029244814d3375373cbfa5e1"><div class="ttname"><a href="namespacelive__cells_1_1ops.html#ae5f16459029244814d3375373cbfa5e1">live_cells::ops::cache</a></div><div class="ttdeci">constexpr auto cache</div><div class="ttdoc">Operator for creating a cell that caches the value of another cell and only notifies its observers wh...</div><div class="ttdef"><b>Definition</b> store_cell.hpp:267</div></div>
+</div><!-- fragment --><p>This is equivalent to:</p>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> cached_sum = <a class="code hl_function" href="namespacelive__cells.html#a38d368769d765c82f756df82d619070e">live_cells::store</a>(<a class="code hl_variable" href="namespacelive__cells.html#a9416a447b193999d17a20961e9da02ad">live_cells::changes_only</a>, sum)</div>
+<div class="ttc" id="anamespacelive__cells_html_a9416a447b193999d17a20961e9da02ad"><div class="ttname"><a href="namespacelive__cells.html#a9416a447b193999d17a20961e9da02ad">live_cells::changes_only</a></div><div class="ttdeci">constexpr changes_only_option changes_only</div><div class="ttdoc">Cell option specifying that the cell, to which it is applied, should only notify its observers when i...</div><div class="ttdef"><b>Definition</b> changes_only_state.hpp:101</div></div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md19"></a>
 Next</h1>
 <p>The next <a class="el" href="md_doc_23-two-way-data-flow.html">section</a> introduces two-way data flow. </p>
 </div></div><!-- contents -->

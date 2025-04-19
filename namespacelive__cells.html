@@ -98,7 +98,8 @@ $(function(){initNavTree('namespacelive__cells.html',''); initResizable(); });
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#concepts">Concepts</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">live_cells Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -181,6 +182,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlive__cells_1_1maybe.html">maybe</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container holding a cell value or an exception that occurred while computing a value.  <a href="classlive__cells_1_1maybe.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlive__cells_1_1maybe__cell__key.html">maybe_cell_key</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key identifying cells created with <code>maybe_cell</code>.  <a href="structlive__cells_1_1maybe__cell__key.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlive__cells_1_1merged__observable.html">merged_observable</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows multiple cells to be observed at once.  <a href="classlive__cells_1_1merged__observable.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -197,6 +201,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlive__cells_1_1mutable__compute__cell__state.html">mutable_compute_cell_state</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maintains the state of a mutable computed cell.  <a href="classlive__cells_1_1mutable__compute__cell__state.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlive__cells_1_1mutable__maybe__cell__key.html">mutable_maybe_cell_key</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key identifying cells created with the mutable cell overload of <code>maybe_cell</code>.  <a href="structlive__cells_1_1mutable__maybe__cell__key.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlive__cells_1_1observer.html">observer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the interface for observing changes to the value of a <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code>.  <a href="classlive__cells_1_1observer.html#details">More...</a><br /></td></tr>
@@ -415,6 +422,12 @@ requires ( (Cell&lt;T&gt; &amp;&amp; CellOrValue&lt;<a class="el" href="classliv
 template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A</a> , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">B</a> &gt; </td></tr>
 <tr class="memitem:a14c859c435cc7d52a575b7c8f74a6c42"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">bool</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator==</b> (<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="classlive__cells_1_1maybe.html">maybe</a>&lt; <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A</a> &gt; &amp;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">a</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="classlive__cells_1_1maybe.html">maybe</a>&lt; <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">B</a> &gt; &amp;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">b</a>)</td></tr>
 <tr class="separator:a14c859c435cc7d52a575b7c8f74a6c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada127e48fc3bebc5928d125c73710782" id="r_ada127e48fc3bebc5928d125c73710782"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada127e48fc3bebc5928d125c73710782">maybe_cell</a> (<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> Cell <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a> &amp;<a class="el" href="classlive__cells_1_1cell.html">cell</a>)</td></tr>
+<tr class="memdesc:ada127e48fc3bebc5928d125c73710782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a cell that wraps the value of a <em>cell</em> in a <code>maybe</code>.  <br /></td></tr>
+<tr class="separator:ada127e48fc3bebc5928d125c73710782"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf18fd4988bfce14f0e7335e7b6f645f" id="r_abf18fd4988bfce14f0e7335e7b6f645f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf18fd4988bfce14f0e7335e7b6f645f">maybe_cell</a> (<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> MutableCell <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a> &amp;<a class="el" href="classlive__cells_1_1cell.html">cell</a>)</td></tr>
+<tr class="memdesc:abf18fd4988bfce14f0e7335e7b6f645f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a cell that wraps the value of a mutable <em>cell</em> in a <code>maybe</code>.  <br /></td></tr>
+<tr class="separator:abf18fd4988bfce14f0e7335e7b6f645f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab365650aeb27f61f31622a49d4fb79a3" id="r_ab365650aeb27f61f31622a49d4fb79a3"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> T &gt; </td></tr>
 <tr class="memitem:ab365650aeb27f61f31622a49d4fb79a3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1mutable__cell.html">mutable_cell</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ab365650aeb27f61f31622a49d4fb79a3">variable</a> (T <a class="el" href="#a163ced4b8bef0f870be26c0a1e8c4c59">value</a>)</td></tr>
 <tr class="memdesc:ab365650aeb27f61f31622a49d4fb79a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new mutable cell with an initial value.  <br /></td></tr>
@@ -498,6 +511,14 @@ template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html"
 <tr class="memitem:a1943666a277fb2cd4672a5ded708f472"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a1943666a277fb2cd4672a5ded708f472">mutable_computed</a> (<a class="el" href="structlive__cells_1_1changes__only__option.html">changes_only_option</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">option</a>, F &amp;&amp;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">fn</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &amp;&amp;reverse)</td></tr>
 <tr class="memdesc:a1943666a277fb2cd4672a5ded708f472"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a mutable computed cell with dynamically determined argument cells that only notifies its observers when its value has actually changed.  <br /></td></tr>
 <tr class="separator:a1943666a277fb2cd4672a5ded708f472"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f61182415461d301fecc84f209c5679" id="r_a6f61182415461d301fecc84f209c5679"><td class="memTemplParams" colspan="2">template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &gt; </td></tr>
+<tr class="memitem:a6f61182415461d301fecc84f209c5679"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a6f61182415461d301fecc84f209c5679">mutable_computed</a> (<a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a> <a class="el" href="classlive__cells_1_1key.html">key</a>, F &amp;&amp;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">fn</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &amp;&amp;reverse)</td></tr>
+<tr class="memdesc:a6f61182415461d301fecc84f209c5679"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a mutable computed cell with dynamically determined argument cells.  <br /></td></tr>
+<tr class="separator:a6f61182415461d301fecc84f209c5679"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77698652fa417184b33edd9259764628" id="r_a77698652fa417184b33edd9259764628"><td class="memTemplParams" colspan="2">template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &gt; </td></tr>
+<tr class="memitem:a77698652fa417184b33edd9259764628"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a77698652fa417184b33edd9259764628">mutable_computed</a> (<a class="el" href="structlive__cells_1_1changes__only__option.html">changes_only_option</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">option</a>, <a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a> <a class="el" href="classlive__cells_1_1key.html">key</a>, F &amp;&amp;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">fn</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &amp;&amp;reverse)</td></tr>
+<tr class="memdesc:a77698652fa417184b33edd9259764628"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a mutable computed cell with dynamically determined argument cells that only notifies its observers when its value has actually changed.  <br /></td></tr>
+<tr class="separator:a77698652fa417184b33edd9259764628"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a966aa637260e30fdad978ebab9700d7c" id="r_a966aa637260e30fdad978ebab9700d7c"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A1</a> , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A2</a> , typename... As&gt; </td></tr>
 <tr class="memitem:a966aa637260e30fdad978ebab9700d7c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a966aa637260e30fdad978ebab9700d7c">mutable_computed</a> (<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A1</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">arg1</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A2</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">arg2</a>, As... <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">args</a>)</td></tr>
 <tr class="memdesc:a966aa637260e30fdad978ebab9700d7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a mutable computed cell.  <br /></td></tr>
@@ -506,6 +527,14 @@ template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html"
 <tr class="memitem:a13b299e162b4bb0a560e5f25d30c42bf"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a13b299e162b4bb0a560e5f25d30c42bf">mutable_computed</a> (<a class="el" href="structlive__cells_1_1changes__only__option.html">changes_only_option</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">option</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A1</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">arg1</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A2</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">arg2</a>, As... <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">args</a>)</td></tr>
 <tr class="memdesc:a13b299e162b4bb0a560e5f25d30c42bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a mutable computed cell that only notifies its observers when its value has actually changed.  <br /></td></tr>
 <tr class="separator:a13b299e162b4bb0a560e5f25d30c42bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad930aa3ae9d536186b36bfb928b9764b" id="r_ad930aa3ae9d536186b36bfb928b9764b"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A1</a> , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A2</a> , typename... As&gt; </td></tr>
+<tr class="memitem:ad930aa3ae9d536186b36bfb928b9764b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ad930aa3ae9d536186b36bfb928b9764b">mutable_computed</a> (<a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a> <a class="el" href="classlive__cells_1_1key.html">key</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A1</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">arg1</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A2</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">arg2</a>, As... <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">args</a>)</td></tr>
+<tr class="memdesc:ad930aa3ae9d536186b36bfb928b9764b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a mutable computed cell.  <br /></td></tr>
+<tr class="separator:ad930aa3ae9d536186b36bfb928b9764b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb731a8a5a8b6f0e2adbeeec4635e6b8" id="r_acb731a8a5a8b6f0e2adbeeec4635e6b8"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A1</a> , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A2</a> , typename... As&gt; </td></tr>
+<tr class="memitem:acb731a8a5a8b6f0e2adbeeec4635e6b8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#acb731a8a5a8b6f0e2adbeeec4635e6b8">mutable_computed</a> (<a class="el" href="structlive__cells_1_1changes__only__option.html">changes_only_option</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">option</a>, <a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a> <a class="el" href="classlive__cells_1_1key.html">key</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A1</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">arg1</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A2</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">arg2</a>, As... <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">args</a>)</td></tr>
+<tr class="memdesc:acb731a8a5a8b6f0e2adbeeec4635e6b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a mutable computed cell that only notifies its observers when its value has actually changed.  <br /></td></tr>
+<tr class="separator:acb731a8a5a8b6f0e2adbeeec4635e6b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a101bee9e943ba21cc3d118e0087ce724" id="r_a101bee9e943ba21cc3d118e0087ce724"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A</a> , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">B</a> &gt; <br />
 requires ( (Cell&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A</a>&gt; &amp;&amp; CellOrValue&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">B</a>&gt;) || (CellOrValue&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A</a>&gt; &amp;&amp; Cell&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">B</a>&gt;) )</td></tr>
 <tr class="memitem:a101bee9e943ba21cc3d118e0087ce724"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a101bee9e943ba21cc3d118e0087ce724">operator+</a> (<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A</a> &amp;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">a</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">B</a> &amp;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">b</a>)</td></tr>
@@ -570,6 +599,14 @@ requires ( (Cell&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__ce
 <tr class="memitem:af7b9cb0d302ab0e261d79b9bdac508d9"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#af7b9cb0d302ab0e261d79b9bdac508d9">make_mutable_compute_cell</a> (<a class="el" href="structlive__cells_1_1changes__only__option.html">changes_only_option</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">option</a>, C compute, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> reverse, As... <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">args</a>)</td></tr>
 <tr class="memdesc:af7b9cb0d302ab0e261d79b9bdac508d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a <code><a class="el" href="classlive__cells_1_1static__mutable__compute__cell.html" title="A mutable computed cell with arguments determined at compile-time.">static_mutable_compute_cell</a></code> with compute function <em>compute</em>, reverse compute function <em>reverse</em> and arguments <em>args</em>, that only notifies its observers when its value has actually changed.  <br /></td></tr>
 <tr class="separator:af7b9cb0d302ab0e261d79b9bdac508d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44d30fc09bb93f1f6736931204010f03" id="r_a44d30fc09bb93f1f6736931204010f03"><td class="memTemplParams" colspan="2">template&lt;std::invocable C, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> , Cell... As&gt; </td></tr>
+<tr class="memitem:a44d30fc09bb93f1f6736931204010f03"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a44d30fc09bb93f1f6736931204010f03">make_mutable_compute_cell</a> (<a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a> <a class="el" href="classlive__cells_1_1key.html">key</a>, C compute, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> reverse, As... <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">args</a>)</td></tr>
+<tr class="memdesc:a44d30fc09bb93f1f6736931204010f03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a <code><a class="el" href="classlive__cells_1_1static__mutable__compute__cell.html" title="A mutable computed cell with arguments determined at compile-time.">static_mutable_compute_cell</a></code> with compute function <em>compute</em>, reverse compute function <em>reverse</em> and arguments <em>args</em>.  <br /></td></tr>
+<tr class="separator:a44d30fc09bb93f1f6736931204010f03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d6e580813dd75a8522d5d44c64f204d" id="r_a4d6e580813dd75a8522d5d44c64f204d"><td class="memTemplParams" colspan="2">template&lt;std::invocable C, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> , Cell... As&gt; </td></tr>
+<tr class="memitem:a4d6e580813dd75a8522d5d44c64f204d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a4d6e580813dd75a8522d5d44c64f204d">make_mutable_compute_cell</a> (<a class="el" href="structlive__cells_1_1changes__only__option.html">changes_only_option</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">option</a>, <a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a> <a class="el" href="classlive__cells_1_1key.html">key</a>, C compute, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> reverse, As... <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">args</a>)</td></tr>
+<tr class="memdesc:a4d6e580813dd75a8522d5d44c64f204d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a <code><a class="el" href="classlive__cells_1_1static__mutable__compute__cell.html" title="A mutable computed cell with arguments determined at compile-time.">static_mutable_compute_cell</a></code> with compute function <em>compute</em>, reverse compute function <em>reverse</em> and arguments <em>args</em>, that only notifies its observers when its value has actually changed.  <br /></td></tr>
+<tr class="separator:a4d6e580813dd75a8522d5d44c64f204d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38d368769d765c82f756df82d619070e" id="r_a38d368769d765c82f756df82d619070e"><td class="memTemplParams" colspan="2">template&lt;Cell C&gt; </td></tr>
 <tr class="memitem:a38d368769d765c82f756df82d619070e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a38d368769d765c82f756df82d619070e">store</a> (<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> C &amp;arg)</td></tr>
 <tr class="memdesc:a38d368769d765c82f756df82d619070e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code> that caches the value of another <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code>.  <br /></td></tr>
@@ -582,6 +619,13 @@ requires ( (Cell&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__ce
 <tr class="memitem:aff827bee503738afea0d4de923ca0e87"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classlive__cells_1_1watcher.html">watcher</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aff827bee503738afea0d4de923ca0e87">watch</a> (F <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">fn</a>)</td></tr>
 <tr class="memdesc:aff827bee503738afea0d4de923ca0e87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a cell watch function.  <br /></td></tr>
 <tr class="separator:aff827bee503738afea0d4de923ca0e87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a9416a447b193999d17a20961e9da02ad" id="r_a9416a447b193999d17a20961e9da02ad"><td class="memItemLeft" align="right" valign="top"><a id="a9416a447b193999d17a20961e9da02ad" name="a9416a447b193999d17a20961e9da02ad"></a>
+<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">constexpr</a> <a class="el" href="structlive__cells_1_1changes__only__option.html">changes_only_option</a>&#160;</td><td class="memItemRight" valign="bottom"><b>changes_only</b> {}</td></tr>
+<tr class="memdesc:a9416a447b193999d17a20961e9da02ad"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a> option specifying that the cell, to which it is applied, should only notify its observers when its new value is not equal (by <code>==</code>) to its previous value. <br /></td></tr>
+<tr class="separator:a9416a447b193999d17a20961e9da02ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Namespace containing all functions and classes provided by the live cells library. </p>
@@ -1114,7 +1158,7 @@ template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html"
 </div>
 </div>
 <a id="a59d664f5c7dc1e7a9d956f3eaee246c0" name="a59d664f5c7dc1e7a9d956f3eaee246c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59d664f5c7dc1e7a9d956f3eaee246c0">&#9670;&#160;</a></span>make_mutable_compute_cell() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a59d664f5c7dc1e7a9d956f3eaee246c0">&#9670;&#160;</a></span>make_mutable_compute_cell() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1153,7 +1197,7 @@ template&lt;std::invocable C, <a class="el" href="classlive__cells_1_1dynamic__c
 </div>
 </div>
 <a id="af7b9cb0d302ab0e261d79b9bdac508d9" name="af7b9cb0d302ab0e261d79b9bdac508d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7b9cb0d302ab0e261d79b9bdac508d9">&#9670;&#160;</a></span>make_mutable_compute_cell() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af7b9cb0d302ab0e261d79b9bdac508d9">&#9670;&#160;</a></span>make_mutable_compute_cell() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1198,6 +1242,158 @@ template&lt;std::invocable C, <a class="el" href="classlive__cells_1_1dynamic__c
 
 </div>
 </div>
+<a id="a4d6e580813dd75a8522d5d44c64f204d" name="a4d6e580813dd75a8522d5d44c64f204d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d6e580813dd75a8522d5d44c64f204d">&#9670;&#160;</a></span>make_mutable_compute_cell() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::invocable C, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> , Cell... As&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a> live_cells::make_mutable_compute_cell </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structlive__cells_1_1changes__only__option.html">changes_only_option</a></td>          <td class="paramname"><span class="paramname"><em>option</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a></td>          <td class="paramname"><span class="paramname"><em>key</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">C</td>          <td class="paramname"><span class="paramname"><em>compute</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a></td>          <td class="paramname"><span class="paramname"><em>reverse</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">As...</td>          <td class="paramname"><span class="paramname"><em>args</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a <code><a class="el" href="classlive__cells_1_1static__mutable__compute__cell.html" title="A mutable computed cell with arguments determined at compile-time.">static_mutable_compute_cell</a></code> with compute function <em>compute</em>, reverse compute function <em>reverse</em> and arguments <em>args</em>, that only notifies its observers when its value has actually changed. </p>
+<dl class="section note"><dt>Note</dt><dd>The difference between this and the other overloads, is that with this overload, the cell only notifies its observers when its new value is not equal to its previous value.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">option</td><td>Changes only cell option </td></tr>
+    <tr><td class="paramname">key</td><td>Key identifying the cell </td></tr>
+    <tr><td class="paramname">compute</td><td>Compute value function. </td></tr>
+    <tr><td class="paramname">reverse</td><td>Reverse compute function. </td></tr>
+    <tr><td class="paramname">args</td><td>Argument cells</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The cell </dd></dl>
+
+</div>
+</div>
+<a id="a44d30fc09bb93f1f6736931204010f03" name="a44d30fc09bb93f1f6736931204010f03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44d30fc09bb93f1f6736931204010f03">&#9670;&#160;</a></span>make_mutable_compute_cell() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::invocable C, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> , Cell... As&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a> live_cells::make_mutable_compute_cell </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a></td>          <td class="paramname"><span class="paramname"><em>key</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">C</td>          <td class="paramname"><span class="paramname"><em>compute</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a></td>          <td class="paramname"><span class="paramname"><em>reverse</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">As...</td>          <td class="paramname"><span class="paramname"><em>args</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a <code><a class="el" href="classlive__cells_1_1static__mutable__compute__cell.html" title="A mutable computed cell with arguments determined at compile-time.">static_mutable_compute_cell</a></code> with compute function <em>compute</em>, reverse compute function <em>reverse</em> and arguments <em>args</em>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Key identifying the cell </td></tr>
+    <tr><td class="paramname">compute</td><td>Compute value function. </td></tr>
+    <tr><td class="paramname">reverse</td><td>Reverse compute function. </td></tr>
+    <tr><td class="paramname">args</td><td>Argument cells</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The cell </dd></dl>
+
+</div>
+</div>
+<a id="ada127e48fc3bebc5928d125c73710782" name="ada127e48fc3bebc5928d125c73710782"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada127e48fc3bebc5928d125c73710782">&#9670;&#160;</a></span>maybe_cell() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a> live_cells::maybe_cell </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> Cell <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a cell that wraps the value of a <em>cell</em> in a <code>maybe</code>. </p>
+<p>If <em>cell</em> throws an exception, the returned cell evaluates to a <code>maybe</code> holding the exception.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cell</td><td>The cell</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A cell that wraps the value of <em>cell</em> in a <code>maybe</code>. </dd></dl>
+
+</div>
+</div>
+<a id="abf18fd4988bfce14f0e7335e7b6f645f" name="abf18fd4988bfce14f0e7335e7b6f645f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf18fd4988bfce14f0e7335e7b6f645f">&#9670;&#160;</a></span>maybe_cell() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a> live_cells::maybe_cell </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> MutableCell <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a cell that wraps the value of a mutable <em>cell</em> in a <code>maybe</code>. </p>
+<p>If <em>cell</em> throws an exception, the returned cell evaluates to a <code>maybe</code> holding the exception.</p>
+<p>A mutable cell is created, which when assigned a <code>maybe</code> that wraps a value, the value of <em>cell</em> is assigned to the value held in the <code>maybe</code>. When the cell is assigned a <code>maybe</code> holding an exception, the value of <em>cell</em> is not changed.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cell</td><td>The cell</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A mutable cell that wraps the value of <em>cell</em> in a <code>maybe</code>. </dd></dl>
+
+</div>
+</div>
 <a id="a0c776221047a6cf25aaef6888fdbcc63" name="a0c776221047a6cf25aaef6888fdbcc63"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0c776221047a6cf25aaef6888fdbcc63">&#9670;&#160;</a></span>maybe_wrap()</h2>
 
@@ -1226,7 +1422,7 @@ template&lt;std::invocable C, <a class="el" href="classlive__cells_1_1dynamic__c
 </div>
 </div>
 <a id="a966aa637260e30fdad978ebab9700d7c" name="a966aa637260e30fdad978ebab9700d7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a966aa637260e30fdad978ebab9700d7c">&#9670;&#160;</a></span>mutable_computed() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a966aa637260e30fdad978ebab9700d7c">&#9670;&#160;</a></span>mutable_computed() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1270,7 +1466,7 @@ template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html"
 </div>
 </div>
 <a id="a13b299e162b4bb0a560e5f25d30c42bf" name="a13b299e162b4bb0a560e5f25d30c42bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13b299e162b4bb0a560e5f25d30c42bf">&#9670;&#160;</a></span>mutable_computed() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a13b299e162b4bb0a560e5f25d30c42bf">&#9670;&#160;</a></span>mutable_computed() <span class="overload">[2/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1321,7 +1517,7 @@ template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html"
 </div>
 </div>
 <a id="a1943666a277fb2cd4672a5ded708f472" name="a1943666a277fb2cd4672a5ded708f472"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1943666a277fb2cd4672a5ded708f472">&#9670;&#160;</a></span>mutable_computed() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1943666a277fb2cd4672a5ded708f472">&#9670;&#160;</a></span>mutable_computed() <span class="overload">[3/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1367,8 +1563,118 @@ With this overload, the cell only notifies its observers when its new value is n
 
 </div>
 </div>
+<a id="acb731a8a5a8b6f0e2adbeeec4635e6b8" name="acb731a8a5a8b6f0e2adbeeec4635e6b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb731a8a5a8b6f0e2adbeeec4635e6b8">&#9670;&#160;</a></span>mutable_computed() <span class="overload">[4/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A1</a> , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A2</a> , typename... As&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a> live_cells::mutable_computed </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structlive__cells_1_1changes__only__option.html">changes_only_option</a></td>          <td class="paramname"><span class="paramname"><em>option</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a></td>          <td class="paramname"><span class="paramname"><em>key</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A1</a></td>          <td class="paramname"><span class="paramname"><em>arg1</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A2</a></td>          <td class="paramname"><span class="paramname"><em>arg2</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">As...</td>          <td class="paramname"><span class="paramname"><em>args</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a mutable computed cell that only notifies its observers when its value has actually changed. </p>
+<p>Ordinarily the value of the cell is the value computed by a function of the cells in <em>args</em>.</p>
+<p>The returned cell is also a mutable cell, which means its value can be set explicitly. When the value of the cell is set explicitly, the reverse computation function is called. The reverse computation function, should set the values of the cells in <em>args</em> such that the compute value function returns the same value as the value that was assigned to the cell.</p>
+<dl class="section note"><dt>Note</dt><dd>The difference between this and the other overloads, is that with this overload, the cell only notifies its observers when its new value is not equal to its previous value.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">option</td><td>Changes only cell option</td></tr>
+    <tr><td class="paramname">key</td><td>Key identifying the cell</td></tr>
+    <tr><td class="paramname">arg1</td><td>First argument to compute value function.</td></tr>
+    <tr><td class="paramname">arg2,args</td><td>Remaining compute value function arguments followed by compute value and reverse compute functions.<br  />
+<br  />
+ The compute value function is passed the values of the argument cells, in the same order as they are provided in the argument list.<br  />
+<br  />
+ The reverse compute function (last in the argument list) is passed the value that was assigned to the cell.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The mutable computed cell. </dd></dl>
+
+</div>
+</div>
+<a id="a77698652fa417184b33edd9259764628" name="a77698652fa417184b33edd9259764628"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77698652fa417184b33edd9259764628">&#9670;&#160;</a></span>mutable_computed() <span class="overload">[5/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a> live_cells::mutable_computed </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structlive__cells_1_1changes__only__option.html">changes_only_option</a></td>          <td class="paramname"><span class="paramname"><em>option</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a></td>          <td class="paramname"><span class="paramname"><em>key</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">F &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>fn</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>reverse</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a mutable computed cell with dynamically determined argument cells that only notifies its observers when its value has actually changed. </p>
+<p>Ordinarily the value of the cell is the value computed by <em>fn</em> as a function of other cells.</p>
+<p>The returned cell is also a mutable cell, which means its value can be set explicitly. When the value of the cell is set explicitly, the reverse computation function <em>reverse</em> is called. <em>reverse</em> should set the values of the cells referenced in <em>fn</em> such that <em>fn</em> returns the same value as the value that was assigned to the cell.</p>
+<dl class="section attention"><dt>Attention</dt><dd>The values of <a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a>'s should be referenced in <em>fn</em> using the function call operator, so that they are tracked as dependencies of the mutable computed cell, and not using the <code>Cell::value()</code> getter method.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This differs from the other overload in that the argument cells are not specified explicitly, but are determined dynamically.</dd>
+<dd>
+With this overload, the cell only notifies its observers when its new value is not equal to its previous value.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">option</td><td>Changes only cell option</td></tr>
+    <tr><td class="paramname">key</td><td>Key identifying the cell</td></tr>
+    <tr><td class="paramname">fn</td><td>Compute value function.<br  />
+ This function is called with no arguments.</td></tr>
+    <tr><td class="paramname">reverse</td><td>Reverse computation function.<br  />
+ This function is passed the value that was assigned to the cell.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The mutable computed cell </dd></dl>
+
+</div>
+</div>
 <a id="a69ebc62a1450860b4aeeac16af2c0d9e" name="a69ebc62a1450860b4aeeac16af2c0d9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69ebc62a1450860b4aeeac16af2c0d9e">&#9670;&#160;</a></span>mutable_computed() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a69ebc62a1450860b4aeeac16af2c0d9e">&#9670;&#160;</a></span>mutable_computed() <span class="overload">[6/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1395,6 +1701,101 @@ template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__c
 <dl class="section note"><dt>Note</dt><dd>This differs from the other overload in that the argument cells are not specified explicitly, but are determined dynamically.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">fn</td><td>Compute value function.<br  />
+ This function is called with no arguments.</td></tr>
+    <tr><td class="paramname">reverse</td><td>Reverse computation function.<br  />
+ This function is passed the value that was assigned to the cell.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The mutable computed cell </dd></dl>
+
+</div>
+</div>
+<a id="ad930aa3ae9d536186b36bfb928b9764b" name="ad930aa3ae9d536186b36bfb928b9764b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad930aa3ae9d536186b36bfb928b9764b">&#9670;&#160;</a></span>mutable_computed() <span class="overload">[7/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A1</a> , <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A2</a> , typename... As&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a> live_cells::mutable_computed </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a></td>          <td class="paramname"><span class="paramname"><em>key</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A1</a></td>          <td class="paramname"><span class="paramname"><em>arg1</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">A2</a></td>          <td class="paramname"><span class="paramname"><em>arg2</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">As...</td>          <td class="paramname"><span class="paramname"><em>args</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a mutable computed cell. </p>
+<p>Ordinarily the value of the cell is the value computed by a function of the cells in <em>args</em>.</p>
+<p>The returned cell is also a mutable cell, which means its value can be set explicitly. When the value of the cell is set explicitly, the reverse computation function is called. The reverse computation function, should set the values of the cells in <em>args</em> such that the compute value function returns the same value as the value that was assigned to the cell.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Key identifying the cell</td></tr>
+    <tr><td class="paramname">arg1</td><td>First argument to compute value function.</td></tr>
+    <tr><td class="paramname">arg2,args</td><td>Remaining compute value function arguments followed by compute value and reverse compute functions.<br  />
+<br  />
+ The compute value function is passed the values of the argument cells, in the same order as they are provided in the argument list.<br  />
+<br  />
+ The reverse compute function (last in the argument list) is passed the value that was assigned to the cell.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The mutable computed cell. </dd></dl>
+
+</div>
+</div>
+<a id="a6f61182415461d301fecc84f209c5679" name="a6f61182415461d301fecc84f209c5679"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f61182415461d301fecc84f209c5679">&#9670;&#160;</a></span>mutable_computed() <span class="overload">[8/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::invocable F, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">typename</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a> live_cells::mutable_computed </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1key__ref.html">key_ref</a></td>          <td class="paramname"><span class="paramname"><em>key</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">F &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>fn</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">R</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>reverse</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a mutable computed cell with dynamically determined argument cells. </p>
+<p>Ordinarily the value of the cell is the value computed by <em>fn</em> as a function of other cells.</p>
+<p>The returned cell is also a mutable cell, which means its value can be set explicitly. When the value of the cell is set explicitly, the reverse computation function <em>reverse</em> is called. <em>reverse</em> should set the values of the cells referenced in <em>fn</em> such that <em>fn</em> returns the same value as the value that was assigned to the cell.</p>
+<dl class="section attention"><dt>Attention</dt><dd>The values of <a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a>'s should be referenced in <em>fn</em> using the function call operator, so that they are tracked as dependencies of the mutable computed cell, and not using the <code>Cell::value()</code> getter method.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This differs from the other overload in that the argument cells are not specified explicitly, but are determined dynamically.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Key identifying the cell</td></tr>
     <tr><td class="paramname">fn</td><td>Compute value function.<br  />
  This function is called with no arguments.</td></tr>
     <tr><td class="paramname">reverse</td><td>Reverse computation function.<br  />

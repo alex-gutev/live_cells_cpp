@@ -17,6 +17,7 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "live_cells.hpp", "live__cells_8hpp_source.html", null ],
     [ "make_cell.hpp", "make__cell_8hpp_source.html", null ],
     [ "maybe.hpp", "maybe_8hpp_source.html", null ],
+    [ "maybe_cell.hpp", "maybe__cell_8hpp_source.html", null ],
     [ "merged_observable.hpp", "merged__observable_8hpp_source.html", null ],
     [ "mutable_cell.hpp", "mutable__cell_8hpp_source.html", null ],
     [ "mutable_cell_view.hpp", "mutable__cell__view_8hpp_source.html", null ],

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['reverse_0',['reverse',['../classlive__cells_1_1mutable__compute__cell__state.html#a2edfa8b6d1948bf80668a8b5124a827f',1,'live_cells::mutable_compute_cell_state']]]
+  ['peek_0',['peek',['../namespacelive__cells_1_1ops.html#ac3c694eb320f49f96fd11a5601417fec',1,'live_cells::ops']]],
+  ['previous_1',['previous',['../namespacelive__cells_1_1ops.html#a03748019b60a83927ae68617a0eebd0d',1,'live_cells::ops']]]
 ];

@@ -1,6 +1,9 @@
 var annotated_dup =
 [
     [ "live_cells", "namespacelive__cells.html", [
+      [ "ops", "namespacelive__cells_1_1ops.html", [
+        [ "maybe_operator", "structlive__cells_1_1ops_1_1maybe__operator.html", null ]
+      ] ],
       [ "argument_tracker", "classlive__cells_1_1argument__tracker.html", "classlive__cells_1_1argument__tracker" ],
       [ "bad_typed_cell_cast", "structlive__cells_1_1bad__typed__cell__cast.html", null ],
       [ "batch_update", "classlive__cells_1_1batch__update.html", null ],
@@ -25,12 +28,14 @@ var annotated_dup =
       [ "make_cell", "structlive__cells_1_1make__cell.html", "structlive__cells_1_1make__cell" ],
       [ "make_mutable_cell", "classlive__cells_1_1make__mutable__cell.html", "classlive__cells_1_1make__mutable__cell" ],
       [ "maybe", "classlive__cells_1_1maybe.html", "classlive__cells_1_1maybe" ],
+      [ "maybe_cell_key", "structlive__cells_1_1maybe__cell__key.html", null ],
       [ "merged_observable", "classlive__cells_1_1merged__observable.html", "classlive__cells_1_1merged__observable" ],
       [ "merged_observable< T >", "classlive__cells_1_1merged__observable_3_01T_01_4.html", null ],
       [ "mutable_cell", "classlive__cells_1_1mutable__cell.html", "classlive__cells_1_1mutable__cell" ],
       [ "mutable_cell_state", "classlive__cells_1_1mutable__cell__state.html", "classlive__cells_1_1mutable__cell__state" ],
       [ "mutable_cell_view_base", "classlive__cells_1_1mutable__cell__view__base.html", "classlive__cells_1_1mutable__cell__view__base" ],
       [ "mutable_compute_cell_state", "classlive__cells_1_1mutable__compute__cell__state.html", "classlive__cells_1_1mutable__compute__cell__state" ],
+      [ "mutable_maybe_cell_key", "structlive__cells_1_1mutable__maybe__cell__key.html", null ],
       [ "observer", "classlive__cells_1_1observer.html", "classlive__cells_1_1observer" ],
       [ "observer_cell_state", "classlive__cells_1_1observer__cell__state.html", "classlive__cells_1_1observer__cell__state" ],
       [ "peek_cell", "classlive__cells_1_1peek__cell.html", "classlive__cells_1_1peek__cell" ],

@@ -7,7 +7,7 @@ var searchData=
   ['observers_4',['observers',['../classlive__cells_1_1cell__state.html#af6ead819c47955fad178df59ea6e6d6c',1,'live_cells::cell_state']]],
   ['observing_20cells_5',['Observing Cells',['../md_doc_21-cells.html#autotoc_md2',1,'']]],
   ['on_5ferror_6',['on_error',['../namespacelive__cells.html#a62bdb9a836d990bfdfc53919a790ad17',1,'live_cells::on_error(const Cell auto &amp;cell, const Cell auto &amp;error_value)'],['../namespacelive__cells.html#a6ddd87e56d95012fd3b380e950a02ed3',1,'live_cells::on_error(const Cell auto &amp;cell, const Cell auto &amp;error_value)'],['../namespacelive__cells_1_1ops.html#a420eb19acffbe7bee8acfa79c7757e1a',1,'live_cells::ops::on_error(const Cell auto &amp;error_value)'],['../namespacelive__cells_1_1ops.html#a2ea81ff6501499dc0a4b046ff228be44',1,'live_cells::ops::on_error(const Cell auto &amp;error_value)']]],
-  ['operator_7',['Pipe operator',['../md_doc_22-expressions.html#autotoc_md17',1,'']]],
+  ['operator_7',['Pipe operator',['../md_doc_22-expressions.html#autotoc_md18',1,'']]],
   ['operator_21_8',['operator!',['../namespacelive__cells.html#a060965917599743d7204deccf711812b',1,'live_cells']]],
   ['operator_21_3d_9',['operator!=',['../classlive__cells_1_1cell.html#a72b3917e81ce46bb48ac509b56c4623c',1,'live_cells::cell::operator!=()'],['../classlive__cells_1_1typed__cell.html#ab5c193e0344666362319605bcac9b5d1',1,'live_cells::typed_cell::operator!=()'],['../namespacelive__cells.html#ad013805f6bac5a501cf6e24716f3e166',1,'live_cells::operator!=(const T &amp;a, const U &amp;b)']]],
   ['operator_25_10',['operator%',['../namespacelive__cells.html#a49c2ded4243b5106689a8f3bfda492fb',1,'live_cells']]],

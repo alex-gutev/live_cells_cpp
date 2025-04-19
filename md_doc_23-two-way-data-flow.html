@@ -96,8 +96,8 @@ $(function(){initNavTree('md_doc_23-two-way-data-flow.html',''); initResizable()
   <div class="headertitle"><div class="title">3. Two-Way Data Flow</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md19"></a> In all the examples we've seen till this point, data always flows in a single direction. Now we'll introduce two-way data flow which allows data to flow in both directions between a pair of cells.</p>
-<h1><a class="anchor" id="autotoc_md20"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md20"></a> In all the examples we've seen till this point, data always flows in a single direction. Now we'll introduce two-way data flow which allows data to flow in both directions between a pair of cells.</p>
+<h1><a class="anchor" id="autotoc_md21"></a>
 Mutable Computed Cells</h1>
 <p>A <em>mutable computed cell</em> is a cell which ordinarily functions like a normal computed cell, created with <code><a class="el" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441" title="Create a cell with a value that is a function of one or more argument cells.">live_cells::computed()</a></code>, but can also have its value set directly as though it is a mutable cell. When the value of a mutable computed cell is set, it <em>reverses</em> the computation by setting the argument cells to a value such that when the mutable computed cell is recomputed, the same value will be produced as the value that was set. This allows data to flow in two directions, whereas <code><a class="el" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441" title="Create a cell with a value that is a function of one or more argument cells.">live_cells::computed()</a></code> only allows data to flow in a single direction.</p>
 <p>Mutable computed cells are created using <code><a class="el" href="namespacelive__cells.html#a69ebc62a1450860b4aeeac16af2c0d9e" title="Create a mutable computed cell with dynamically determined argument cells.">live_cells::mutable_computed()</a></code>, which takes the computation function and reverse computation function. The computation function computes the cell's value as a function of argument cells, like <code><a class="el" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441" title="Create a cell with a value that is a function of one or more argument cells.">live_cells::computed()</a></code>. The reverse computation function <em>reverses</em> the computation by assigning a value to the argument cells. It is given the value that was assigned to the cell.</p>
@@ -133,7 +133,7 @@ Mutable Computed Cells</h1>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Prints: 7</span></div>
 <div class="line">a = 7;</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md21"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md22"></a>
 Multiple Arguments</h1>
 <p>Mutable computed cells can be defined as a function of more than one argument cell. For example we can define a <code>sum</code> cell, that ordinarily computes the sum of two numbers held in cells <code>a</code> and <code>b</code>. When <code>sum</code> is assigned a value, <code>a</code> and <code>b</code> are set to one half of the sum that was assigned.</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(0.0);</div>
@@ -157,11 +157,125 @@ Multiple Arguments</h1>
 <div class="line"><span class="comment">// Prints: 3 + 3 = 6</span></div>
 <div class="line">sum = 6;</div>
 </div><!-- fragment --><p>The value of <code>a</code> and <code>b</code> can still be set in which case, <code>sum</code> computes the sum of the values that were set:</p>
-<div class="fragment"><div class="line"><span class="comment">// Prints: 4 + 3 =7</span></div>
+<div class="fragment"><div class="line"><span class="comment">// Prints: 4 + 3 = 7</span></div>
 <div class="line">a = 4;</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Prints: 4 + 10 = 14</span></div>
 <div class="line">b = 10;</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md23"></a>
+Error Handling</h1>
+<p>One thing missing from the string to integer conversion cell, defined earlier, is error handling. Ordinarily, exceptions thrown inside the value computation function of a cell are rethrown when the cell's value is referenced. However, exceptions thrown in the reverse computation function of a mutable computed cell are not forwarded back to the argument cells.</p>
+<p>For example when the string to integer conversion cell <code>str_a</code>, defined earlier, is assigned a string that does not represent a valid integer, the assignment fails silently:</p>
+<div class="fragment"><div class="line">str_a = <span class="stringliteral">&quot;5&quot;</span>;</div>
+<div class="line">std::cout &lt;&lt; a &lt;&lt; std::endl; <span class="comment">// Prints: 5</span></div>
+<div class="line"> </div>
+<div class="line">str_a = <span class="stringliteral">&quot;not a number&quot;</span>;</div>
+<div class="line">std::cout &lt;&lt; a &lt;&lt; std::endl; <span class="comment">// Prints: 5</span></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md24"></a>
+Maybe Values</h2>
+<p><code><a class="el" href="classlive__cells_1_1maybe.html" title="Container holding a cell value or an exception that occurred while computing a value.">live_cells::maybe</a></code> is a container that either contains a value, or an exception that was thrown during the computation of a value. This can be used to catch exceptions thrown inside the reverse computation function of a mutable computed cell.</p>
+<p><code><a class="el" href="namespacelive__cells.html#a0c776221047a6cf25aaef6888fdbcc63" title="Create a maybe holding the result of calling f.">live_cells::maybe_wrap</a></code> calls the function passed to it and wraps the return value, or the exception that was thrown, in a <a class="el" href="classlive__cells_1_1maybe.html"><code>maybe</code></a>:</p>
+<div class="fragment"><div class="line">std::string str = <span class="stringliteral">&quot;1&quot;</span>;</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">auto</span> maybe_int = <a class="code hl_function" href="namespacelive__cells.html#a0c776221047a6cf25aaef6888fdbcc63">live_cells::maybe_wrap</a>([&amp;] {</div>
+<div class="line">    <span class="keywordflow">return</span> std::stoi(<span class="stringliteral">&quot;1&quot;</span>);</div>
+<div class="line">});</div>
+<div class="ttc" id="anamespacelive__cells_html_a0c776221047a6cf25aaef6888fdbcc63"><div class="ttname"><a href="namespacelive__cells.html#a0c776221047a6cf25aaef6888fdbcc63">live_cells::maybe_wrap</a></div><div class="ttdeci">auto maybe_wrap(const std::invocable auto &amp;f)</div><div class="ttdoc">Create a maybe holding the result of calling f.</div><div class="ttdef"><b>Definition</b> maybe.hpp:150</div></div>
+</div><!-- fragment --><p>The <a class="el" href="classlive__cells_1_1maybe.html#aecf9acd4607926a17dd8b81d679cfa50"><code>unwrap</code></a> method returns the value held in the <a class="el" href="classlive__cells_1_1maybe.html"><code>maybe</code></a>. If the <a class="el" href="classlive__cells_1_1maybe.html"><code>maybe</code></a> holds an exception, it is rethrown.</p>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> maybe_int = <a class="code hl_function" href="namespacelive__cells.html#a0c776221047a6cf25aaef6888fdbcc63">live_cells::maybe_wrap</a>([&amp;] {</div>
+<div class="line">    <span class="keywordflow">return</span> std::stoi(<span class="stringliteral">&quot;1&quot;</span>);</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line">std::cout &lt;&lt; maybe_int.unwrap() &lt;&lt; std::endl; <span class="comment">// Prints: 1</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">auto</span> maybe_error = <a class="code hl_function" href="namespacelive__cells.html#a0c776221047a6cf25aaef6888fdbcc63">live_cells::maybe_wrap</a>([&amp;] {</div>
+<div class="line">    <span class="keywordflow">return</span> std::stoi(<span class="stringliteral">&quot;not a number&quot;</span>);</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Throws an &#39;std::invalid_argument&#39; exception</span></div>
+<div class="line">std::cout &lt;&lt; maybe_error.unwrap() &lt;&lt; std::endl;</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md25"></a>
+Maybe Cells</h2>
+<p><code><a class="el" href="namespacelive__cells.html#ada127e48fc3bebc5928d125c73710782" title="Create a cell that wraps the value of a cell in a maybe.">live_cells::maybe_cell</a></code> creates a cell that wraps the value of its argument cell in a <a class="el" href="classlive__cells_1_1maybe.html"><code>maybe</code></a>, as if by <code><a class="el" href="namespacelive__cells.html#a0c776221047a6cf25aaef6888fdbcc63" title="Create a maybe holding the result of calling f.">live_cells::maybe_wrap</a></code>.</p>
+<p>The following definition:</p>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> maybe_a = <a class="code hl_function" href="namespacelive__cells.html#ada127e48fc3bebc5928d125c73710782">live_cells::maybe_cell</a>(a)</div>
+<div class="ttc" id="anamespacelive__cells_html_ada127e48fc3bebc5928d125c73710782"><div class="ttname"><a href="namespacelive__cells.html#ada127e48fc3bebc5928d125c73710782">live_cells::maybe_cell</a></div><div class="ttdeci">auto maybe_cell(const Cell auto &amp;cell)</div><div class="ttdoc">Create a cell that wraps the value of a cell in a maybe.</div><div class="ttdef"><b>Definition</b> maybe_cell.hpp:44</div></div>
+</div><!-- fragment --><p>is equivalent to:</p>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> maybe_a = <a class="code hl_function" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a>([=] {</div>
+<div class="line">    <span class="keywordflow">return</span> <a class="code hl_function" href="namespacelive__cells.html#a0c776221047a6cf25aaef6888fdbcc63">live_cells::maybe_wrap</a>(a());</div>
+<div class="line">});</div>
+<div class="ttc" id="anamespacelive__cells_html_a38ef71dbf501d266974a7fae279a8441"><div class="ttname"><a href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a></div><div class="ttdeci">auto computed(F &amp;&amp;compute)</div><div class="ttdoc">Create a cell with a value that is a function of one or more argument cells.</div><div class="ttdef"><b>Definition</b> computed.hpp:45</div></div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>A maybe cell can also be created with the <code><a class="el" href="namespacelive__cells_1_1ops.html#a400a66a67e452ee418167066140da1f2" title="Cell operator that creates a maybe cell as if by live_cells::maybe_cell.">live_cells::ops::maybe</a></code> cell operator: <br  />
+<div class="fragment"><div class="line"><span class="keyword">auto</span> maybe_a = a | <a class="code hl_variable" href="namespacelive__cells_1_1ops.html#a400a66a67e452ee418167066140da1f2">live_cells::ops::maybe</a>;</div>
+<div class="ttc" id="anamespacelive__cells_1_1ops_html_a400a66a67e452ee418167066140da1f2"><div class="ttname"><a href="namespacelive__cells_1_1ops.html#a400a66a67e452ee418167066140da1f2">live_cells::ops::maybe</a></div><div class="ttdeci">constexpr maybe_operator maybe</div><div class="ttdoc">Cell operator that creates a maybe cell as if by live_cells::maybe_cell.</div><div class="ttdef"><b>Definition</b> maybe_cell.hpp:103</div></div>
+</div><!-- fragment --></dd></dl>
+<p>If the cell given to <code>maybe_cell</code> is mutable, <code>maybe_cell</code> creates a mutable computed cell, which when assigned a maybe, sets the value of its argument cell to the value held in the maybe.</p>
+<dl class="section note"><dt>Note</dt><dd>The constructor of <a class="el" href="classlive__cells_1_1maybe.html"><code>maybe</code></a> creates a <a class="el" href="classlive__cells_1_1maybe.html"><code>maybe</code></a> that holds the value given to it.</dd></dl>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(0);</div>
+<div class="line"><span class="keyword">auto</span> maybe_a = <a class="code hl_function" href="namespacelive__cells.html#ada127e48fc3bebc5928d125c73710782">live_cells::maybe_cell</a>(a);</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">auto</span> w = <a class="code hl_function" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a>([=] {</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;a = &quot;</span> &lt;&lt; a() &lt;&lt; std::endl;</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Prints 5</span></div>
+<div class="line">maybe_a = <a class="code hl_class" href="classlive__cells_1_1maybe.html">live_cells::maybe</a>(5);</div>
+<div class="ttc" id="aclasslive__cells_1_1maybe_html"><div class="ttname"><a href="classlive__cells_1_1maybe.html">live_cells::maybe</a></div><div class="ttdoc">Container holding a cell value or an exception that occurred while computing a value.</div><div class="ttdef"><b>Definition</b> maybe.hpp:17</div></div>
+</div><!-- fragment --><p>When a <a class="el" href="classlive__cells_1_1maybe.html"><code>maybe</code></a> holding an exception is assigned to the <em>maybe cell</em>, the value of the argument cell is not changed.</p>
+<div class="fragment"><div class="line">maybe_a = <a class="code hl_function" href="namespacelive__cells.html#a0c776221047a6cf25aaef6888fdbcc63">live_cells::maybe_wrap</a>([] {</div>
+<div class="line">    <span class="keywordflow">throw</span> some_exception();</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Prints 5</span></div>
+<div class="line">std::cout &lt;&lt; a.value() &lt;&lt; std::endl;</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Throws &#39;some_exception&#39;</span></div>
+<div class="line">std::cout &lt;&lt; maybe_a.value().unwrap() &lt;&lt; std::endl;</div>
+</div><!-- fragment --><p>Exceptions thrown in the reverse computation function of a mutable computed cell can be handled by wrapping the exception in a <a class="el" href="classlive__cells_1_1maybe.html"><code>maybe</code></a> and assigning it to the argument cell:</p>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> a = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(0);</div>
+<div class="line"><span class="keyword">auto</span> maybe_a = <a class="code hl_function" href="namespacelive__cells.html#ada127e48fc3bebc5928d125c73710782">live_cells::maybe_cell</a>(a);</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">auto</span> str_a = <a class="code hl_function" href="namespacelive__cells.html#a69ebc62a1450860b4aeeac16af2c0d9e">live_cells::mutable_computed</a>([=] {</div>
+<div class="line">    <span class="keywordflow">return</span> std::to_string(maybe_a().unwrap());</div>
+<div class="line">}, [=] (<span class="keyword">auto</span> str) {</div>
+<div class="line">    maybe_a = <a class="code hl_function" href="namespacelive__cells.html#a0c776221047a6cf25aaef6888fdbcc63">live_cells::maybe_wrap</a>([&amp;] {</div>
+<div class="line">        <span class="keywordflow">return</span> std::stoi(str);</div>
+<div class="line">    });</div>
+<div class="line">});</div>
+</div><!-- fragment --><p>The following creates a cell <code>is_valid</code> that is true if <code>str_a</code> was set to a string containing a valid integer or false otherwise.</p>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="classlive__cells_1_1maybe.html#af0d3d023288c34de8907adaaff2f2973"><code>error()</code></a> returns an <code>std::exception_ptr</code> pointing to the exception that was thrown. If the maybe does not hold an exception, the null exception pointer is returned.</dd></dl>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> is_valid = <a class="code hl_function" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a>([=] {</div>
+<div class="line">    <span class="keywordflow">if</span> (maybe_a().error()) {</div>
+<div class="line">        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line">});</div>
+</div><!-- fragment --><p>To put this all together consider the following watch function:</p>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> w1 = <a class="code hl_function" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a>([=] {</div>
+<div class="line">    <span class="keywordflow">if</span> (is_valid()) {</div>
+<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;a = &quot;</span> &lt;&lt; a() &lt;&lt; std::endl;</div>
+<div class="line">    }</div>
+<div class="line">    <span class="keywordflow">else</span> {</div>
+<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;&#39;&quot;</span> &lt;&lt; str_a() &lt; <span class="stringliteral">&quot;&#39; is not a valid integer\n&quot;</span>;</div>
+<div class="line">    }</div>
+<div class="line">});</div>
+</div><!-- fragment --><p>When the value of <code>a</code> is set, its value is printed to standard output.</p>
+<div class="fragment"><div class="line">a = 1;</div>
+<div class="line">a = 2;</div>
+<div class="line">a = 3;</div>
+</div><!-- fragment --><p>The code above results in the following being printed:</p>
+<div class="fragment"><div class="line">a = 1</div>
+<div class="line">a = 2</div>
+<div class="line">a = 3</div>
+</div><!-- fragment --><p>When the value of <code>str_a</code> is set, either the parsed integer value is printed or an error message is printed if an integer could not be parsed from the string assigned to <code>str_a</code>.</p>
+<div class="fragment"><div class="line">str_a = <span class="charliteral">&#39;4&#39;</span>;</div>
+<div class="line">str_a = <span class="stringliteral">&#39;NaN&#39;</span>;</div>
+<div class="line">a = 5;</div>
+</div><!-- fragment --><p>The code above results in the following being printed:</p>
+<div class="fragment"><div class="line">a = 4</div>
+<div class="line">&#39;NaN&#39; is not a valid integer</div>
+<div class="line">a = 5</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

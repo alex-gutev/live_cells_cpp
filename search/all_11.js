@@ -7,14 +7,14 @@ var searchData=
   ['peek_5fcell_4',['peek_cell',['../classlive__cells_1_1peek__cell.html',1,'live_cells::peek_cell&lt; C &gt;'],['../classlive__cells_1_1peek__cell.html#af4137d650bc53ca71d6abbd05a5e9617',1,'live_cells::peek_cell::peek_cell()']]],
   ['peek_5fcell_5fkey_5',['peek_cell_key',['../structlive__cells_1_1peek__cell__key.html',1,'live_cells']]],
   ['peek_5fcell_5fstate_6',['peek_cell_state',['../classlive__cells_1_1peek__cell__state.html',1,'live_cells::peek_cell_state&lt; C &gt;'],['../classlive__cells_1_1peek__cell__state.html#ab30f5f07169b4896ceb3a9b96ac42ed6',1,'live_cells::peek_cell_state::peek_cell_state()']]],
-  ['peeking_20cells_7',['Peeking cells',['../md_doc_22-expressions.html#autotoc_md16',1,'']]],
-  ['pipe_20operator_8',['Pipe operator',['../md_doc_22-expressions.html#autotoc_md17',1,'']]],
-  ['powerful_20and_20maintainable_9',['Simple, powerful and maintainable',['../index.html#autotoc_md26',1,'']]],
-  ['prerequisites_10',['Prerequisites',['../index.html#autotoc_md29',1,'']]],
+  ['peeking_20cells_7',['Peeking cells',['../md_doc_22-expressions.html#autotoc_md17',1,'']]],
+  ['pipe_20operator_8',['Pipe operator',['../md_doc_22-expressions.html#autotoc_md18',1,'']]],
+  ['powerful_20and_20maintainable_9',['Simple, powerful and maintainable',['../index.html#autotoc_md30',1,'']]],
+  ['prerequisites_10',['Prerequisites',['../index.html#autotoc_md33',1,'']]],
   ['previous_11',['previous',['../namespacelive__cells_1_1ops.html#a03748019b60a83927ae68617a0eebd0d',1,'live_cells::ops::previous'],['../namespacelive__cells.html#a5e7bb7e5831fdc9543bf3b4f96af168e',1,'live_cells::previous()']]],
-  ['previous_20values_12',['Previous values',['../md_doc_22-expressions.html#autotoc_md15',1,'']]],
+  ['previous_20values_12',['Previous values',['../md_doc_22-expressions.html#autotoc_md16',1,'']]],
   ['previous_5fvalue_5fcell_13',['previous_value_cell',['../classlive__cells_1_1previous__value__cell.html',1,'live_cells::previous_value_cell&lt; C &gt;'],['../classlive__cells_1_1previous__value__cell.html#a9024a4964827b435b809576abab25a29',1,'live_cells::previous_value_cell::previous_value_cell()']]],
   ['previous_5fvalue_5fcell_5fkey_14',['previous_value_cell_key',['../structlive__cells_1_1previous__value__cell__key.html',1,'live_cells']]],
   ['previous_5fvalue_5fcell_5fstate_15',['previous_value_cell_state',['../classlive__cells_1_1previous__value__cell__state.html',1,'live_cells::previous_value_cell_state&lt; C &gt;'],['../classlive__cells_1_1previous__value__cell__state.html#a039042f2ccbbfc1a075a2baf6d41a913',1,'live_cells::previous_value_cell_state::previous_value_cell_state()']]],
-  ['project_16',['Configuring your project',['../index.html#autotoc_md31',1,'']]]
+  ['project_16',['Configuring your project',['../index.html#autotoc_md35',1,'']]]
 ];

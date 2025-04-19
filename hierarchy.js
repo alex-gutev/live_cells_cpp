@@ -74,6 +74,8 @@ var hierarchy =
       [ "live_cells::unique_key", "classlive__cells_1_1unique__key.html", null ],
       [ "live_cells::value_key< T, Ts >", "classlive__cells_1_1value__key.html", null ],
       [ "live_cells::value_key< T >", "classlive__cells_1_1value__key_3_01T_01_4.html", [
+        [ "live_cells::maybe_cell_key< T >", "structlive__cells_1_1maybe__cell__key.html", null ],
+        [ "live_cells::mutable_maybe_cell_key< T >", "structlive__cells_1_1mutable__maybe__cell__key.html", null ],
         [ "live_cells::previous_value_cell_key< T >", "structlive__cells_1_1previous__value__cell__key.html", null ],
         [ "live_cells::store_cell_key< T >", "structlive__cells_1_1store__cell__key.html", null ]
       ] ]
@@ -84,6 +86,7 @@ var hierarchy =
     ] ],
     [ "live_cells::maybe< T >", "classlive__cells_1_1maybe.html", null ],
     [ "live_cells::maybe< value_type >", "classlive__cells_1_1maybe.html", null ],
+    [ "live_cells::ops::maybe_operator", "structlive__cells_1_1ops_1_1maybe__operator.html", null ],
     [ "live_cells::merged_observable< T, Ts >", "classlive__cells_1_1merged__observable.html", null ],
     [ "live_cells::merged_observable< T >", "classlive__cells_1_1merged__observable_3_01T_01_4.html", null ],
     [ "live_cells::merged_observable< Ts... >", "classlive__cells_1_1merged__observable.html", null ],

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['peek_0',['peek',['../namespacelive__cells_1_1ops.html#ac3c694eb320f49f96fd11a5601417fec',1,'live_cells::ops']]],
-  ['previous_1',['previous',['../namespacelive__cells_1_1ops.html#a03748019b60a83927ae68617a0eebd0d',1,'live_cells::ops']]]
+  ['obs_5fref_0',['obs_ref',['../classlive__cells_1_1cell.html#a93cda67585535f92c7a8a2dfa70b10fa',1,'live_cells::cell']]],
+  ['observers_1',['observers',['../classlive__cells_1_1cell__state.html#af6ead819c47955fad178df59ea6e6d6c',1,'live_cells::cell_state']]]
 ];

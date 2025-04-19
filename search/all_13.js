@@ -1,11 +1,11 @@
 var searchData=
 [
   ['select_0',['select',['../namespacelive__cells.html#a70b163d68732a15a5f7c16b69d9ba357',1,'live_cells::select(Cell auto condition, Cell auto if_true, Cell auto if_false)'],['../namespacelive__cells.html#a02e217242d1c9d867c9e71f858f3cbae',1,'live_cells::select(Cell auto condition, Cell auto if_true)'],['../namespacelive__cells_1_1ops.html#aa25117cbccbcc2aba58d31ffe52f6014',1,'live_cells::ops::select(const Cell auto &amp;if_true)'],['../namespacelive__cells_1_1ops.html#ad9c0d9c991339d6bf1d1e8cc97a062a3',1,'live_cells::ops::select(const Cell auto &amp;if_true, const Cell auto &amp;if_false)']]],
-  ['selection_1',['Logic and selection',['../md_doc_22-expressions.html#autotoc_md12',1,'']]],
+  ['selection_1',['Logic and selection',['../md_doc_22-expressions.html#autotoc_md13',1,'']]],
   ['silent_5fset_2',['silent_set',['../classlive__cells_1_1mutable__cell__state.html#a8c17d016d8b5fd9c668e349dc1320d32',1,'live_cells::mutable_cell_state']]],
-  ['simple_20powerful_20and_20maintainable_3',['Simple, powerful and maintainable',['../index.html#autotoc_md26',1,'']]],
+  ['simple_20powerful_20and_20maintainable_3',['Simple, powerful and maintainable',['../index.html#autotoc_md30',1,'']]],
   ['stale_4',['stale',['../classlive__cells_1_1observer__cell__state.html#a77e94645a5de228347b8cbcc3c407fd1',1,'live_cells::observer_cell_state']]],
-  ['started_5',['Getting Started',['../index.html#autotoc_md28',1,'']]],
+  ['started_5',['Getting Started',['../index.html#autotoc_md32',1,'']]],
   ['state_6',['state',['../classlive__cells_1_1stateful__cell.html#a050957612d87b3c2b842d37ed6808912',1,'live_cells::stateful_cell']]],
   ['state_5fmanager_7',['state_manager',['../classlive__cells_1_1state__manager.html',1,'live_cells']]],
   ['stateful_5fcell_8',['stateful_cell',['../classlive__cells_1_1stateful__cell.html',1,'live_cells::stateful_cell&lt; S &gt;'],['../classlive__cells_1_1stateful__cell.html#a2f1e1419aadbe474c58d3c5c02e33edd',1,'live_cells::stateful_cell::stateful_cell()']]],

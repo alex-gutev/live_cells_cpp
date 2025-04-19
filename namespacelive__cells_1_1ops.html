@@ -94,6 +94,7 @@ $(function(){initNavTree('namespacelive__cells_1_1ops.html',''); initResizable()
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#concepts">Concepts</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
@@ -101,6 +102,12 @@ $(function(){initNavTree('namespacelive__cells_1_1ops.html',''); initResizable()
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlive__cells_1_1ops_1_1maybe__operator.html">maybe_operator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a> operator that creates a maybe cell as if by <code><a class="el" href="namespacelive__cells.html#ada127e48fc3bebc5928d125c73710782" title="Create a cell that wraps the value of a cell in a maybe.">live_cells::maybe_cell</a></code>.  <a href="structlive__cells_1_1ops_1_1maybe__operator.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="concepts" name="concepts"></a>
 Concepts</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="conceptlive__cells_1_1ops_1_1Operator.html">Operator</a></td></tr>
@@ -122,6 +129,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a2ea81ff6501499dc0a4b046ff228be44"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a2ea81ff6501499dc0a4b046ff228be44">on_error</a> (<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> Cell <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a> &amp;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">error_value</a>)</td></tr>
 <tr class="memdesc:a2ea81ff6501499dc0a4b046ff228be44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an <code><a class="el" href="conceptlive__cells_1_1ops_1_1Operator.html" title="Concept defining an operator on a cell.">Operator</a></code> for handling exceptions of type <em>E</em> thrown by the operand <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code>.  <br /></td></tr>
 <tr class="separator:a2ea81ff6501499dc0a4b046ff228be44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74f4de212b285521f0108526ab7170d8" id="r_a74f4de212b285521f0108526ab7170d8"><td class="memItemLeft" align="right" valign="top"><a id="a74f4de212b285521f0108526ab7170d8" name="a74f4de212b285521f0108526ab7170d8"></a>
+<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator|</b> (<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> Cell <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a> &amp;<a class="el" href="classlive__cells_1_1cell.html">cell</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="structlive__cells_1_1ops_1_1maybe__operator.html">maybe_operator</a> &amp;)</td></tr>
+<tr class="separator:a74f4de212b285521f0108526ab7170d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6012eb82960c583ac5522559ae3b3f28" id="r_a6012eb82960c583ac5522559ae3b3f28"><td class="memItemLeft" align="right" valign="top"><a id="a6012eb82960c583ac5522559ae3b3f28" name="a6012eb82960c583ac5522559ae3b3f28"></a>
+<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator|</b> (<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> MutableCell <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a> &amp;<a class="el" href="classlive__cells_1_1cell.html">cell</a>, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="structlive__cells_1_1ops_1_1maybe__operator.html">maybe_operator</a> &amp;)</td></tr>
+<tr class="separator:a6012eb82960c583ac5522559ae3b3f28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa91a55f14e60432aeafdb39436bed37c" id="r_aa91a55f14e60432aeafdb39436bed37c"><td class="memTemplParams" colspan="2">template&lt;Cell C, Operator&lt; C &gt; O&gt; </td></tr>
 <tr class="memitem:aa91a55f14e60432aeafdb39436bed37c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aa91a55f14e60432aeafdb39436bed37c">operator|</a> (<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> C &amp;arg, <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">const</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">O</a> &amp;<a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">op</a>)</td></tr>
 <tr class="memdesc:aa91a55f14e60432aeafdb39436bed37c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply an <code><a class="el" href="conceptlive__cells_1_1ops_1_1Operator.html" title="Concept defining an operator on a cell.">Operator</a></code> <em>op</em> on a <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code> <em>arg</em>.  <br /></td></tr>
@@ -129,6 +142,9 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a400a66a67e452ee418167066140da1f2" id="r_a400a66a67e452ee418167066140da1f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">constexpr</a> <a class="el" href="structlive__cells_1_1ops_1_1maybe__operator.html">maybe_operator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a400a66a67e452ee418167066140da1f2">maybe</a> {}</td></tr>
+<tr class="memdesc:a400a66a67e452ee418167066140da1f2"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a> operator that creates a maybe cell as if by <code><a class="el" href="namespacelive__cells.html#ada127e48fc3bebc5928d125c73710782" title="Create a cell that wraps the value of a cell in a maybe.">live_cells::maybe_cell</a></code>.  <br /></td></tr>
+<tr class="separator:a400a66a67e452ee418167066140da1f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3c694eb320f49f96fd11a5601417fec" id="r_ac3c694eb320f49f96fd11a5601417fec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">constexpr</a> <a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac3c694eb320f49f96fd11a5601417fec">peek</a></td></tr>
 <tr class="memdesc:ac3c694eb320f49f96fd11a5601417fec"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptlive__cells_1_1ops_1_1Operator.html" title="Concept defining an operator on a cell.">Operator</a> for reading the value of a cell without reacting to changes.  <br /></td></tr>
 <tr class="separator:ac3c694eb320f49f96fd11a5601417fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -337,6 +353,37 @@ template&lt;Cell C, Operator&lt; C &gt; O&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A <code><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a></code> that has the same value as <em>cell</em> but caches it in memory until it changes. </dd></dl>
 
+</div>
+</div>
+<a id="a400a66a67e452ee418167066140da1f2" name="a400a66a67e452ee418167066140da1f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a400a66a67e452ee418167066140da1f2">&#9670;&#160;</a></span>maybe</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classlive__cells_1_1dynamic__compute__cell.html">constexpr</a> <a class="el" href="structlive__cells_1_1ops_1_1maybe__operator.html">maybe_operator</a> live_cells::ops::maybe {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="conceptlive__cells_1_1Cell.html" title="Defines the cell protocol.">Cell</a> operator that creates a maybe cell as if by <code><a class="el" href="namespacelive__cells.html#ada127e48fc3bebc5928d125c73710782" title="Create a cell that wraps the value of a cell in a maybe.">live_cells::maybe_cell</a></code>. </p>
+<p>Usage:</p>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> <a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">b</a> = <a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">a</a> | <a class="code hl_variable" href="#a400a66a67e452ee418167066140da1f2">maybe</a>;</div>
+<div class="ttc" id="aclasslive__cells_1_1dynamic__compute__cell_html"><div class="ttname"><a href="classlive__cells_1_1dynamic__compute__cell.html">live_cells::dynamic_compute_cell</a></div><div class="ttdoc">A computed cell which determines its argument cells at runtime.</div><div class="ttdef"><b>Definition</b> dynamic_compute_cell.hpp:153</div></div>
+<div class="ttc" id="anamespacelive__cells_1_1ops_html_a400a66a67e452ee418167066140da1f2"><div class="ttname"><a href="#a400a66a67e452ee418167066140da1f2">live_cells::ops::maybe</a></div><div class="ttdeci">constexpr maybe_operator maybe</div><div class="ttdoc">Cell operator that creates a maybe cell as if by live_cells::maybe_cell.</div><div class="ttdef"><b>Definition</b> maybe_cell.hpp:103</div></div>
+</div><!-- fragment --><p>This is equivalent to:</p>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> <a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">b</a> = <a class="code hl_function" href="namespacelive__cells.html#ada127e48fc3bebc5928d125c73710782">live_cells::maybe_cell</a>(<a class="code hl_class" href="classlive__cells_1_1dynamic__compute__cell.html">a</a>);</div>
+<div class="ttc" id="anamespacelive__cells_html_ada127e48fc3bebc5928d125c73710782"><div class="ttname"><a href="namespacelive__cells.html#ada127e48fc3bebc5928d125c73710782">live_cells::maybe_cell</a></div><div class="ttdeci">auto maybe_cell(const Cell auto &amp;cell)</div><div class="ttdoc">Create a cell that wraps the value of a cell in a maybe.</div><div class="ttdef"><b>Definition</b> maybe_cell.hpp:44</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ac3c694eb320f49f96fd11a5601417fec" name="ac3c694eb320f49f96fd11a5601417fec"></a>
