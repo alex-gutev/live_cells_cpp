@@ -1,4 +1,4 @@
-# 0.4.0 - 2023-05-24
+# 0.4.0 - 2024-05-24
 
 New features:
 
@@ -14,11 +14,11 @@ Bug fixes:
 * Fix issue with cell value not being set when set through a
   `live_cells::cell` / `live_cells::typed_cell` container.
 
-# 0.3.1 - 2023-05-24
+# 0.3.1 - 2024-05-24
 
 * Fix bug with uncaught exceptions in watch functions.
 
-# 0.3.0-beta - 2023-05-18
+# 0.3.0-beta - 2024-05-18
 
 New features:
 
@@ -28,24 +28,24 @@ New features:
   only notifies its observers when its new value is not equal to its
   previous value.
 
-# 0.2.4-beta - 2023-05-13
+# 0.2.4-beta - 2024-05-13
 
 * Fix bugs in examples of `live_cells::select()` in documentation.
 
-# 0.2.3-beta - 2023-05-09
+# 0.2.3-beta - 2024-05-09
 
 * Fix bug in `live_cells::none()` example in documentation.
 
-# 0.2.2-beta - 2023-04-28
+# 0.2.2-beta - 2024-04-28
 
 * Fix link errors when building unit tests.
 
-# 0.2.1-beta - 2023-04-21
+# 0.2.1-beta - 2024-04-21
 
 * Fix potential bug caused by adding an observer to a cell while it is
   notifying its observers.
 
-# 0.2.0-beta - 2023-04-18
+# 0.2.0-beta - 2024-04-18
 
 New features:
 
