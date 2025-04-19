@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE(passes_through_cell_exception) {
         return a();
     });
 
-    auto m = b | live_cells::ops::maybe();
+    auto m = b | live_cells::ops::maybe;
 
     auto observer = std::make_shared<simple_observer>();
     auto guard = with_observer(m, observer);
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE(passes_through_mutable_cell_exception) {
         return a();
     }, [] (auto v) {});
 
-    auto m = b | live_cells::ops::maybe();
+    auto m = b | live_cells::ops::maybe;
 
     auto observer = std::make_shared<simple_observer>();
     auto guard = with_observer(m, observer);
@@ -106,7 +106,7 @@ BOOST_AUTO_TEST_CASE(passes_through_mutable_cell_exception) {
 
 BOOST_AUTO_TEST_CASE(mutable_maybe_cell) {
     auto a = live_cells::variable(1);
-    auto m = a | live_cells::ops::maybe();
+    auto m = a | live_cells::ops::maybe;
 
     auto observer = std::make_shared<simple_observer>();
     auto guard = with_observer(m, observer);
@@ -128,8 +128,8 @@ BOOST_AUTO_TEST_CASE(mutable_maybe_cell) {
 BOOST_AUTO_TEST_CASE(compare_equal_if_same_argument_cell) {
     auto a = live_cells::variable(1);
 
-    auto m1 = a | live_cells::ops::maybe();
-    auto m2 = a | live_cells::ops::maybe();
+    auto m1 = a | live_cells::ops::maybe;
+    auto m2 = a | live_cells::ops::maybe;
 
     std::hash<live_cells::cell> hash;
 
@@ -142,8 +142,8 @@ BOOST_AUTO_TEST_CASE(compare_not_equal_if_different_argument_cell) {
     auto a = live_cells::variable(1);
     auto b = live_cells::variable(1);
 
-    auto m1 = a | live_cells::ops::maybe();
-    auto m2 = b | live_cells::ops::maybe();
+    auto m1 = a | live_cells::ops::maybe;
+    auto m2 = b | live_cells::ops::maybe;
 
     BOOST_CHECK(m1 != m2);
     BOOST_CHECK(!(m1 == m2));

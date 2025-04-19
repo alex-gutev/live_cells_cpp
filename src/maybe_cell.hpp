@@ -81,11 +81,17 @@ namespace live_cells {
         /**
          * \brief Cell operator that creates a maybe cell as if by \p
          * live_cells::maybe_cell.
+         */
+        struct maybe_operator {};
+
+        /**
+         * \brief Cell operator that creates a maybe cell as if by \p
+         * live_cells::maybe_cell.
          *
          * Usage:
          *
          * \code{.cpp}
-         * auto b = a | maybe();
+         * auto b = a | maybe;
          * \endcode
          *
          * This is equivalent to:
@@ -94,13 +100,13 @@ namespace live_cells {
          * auto b = live_cells::maybe_cell(a);
          * \endcode
          */
-        struct maybe {};
+        constexpr maybe_operator maybe{};
 
-        inline auto operator|(const Cell auto &cell, struct maybe) {
+        inline auto operator|(const Cell auto &cell, const maybe_operator &) {
             return maybe_cell(cell);
         }
 
-        inline auto operator|(const MutableCell auto &cell, struct maybe) {
+        inline auto operator|(const MutableCell auto &cell, const maybe_operator &) {
             return maybe_cell(cell);
         }
     }
