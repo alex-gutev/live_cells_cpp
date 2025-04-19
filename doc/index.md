@@ -1,7 +1,7 @@
 # Live Cells C++
 
 Live Cells is a reactive programming library for C++ ported from [Live
-Cells](https://livecells.viditrack.com) for Dart.
+Cells](https://livecell.gutev.dev) for Dart.
 
 ## Features
 
@@ -127,8 +127,8 @@ AC_LIB_HAVE_LINKFLAGS(live_cells)
 
 This searches for the `liblive_cells.a` in the default library search
 paths (or the paths specified by the user), adds the necessary linker
-options to the variable `LIBLIVE_CELLS` and adds directory where the
-header files were installed, to the project's include path.
+options to the variable `LIBLIVE_CELLS` and adds the directory where the
+header files were installed to the project's include path.
 
 Add the following to your `Makefile.am`
 
