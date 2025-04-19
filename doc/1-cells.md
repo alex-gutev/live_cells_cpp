@@ -181,7 +181,7 @@ auto sum = live_cells::computed([=] {
 
 In the above example, `sum` is a computed cell with the value defined
 as the sum of cells `a` and `b`. The value of `sum` is recomputed
-whenever the values of either `a` or `b` change. This is demonstrated
+whenever the value of either `a` or `b` changes. This is demonstrated
 below:
 
 ```cpp
@@ -198,7 +198,7 @@ In this example:
 
 1. A watch function observing the `sum` cell is defined.
 2. The value of `a` is set to `3`, which:
-   1. Causes the value of `sum` to be recomputed
+   1. Causes the value of `sum` to be recomputed.
    2. Calls the watch function defined in 1.
 3. The value of `b` is set to `4`, which likewise also results in
    `sum` being recomputed and the watch function being called.
@@ -211,7 +211,7 @@ observers of the cell are still notified that the cell's value has
 changed. 
 
 By providing `live_cells::changes_only` to `live_cells::computed`, the
-computed cell will not notify it's observers if it's new value is
+computed cell will not notify it's observers if its new value is
 equal, by `==`, to its previous value. This is demonstrated with the
 following example:
 
@@ -300,7 +300,7 @@ This definition is more lightweight than the previous definition of
 arguments at run time or the overhead of caching the cell
 value. However it is less convenient since the argument cells have to
 be listed beforehand, whereas with the previous definition, the
-arguments are determined automatically.
+arguments cells are determined automatically.
 
 For cells consisting of a simple computation, such as the `sum` cell,
 there is no need to cache the value since the overhead of the caching
@@ -480,7 +480,7 @@ specifies the mutable cell protocol. `MutableCell` is a superset of
 satisfies `Cell`.
 
 To define a function that takes a cell as an argument, define a
-function `template` with the template parameters constrained by the
+function template with the template parameters constrained by the
 `Cell` concept. For example here's a simple function `add`, which
 takes two cells and returns a computed cell that computes the sum of
 the two cells:
