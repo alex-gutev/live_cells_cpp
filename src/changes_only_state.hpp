@@ -98,7 +98,7 @@ namespace live_cells {
      * applied, should only notify its observers when its new value is
      * not equal (by \c ==) to its previous value.
      */
-    static constexpr changes_only_option changes_only{};
+    constexpr changes_only_option changes_only{};
 
 }  // live_cells
 
