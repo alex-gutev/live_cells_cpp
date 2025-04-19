@@ -67,7 +67,7 @@ auto neq = a != b; // neq() == true when a() != b()
 ## Logic and selection
 
 The following operator overloads and functions are provided for cells
-holding boolean-like value:
+holding boolean-like values:
 
 <dl>
 <dt>`&&`</dt>
@@ -80,7 +80,7 @@ holding boolean-like value:
 <dd>Creates a cell which selects between the values of two cells based on a condition</dd>
 </dl>
 
-\note The `&&` and `||` operators overloads preserve the
+\note The `&&` and `||` operator overloads preserve the
 short-circuiting behaviour of the operators. This means the value of a
 cell is not referenced if the result of the expression is already
 known without it.
@@ -247,7 +247,7 @@ auto is_valid = on_error(
 ```
 
 \note We used `live_cells::value(false)` to create a constant cell
-that holds the values `false`.
+that holds the value `false`.
 
 
 ## Previous values
