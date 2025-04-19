@@ -200,6 +200,13 @@ auto maybe_a = live_cells::computed([=] {
 });
 ```
 
+\note A maybe cell can also be created with the
+`live_cells::ops::maybe` cell operator:
+\n
+```cpp
+auto maybe_a = a | live_cells::ops::maybe;
+```
+
 If the cell given to `maybe_cell` is mutable, `maybe_cell` creates a
 mutable computed cell, which when assigned a maybe, sets the value of
 its argument cell to the value held in the maybe.
