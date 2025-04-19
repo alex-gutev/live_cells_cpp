@@ -142,6 +142,8 @@ str_a = "not a number";
 std::cout << a << std::endl; // Prints: 5
 ```
 
+### Maybe Values
+
 `live_cells::maybe` is a container that either contains a value, or an
 exception that was thrown during the computation of a value. This can
 be used to catch exceptions thrown inside the reverse computation
@@ -159,9 +161,9 @@ auto maybe_int = live_cells::maybe_wrap([&] {
 });
 ```
 
-The [`unwrap`](@ref live_cells::maybe::unwrap) returns the value held
-in the [`maybe`](@ref live_cells::maybe). If the [`maybe`](@ref live_cells::maybe)
-holds an exception, it is rethrown.
+The [`unwrap`](@ref live_cells::maybe::unwrap) method returns the
+value held in the [`maybe`](@ref live_cells::maybe). If the
+[`maybe`](@ref live_cells::maybe) holds an exception, it is rethrown.
 
 ```cpp
 auto maybe_int = live_cells::maybe_wrap([&] {
@@ -177,6 +179,8 @@ auto maybe_error = live_cells::maybe_wrap([&] {
 // Throws an 'std::invalid_argument' exception
 std::cout << maybe_error.unwrap() << std::endl;
 ```
+
+### Maybe Cells
 
 `live_cells::maybe_cell` creates a cell that wraps the value of its
 argument cell in a [`maybe`](@ref live_cells::maybe), as if by
@@ -280,7 +284,7 @@ auto w1 = live_cells::watch([=] {
 });
 ```
 
-When the value of `a` is set, its value is printed to standard output:
+When the value of `a` is set, its value is printed to standard output.
 
 ```cpp
 a = 1;
@@ -288,7 +292,7 @@ a = 2;
 a = 3;
 ```
 
-This results in the following being printed:
+The code above results in the following being printed:
 
 ```
 a = 1
@@ -306,7 +310,7 @@ str_a = 'NaN';
 a = 5;
 ```
 
-This results in the following being printed:
+The code above results in the following being printed:
 
 ```
 a = 4
