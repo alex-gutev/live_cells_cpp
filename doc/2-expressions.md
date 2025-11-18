@@ -306,7 +306,7 @@ auto a = live_cells::variable(0);
 auto b = live_cells::variable(1);
 
 auto c = live_cells::computed([=] {
-    return a() + live_cells::peek(b);
+    return a() + live_cells::peek(b)();
 });
 
 auto watch = live_cells::watch([=] {
@@ -315,7 +315,7 @@ auto watch = live_cells::watch([=] {
 
 a = 3; // Prints: 4
 b = 5; // Doesn't print anything
-a = 7; // Prints: 13
+a = 7; // Prints: 12
 ```
 
 In the above example cell `c` is a computed cell that references the
