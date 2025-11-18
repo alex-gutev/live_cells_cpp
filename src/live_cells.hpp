@@ -20,12 +20,13 @@
 
 #include "keys.hpp"
 #include "observable.hpp"
-#include "observable.hpp"
 
 #include "constant_cell.hpp"
 #include "mutable_cell.hpp"
+#include "mutable_cell_view.hpp"
 
 #include "computed.hpp"
+#include "mutable_computed.hpp"
 #include "store_cell.hpp"
 #include "peek_cell.hpp"
 #include "previous_value_cell.hpp"
@@ -36,6 +37,8 @@
 #include "errors.hpp"
 
 #include "maybe_cell.hpp"
+
+#include "watcher.hpp"
 
 /**
  * \namespace live_cells
