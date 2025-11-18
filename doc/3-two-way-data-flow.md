@@ -10,8 +10,8 @@ A *mutable computed cell* is a cell which ordinarily functions like a
 normal computed cell, created with `live_cells::computed()`, but can
 also have its value set directly as though it is a mutable cell. When
 the value of a mutable computed cell is set, it *reverses* the
-computation by setting the argument cells to a value such that when
-the mutable computed cell is recomputed, the same value will be
+computation by setting the argument cells to a value such that if
+the mutable computed cell were to be recomputed, the same value would be
 produced as the value that was set. This allows data to flow in two
 directions, whereas `live_cells::computed()` only allows data to flow
 in a single direction.

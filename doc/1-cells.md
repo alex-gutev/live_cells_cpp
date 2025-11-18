@@ -211,7 +211,7 @@ observers of the cell are still notified that the cell's value has
 changed. 
 
 By providing `live_cells::changes_only` to `live_cells::computed`, the
-computed cell will not notify it's observers if its new value is
+computed cell will not notify its observers if its new value is
 equal, by `==`, to its previous value. This is demonstrated with the
 following example:
 
