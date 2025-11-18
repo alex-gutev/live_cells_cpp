@@ -299,7 +299,7 @@ Peeking cells</h1>
 <div class="line"><span class="keyword">auto</span> b = <a class="code hl_function" href="namespacelive__cells.html#ab365650aeb27f61f31622a49d4fb79a3">live_cells::variable</a>(1);</div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">auto</span> c = <a class="code hl_function" href="namespacelive__cells.html#a38ef71dbf501d266974a7fae279a8441">live_cells::computed</a>([=] {</div>
-<div class="line">    <span class="keywordflow">return</span> a() + <a class="code hl_function" href="namespacelive__cells.html#a7fc8173d64b8688a70ff408450e8b91e">live_cells::peek</a>(b);</div>
+<div class="line">    <span class="keywordflow">return</span> a() + <a class="code hl_function" href="namespacelive__cells.html#a7fc8173d64b8688a70ff408450e8b91e">live_cells::peek</a>(b)();</div>
 <div class="line">});</div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">auto</span> watch = <a class="code hl_function" href="namespacelive__cells.html#aff827bee503738afea0d4de923ca0e87">live_cells::watch</a>([=] {</div>
@@ -308,7 +308,7 @@ Peeking cells</h1>
 <div class="line"> </div>
 <div class="line">a = 3; <span class="comment">// Prints: 4</span></div>
 <div class="line">b = 5; <span class="comment">// Doesn&#39;t print anything</span></div>
-<div class="line">a = 7; <span class="comment">// Prints: 13</span></div>
+<div class="line">a = 7; <span class="comment">// Prints: 12</span></div>
 <div class="ttc" id="anamespacelive__cells_html_a7fc8173d64b8688a70ff408450e8b91e"><div class="ttname"><a href="namespacelive__cells.html#a7fc8173d64b8688a70ff408450e8b91e">live_cells::peek</a></div><div class="ttdeci">auto peek(const C &amp;cell)</div><div class="ttdoc">Create a Cell that reads the value of cell but does not notify its observers when the value has chang...</div><div class="ttdef"><b>Definition</b> peek_cell.hpp:130</div></div>
 </div><!-- fragment --><p>In the above example cell <code>c</code> is a computed cell that references the value of <code>a</code> and <em>peeks</em> the value of <code>b</code>. Changing the value of <code>a</code> triggers a recomputation of <code>c</code>, and hence triggers the watch function which prints to standard output. However, changing the value of <code>b</code> doesn't trigger a recomputation of <code>c</code>, and hence the watch function is not called.</p>
 <dl class="section note"><dt>Note</dt><dd><code><a class="el" href="namespacelive__cells.html#a7fc8173d64b8688a70ff408450e8b91e" title="Create a Cell that reads the value of cell but does not notify its observers when the value has chang...">live_cells::peek()</a></code> returns a cell.</dd></dl>
