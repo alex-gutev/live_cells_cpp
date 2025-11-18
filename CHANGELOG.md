@@ -1,3 +1,12 @@
+# 0.5.1 - 2025-11-18
+
+Fixes:
+
+* Add missing imports (`watcher.hpp`, `mutable_computed.hpp`,
+  `mutable_cell_view.hpp` to `live_cells.hpp`)
+
+* Fix issues in `live_cells::peek` example in documentation.
+
 # 0.5.0 - 2025-04-19
 
 New features:
